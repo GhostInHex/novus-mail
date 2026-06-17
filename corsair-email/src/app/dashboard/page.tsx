@@ -21,7 +21,9 @@ export default async function DashboardPage() {
   }
 
   try {
-    const initialWorkspace = await loadWorkspace(session.tenantId);
+    const initialWorkspace = await loadWorkspace(session.tenantId, "", {
+      allowRemoteFallback: false,
+    });
 
     return (
       <WorkspaceShell

@@ -75,9 +75,42 @@ const GMAIL_SEARCH_THREAD_LIMIT = 100;
 const GMAIL_DETAIL_CONCURRENCY = 8;
 const CALENDAR_PAGE_SIZE = 100;
 const CALENDAR_SYNC_EVENT_LIMIT = 500;
+const SETUP_TIMEOUT_MS = 12_000;
+const CONNECTION_CHECK_TIMEOUT_MS = 8_000;
+const DASHBOARD_REMOTE_FALLBACK_TIMEOUT_MS = 15_000;
 
 function now() {
   return new Date();
+}
+
+function timeoutError(label: string, timeoutMs: number) {
+  return new Error(`${label} timed out after ${timeoutMs}ms`);
+}
+
+async function withTimeout<T>(promise: Promise<T>, timeoutMs: number, label: string): Promise<T> {
+  return new Promise<T>((resolve, reject) => {
+    const timer = setTimeout(() => reject(timeoutError(label, timeoutMs)), timeoutMs);
+    promise.then(
+      (value) => {
+        clearTimeout(timer);
+        resolve(value);
+      },
+      (error) => {
+        clearTimeout(timer);
+        reject(error);
+      },
+    );
+  });
+}
+
+async function settleBoolean(label: string, promise: Promise<unknown>, timeoutMs: number) {
+  try {
+    await withTimeout(promise, timeoutMs, label);
+    return true;
+  } catch (error) {
+    log.warn("connection_check_failed", { label, timeoutMs, error });
+    return false;
+  }
 }
 
 function toIsoString(value: Date | string | number | null | undefined) {
@@ -632,33 +665,58 @@ export async function ensureTenant(session: SessionUser) {
   await upsertProfile(session);
 
   const client = await corsair();
-  const setupLog = await setupCorsair(client, {
-    tenantId: session.tenantId,
-  });
-  const seededCredentials = await ensureIntegrationCredentials();
+  const setupLog = await withTimeout(
+    setupCorsair(client, {
+      tenantId: session.tenantId,
+    }),
+    SETUP_TIMEOUT_MS,
+    "corsair setup",
+  );
 
-  return seededCredentials
-    ? setupCorsair(client, {
+  try {
+    const seededCredentials = await withTimeout(
+      ensureIntegrationCredentials(),
+      SETUP_TIMEOUT_MS,
+      "integration credential setup",
+    );
+
+    if (!seededCredentials) {
+      return setupLog;
+    }
+
+    return withTimeout(
+      setupCorsair(client, {
         tenantId: session.tenantId,
-      })
-    : setupLog;
+      }),
+      SETUP_TIMEOUT_MS,
+      "corsair setup after credential seed",
+    );
+  } catch (error) {
+    log.warn("tenant_setup_followup_failed", { tenantId: session.tenantId, error });
+    return setupLog;
+  }
 }
 
 export async function getConnectionStatus(tenantId: string, setupLog: string): Promise<ConnectionStatus> {
   const tenant = await tenantClient(tenantId);
-  const [gmailCheck, calendarCheck] = await Promise.allSettled([
-    tenant.gmail.api.labels.list({ userId: "me" }),
-    tenant.googlecalendar.api.events.getMany({
-      calendarId: "primary",
-      timeMin: new Date().toISOString(),
-      maxResults: 1,
-      singleEvents: true,
-      orderBy: "startTime",
-    }),
+  const [gmail, calendar] = await Promise.all([
+    settleBoolean(
+      "gmail labels",
+      tenant.gmail.api.labels.list({ userId: "me" }),
+      CONNECTION_CHECK_TIMEOUT_MS,
+    ),
+    settleBoolean(
+      "calendar events",
+      tenant.googlecalendar.api.events.getMany({
+        calendarId: "primary",
+        timeMin: new Date().toISOString(),
+        maxResults: 1,
+        singleEvents: true,
+        orderBy: "startTime",
+      }),
+      CONNECTION_CHECK_TIMEOUT_MS,
+    ),
   ]);
-
-  const gmail = gmailCheck.status === "fulfilled";
-  const calendar = calendarCheck.status === "fulfilled";
 
   return {
     gmail,
@@ -796,7 +854,7 @@ export async function getThreadDetail(tenantId: string, threadId: string, option
 export async function loadWorkspace(
   tenantId: string,
   query = "",
-  options: { remote?: boolean } = {},
+  options: { remote?: boolean; allowRemoteFallback?: boolean } = {},
 ): Promise<WorkspacePayload> {
   let threads: ThreadSummary[];
   let events: AgendaEvent[];
@@ -808,20 +866,22 @@ export async function loadWorkspace(
     } else {
       // Lightning Search: instant local full-text first, Gmail only as fallback.
       threads = await searchThreadsLocal(tenantId, query);
-      if (threads.length === 0) {
-        threads = await refreshInbox(tenantId, query);
+      if (threads.length === 0 && options.allowRemoteFallback !== false) {
+        try {
+          threads = await withTimeout(
+            refreshInbox(tenantId, query),
+            DASHBOARD_REMOTE_FALLBACK_TIMEOUT_MS,
+            "remote inbox search",
+          );
+        } catch (error) {
+          log.warn("workspace_remote_fallback_failed", { tenantId, query, error });
+        }
       }
     }
     events = await readCalendarEventsLocal(tenantId, query);
   } else {
     threads = await readThreadSummaries(tenantId);
-    if (threads.length === 0) {
-      threads = await refreshInbox(tenantId);
-    }
     events = await readCalendarEventsLocal(tenantId);
-    if (events.length === 0) {
-      events = await refreshCalendar(tenantId);
-    }
   }
 
   const activeThread = threads[0] ? await getThreadDetail(tenantId, threads[0].threadId) : null;
