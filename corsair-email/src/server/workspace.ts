@@ -291,15 +291,17 @@ async function ensureIntegrationCredentials() {
         env.GOOGLECALENDAR_CLIENT_SECRET,
       ),
     ]);
+    let updatedTopicId = false;
 
     if (env.GMAIL_TOPIC_ID && client.keys.gmail.get_topic_id && client.keys.gmail.set_topic_id) {
       const existingTopicId = await client.keys.gmail.get_topic_id();
       if (!existingTopicId) {
         await client.keys.gmail.set_topic_id(env.GMAIL_TOPIC_ID);
+        updatedTopicId = true;
       }
     }
 
-    return seeded.some(Boolean);
+    return seeded.some(Boolean) || updatedTopicId;
   })();
 
   try {
@@ -949,11 +951,15 @@ export async function sendEmail(tenantId: string, profile: SessionUser, input: C
     body: input.body,
   });
 
-  const sent = await tenant.gmail.api.messages.send({
-    userId: "me",
-    raw,
-    threadId: input.threadId,
-  });
+  const sent: Awaited<ReturnType<typeof tenant.gmail.api.messages.send>> = await withTimeout(
+    tenant.gmail.api.messages.send({
+      userId: "me",
+      raw,
+      threadId: input.threadId,
+    }),
+    DASHBOARD_REMOTE_FALLBACK_TIMEOUT_MS,
+    "gmail send",
+  );
 
   if (sent.threadId) {
     return getThreadDetail(tenantId, sent.threadId, { refresh: true });

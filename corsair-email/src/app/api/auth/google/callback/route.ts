@@ -11,7 +11,6 @@ import {
 } from "@/server/google-auth";
 import { log } from "@/server/log";
 import { clientIp, enforceRateLimit } from "@/server/rate-limit";
-import { ensureTenant } from "@/server/workspace";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -65,8 +64,6 @@ export async function GET(request: Request) {
       email: identity.email,
       displayName: identity.name,
     };
-
-    await ensureTenant(session);
 
     const response = NextResponse.redirect(new URL(stateCookie.redirectTo || ROUTES.dashboard, request.url));
     setSession(response, session);
