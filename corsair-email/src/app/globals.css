@@ -1,0 +1,417 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+  Corsair Mail design tokens — mapped from DESIGN-superhuman.md.
+  Light = soft warm-white body (never pure white). Dark = indigo hero canvas.
+  Teal is the accent chord. Warm-grey ink, 8px button radius, sub-default weights.
+*/
+
+:root {
+  --radius: 0.5rem;
+  --motion-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --motion-ease-soft: cubic-bezier(0.25, 1, 0.5, 1);
+  --motion-duration-quick: 140ms;
+  --motion-duration-snappy: 180ms;
+  --motion-duration-panel: 240ms;
+
+  /* Light — soft warm-white */
+  --background: #f3f1ec;
+  --foreground: #292827;
+  --card: #fbfaf7;
+  --card-foreground: #292827;
+  --popover: #fbfaf7;
+  --popover-foreground: #292827;
+  --primary: #1b1938;
+  --primary-foreground: #ffffff;
+  --secondary: #efe9fb;
+  --secondary-foreground: #1b1938;
+  --muted: #ebe7df;
+  --muted-foreground: #73706d;
+  --accent: #efe9fb;
+  --accent-foreground: #1b1938;
+  --destructive: #b3402a;
+  --destructive-foreground: #ffffff;
+  --border: #e2ddd4;
+  --input: #e2ddd4;
+  --ring: #1b1938;
+
+  /* Brand extensions (design-system chords) */
+  --violet-soft: #c9b4fa;
+  --teal-deep: #0e3030;
+  --teal-mid: #155555;
+  --on-teal: #ffffff;
+  --success: #1f6f5c;
+
+  /* Elevation (design tokens) */
+  --elevation-1: 0 1px 3px rgba(20, 18, 38, 0.08);
+  --elevation-2: 0 8px 24px rgba(20, 18, 38, 0.12);
+
+  --sidebar: #1b1938;
+  --sidebar-foreground: #ffffff;
+  --sidebar-primary: #c9b4fa;
+  --sidebar-primary-foreground: #1b1938;
+  --sidebar-accent: #262248;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: #3f3a52;
+  --sidebar-ring: #c9b4fa;
+}
+
+.dark {
+  /* Dark — indigo canvas */
+  --background: #0e0c1f;
+  --foreground: #ffffff;
+  --card: #1b1938;
+  --card-foreground: #ffffff;
+  --popover: #1b1938;
+  --popover-foreground: #ffffff;
+  --primary: #c9b4fa;
+  --primary-foreground: #1b1938;
+  --secondary: #262248;
+  --secondary-foreground: #ffffff;
+  --muted: #211e3d;
+  --muted-foreground: #bcbac9;
+  --accent: #2c2752;
+  --accent-foreground: #ffffff;
+  --destructive: #e0795f;
+  --destructive-foreground: #1b1938;
+  --border: #3f3a52;
+  --input: #3f3a52;
+  --ring: #c9b4fa;
+
+  --violet-soft: #c9b4fa;
+  --teal-deep: #0e3030;
+  --teal-mid: #155555;
+  --on-teal: #ffffff;
+  --success: #6fd9bf;
+
+  --elevation-1: 0 1px 3px rgba(0, 0, 0, 0.4);
+  --elevation-2: 0 12px 32px rgba(0, 0, 0, 0.5);
+
+  --sidebar: #08071a;
+  --sidebar-foreground: #ffffff;
+  --sidebar-primary: #c9b4fa;
+  --sidebar-primary-foreground: #1b1938;
+  --sidebar-accent: #211e3d;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: #3f3a52;
+  --sidebar-ring: #c9b4fa;
+}
+
+.landing-theme {
+  --landing-command: #1b1938;
+  --landing-command-foreground: #ffffff;
+  --sidebar: #fbfaf7;
+  --sidebar-foreground: #292827;
+  --sidebar-primary: #1b1938;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #efe9fb;
+  --sidebar-accent-foreground: #1b1938;
+  --sidebar-border: #ded6c9;
+  --sidebar-ring: #1b1938;
+}
+
+.dark .landing-theme {
+  --landing-command: #1b1938;
+  --landing-command-foreground: #ffffff;
+  --sidebar: #08071a;
+  --sidebar-foreground: #ffffff;
+  --sidebar-primary: #c9b4fa;
+  --sidebar-primary-foreground: #1b1938;
+  --sidebar-accent: #211e3d;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: #3f3a52;
+  --sidebar-ring: #c9b4fa;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-violet-soft: var(--violet-soft);
+  --color-teal-deep: var(--teal-deep);
+  --color-teal-mid: var(--teal-mid);
+  --color-on-teal: var(--on-teal);
+  --color-success: var(--success);
+  --color-landing-command: var(--landing-command);
+  --color-landing-command-foreground: var(--landing-command-foreground);
+
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --font-sans: var(--font-geist-sans), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --shadow-elevation-1: var(--elevation-1);
+  --shadow-elevation-2: var(--elevation-2);
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+    outline-color: color-mix(in oklch, var(--ring) 50%, transparent);
+  }
+
+  html {
+    background-color: var(--background);
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+}
+
+@keyframes corsair-fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes corsair-fade-out {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes corsair-rise-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 10px, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes corsair-rise-out {
+  from {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translate3d(0, 8px, 0);
+  }
+}
+
+@keyframes corsair-dialog-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes corsair-dialog-out {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes corsair-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: translate3d(0, -3px, 0);
+  }
+}
+
+@keyframes corsair-pulse {
+  0%,
+  100% {
+    opacity: 0.62;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}
+
+@layer utilities {
+  .motion-enter {
+    animation: corsair-rise-in var(--motion-duration-panel) var(--motion-ease-out) both;
+  }
+
+  .motion-enter-soft {
+    animation: corsair-fade-in var(--motion-duration-snappy) var(--motion-ease-out) both;
+  }
+
+  .motion-interactive {
+    transition-property: transform, background-color, border-color, box-shadow, color, opacity, fill, stroke;
+    transition-duration: var(--motion-duration-snappy);
+    transition-timing-function: var(--motion-ease-out);
+  }
+
+  .motion-interactive:hover {
+    transform: translateY(-1px);
+  }
+
+  .motion-interactive:active {
+    transform: translateY(0) scale(0.985);
+  }
+
+  .motion-field {
+    transition-property: background-color, border-color, box-shadow, color, opacity;
+    transition-duration: var(--motion-duration-snappy);
+    transition-timing-function: var(--motion-ease-out);
+  }
+
+  .motion-surface {
+    transition-property: transform, background-color, border-color, box-shadow, opacity;
+    transition-duration: var(--motion-duration-snappy);
+    transition-timing-function: var(--motion-ease-out);
+  }
+
+  .motion-state {
+    transition-property: background-color, border-color, box-shadow, color, opacity, fill, stroke;
+    transition-duration: var(--motion-duration-snappy);
+    transition-timing-function: var(--motion-ease-out);
+  }
+
+  .motion-drift {
+    animation: corsair-drift 8s var(--motion-ease-soft) infinite;
+  }
+
+  .motion-pulse {
+    animation: corsair-pulse 2.8s var(--motion-ease-soft) infinite;
+  }
+
+  .motion-overlay[data-state="open"] {
+    animation: corsair-fade-in var(--motion-duration-snappy) var(--motion-ease-out) both;
+  }
+
+  .motion-overlay[data-state="closed"] {
+    animation: corsair-fade-out 140ms var(--motion-ease-out) both;
+  }
+
+  .motion-dialog[data-state="open"] {
+    animation: corsair-dialog-in var(--motion-duration-panel) var(--motion-ease-out) both;
+  }
+
+  .motion-dialog[data-state="closed"] {
+    animation: corsair-dialog-out 160ms var(--motion-ease-out) both;
+  }
+
+  .motion-popover[data-state="open"] {
+    animation: corsair-rise-in var(--motion-duration-snappy) var(--motion-ease-out) both;
+  }
+
+  .motion-popover[data-state="closed"] {
+    animation: corsair-rise-out 140ms var(--motion-ease-out) both;
+  }
+
+  .motion-tooltip[data-state="open"] {
+    animation: corsair-fade-in 120ms var(--motion-ease-out) both;
+  }
+
+  .motion-tooltip[data-state="closed"] {
+    animation: corsair-fade-out 90ms var(--motion-ease-out) both;
+  }
+
+  .shadow-elevation-1 {
+    box-shadow: var(--elevation-1);
+  }
+
+  .shadow-elevation-2 {
+    box-shadow: var(--elevation-2);
+  }
+
+  /* Thin, branded scrollbars for the dashboard panes. */
+  .scroll-area-thin {
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in oklch, var(--muted-foreground) 40%, transparent) transparent;
+  }
+  .scroll-area-thin::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  .scroll-area-thin::-webkit-scrollbar-thumb {
+    background: color-mix(in oklch, var(--muted-foreground) 35%, transparent);
+    border-radius: 9999px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .motion-drift,
+  .motion-pulse {
+    animation: none !important;
+  }
+}

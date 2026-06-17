@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "corsair": {
+      "type": "http",
+      "url": "https://api.corsair.dev/mcp/494271505ba04bd09353eba23d37c582?tenantId=dev",
+      "headers": {
+        "Authorization": "Bearer UnovGkos3x0a1XseRJXVPRZ80Q4n4w5Bzjfg7bZKtd8"
+      }
+    }
+  }
+}

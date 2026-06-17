@@ -1,0 +1,9 @@
+{
+  "name": "corsair-app-project",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@corsair-dev/app": "^0.1.5"
+  }
+}

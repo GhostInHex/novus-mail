@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1781651670597,
+      "tag": "0000_skinny_jack_power",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1781652600000,
+      "tag": "0001_lightning_search",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1781653200000,
+      "tag": "0002_shared_webhook_tenant_lookup",
+      "breakpoints": true
+    }
+  ]
+}

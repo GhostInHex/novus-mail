@@ -1,0 +1,11 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "functions": {
+    "src/app/api/stream/route.ts": { "maxDuration": 60 },
+    "src/app/api/agent/route.ts": { "maxDuration": 60 },
+    "src/app/api/cron/renew-watches/route.ts": { "maxDuration": 60 }
+  },
+  "crons": [
+    { "path": "/api/cron/renew-watches", "schedule": "0 6 * * *" }
+  ]
+}

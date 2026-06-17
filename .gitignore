@@ -1,0 +1,82 @@
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Workspace / AI tool state
+.agents/
+.claude/
+.codex/
+.impeccable/
+.mcp/
+.cursor/
+skills/
+
+# Next.js / build output
+.next/
+**/.next/
+out/
+dist/
+coverage/
+**/coverage/
+
+# Logs
+*.log
+**/*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+migrate.err
+migrate.out
+next-dev.err
+next-dev.out
+next-dev-test.err
+next-dev-test.out
+
+# TypeScript / build cache
+*.tsbuildinfo
+**/*.tsbuildinfo
+
+# Environment files
+.env
+.env.*
+!.env.example
+!.env.production.example
+!.env.local.example
+**/.env
+**/.env.*
+!**/.env.example
+!**/.env.production.example
+!**/.env.local.example
+
+# Local runtime data
+corsair-email/data/
+**/data/*.db
+**/data/*.db-shm
+**/data/*.db-wal
+**/data/*.sqlite
+**/data/*.sqlite-shm
+**/data/*.sqlite-wal
+
+# Tooling caches
+.turbo/
+.cache/
+.parcel-cache/
+.eslintcache
+.vite/
+.next-cache/
+
+# OS files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Editor folders
+.idea/
+.vscode/
+
+# Misc local artifacts
+*.bak
+*.tmp
+*.swp
+*.swo
