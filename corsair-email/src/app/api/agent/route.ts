@@ -9,6 +9,7 @@ import { asErrorResponse, readLimitedJson, requireSession } from "@/server/route
 import { enforceRateLimit } from "@/server/rate-limit";
 
 export const runtime = "nodejs";
+export const maxDuration = 60;
 
 const BodySchema = z.object({
   messages: z
