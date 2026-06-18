@@ -38,6 +38,7 @@ import { AgentPanel, type AgentOperator } from "@/components/agent-panel";
 import { CommandPalette } from "@/components/command-palette";
 import { ComposeSheet } from "@/components/compose-sheet";
 import { EventSheet } from "@/components/event-sheet";
+import { NovusLogo } from "@/components/novus-logo";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -62,6 +63,7 @@ import type {
   AgendaEvent,
   CommandResult,
   ComposeInput,
+  ConnectionStatus,
   EventInput,
   SessionUser,
   ThreadDetail,
@@ -536,6 +538,8 @@ export function WorkspaceShell({ session, initialWorkspace, aiOperator }: Worksp
   const [selectedThreadId, setSelectedThreadId] = useState<string | null>(
     initialWorkspace.activeThread?.threadId ?? null,
   );
+  const [threadsPage, setThreadsPage] = useState(initialWorkspace.threadsPage);
+  const [cacheState, setCacheState] = useState(initialWorkspace.cache);
   const [events, setEvents] = useState<AgendaEvent[]>(sortEvents(initialWorkspace.events));
   const [search, setSearch] = useState(initialWorkspace.search);
   const [view, setView] = useState<WorkspaceView>("focus");
@@ -549,12 +553,14 @@ export function WorkspaceShell({ session, initialWorkspace, aiOperator }: Worksp
   const [eventPreset, setEventPreset] = useState<Partial<EventInput> | null>(null);
   const [notice, setNotice] = useState("");
   const [syncedAt, setSyncedAt] = useState(initialWorkspace.syncedAt);
+  const [connection, setConnection] = useState<ConnectionStatus | null>(initialWorkspace.connection ?? null);
   const [syncing, setSyncing] = useState(false);
   const [agentOpen, setAgentOpen] = useState(false);
   const [shortcutsOpen, setShortcutsOpen] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [agendaCollapsed, setAgendaCollapsed] = useState(false);
   const [threadLoading, setThreadLoading] = useState(false);
+  const [loadingMoreThreads, setLoadingMoreThreads] = useState(false);
   const [panelPrefsReady, setPanelPrefsReady] = useState(false);
 
   const deferredSearch = useDeferredValue(search);
@@ -639,10 +645,24 @@ export function WorkspaceShell({ session, initialWorkspace, aiOperator }: Worksp
     }
   }, [presentError]);
 
-  function applyWorkspacePayload(payload: WorkspacePayload, options: { selectDefault?: boolean } = {}) {
-    setThreads(payload.threads);
+  function applyWorkspacePayload(
+    payload: WorkspacePayload,
+    options: { selectDefault?: boolean; appendThreads?: boolean } = {},
+  ) {
+    setThreads((current) => {
+      if (!options.appendThreads) {
+        return payload.threads;
+      }
+
+      const seen = new Set(current.map((thread) => thread.threadId));
+      const appended = payload.threads.filter((thread) => !seen.has(thread.threadId));
+      return [...current, ...appended];
+    });
+    setThreadsPage(payload.threadsPage);
+    setCacheState(payload.cache);
     setEvents(sortEvents(payload.events));
     setSyncedAt(payload.syncedAt);
+    setConnection(payload.connection ?? null);
 
     if (options.selectDefault) {
       selectThreadDetail(payload.activeThread);
@@ -654,20 +674,33 @@ export function WorkspaceShell({ session, initialWorkspace, aiOperator }: Worksp
     }
   }
 
-  async function refreshWorkspace(query = search.trim()) {
+  async function refreshWorkspace(query = search.trim(), options: { limit?: number; offset?: number; appendThreads?: boolean } = {}) {
+    const params = new URLSearchParams();
+    if (query) {
+      params.set("search", query);
+    }
+    if (typeof options.limit === "number") {
+      params.set("limit", String(options.limit));
+    }
+    if (typeof options.offset === "number") {
+      params.set("offset", String(options.offset));
+    }
+
     const payload = await parseJson<WorkspacePayload>(
-      await fetch(`/api/workspace${query ? `?search=${encodeURIComponent(query)}` : ""}`, {
+      await fetch(`/api/workspace${params.size ? `?${params.toString()}` : ""}`, {
         cache: "no-store",
       }),
     );
 
-    applyWorkspacePayload(payload);
+    applyWorkspacePayload(payload, { appendThreads: options.appendThreads });
   }
 
   // Keep a stable handle to the latest refresh so the live SSE listener (bound
   // once) always reloads with the current search term.
   liveRefreshRef.current = () => {
-    void refreshWorkspace(search.trim());
+    void refreshWorkspace(search.trim(), {
+      limit: search.trim() ? undefined : Math.max(threads.length, initialWorkspace.threadsPage.limit),
+    });
   };
 
   async function searchAllMail() {
@@ -696,6 +729,43 @@ export function WorkspaceShell({ session, initialWorkspace, aiOperator }: Worksp
       presentError(error);
     }
   });
+
+  const warmInboxCache = useEffectEvent(async () => {
+    if (search.trim()) {
+      return;
+    }
+
+    if (!cacheState.backgroundSyncing) {
+      return;
+    }
+
+    try {
+      await fetch(`/api/inbox/cache?target=${cacheState.backgroundSyncTarget}`, {
+        method: "POST",
+      });
+    } catch {
+      // Ignore background cache warm failures. The next refresh or visit retries.
+    }
+  });
+
+  async function loadMoreThreads() {
+    if (loadingMoreThreads || !threadsPage.hasMore || search.trim()) {
+      return;
+    }
+
+    setLoadingMoreThreads(true);
+    try {
+      await refreshWorkspace("", {
+        limit: threadsPage.limit,
+        offset: threadsPage.nextOffset ?? threads.length,
+        appendThreads: true,
+      });
+    } catch (error) {
+      presentError(error);
+    } finally {
+      setLoadingMoreThreads(false);
+    }
+  }
 
   useEffect(() => {
     try {
@@ -740,6 +810,61 @@ export function WorkspaceShell({ session, initialWorkspace, aiOperator }: Worksp
 
     return () => window.clearTimeout(timeout);
   }, [deferredSearch, runSearch]);
+
+  useEffect(() => {
+    void warmInboxCache();
+  }, [warmInboxCache]);
+
+  useEffect(() => {
+    let cancelled = false;
+    const refreshConnection = async () => {
+      try {
+        const payload = await parseJson<ConnectionStatus>(await fetch("/api/connection/health", { cache: "no-store" }));
+        if (!cancelled) {
+          setConnection(payload);
+        }
+      } catch {
+        // Ignore transient health-check failures. The next poll or reload will retry.
+      }
+    };
+
+    void refreshConnection();
+
+    if (connection?.degraded) {
+      const interval = window.setInterval(refreshConnection, POLL_INTERVAL_MS);
+      return () => {
+        cancelled = true;
+        window.clearInterval(interval);
+      };
+    }
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!connection?.degraded) {
+      return;
+    }
+
+    let cancelled = false;
+    const interval = window.setInterval(async () => {
+      try {
+        const payload = await parseJson<ConnectionStatus>(await fetch("/api/connection/health", { cache: "no-store" }));
+        if (!cancelled) {
+          setConnection(payload);
+        }
+      } catch {
+        // Ignore transient health-check failures. The next poll or reload will retry.
+      }
+    }, POLL_INTERVAL_MS);
+
+    return () => {
+      cancelled = true;
+      window.clearInterval(interval);
+    };
+  }, [connection?.degraded]);
 
   useEffect(() => {
     if (!notice) {
@@ -1189,7 +1314,7 @@ export function WorkspaceShell({ session, initialWorkspace, aiOperator }: Worksp
     try {
       const payload = await parseJson<WorkspacePayload>(await fetch("/api/sync", { method: "POST" }));
       applyWorkspacePayload(payload);
-      setNotice(`Synced ${payload.threads.length} threads and ${payload.events.length} events.`);
+      setNotice(`Synced ${payload.cache.cachedThreads} cached threads and ${payload.events.length} events.`);
     } catch (error) {
       presentError(error);
     } finally {
@@ -1217,8 +1342,8 @@ export function WorkspaceShell({ session, initialWorkspace, aiOperator }: Worksp
           {sidebarCollapsed ? (
             <>
               <div className="flex flex-col items-center gap-3">
-                <span className="flex size-10 items-center justify-center rounded-xl bg-sidebar-primary/15 text-sidebar-primary ring-1 ring-sidebar-border/80">
-                  <CommandIcon className="size-4" />
+                <span className="flex size-10 items-center justify-center overflow-hidden rounded-xl bg-[#08071a] shadow-elevation-1 ring-1 ring-sidebar-border/80">
+                  <NovusLogo className="size-9" priority />
                 </span>
                 <button
                   type="button"
@@ -1330,10 +1455,10 @@ export function WorkspaceShell({ session, initialWorkspace, aiOperator }: Worksp
             <>
               <div className="flex items-start justify-between gap-3">
                 <div className="flex items-center gap-2.5">
-                  <span className="flex size-8 items-center justify-center rounded-md bg-sidebar-primary/15 text-sidebar-primary ring-1 ring-sidebar-border">
-                    <CommandIcon className="size-4" />
+                  <span className="flex size-8 items-center justify-center overflow-hidden rounded-md bg-[#08071a] shadow-elevation-1 ring-1 ring-sidebar-border">
+                    <NovusLogo className="size-7" priority />
                   </span>
-                  <span className="text-sm font-semibold tracking-tight">Corsair Mail</span>
+                  <span className="text-sm font-semibold tracking-tight">NovusMail</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <ThemeToggle />
@@ -1524,6 +1649,18 @@ export function WorkspaceShell({ session, initialWorkspace, aiOperator }: Worksp
               {notice ||
                 `Viewing ${visibleThreads.length} thread${visibleThreads.length === 1 ? "" : "s"} in ${view}.`}
             </p>
+            {!search.trim() && (
+              <p className="mt-1 text-[0.7rem] text-muted-foreground">
+                Cached {cacheState.cachedThreads} of {cacheState.backgroundSyncTarget} recent threads locally for fast search and AI.
+              </p>
+            )}
+            {connection?.degraded && (
+              <p className="mt-2 flex items-start gap-2 rounded-md border border-amber-300/40 bg-amber-100/50 px-3 py-2 text-xs text-amber-900 dark:border-amber-700/50 dark:bg-amber-950/30 dark:text-amber-200">
+                <RefreshCwIcon className="mt-0.5 size-3.5 shrink-0" />
+                Gmail or Calendar is connected but responding slowly right now. You can keep
+                working while the app retries provider health in the background.
+              </p>
+            )}
           </header>
 
           <div className={contentGridClassName}>
@@ -1544,75 +1681,90 @@ export function WorkspaceShell({ session, initialWorkspace, aiOperator }: Worksp
                 />
               </div>
               {visibleThreads.length > 0 ? (
-                <ul className="divide-y divide-border/80">
-                  {visibleThreads.map((thread, index) => {
-                    const active = selectedThreadId === thread.threadId;
-                    return (
-                      <li
-                        key={thread.threadId}
-                        className="motion-enter-soft"
-                        style={{ animationDelay: `${Math.min(index, 8) * 24}ms` }}
-                      >
-                        <button
-                          type="button"
-                          onClick={() => void openThread(thread.threadId)}
-                          className={cn(
-                            "motion-state relative w-full px-4 py-3 text-left outline-none focus-visible:bg-accent",
-                            active
-                              ? "bg-card ring-1 ring-inset ring-primary/20"
-                              : "hover:bg-card/60",
-                          )}
+                <>
+                  <ul className="divide-y divide-border/80">
+                    {visibleThreads.map((thread, index) => {
+                      const active = selectedThreadId === thread.threadId;
+                      return (
+                        <li
+                          key={thread.threadId}
+                          className="motion-enter-soft"
+                          style={{ animationDelay: `${Math.min(index, 8) * 24}ms` }}
                         >
-                          <div className="flex items-center gap-2">
-                            <span
-                              className={cn(
-                                "size-1.5 shrink-0 rounded-full",
-                                priorityDot[thread.priorityBand] ?? "bg-muted-foreground/40",
-                              )}
-                              aria-hidden
-                            />
-                            <span
-                              className={cn(
-                                "min-w-0 flex-1 truncate text-sm",
-                                thread.unread ? "font-semibold text-foreground" : "text-foreground/80",
-                              )}
-                            >
-                              {thread.sender || thread.senderEmail || "Unknown sender"}
-                            </span>
-                            {thread.starred && (
-                              <StarIcon className="size-3.5 shrink-0 fill-violet-soft text-violet-soft" />
-                            )}
-                            <time className="shrink-0 text-[0.7rem] text-muted-foreground">
-                              {formatInboxDate(thread.receivedAt)}
-                            </time>
-                          </div>
-                          <p
+                          <button
+                            type="button"
+                            onClick={() => void openThread(thread.threadId)}
                             className={cn(
-                              "mt-1 truncate text-sm",
-                              thread.unread ? "font-medium text-foreground" : "text-foreground/70",
+                              "motion-state relative w-full px-4 py-3 text-left outline-none focus-visible:bg-accent",
+                              active
+                                ? "bg-card ring-1 ring-inset ring-primary/20"
+                                : "hover:bg-card/60",
                             )}
                           >
-                            {thread.subject}
-                          </p>
-                          <p className="mt-0.5 truncate text-xs text-muted-foreground">{thread.snippet}</p>
-                          <div className="mt-1.5 flex items-center gap-1.5">
-                            {threadNeedsReply(thread, session) && (
-                              <Badge className="h-4 px-1.5 text-[0.65rem]">Needs reply</Badge>
-                            )}
-                            {thread.unread && (
-                              <Badge variant="secondary" className="h-4 px-1.5 text-[0.65rem]">
-                                Unread
-                              </Badge>
-                            )}
-                            <span className="ml-auto truncate text-[0.65rem] text-muted-foreground">
-                              {thread.priorityReason}
-                            </span>
-                          </div>
-                        </button>
-                      </li>
-                    );
-                  })}
-                </ul>
+                            <div className="flex items-center gap-2">
+                              <span
+                                className={cn(
+                                  "size-1.5 shrink-0 rounded-full",
+                                  priorityDot[thread.priorityBand] ?? "bg-muted-foreground/40",
+                                )}
+                                aria-hidden
+                              />
+                              <span
+                                className={cn(
+                                  "min-w-0 flex-1 truncate text-sm",
+                                  thread.unread ? "font-semibold text-foreground" : "text-foreground/80",
+                                )}
+                              >
+                                {thread.sender || thread.senderEmail || "Unknown sender"}
+                              </span>
+                              {thread.starred && (
+                                <StarIcon className="size-3.5 shrink-0 fill-violet-soft text-violet-soft" />
+                              )}
+                              <time className="shrink-0 text-[0.7rem] text-muted-foreground">
+                                {formatInboxDate(thread.receivedAt)}
+                              </time>
+                            </div>
+                            <p
+                              className={cn(
+                                "mt-1 truncate text-sm",
+                                thread.unread ? "font-medium text-foreground" : "text-foreground/70",
+                              )}
+                            >
+                              {thread.subject}
+                            </p>
+                            <p className="mt-0.5 truncate text-xs text-muted-foreground">{thread.snippet}</p>
+                            <div className="mt-1.5 flex items-center gap-1.5">
+                              {threadNeedsReply(thread, session) && (
+                                <Badge className="h-4 px-1.5 text-[0.65rem]">Needs reply</Badge>
+                              )}
+                              {thread.unread && (
+                                <Badge variant="secondary" className="h-4 px-1.5 text-[0.65rem]">
+                                  Unread
+                                </Badge>
+                              )}
+                              <span className="ml-auto truncate text-[0.65rem] text-muted-foreground">
+                                {thread.priorityReason}
+                              </span>
+                            </div>
+                          </button>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                  {!search.trim() && threadsPage.hasMore && (
+                    <div className="border-t border-border/80 px-4 py-3">
+                      <Button
+                        type="button"
+                        variant="outline"
+                        className="w-full"
+                        onClick={() => void loadMoreThreads()}
+                        disabled={loadingMoreThreads}
+                      >
+                        {loadingMoreThreads ? "Loading more threads..." : "Load more threads"}
+                      </Button>
+                    </div>
+                  )}
+                </>
               ) : (
                 <div className="flex h-full flex-col items-center justify-center gap-1 p-8 text-center">
                   <h2 className="motion-enter-soft text-sm font-semibold">No threads in this view.</h2>

@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+import type { AgentChatContext } from "@/lib/types";
 import { env } from "@/lib/env";
 import type { AiMessage } from "@/server/ai";
 import { isAiConfigured } from "@/server/ai";
@@ -21,6 +22,27 @@ const BodySchema = z.object({
     )
     .min(1)
     .max(50),
+  context: z
+    .object({
+      suggestionIntent: z
+        .enum([
+          "triage_reply_needed",
+          "triage_unread_week",
+          "triage_priority_list",
+          "triage_changes_since_check",
+          "draft_top_two_replies",
+          "draft_refine_reply",
+          "draft_follow_up_meeting",
+          "search_related_sender",
+          "search_summarize_matches",
+          "schedule_open_time",
+          "schedule_short_agenda",
+          "schedule_check_agenda",
+        ])
+        .optional(),
+      checkpointAt: z.string().datetime().nullable().optional(),
+    })
+    .optional(),
 });
 
 function sse(data: unknown) {
@@ -80,6 +102,7 @@ export async function POST(request: Request) {
       ? { role: "assistant", content: message.content }
       : { role: "user", content: message.content },
   );
+  const context = (body.context ?? {}) as AgentChatContext;
 
   const encoder = new TextEncoder();
 
@@ -103,6 +126,7 @@ export async function POST(request: Request) {
           tenantId: session.tenantId,
           profile: session,
           messages,
+          context,
           now: new Date(),
           signal: request.signal,
         })) {

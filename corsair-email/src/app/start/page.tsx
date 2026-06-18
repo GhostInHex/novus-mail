@@ -33,6 +33,7 @@ export default async function StartPage({ searchParams }: StartPageProps) {
         <AccessPanel
           googleEnabled={isGoogleLoginConfigured()}
           allowEmailLogin={env.ALLOW_EMAIL_LOGIN}
+          demoEnabled={env.DEMO_LOGIN_ENABLED}
           loginError={login_error === "google"}
           className="w-full max-w-md shadow-elevation-1"
         />

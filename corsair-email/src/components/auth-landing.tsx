@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 
+import { NovusLogo } from "@/components/novus-logo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -21,6 +22,7 @@ import { ThemeToggle } from "@/components/theme-toggle";
 type AuthLandingProps = {
   googleEnabled: boolean;
   allowEmailLogin: boolean;
+  demoEnabled: boolean;
   loginError?: boolean;
 };
 
@@ -127,27 +129,16 @@ export function BrandMark({
   compact?: boolean;
   tone?: "default" | "inverted";
 }) {
-  const inverted = tone === "inverted";
+  void tone;
 
   return (
     <div className="flex items-center gap-2.5">
-      <span
-        className={cn(
-          "flex size-9 items-center justify-center rounded-md",
-          inverted
-            ? "bg-sidebar-primary text-sidebar-primary-foreground"
-            : "bg-primary text-primary-foreground",
-        )}
-      >
-        <CommandIcon className="size-4" />
+      <span className="flex size-9 items-center justify-center overflow-hidden rounded-md bg-[#08071a] shadow-elevation-1 ring-1 ring-white/10">
+        <NovusLogo className="size-8" priority />
       </span>
       <div className={cn("leading-tight", compact && "hidden sm:block")}>
-        <p className={cn("text-sm font-semibold tracking-tight", inverted && "text-sidebar-foreground")}>
-          NovusMail
-        </p>
-        <p className={cn("text-xs text-muted-foreground", inverted && "text-sidebar-foreground/62")}>
-          Focused command deck
-        </p>
+        <p className="text-sm font-semibold tracking-tight text-current">NovusMail</p>
+        <p className="text-xs text-current/62">Focused command deck</p>
       </div>
     </div>
   );
@@ -156,10 +147,11 @@ export function BrandMark({
 export function AccessPanel({
   googleEnabled,
   allowEmailLogin,
+  demoEnabled,
   loginError,
   className,
 }: AuthLandingProps & { className?: string }) {
-  const hasBothMethods = googleEnabled && allowEmailLogin;
+  const hasBothMethods = googleEnabled && (allowEmailLogin || demoEnabled);
 
   return (
     <aside
@@ -238,6 +230,30 @@ export function AccessPanel({
 
           <p className="mt-4 text-xs leading-relaxed text-muted-foreground">
             Local dev access sets a signed session cookie without verifying identity.
+          </p>
+        </>
+      )}
+
+      {demoEnabled && (
+        <>
+          {(googleEnabled || allowEmailLogin) && (
+            <div className="my-5 flex items-center gap-3">
+              <span className="h-px flex-1 bg-border" />
+              <span className="text-xs font-medium text-muted-foreground">or try the full demo workspace</span>
+              <span className="h-px flex-1 bg-border" />
+            </div>
+          )}
+
+          <form action="/api/demo-login" method="post" className="space-y-3">
+            <Button type="submit" size="lg" variant="secondary" className="h-11 w-full">
+              Try demo workspace
+              <ArrowRightIcon className="size-4" />
+            </Button>
+          </form>
+
+          <p className="mt-4 text-xs leading-relaxed text-muted-foreground">
+            Demo mode opens a seeded inbox and agenda with safe fake data for testing commands,
+            AI, drafts, sends, and event workflows.
           </p>
         </>
       )}
@@ -513,7 +529,7 @@ function WorkspacePreview() {
                 key={item}
                 className={cn(
                   "motion-state flex items-center justify-between rounded-md px-3 py-2",
-                  index === 0 ? "bg-sidebar-accent text-white" : "text-white/66",
+                  index === 0 ? "bg-white/10 text-white" : "text-white/66",
                 )}
               >
                 <span>{item}</span>
@@ -521,7 +537,7 @@ function WorkspacePreview() {
               </div>
             ))}
           </div>
-          <div className="motion-state mt-8 rounded-lg bg-sidebar-accent p-3">
+          <div className="motion-state mt-8 rounded-lg bg-white/10 p-3">
             <p className="text-xs text-white/58">Sync state</p>
             <p className="mt-2 text-sm font-medium">Inbox live</p>
             <p className="mt-1 text-xs leading-relaxed text-white/62">Calendar refreshed 2m ago</p>

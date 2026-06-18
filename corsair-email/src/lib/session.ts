@@ -47,6 +47,10 @@ export function buildTenantId(email: string) {
   return slugify(email) || "workspace";
 }
 
+export function isDemoTenantId(tenantId: string) {
+  return tenantId === env.DEMO_TENANT_ID;
+}
+
 export async function getSession() {
   const cookieStore = await cookies();
   return decodeSession(cookieStore.get(COOKIE_NAME)?.value);

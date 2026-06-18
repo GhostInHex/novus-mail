@@ -24,10 +24,13 @@ declare global {
 // production prod `DATABASE_URL` should be the POOLED string — see the
 // deployment checklist.
 const isPooledUrl = /-pooler\.|pgbouncer=true|pooler=true/i.test(env.DATABASE_URL);
+const DATABASE_CONNECT_TIMEOUT_SECONDS = 8;
 
 function createRuntime(): RuntimeBundle {
   const appDb = postgres(env.DATABASE_URL, {
-    connect_timeout: 30,
+    // Fail fast on cross-region / transient network stalls so requests degrade
+    // quickly instead of hanging the login and dashboard flows.
+    connect_timeout: DATABASE_CONNECT_TIMEOUT_SECONDS,
     // Serverless instances are short-lived and numerous: keep the per-instance
     // pool small and connections short so we don't exhaust Postgres' limit.
     idle_timeout: env.IS_PRODUCTION ? 10 : 20,

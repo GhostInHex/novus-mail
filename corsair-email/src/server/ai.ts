@@ -30,6 +30,8 @@ export type AiTool = {
   };
 };
 
+type AiToolChoice = "auto" | "required";
+
 export type AiAssistantMessage = {
   role: "assistant";
   content: string;
@@ -106,6 +108,7 @@ async function readJsonResponse(response: Response): Promise<unknown> {
 export async function aiChat(opts: {
   messages: AiMessage[];
   tools?: AiTool[];
+  toolChoice?: AiToolChoice;
   signal?: AbortSignal;
 }): Promise<AiAssistantMessage> {
   if (!isAiConfigured()) {
@@ -123,7 +126,7 @@ export async function aiChat(opts: {
       model: env.AI_MODEL,
       messages: opts.messages,
       ...(opts.tools && opts.tools.length > 0
-        ? { tools: opts.tools, tool_choice: "auto" }
+        ? { tools: opts.tools, tool_choice: opts.toolChoice ?? "auto" }
         : {}),
       stream: false,
     }),

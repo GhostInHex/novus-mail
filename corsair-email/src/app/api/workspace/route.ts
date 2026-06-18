@@ -11,7 +11,13 @@ export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     const search = searchParams.get("search") ?? "";
     const remote = searchParams.get("remote") === "1";
-    const payload = await loadWorkspace(session.tenantId, search, { remote });
+    const limit = Number(searchParams.get("limit") ?? "");
+    const offset = Number(searchParams.get("offset") ?? "");
+    const payload = await loadWorkspace(session.tenantId, search, {
+      remote,
+      limit: Number.isFinite(limit) && limit > 0 ? limit : undefined,
+      offset: Number.isFinite(offset) && offset >= 0 ? offset : undefined,
+    });
 
     return NextResponse.json(payload);
   } catch (error) {

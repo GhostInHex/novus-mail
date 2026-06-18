@@ -19,6 +19,11 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "NovusMail",
   description: "A focused Gmail and Calendar command deck powered by Corsair.",
+  icons: {
+    icon: "/novus-logo.svg",
+    shortcut: "/novus-logo.svg",
+    apple: "/novus-logo.svg",
+  },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

@@ -14,7 +14,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ROUTES } from "@/lib/routes";
 import { cn } from "@/lib/utils";
-import type { ConnectionStatus, SessionUser } from "@/lib/types";
+import type { ConnectionStatus, ProviderStatus, SessionUser } from "@/lib/types";
 import { corsairOAuthRedirectUri } from "@/server/corsair-oauth";
 
 type ConnectStateProps = {
@@ -31,22 +31,26 @@ const CONNECTION_ERROR_COPY: Record<string, string> = {
   tenant_mismatch: "The Google connection did not match this workspace. Try again.",
 };
 
-function StatusPill({ label, live }: { label: string; live: boolean }) {
+function StatusPill({ label, status }: { label: string; status: ProviderStatus }) {
+  const live = status.authorized;
+  const healthy = status.healthy;
   return (
     <div
       className={cn(
         "motion-state flex items-center gap-2 rounded-md border px-3 py-2 text-sm font-medium",
-        live
+        live && healthy !== false
           ? "border-success/30 bg-success/10 text-success"
+          : live
+            ? "border-amber-300/40 bg-amber-100/50 text-amber-900 dark:border-amber-700/50 dark:bg-amber-950/30 dark:text-amber-200"
           : "border-border bg-muted text-muted-foreground",
       )}
     >
-      {live ? (
+      {live && healthy !== false ? (
         <CheckCircle2Icon className="size-4 motion-enter-soft" />
       ) : (
         <CircleDashedIcon className="size-4 motion-pulse" />
       )}
-      {label} {live ? "connected" : "pending"}
+      {label} {live ? (healthy === false ? "degraded" : "connected") : "pending"}
     </div>
   );
 }
@@ -123,7 +127,7 @@ export function ConnectState({ session, status, connectionError }: ConnectStateP
             Connect Gmail and Calendar
           </CardTitle>
           <CardDescription>
-            Give Corsair Mail permission to read, organize, send mail, and manage your
+            Give NovusMail permission to read, organize, send mail, and manage your
             calendar for{" "}
             <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-[0.8em] text-foreground">
               {session.tenantId}
@@ -140,23 +144,31 @@ export function ConnectState({ session, status, connectionError }: ConnectStateP
             </p>
           )}
 
+          {status.degraded && (
+            <p className="motion-enter-soft flex items-start gap-2 rounded-md border border-amber-300/40 bg-amber-100/50 px-3 py-2 text-sm text-amber-900 dark:border-amber-700/50 dark:bg-amber-950/30 dark:text-amber-200">
+              <AlertCircleIcon className="mt-0.5 size-4 shrink-0" />
+              Gmail or Calendar is authorized but currently slow to respond. The workspace can
+              still open once both providers are connected.
+            </p>
+          )}
+
           <div className="grid gap-3 sm:grid-cols-2">
-            <StatusPill label="Gmail" live={status.gmail} />
-            <StatusPill label="Calendar" live={status.calendar} />
+            <StatusPill label="Gmail" status={status.gmail} />
+            <StatusPill label="Calendar" status={status.calendar} />
           </div>
 
           <div className="space-y-3">
             <ConnectAction
               label="Gmail"
               description="Allow inbox search, labels, drafts, sending, and thread actions."
-              connected={status.gmail}
+              connected={status.gmail.authorized}
               action="/api/auth/corsair/start/gmail"
               icon={<MailIcon className="size-4" />}
             />
             <ConnectAction
               label="Calendar"
               description="Allow agenda lookup, availability checks, and event scheduling."
-              connected={status.calendar}
+              connected={status.calendar.authorized}
               action="/api/auth/corsair/start/googlecalendar"
               icon={<CalendarDaysIcon className="size-4" />}
             />

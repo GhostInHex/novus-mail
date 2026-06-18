@@ -4,10 +4,10 @@ import { cookies } from "next/headers";
 import { ROUTES } from "@/lib/routes";
 import { buildTenantId, setSession } from "@/lib/session";
 import {
+  consumeStateCookie,
   OAUTH_STATE_COOKIE,
   exchangeCodeForIdentity,
   googleLoginConfigured,
-  parseStateCookie,
 } from "@/server/google-auth";
 import { log } from "@/server/log";
 import { clientIp, enforceRateLimit } from "@/server/rate-limit";
@@ -43,18 +43,32 @@ export async function GET(request: Request) {
   const oauthError = searchParams.get("error");
 
   const cookieStore = await cookies();
-  const stateCookie = parseStateCookie(cookieStore.get(OAUTH_STATE_COOKIE)?.value);
-  // One-time use: clear the state cookie regardless of outcome.
-  cookieStore.delete(OAUTH_STATE_COOKIE);
 
   if (oauthError) {
     return failure(request, `provider_error:${oauthError}`);
   }
-  if (!code || !state || !stateCookie) {
+  if (!code || !state) {
     return failure(request, "missing_params_or_state");
   }
-  if (state !== stateCookie.state) {
+
+  const { match: stateCookie, cookieValue } = consumeStateCookie(
+    cookieStore.get(OAUTH_STATE_COOKIE)?.value,
+    state,
+  );
+  if (!stateCookie) {
     return failure(request, "state_mismatch");
+  }
+
+  if (cookieValue) {
+    cookieStore.set(OAUTH_STATE_COOKIE, cookieValue, {
+      httpOnly: true,
+      sameSite: "lax",
+      secure: request.url.startsWith("https://"),
+      path: "/",
+      maxAge: 600,
+    });
+  } else {
+    cookieStore.delete(OAUTH_STATE_COOKIE);
   }
 
   try {

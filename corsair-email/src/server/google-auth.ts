@@ -50,8 +50,12 @@ type StatePayload = {
   iat: number;
 };
 
+type StateEnvelope = {
+  pending: StatePayload[];
+};
+
 /** Mint a CSRF `state`, a replay-guard `nonce`, and a signed cookie value carrying both. */
-export function createStateCookie(redirectTo: string) {
+export function createStateCookie(redirectTo: string, existingRaw?: string) {
   const safeRedirectTo = redirectTo.startsWith("/") && !redirectTo.startsWith("//") ? redirectTo : "/";
 
   const payload: StatePayload = {
@@ -61,13 +65,19 @@ export function createStateCookie(redirectTo: string) {
     iat: Date.now(),
   };
 
-  const encoded = base64url(JSON.stringify(payload));
+  const existing = parseStateCookie(existingRaw);
+  const pending = (existing?.pending ?? [])
+    .filter((entry) => Date.now() - entry.iat <= STATE_MAX_AGE_MS)
+    .slice(-4);
+  pending.push(payload);
+
+  const encoded = base64url(JSON.stringify({ pending } satisfies StateEnvelope));
   const cookieValue = `${encoded}.${sign(encoded)}`;
 
   return { payload, cookieValue };
 }
 
-export function parseStateCookie(raw: string | undefined): StatePayload | null {
+export function parseStateCookie(raw: string | undefined): StateEnvelope | null {
   if (!raw) {
     return null;
   }
@@ -78,14 +88,42 @@ export function parseStateCookie(raw: string | undefined): StatePayload | null {
   }
 
   try {
-    const payload = JSON.parse(Buffer.from(encoded, "base64url").toString("utf8")) as StatePayload;
-    if (!payload.state || !payload.nonce || Date.now() - payload.iat > STATE_MAX_AGE_MS) {
+    const payload = JSON.parse(Buffer.from(encoded, "base64url").toString("utf8")) as StateEnvelope;
+    if (!Array.isArray(payload.pending)) {
       return null;
     }
-    return payload;
+
+    const pending = payload.pending.filter(
+      (entry) => entry?.state && entry?.nonce && Date.now() - entry.iat <= STATE_MAX_AGE_MS,
+    );
+
+    if (pending.length === 0) {
+      return null;
+    }
+
+    return { pending };
   } catch {
     return null;
   }
+}
+
+export function consumeStateCookie(raw: string | undefined, state: string) {
+  const envelope = parseStateCookie(raw);
+  if (!envelope) {
+    return { match: null, cookieValue: null as string | null };
+  }
+
+  const match = envelope.pending.find((entry) => entry.state === state) ?? null;
+  const pending = envelope.pending.filter((entry) => entry.state !== state);
+  if (pending.length === 0) {
+    return { match, cookieValue: null as string | null };
+  }
+
+  const encoded = base64url(JSON.stringify({ pending } satisfies StateEnvelope));
+  return {
+    match,
+    cookieValue: `${encoded}.${sign(encoded)}`,
+  };
 }
 
 export function buildAuthorizeUrl(state: string, nonce: string): string {

@@ -14,6 +14,10 @@ import {
   SparklesIcon,
 } from "lucide-react";
 
+import {
+  buildContextualSuggestions,
+  getDefaultAgentSuggestions,
+} from "@/lib/agent-suggestions";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -28,7 +32,12 @@ import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
-import type { ComposeInput, EventInput } from "@/lib/types";
+import type {
+  AgentChatContext,
+  AgentSuggestion,
+  ComposeInput,
+  EventInput,
+} from "@/lib/types";
 
 type EmailProposal = { kind: "email"; to: string; subject: string; body: string; threadId?: string };
 type EventProposal = {
@@ -56,13 +65,20 @@ type Turn = {
   content: string;
   tools: string[];
   proposals: ProposalItem[];
+  createdAt: string;
 };
 
 type SavedChat = {
   id: string;
   title: string;
   updatedAt: string;
+  lastInboxCheckpointAt: string | null;
   turns: Turn[];
+};
+
+type AgentRequestMessage = {
+  role: "user" | "assistant";
+  content: string;
 };
 
 export type AgentOperator = { configured: boolean; label: string; model: string };
@@ -75,14 +91,10 @@ type AgentPanelProps = {
   onConfirmEvent: (input: EventInput) => Promise<void>;
 };
 
-const SUGGESTIONS = [
-  "What needs a reply today?",
-  "Draft a reply to the top thread saying I'll review by Friday.",
-  "Schedule 30 min with teammate@example.com tomorrow 9am about the roadmap.",
-  "Summarize unread mail from this week.",
-];
+const SUGGESTIONS = getDefaultAgentSuggestions();
 
-const CHAT_HISTORY_STORAGE_KEY = "corsair-mail-agent-chats:v1";
+const CHAT_HISTORY_STORAGE_KEY = "corsair-mail-agent-chats:v2";
+const LEGACY_CHAT_HISTORY_STORAGE_KEY = "corsair-mail-agent-chats:v1";
 const MAX_SAVED_CHATS = 30;
 const ONE_DAY_MS = 24 * 60 * 60 * 1000;
 
@@ -94,23 +106,65 @@ function buildChatTitle(turns: Turn[]) {
   return turns.find((turn) => turn.role === "user" && turn.content.trim())?.content.trim().slice(0, 72) || "New chat";
 }
 
+function normalizeTurn(value: unknown): Turn | null {
+  if (!value || typeof value !== "object") {
+    return null;
+  }
+
+  const candidate = value as Partial<Turn>;
+  if (
+    typeof candidate.id !== "string" ||
+    (candidate.role !== "user" && candidate.role !== "assistant") ||
+    typeof candidate.content !== "string" ||
+    !Array.isArray(candidate.tools) ||
+    !Array.isArray(candidate.proposals)
+  ) {
+    return null;
+  }
+
+  return {
+    id: candidate.id,
+    role: candidate.role,
+    content: candidate.content,
+    tools: candidate.tools.filter((item): item is string => typeof item === "string"),
+    proposals: candidate.proposals as ProposalItem[],
+    createdAt: typeof candidate.createdAt === "string" ? candidate.createdAt : new Date().toISOString(),
+  };
+}
+
 function normalizeSavedChats(value: unknown): SavedChat[] {
   if (!Array.isArray(value)) {
     return [];
   }
 
   return value
-    .filter((chat): chat is SavedChat => {
+    .flatMap((chat) => {
       if (!chat || typeof chat !== "object") {
-        return false;
+        return [];
       }
       const candidate = chat as Partial<SavedChat>;
-      return (
-        typeof candidate.id === "string" &&
-        typeof candidate.title === "string" &&
-        typeof candidate.updatedAt === "string" &&
-        Array.isArray(candidate.turns)
-      );
+      if (
+        typeof candidate.id !== "string" ||
+        typeof candidate.title !== "string" ||
+        typeof candidate.updatedAt !== "string" ||
+        !Array.isArray(candidate.turns)
+      ) {
+        return [];
+      }
+
+      const turns = candidate.turns.map(normalizeTurn).filter((turn): turn is Turn => Boolean(turn));
+      return [
+        {
+          id: candidate.id,
+          title: candidate.title,
+          updatedAt: candidate.updatedAt,
+          lastInboxCheckpointAt:
+            typeof candidate.lastInboxCheckpointAt === "string" || candidate.lastInboxCheckpointAt === null
+              ? candidate.lastInboxCheckpointAt
+              : null,
+          turns,
+        },
+      ];
     })
     .slice(0, MAX_SAVED_CHATS);
 }
@@ -121,7 +175,12 @@ function readSavedChats() {
   }
 
   try {
-    return normalizeSavedChats(JSON.parse(window.localStorage.getItem(CHAT_HISTORY_STORAGE_KEY) || "[]"));
+    const next = normalizeSavedChats(JSON.parse(window.localStorage.getItem(CHAT_HISTORY_STORAGE_KEY) || "[]"));
+    if (next.length > 0) {
+      return next;
+    }
+
+    return normalizeSavedChats(JSON.parse(window.localStorage.getItem(LEGACY_CHAT_HISTORY_STORAGE_KEY) || "[]"));
   } catch {
     return [];
   }
@@ -153,66 +212,15 @@ function getGroupedChats(chats: SavedChat[]) {
   };
 }
 
-function appendUniqueSuggestion(suggestions: string[], suggestion: string) {
-  if (!suggestions.includes(suggestion)) {
-    suggestions.push(suggestion);
-  }
-}
-
-function buildContextualSuggestions(turns: Turn[]) {
-  const latestUser = [...turns].reverse().find((turn) => turn.role === "user");
-  const latestAssistant = [...turns].reverse().find((turn) => turn.role === "assistant");
-  const context = `${latestUser?.content ?? ""} ${latestAssistant?.content ?? ""} ${latestAssistant?.tools.join(" ") ?? ""}`.toLowerCase();
-  const suggestions: string[] = [];
-  const proposals = latestAssistant?.proposals ?? [];
-
-  if (proposals.some((item) => item.proposal.kind === "email")) {
-    appendUniqueSuggestion(suggestions, "Make the draft shorter and warmer");
-    appendUniqueSuggestion(suggestions, "Add a clear next step to this reply");
-    appendUniqueSuggestion(suggestions, "Find related emails from this sender");
-  }
-
-  if (proposals.some((item) => item.proposal.kind === "event")) {
-    appendUniqueSuggestion(suggestions, "Move this meeting to tomorrow afternoon");
-    appendUniqueSuggestion(suggestions, "Draft a follow-up email for this meeting");
-    appendUniqueSuggestion(suggestions, "Check my agenda around this time");
-  }
-
-  if (context.includes("unread") || context.includes("reply")) {
-    appendUniqueSuggestion(suggestions, "Show only the messages that need my response");
-    appendUniqueSuggestion(suggestions, "Draft replies for the top two threads");
-  }
-
-  if (context.includes("summary") || context.includes("summarize")) {
-    appendUniqueSuggestion(suggestions, "Turn this into a priority list");
-    appendUniqueSuggestion(suggestions, "What should I handle first?");
-  }
-
-  if (context.includes("schedule") || context.includes("meeting") || context.includes("calendar")) {
-    appendUniqueSuggestion(suggestions, "Find open time tomorrow morning");
-    appendUniqueSuggestion(suggestions, "Email the attendees a short agenda");
-  }
-
-  if (context.includes("search") || context.includes("from:") || context.includes("find")) {
-    appendUniqueSuggestion(suggestions, "Search all mail for the same topic");
-    appendUniqueSuggestion(suggestions, "Summarize the matching threads");
-  }
-
-  appendUniqueSuggestion(suggestions, "What changed since my last check?");
-  appendUniqueSuggestion(suggestions, "What needs attention next?");
-
-  return suggestions.slice(0, 3);
-}
-
 function formatRange(start: string, end: string) {
   const startDate = new Date(start);
   const endDate = new Date(end);
   const valid = !Number.isNaN(startDate.getTime());
   if (!valid) {
-    return `${start} – ${end}`;
+    return `${start} - ${end}`;
   }
   const endValid = !Number.isNaN(endDate.getTime());
-  return `${format(startDate, "EEE MMM d, h:mm a")}${endValid ? ` – ${format(endDate, "h:mm a")}` : ""}`;
+  return `${format(startDate, "EEE MMM d, h:mm a")}${endValid ? ` - ${format(endDate, "h:mm a")}` : ""}`;
 }
 
 function toEditableDateTime(value: string) {
@@ -246,6 +254,15 @@ function canConfirmProposal(proposal: Proposal) {
   return Boolean(proposal.summary.trim() && proposal.start && proposal.end);
 }
 
+function extractLatestCheckpoint(turns: Turn[]) {
+  const userTurn = [...turns].reverse().find((turn) => turn.role === "user");
+  return userTurn?.createdAt ?? new Date().toISOString();
+}
+
+function toProposalKinds(items: ProposalItem[]) {
+  return items.map((item) => ({ kind: item.proposal.kind }));
+}
+
 export function AgentPanel({ open, operator, onClose, onConfirmEmail, onConfirmEvent }: AgentPanelProps) {
   const [turns, setTurns] = useState<Turn[]>([]);
   const [activeChatId, setActiveChatId] = useState(() => uid());
@@ -255,6 +272,7 @@ export function AgentPanel({ open, operator, onClose, onConfirmEmail, onConfirmE
   const [error, setError] = useState("");
   const [historyOpen, setHistoryOpen] = useState(false);
   const [savedChats, setSavedChats] = useState<SavedChat[]>([]);
+  const [lastInboxCheckpointAt, setLastInboxCheckpointAt] = useState<string | null>(null);
 
   const transcriptRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
@@ -294,6 +312,7 @@ export function AgentPanel({ open, operator, onClose, onConfirmEmail, onConfirmE
       id: activeChatId,
       title: buildChatTitle(turns),
       updatedAt: new Date().toISOString(),
+      lastInboxCheckpointAt,
       turns,
     };
 
@@ -302,7 +321,7 @@ export function AgentPanel({ open, operator, onClose, onConfirmEmail, onConfirmE
       writeSavedChats(next);
       return next;
     });
-  }, [activeChatId, turns]);
+  }, [activeChatId, lastInboxCheckpointAt, turns]);
 
   function updateLastAssistant(mutate: (turn: Turn) => Turn) {
     setTurns((current) => {
@@ -407,6 +426,7 @@ export function AgentPanel({ open, operator, onClose, onConfirmEmail, onConfirmE
     setInput("");
     setError("");
     setHistoryOpen(false);
+    setLastInboxCheckpointAt(null);
     window.setTimeout(() => inputRef.current?.focus(), 0);
   }
 
@@ -417,10 +437,11 @@ export function AgentPanel({ open, operator, onClose, onConfirmEmail, onConfirmE
     setInput("");
     setError("");
     setHistoryOpen(false);
+    setLastInboxCheckpointAt(chat.lastInboxCheckpointAt);
     window.setTimeout(() => inputRef.current?.focus(), 0);
   }
 
-  async function send(text: string) {
+  async function send(text: string, context?: AgentChatContext) {
     const trimmed = text.trim();
     if (!trimmed || busy) {
       return;
@@ -430,16 +451,17 @@ export function AgentPanel({ open, operator, onClose, onConfirmEmail, onConfirmE
     setInput("");
     setHistoryOpen(false);
 
-    const history = turns
+    const history: AgentRequestMessage[] = turns
       .filter((turn) => turn.content.trim())
       .map((turn) => ({ role: turn.role, content: turn.content }));
     const payloadMessages = [...history, { role: "user" as const, content: trimmed }];
 
+    const now = new Date().toISOString();
     const assistantId = uid();
     setTurns((current) => [
       ...current,
-      { id: uid(), role: "user", content: trimmed, tools: [], proposals: [] },
-      { id: assistantId, role: "assistant", content: "", tools: [], proposals: [] },
+      { id: uid(), role: "user", content: trimmed, tools: [], proposals: [], createdAt: now },
+      { id: assistantId, role: "assistant", content: "", tools: [], proposals: [], createdAt: new Date().toISOString() },
     ]);
     setBusy(true);
 
@@ -447,7 +469,7 @@ export function AgentPanel({ open, operator, onClose, onConfirmEmail, onConfirmE
       const response = await fetch("/api/agent", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: payloadMessages }),
+        body: JSON.stringify({ messages: payloadMessages, context }),
       });
 
       if (!response.ok || !response.body) {
@@ -461,8 +483,8 @@ export function AgentPanel({ open, operator, onClose, onConfirmEmail, onConfirmE
 
       const handle = (event: Record<string, unknown>) => {
         if (event.type === "token" && typeof event.text === "string") {
-          const text = event.text;
-          updateLastAssistant((turn) => ({ ...turn, content: turn.content + text }));
+          const textPart = event.text;
+          updateLastAssistant((turn) => ({ ...turn, content: turn.content + textPart }));
         } else if (event.type === "tool" && typeof event.label === "string") {
           const label = event.label;
           updateLastAssistant((turn) => ({ ...turn, tools: [...turn.tools, label] }));
@@ -501,6 +523,10 @@ export function AgentPanel({ open, operator, onClose, onConfirmEmail, onConfirmE
           boundary = buffer.indexOf("\n\n");
         }
       }
+
+      if (context?.suggestionIntent?.startsWith("triage_")) {
+        setLastInboxCheckpointAt(extractLatestCheckpoint([...turns, { id: "checkpoint", role: "user", content: trimmed, tools: [], proposals: [], createdAt: now }]));
+      }
     } catch (sendError) {
       setError(sendError instanceof Error ? sendError.message : "Agent error");
     } finally {
@@ -511,7 +537,14 @@ export function AgentPanel({ open, operator, onClose, onConfirmEmail, onConfirmE
   const lastTurn = turns.at(-1);
   const showFollowUps = operator.configured && !busy && turns.length > 0 && lastTurn?.role === "assistant";
   const groupedChats = getGroupedChats(savedChats);
-  const contextualSuggestions = buildContextualSuggestions(turns);
+  const latestAssistant = [...turns].reverse().find((turn) => turn.role === "assistant");
+  const latestUser = [...turns].reverse().find((turn) => turn.role === "user");
+  const contextualSuggestions = buildContextualSuggestions({
+    latestUserContent: latestUser?.content,
+    latestAssistantContent: latestAssistant?.content,
+    toolLabels: latestAssistant?.tools,
+    proposals: toProposalKinds(latestAssistant?.proposals ?? []),
+  });
 
   return (
     <Dialog open={open} onOpenChange={(value) => !value && onClose()}>
@@ -611,12 +644,17 @@ export function AgentPanel({ open, operator, onClose, onConfirmEmail, onConfirmE
                 </p>
                 {SUGGESTIONS.map((suggestion) => (
                   <button
-                    key={suggestion}
+                    key={suggestion.id}
                     type="button"
                     className="motion-state w-full rounded-md border border-border bg-card px-3 py-2 text-left text-sm outline-none hover:border-primary/30 hover:bg-accent focus-visible:ring-2 focus-visible:ring-ring"
-                    onClick={() => void send(suggestion)}
+                    onClick={() =>
+                      void send(suggestion.label, {
+                        suggestionIntent: suggestion.id,
+                        checkpointAt: suggestion.id === "triage_changes_since_check" ? lastInboxCheckpointAt : undefined,
+                      })
+                    }
                   >
-                    {suggestion}
+                    {suggestion.label}
                   </button>
                 ))}
               </div>
@@ -859,7 +897,7 @@ export function AgentPanel({ open, operator, onClose, onConfirmEmail, onConfirmE
                     <div className="flex flex-wrap items-center gap-2 pt-1">
                       {item.status === "done" ? (
                         <Badge className="motion-enter-soft gap-1 border-success/30 bg-success/10 text-success">
-                          <CheckCircle2Icon className="size-3 motion-pulse" />
+                          <CheckCircle2Icon className="size-3" />
                           {item.proposal.kind === "email" ? "Sent" : "Created"}
                         </Badge>
                       ) : item.status === "cancelled" ? (
@@ -877,7 +915,7 @@ export function AgentPanel({ open, operator, onClose, onConfirmEmail, onConfirmE
                             {item.status === "confirming" ? (
                               <>
                                 <Loader2Icon className="size-4 animate-spin" />
-                                Working…
+                                Working...
                               </>
                             ) : item.proposal.kind === "email" ? (
                               "Send"
@@ -915,15 +953,20 @@ export function AgentPanel({ open, operator, onClose, onConfirmEmail, onConfirmE
 
           {showFollowUps && (
             <div className="motion-enter-soft flex flex-wrap gap-2 pt-1">
-              {contextualSuggestions.map((suggestion) => (
+              {contextualSuggestions.map((suggestion: AgentSuggestion) => (
                 <button
-                  key={suggestion}
+                  key={suggestion.id}
                   type="button"
                   className="motion-state inline-flex max-w-full items-center gap-2 rounded-full border border-border bg-card px-3 py-2 text-sm text-foreground outline-none hover:border-primary/30 hover:bg-accent focus-visible:ring-2 focus-visible:ring-ring"
-                  onClick={() => void send(suggestion)}
+                  onClick={() =>
+                    void send(suggestion.label, {
+                      suggestionIntent: suggestion.id,
+                      checkpointAt: suggestion.id === "triage_changes_since_check" ? lastInboxCheckpointAt : undefined,
+                    })
+                  }
                 >
                   <MailIcon className="size-4 shrink-0 text-primary" />
-                  <span className="truncate">{suggestion}</span>
+                  <span className="truncate">{suggestion.label}</span>
                 </button>
               ))}
             </div>
@@ -932,7 +975,7 @@ export function AgentPanel({ open, operator, onClose, onConfirmEmail, onConfirmE
           {busy && (
             <div className="motion-enter-soft flex items-center gap-2 text-sm text-muted-foreground">
               <Loader2Icon className="size-4 animate-spin" />
-              Thinking…
+              Thinking...
             </div>
           )}
           {error && (
@@ -948,7 +991,7 @@ export function AgentPanel({ open, operator, onClose, onConfirmEmail, onConfirmE
             value={input}
             rows={2}
             className="min-h-0 resize-none"
-            placeholder={operator.configured ? "Message the agent…" : "Configure AI_* in .env.local to enable"}
+            placeholder={operator.configured ? "Message the agent..." : "Configure AI_* in .env.local to enable"}
             onChange={(event) => setInput(event.target.value)}
             onKeyDown={(event) => {
               if (event.key === "Enter" && !event.shiftKey) {

@@ -9,6 +9,7 @@ import {
   googleLoginConfigured,
 } from "@/server/google-auth";
 import { clientIp, enforceRateLimit } from "@/server/rate-limit";
+import { cookies } from "next/headers";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -33,7 +34,11 @@ export async function GET(request: Request) {
 
   const { searchParams } = new URL(request.url);
   const redirectTo = searchParams.get("redirectTo") ?? ROUTES.dashboard;
-  const { payload, cookieValue } = createStateCookie(redirectTo);
+  const cookieStore = await cookies();
+  const { payload, cookieValue } = createStateCookie(
+    redirectTo,
+    cookieStore.get(OAUTH_STATE_COOKIE)?.value,
+  );
 
   const response = NextResponse.redirect(buildAuthorizeUrl(payload.state, payload.nonce));
   response.cookies.set(OAUTH_STATE_COOKIE, cookieValue, {
