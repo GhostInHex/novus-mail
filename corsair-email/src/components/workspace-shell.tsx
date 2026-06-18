@@ -81,7 +81,7 @@ type WorkspaceShellProps = {
   aiOperator: AgentOperator;
 };
 
-type WorkspaceView = "focus" | "unread" | "starred" | "later" | "all";
+type WorkspaceView = "focus" | "unread" | "starred" | "sent" | "later" | "all";
 type ThreadSortMode = "priority" | "newest" | "oldest" | "unread" | "starred" | "sender";
 type AgendaSortMode = "soonest" | "latest" | "title" | "status";
 type SortOption<T extends string> = {
@@ -288,8 +288,10 @@ function matchesView(thread: ThreadSummary, view: WorkspaceView, session: Sessio
       return thread.unread;
     case "starred":
       return thread.starred;
+    case "sent":
+      return thread.labels.includes("SENT");
     case "later":
-      return thread.archived || thread.priorityBand === "low";
+      return (thread.archived || thread.priorityBand === "low") && !thread.labels.includes("SENT");
     case "all":
     default:
       return true;
@@ -587,6 +589,7 @@ export function WorkspaceShell({ session, initialWorkspace, aiOperator }: Worksp
   const focusCount = threads.filter((thread) => matchesView(thread, "focus", session)).length;
   const unreadCount = threads.filter((thread) => matchesView(thread, "unread", session)).length;
   const starredCount = threads.filter((thread) => matchesView(thread, "starred", session)).length;
+  const sentCount = threads.filter((thread) => matchesView(thread, "sent", session)).length;
   const laterCount = threads.filter((thread) => matchesView(thread, "later", session)).length;
   const todayCount = events.filter((event) => event.start && isToday(new Date(event.start))).length;
   const replyCount = threads.filter((thread) => threadNeedsReply(thread, session)).length;
@@ -596,6 +599,7 @@ export function WorkspaceShell({ session, initialWorkspace, aiOperator }: Worksp
     { id: "focus", label: "Focus", count: focusCount, hint: "High priority and response-needed" },
     { id: "unread", label: "Unread", count: unreadCount, hint: "Open loops" },
     { id: "starred", label: "Starred", count: starredCount, hint: "Pinned by you" },
+    { id: "sent", label: "Sent", count: sentCount, hint: "Sent messages" },
     { id: "later", label: "Later", count: laterCount, hint: "Low urgency and archived" },
     { id: "all", label: "All", count: threads.length, hint: "Full queue" },
   ];

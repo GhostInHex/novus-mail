@@ -616,10 +616,16 @@ function buildDemoThreads(): ThreadDetail[] {
     const unread = index % 4 !== 0;
     const starred = index % 9 === 0;
     const archived = index % 10 === 0;
-    const labels = [unread ? "UNREAD" : "INBOX", ...(starred ? ["STARRED"] : []), ...(archived ? [] : ["INBOX"])]
-      .filter((value, position, values) => values.indexOf(value) === position);
+
+    const isSentOnly = index % 8 === 2;
+    const labels = isSentOnly
+      ? ["SENT"]
+      : [unread ? "UNREAD" : "INBOX", ...(starred ? ["STARRED"] : []), ...(archived ? [] : ["INBOX"])]
+        .filter((value, position, values) => values.indexOf(value) === position);
+
+    const greetingName = isSentOnly ? profile.sender : env.DEMO_DISPLAY_NAME;
     const body = [
-      `Hi ${env.DEMO_DISPLAY_NAME},`,
+      `Hi ${greetingName},`,
       `Quick note on the ${profile.topic}.`,
       index % 3 === 0
         ? "Could you confirm whether we should reply today and move the meeting by 30 minutes?"
@@ -628,15 +634,16 @@ function buildDemoThreads(): ThreadDetail[] {
         ? "There is calendar context here, so checking the agenda before replying would help."
         : "Nothing urgent, but this should stay in the focus queue until we respond.",
       "Thanks!",
-      profile.sender,
+      isSentOnly ? env.DEMO_DISPLAY_NAME : profile.sender,
     ].join("\n\n");
 
     const messages = Array.from({ length: messageCount }, (_value, messageIndex) => {
       const messageReceivedAt = makeDemoDate(ageMinutes - messageIndex * 90).toISOString();
+      const isFromMe = isSentOnly || (messageIndex < messageCount - 1);
       return makeDemoMessage({
         id: `${threadId}-message-${messageIndex + 1}`,
-        from: messageIndex === messageCount - 1 ? profile.sender : env.DEMO_DISPLAY_NAME,
-        to: messageIndex === messageCount - 1 ? env.DEMO_EMAIL : profile.email,
+        from: isFromMe ? `${env.DEMO_DISPLAY_NAME} <${env.DEMO_EMAIL}>` : `${profile.sender} <${profile.email}>`,
+        to: isFromMe ? `${profile.sender} <${profile.email}>` : `${env.DEMO_DISPLAY_NAME} <${env.DEMO_EMAIL}>`,
         subject,
         body:
           messageIndex === messageCount - 1
@@ -651,20 +658,24 @@ function buildDemoThreads(): ThreadDetail[] {
       });
     }).reverse();
 
+    const threadSender = isSentOnly ? env.DEMO_DISPLAY_NAME : profile.sender;
+    const threadSenderEmail = isSentOnly ? env.DEMO_EMAIL : profile.email;
+    const threadRecipients = isSentOnly ? [profile.email] : [profile.recipient];
+
     return {
       threadId,
       subject,
-      sender: profile.sender,
-      senderEmail: profile.email,
-      recipients: [profile.recipient],
+      sender: threadSender,
+      senderEmail: threadSenderEmail,
+      recipients: threadRecipients,
       snippet: body.slice(0, 140),
       bodyExcerpt: body.slice(0, 200),
       receivedAt,
       messageCount,
       labels,
-      unread,
+      unread: isSentOnly ? false : unread,
       starred,
-      archived,
+      archived: isSentOnly ? false : archived,
       priorityBand: index % 6 === 0 ? "high" : index % 4 === 0 ? "low" : "normal",
       priorityScore: index % 6 === 0 ? 95 - index : index % 4 === 0 ? 25 : 60 - (index % 12),
       priorityReason:
@@ -2176,7 +2187,11 @@ export async function runCommand(tenantId: string, profile: SessionUser, input: 
 }
 
 export async function syncWorkspace(tenantId: string): Promise<WorkspacePayload> {
-  await Promise.all([refreshInbox(tenantId), refreshCalendar(tenantId)]);
+  await Promise.all([
+    refreshInbox(tenantId),
+    refreshInbox(tenantId, "label:SENT"),
+    refreshCalendar(tenantId),
+  ]);
   publishRefresh(tenantId);
   return loadWorkspace(tenantId);
 }
