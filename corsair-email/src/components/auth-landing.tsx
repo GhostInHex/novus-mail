@@ -669,7 +669,7 @@ export function AuthLanding() {
                 Control
               </a>
             </nav>
-            <ThemeToggle />
+            <ThemeToggle simple />
             <Button
               asChild
               size="sm"

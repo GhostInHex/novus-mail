@@ -84,7 +84,7 @@ export const env = {
   AI_MODEL: readOptional("AI_MODEL"),
   AI_OPERATOR_LABEL: readOptional("AI_OPERATOR_LABEL") || "AI",
 
-  DEMO_LOGIN_ENABLED: readBool("DEMO_LOGIN_ENABLED") || !isProduction,
+  DEMO_LOGIN_ENABLED: process.env.DEMO_LOGIN_ENABLED !== undefined ? readBool("DEMO_LOGIN_ENABLED") : true,
   DEMO_TENANT_ID: readOptional("DEMO_TENANT_ID") || "demo-workspace",
   DEMO_EMAIL: readOptional("DEMO_EMAIL") || "demo@novusmail.local",
   DEMO_DISPLAY_NAME: readOptional("DEMO_DISPLAY_NAME") || "NovusMail Demo",

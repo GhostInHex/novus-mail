@@ -1335,7 +1335,7 @@ export function WorkspaceShell({ session, initialWorkspace, aiOperator }: Worksp
         {/* Indigo command rail */}
         <aside
           className={cn(
-            "scroll-area-thin motion-enter-soft hidden shrink-0 flex-col overflow-y-auto border-r border-sidebar-border/70 bg-sidebar text-sidebar-foreground lg:flex",
+            "scroll-area-thin motion-enter-soft hidden shrink-0 flex-col overflow-y-auto overflow-x-hidden border-r border-sidebar-border/70 bg-sidebar text-sidebar-foreground lg:flex",
             sidebarCollapsed ? "w-[72px] px-3 py-4" : "w-72 gap-6 px-4 py-5",
           )}
         >
@@ -1461,7 +1461,7 @@ export function WorkspaceShell({ session, initialWorkspace, aiOperator }: Worksp
                   <span className="text-sm font-semibold tracking-tight">NovusMail</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <ThemeToggle />
+                  <ThemeToggle compact />
                   <Button
                     type="button"
                     size="icon-sm"

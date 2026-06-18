@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "skills": {
+    "startup-competitors": {
+      "source": "ferdinandobons/startup-skill",
+      "sourceType": "github",
+      "skillPath": "startup-competitors/SKILL.md",
+      "computedHash": "8586f9331ad47d5b46b02eb97478d93f227603815c934778cf6d7eede0db9d7e"
+    },
+    "startup-design": {
+      "source": "ferdinandobons/startup-skill",
+      "sourceType": "github",
+      "skillPath": "startup-design/SKILL.md",
+      "computedHash": "e621a3b5a9cc352cad0d83042cbdd59b74ab8334c9454ee044766d2056702374"
+    },
+    "startup-pitch": {
+      "source": "ferdinandobons/startup-skill",
+      "sourceType": "github",
+      "skillPath": "startup-pitch/SKILL.md",
+      "computedHash": "a1a6431eda424bceb59147fa19de9cbe0a741c6ee134571bcd46baa937c60d10"
+    },
+    "startup-positioning": {
+      "source": "ferdinandobons/startup-skill",
+      "sourceType": "github",
+      "skillPath": "startup-positioning/SKILL.md",
+      "computedHash": "cd5951eb78c9574069b0b82723cc91176a3c404e499d3d0e2235d52af2a74365"
+    }
+  }
+}

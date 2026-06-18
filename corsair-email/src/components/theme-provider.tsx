@@ -2,53 +2,80 @@
 
 import * as React from "react";
 
-type Theme = "light" | "dark";
+import {
+  DEFAULT_THEME_PRESET,
+  getDefaultThemeForMode,
+  getThemePreset,
+  isThemePresetId,
+  type ResolvedTheme,
+  type ThemePresetId,
+} from "@/lib/theme-presets";
 
 type ThemeContextValue = {
-  theme: Theme;
-  resolvedTheme: Theme;
-  setTheme: (theme: Theme) => void;
+  theme: ThemePresetId;
+  resolvedTheme: ResolvedTheme;
+  setTheme: (theme: ThemePresetId) => void;
+  setResolvedTheme: (theme: ResolvedTheme) => void;
 };
 
 const ThemeContext = React.createContext<ThemeContextValue | null>(null);
 const THEME_STORAGE_KEY = "novusmail-theme";
 
-function applyTheme(theme: Theme) {
-  document.documentElement.classList.toggle("dark", theme === "dark");
+function applyTheme(theme: ThemePresetId) {
+  const root = document.documentElement;
+  const preset = getThemePreset(theme);
+
+  root.classList.toggle("dark", preset.mode === "dark");
+  root.dataset.theme = preset.id;
 }
 
 export function ThemeProvider({
   children,
-  defaultTheme = "dark",
+  defaultTheme = DEFAULT_THEME_PRESET,
 }: {
   children: React.ReactNode;
-  defaultTheme?: Theme;
+  defaultTheme?: ThemePresetId;
   attribute?: string;
   enableSystem?: boolean;
   disableTransitionOnChange?: boolean;
 }) {
-  const [theme, setThemeState] = React.useState<Theme>(defaultTheme);
+  const [theme, setThemeState] = React.useState<ThemePresetId>(defaultTheme);
 
   React.useEffect(() => {
     const stored = window.localStorage.getItem(THEME_STORAGE_KEY);
-    const nextTheme = stored === "light" || stored === "dark" ? stored : defaultTheme;
+    const nextTheme =
+      stored === "light"
+        ? getDefaultThemeForMode("light")
+        : stored === "dark"
+          ? getDefaultThemeForMode("dark")
+          : isThemePresetId(stored)
+            ? stored
+            : defaultTheme;
     setThemeState(nextTheme);
     applyTheme(nextTheme);
   }, [defaultTheme]);
 
-  const setTheme = React.useCallback((nextTheme: Theme) => {
+  const setTheme = React.useCallback((nextTheme: ThemePresetId) => {
     setThemeState(nextTheme);
     window.localStorage.setItem(THEME_STORAGE_KEY, nextTheme);
     applyTheme(nextTheme);
   }, []);
 
+  const setResolvedTheme = React.useCallback(
+    (nextTheme: ResolvedTheme) => {
+      setTheme(getDefaultThemeForMode(nextTheme));
+    },
+    [setTheme],
+  );
+
   const value = React.useMemo<ThemeContextValue>(
     () => ({
       theme,
-      resolvedTheme: theme,
+      resolvedTheme: getThemePreset(theme).mode,
       setTheme,
+      setResolvedTheme,
     }),
-    [theme, setTheme],
+    [theme, setResolvedTheme, setTheme],
   );
 
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
