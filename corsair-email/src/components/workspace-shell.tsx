@@ -21,6 +21,8 @@ import {
   SparklesIcon,
   StarIcon,
   RefreshCwIcon,
+  Maximize2,
+  Minimize2,
 } from "lucide-react";
 import {
   startTransition,
@@ -40,6 +42,7 @@ import { ComposeSheet } from "@/components/compose-sheet";
 import { EventSheet } from "@/components/event-sheet";
 import { NovusLogo } from "@/components/novus-logo";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { WorkspaceCalendarPanel } from "@/components/workspace-calendar-panel";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -559,6 +562,7 @@ export function WorkspaceShell({ session, initialWorkspace, aiOperator }: Worksp
   const [shortcutsOpen, setShortcutsOpen] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [agendaCollapsed, setAgendaCollapsed] = useState(false);
+  const [agendaExpanded, setAgendaExpanded] = useState(false);
   const [threadLoading, setThreadLoading] = useState(false);
   const [loadingMoreThreads, setLoadingMoreThreads] = useState(false);
   const [panelPrefsReady, setPanelPrefsReady] = useState(false);
@@ -962,18 +966,23 @@ export function WorkspaceShell({ session, initialWorkspace, aiOperator }: Worksp
     setEventOpen(true);
   }
 
-  useHotkeys(
-    "/",
-    (event) => {
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
       if (!canHandleGlobalShortcut(event.target)) {
         return;
       }
 
-      event.preventDefault();
-      searchRef.current?.focus();
-    },
-    { enableOnFormTags: false },
-  );
+      if (event.key === "/") {
+        event.preventDefault();
+        searchRef.current?.focus();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
 
   useHotkeys(
     "meta+k, ctrl+k",
@@ -1326,7 +1335,9 @@ export function WorkspaceShell({ session, initialWorkspace, aiOperator }: Worksp
     "grid flex-1 grid-cols-1 overflow-hidden lg:grid-cols-[minmax(300px,360px)_1fr]",
     agendaCollapsed
       ? "xl:grid-cols-[minmax(300px,360px)_1fr_64px]"
-      : "xl:grid-cols-[minmax(300px,360px)_1fr_minmax(280px,320px)]",
+      : agendaExpanded
+        ? "xl:grid-cols-[minmax(300px,360px)_1fr_minmax(800px,950px)]"
+        : "xl:grid-cols-[minmax(300px,360px)_1fr_minmax(420px,500px)]",
   );
 
   return (
@@ -1938,8 +1949,8 @@ export function WorkspaceShell({ session, initialWorkspace, aiOperator }: Worksp
               <aside className="scroll-area-thin hidden overflow-y-auto border-l border-border/80 bg-muted/15 xl:block">
                 <div className="motion-enter-soft sticky top-0 z-10 flex items-center justify-between border-b border-border/80 bg-muted/80 px-4 py-3 backdrop-blur">
                   <div>
-                    <p className="text-xs font-medium text-muted-foreground">Agenda</p>
-                    <h2 className="text-sm font-semibold">Upcoming</h2>
+                    <p className="text-xs font-medium text-muted-foreground">Calendar</p>
+                    <h2 className="text-sm font-semibold">Visual runway</h2>
                   </div>
                   <div className="flex items-center gap-2">
                     <SortDropdown
@@ -1951,15 +1962,16 @@ export function WorkspaceShell({ session, initialWorkspace, aiOperator }: Worksp
                     <Button
                       type="button"
                       size="icon-sm"
-                      variant="outline"
-                      aria-label="New event"
-                      onClick={() => {
-                        setEventDraft(null);
-                        setEventPreset(null);
-                        setEventOpen(true);
-                      }}
+                      variant="ghost"
+                      aria-label={agendaExpanded ? "Collapse calendar width" : "Expand calendar width"}
+                      title={agendaExpanded ? "Collapse calendar width" : "Expand calendar width"}
+                      onClick={() => setAgendaExpanded(!agendaExpanded)}
                     >
-                      <CalendarPlusIcon className="size-4" />
+                      {agendaExpanded ? (
+                        <Minimize2 className="size-4" />
+                      ) : (
+                        <Maximize2 className="size-4" />
+                      )}
                     </Button>
                     <Button
                       type="button"
@@ -1974,50 +1986,20 @@ export function WorkspaceShell({ session, initialWorkspace, aiOperator }: Worksp
                   </div>
                 </div>
 
-                <div className="space-y-5 px-4 py-4">
-                  {agendaGroups.some((group) => group.items.length > 0) ? (
-                    agendaGroups.map((group) =>
-                      group.items.length > 0 ? (
-                        <section key={group.label}>
-                          <div className="mb-2 flex items-center justify-between">
-                            <h3 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                              {group.label}
-                            </h3>
-                            <span className="text-xs text-muted-foreground">{group.items.length}</span>
-                          </div>
-                          <div className="space-y-2">
-                            {group.items.map((event, index) => (
-                              <button
-                                type="button"
-                                key={event.id}
-                                style={{ animationDelay: `${Math.min(index, 5) * 35}ms` }}
-                                onClick={() => {
-                                  setEventPreset(null);
-                                  setEventDraft(event);
-                                  setEventOpen(true);
-                                }}
-                                className="motion-enter-soft w-full rounded-lg border border-border bg-card p-3 text-left outline-none hover:border-primary/30 hover:bg-accent focus-visible:ring-2 focus-visible:ring-ring"
-                              >
-                                <strong className="block truncate text-sm font-medium">{event.summary}</strong>
-                                <p className="mt-0.5 text-xs text-primary">{formatEventDate(event.start)}</p>
-                                <span className="mt-1 block truncate text-[0.7rem] text-muted-foreground">
-                                  {event.attendees.join(", ") || "No attendees yet"}
-                                </span>
-                              </button>
-                            ))}
-                          </div>
-                        </section>
-                      ) : null,
-                    )
-                  ) : (
-                    <div className="flex flex-col items-center justify-center gap-1 py-12 text-center">
-                      <h2 className="motion-enter-soft text-sm font-semibold">No events yet.</h2>
-                      <p className="text-xs text-muted-foreground">
-                        Create the next meeting from the rail or a thread.
-                      </p>
-                    </div>
-                  )}
-                </div>
+                <WorkspaceCalendarPanel
+                  events={events}
+                  agendaSections={agendaGroups}
+                  onCreateEvent={(preset) => {
+                    setEventDraft(null);
+                    setEventPreset(preset ?? null);
+                    setEventOpen(true);
+                  }}
+                  onSelectEvent={(event) => {
+                    setEventPreset(null);
+                    setEventDraft(event);
+                    setEventOpen(true);
+                  }}
+                />
               </aside>
             )}
           </div>
