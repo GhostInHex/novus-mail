@@ -501,38 +501,40 @@ function FinalCta() {
 
 function LandingFooter() {
   return (
-    <footer className="border-t border-sidebar-border bg-[#050410]/85 py-16 text-sidebar-foreground/60">
+    <footer className="border-t border-white/10 bg-[#050410] py-16 text-zinc-400">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <div className="grid gap-10 md:grid-cols-[1fr_minmax(auto,300px)]">
           <div className="space-y-4">
-            <BrandMark tone="inverted" />
-            <p className="max-w-xs text-sm leading-relaxed text-sidebar-foreground/50">
+            <div className="text-white">
+              <BrandMark tone="inverted" />
+            </div>
+            <p className="max-w-xs text-sm leading-relaxed text-zinc-500">
               A fresh command center for operators who live in the queue. 
               Manage email and calendar context from a single surface.
             </p>
           </div>
           <div className="grid grid-cols-2 gap-8 sm:gap-16">
             <div className="space-y-3">
-              <p className="text-xs font-semibold uppercase tracking-wider text-sidebar-foreground/80">Product</p>
+              <p className="text-xs font-semibold uppercase tracking-wider text-white">Product</p>
               <ul className="space-y-2 text-sm">
-                <li><a href="#product" className="hover:text-sidebar-foreground transition-colors">Workspace</a></li>
-                <li><a href="#workflow" className="hover:text-sidebar-foreground transition-colors">Triage Flow</a></li>
-                <li><a href="#control" className="hover:text-sidebar-foreground transition-colors">AI Controls</a></li>
+                <li><a href="#product" className="hover:text-white transition-colors text-zinc-400">Workspace</a></li>
+                <li><a href="#workflow" className="hover:text-white transition-colors text-zinc-400">Triage Flow</a></li>
+                <li><a href="#control" className="hover:text-white transition-colors text-zinc-400">AI Controls</a></li>
               </ul>
             </div>
             <div className="space-y-3">
-              <p className="text-xs font-semibold uppercase tracking-wider text-sidebar-foreground/80">Legal & Support</p>
+              <p className="text-xs font-semibold uppercase tracking-wider text-white">Legal & Support</p>
               <ul className="space-y-2 text-sm">
-                <li><Link href={ROUTES.privacy} className="hover:text-sidebar-foreground transition-colors">Privacy Policy</Link></li>
-                <li><Link href={ROUTES.terms} className="hover:text-sidebar-foreground transition-colors">Terms of Service</Link></li>
-                <li><a href="mailto:vinayrpdev@gmail.com" className="hover:text-sidebar-foreground transition-colors">Contact Support</a></li>
+                <li><Link href={ROUTES.privacy} className="hover:text-white transition-colors text-zinc-400">Privacy Policy</Link></li>
+                <li><Link href={ROUTES.terms} className="hover:text-white transition-colors text-zinc-400">Terms of Service</Link></li>
+                <li><a href="mailto:vinayrpdev@gmail.com" className="hover:text-white transition-colors text-zinc-400">Contact Support</a></li>
               </ul>
             </div>
           </div>
         </div>
-        <div className="mt-16 flex flex-col gap-4 border-t border-sidebar-border/20 pt-8 text-center text-xs sm:flex-row sm:justify-between sm:text-left">
+        <div className="mt-16 flex flex-col gap-4 border-t border-white/5 pt-8 text-center text-xs sm:flex-row sm:justify-between sm:text-left text-zinc-500">
           <p>&copy; {new Date().getFullYear()} NovusMail. All rights reserved.</p>
-          <p className="text-sidebar-foreground/45">Powered by Corsair integrations.</p>
+          <p className="text-zinc-600">Powered by Corsair integrations.</p>
         </div>
       </div>
     </footer>
