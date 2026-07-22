@@ -1,197 +1,140 @@
 # NovusMail
 
-NovusMail is a keyboard-first Gmail and Google Calendar workspace built for people who live in the queue. It combines inbox triage, thread actions, scheduling, command-driven workflows, and guarded AI assistance in one focused product surface.
+**A keyboard-first workspace for Gmail and Google Calendar.** NovusMail helps people work through their inbox, manage their schedule, and use AI assistance without giving up control of important actions.
 
-This is no longer just a dev spike or hackathon shell. The app in this repository ships a real product experience: authentication, tenant-scoped Google connections, a working multi-panel workspace, live sync, local search, compose and scheduling flows, and a production deployment path.
+[Open the live app](https://novus.vinayrp.in) | [Watch the demo](https://cap.so/s/7mzq85nxce9der6) | [View the source](https://github.com/GhostInHex/novus-mail/)
 
-## Product status
+![NovusMail landing page](./docs/screenshots/landing.png)
 
-NovusMail is a full product built on top of Corsair:
+## Why NovusMail
 
-- Real Gmail and Google Calendar integrations, not mocked data
-- Multi-tenant runtime with tenant-scoped sessions and credentials
-- Postgres-backed cache for speed, prioritization, and search
-- Proposal-based AI assistant with explicit approval before any send or event creation
-- Vercel + Neon deployment path with production hardening already in place
+Email is where work arrives; calendars are where it gets committed. Switching between inboxes, scheduling tools, and AI chat windows adds friction to both. NovusMail brings those surfaces together in one focused, multi-panel workspace built for people who prefer speed, context, and keyboard control.
 
-## What ships today
+The product treats AI as a copilot, not an autopilot: it can search, summarize context, draft a reply, or propose a meeting, but a user explicitly confirms every email send or calendar creation.
 
-- Unified workspace for inbox, thread detail, and upcoming calendar context
-- Focus, unread, starred, later, and all-mail views with priority-aware ordering
-- Thread actions for reply, archive, unarchive, star, read/unread, trash, and compose
-- Calendar event creation and update flows from the agenda rail or from an email thread
-- Command palette for search, send, schedule, and combined workflow actions
-- Agent Chat that can search the inbox, read threads, inspect the agenda, draft emails, and propose events in natural language
-- Lightning Search powered by Postgres full-text search, with live Gmail fallback when needed
-- Live refresh through webhooks, SSE, and a polling fallback that still works on serverless infrastructure
-- Google sign-in for real identity, with email-only login kept as a development/demo fallback
-- Keyboard-first navigation with shortcuts across search, commands, compose, reply, scheduling, and thread movement
+## What you can do
 
-## Product experience
+- Triage Gmail with focused, unread, starred, later, and all-mail views
+- Read and act on full email threads: reply, archive, star, mark read/unread, or trash
+- Compose email and create or update Calendar events without leaving the workspace
+- Keep the inbox, thread context, and upcoming agenda visible together
+- Use a command palette to search mail, send messages, schedule meetings, or run a meeting-plus-follow-up workflow
+- Ask the optional AI operator to search the inbox, read a thread, inspect the agenda, draft an email, or propose an event
+- Search locally cached mail at high speed, then fall back to live Gmail for a complete search
+- Receive live Gmail and Calendar updates through webhooks and server-sent events
 
-1. Sign in from the landing flow.
-2. Connect Gmail and Google Calendar for the tenant-scoped workspace.
-3. Work from a single deck that keeps the queue, message detail, and agenda visible together.
-4. Use commands or the AI operator when you want help searching, drafting, or scheduling.
-5. Confirm any email send or event creation before it leaves the app.
+## Product flow
 
-The core product promise is simple: AI can prepare work, but the user stays in control of every irreversible action.
+1. Sign in and connect Gmail and Google Calendar.
+2. Work through priority-aware inbox views alongside the day's agenda.
+3. Use keyboard shortcuts, commands, or the AI operator to move quickly.
+4. Review and confirm any action that sends email or changes the calendar.
 
-## Architecture
+## Product tour
 
-- Frontend: Next.js 16, React 19, TypeScript
-- Integrations: Corsair with Gmail and Google Calendar plugins
-- Data layer: Postgres locally or Neon in hosted environments
-- ORM and schema: Drizzle
-- Search: local `tsvector` + GIN full-text search over cached mail and calendar data
-- Realtime: webhook-triggered refresh, SSE push, and sync timestamp polling fallback
-- Auth model: Google identity for sign-in, tenant-specific Google data access for Gmail and Calendar
+### One workspace for the inbox and calendar
 
-## Production foundations already in place
+The primary workspace keeps a priority-aware message queue, the active thread, and calendar context in view at the same time.
 
-- Fail-fast environment validation in production
-- Health endpoint at `/api/health`
-- Postgres-backed rate limiting for auth, agent, command, send, event, and webhook routes
-- Webhook token verification and duplicate delivery protection
-- Automated Gmail and Calendar watch renewal through `vercel.json` cron and `CRON_SECRET`
-- Structured server logging and safer production error handling
-- Explicit confirmation path for agent-generated emails and calendar actions
+![NovusMail inbox, thread, and calendar workspace](./docs/screenshots/workspace.png)
+
+### Command-driven workflows
+
+The command console turns natural language and Gmail search operators into fast searches, emails, scheduled meetings, and combined follow-up workflows.
+
+![NovusMail command console](./docs/screenshots/command-console.png)
+
+### AI assistance with user approval
+
+The AI operator can inspect the inbox and agenda, then draft or propose work for review. Nothing is sent or scheduled without an explicit confirmation.
+
+![NovusMail AI assistant](./docs/screenshots/ai-assistant.png)
+
+### Create calendar events in context
+
+Schedule a meeting directly from the workspace without losing the email thread or calendar context that prompted it.
+
+![NovusMail new event dialog](./docs/screenshots/new-event.png)
+
+### Personalize the workspace
+
+Built-in light and dark theme presets make the command deck comfortable across different working environments.
+
+![NovusMail theme presets](./docs/screenshots/theme-presets.png)
+
+## Built for a real integration, not a mockup
+
+NovusMail connects to live Google data through Corsair's Gmail and Google Calendar plugins. Each user gets a tenant-scoped workspace and credential set, so inbox, calendar, cache, and realtime updates remain isolated.
+
+The app reads from a Postgres-backed synced cache first for a fast experience. Live Google API calls are used for writes and as a fallback when cached data is unavailable. Full-text search uses PostgreSQL `tsvector` and a GIN index, while webhook-triggered sync events notify the browser through SSE.
+
+## Tech stack
+
+| Area | Technology |
+| --- | --- |
+| Application | Next.js 16, React 19, TypeScript |
+| Styling and UI | Tailwind CSS, Radix UI, cmdk, Lucide |
+| Google integrations | Corsair, Gmail plugin, Google Calendar plugin |
+| Data | PostgreSQL, Drizzle ORM |
+| Search | PostgreSQL full-text search (`tsvector` + GIN) |
+| Realtime | Google webhooks, Server-Sent Events, polling fallback |
+| AI | Provider-neutral OpenAI-compatible chat-completions client |
+| Deployment | Vercel-ready application with Neon-compatible Postgres |
+
+## Core engineering decisions
+
+- **Safe AI actions:** The agent has immediate access only to read tools. Draft-email and propose-event tools return a reviewable proposal; the existing validated API routes execute the confirmed action.
+- **Fast, resilient data access:** Cache-first reads keep everyday inbox work responsive. Gmail refresh is used only when needed, and a remote-search option covers mail beyond the local cache.
+- **Multi-tenant by design:** The signed-in email derives the workspace tenant identifier, and every Corsair call runs inside that tenant boundary.
+- **Realtime with graceful degradation:** Webhooks refresh synchronized data, SSE updates active browsers, and polling remains available for serverless environments.
+- **Production-aware foundations:** Health checks, rate limiting, webhook verification, duplicate-delivery protection, structured logs, and scheduled watch renewal are included.
 
 ## Repository layout
 
-- Product app: `corsair-email/`
-- Production checklist: [`docs/deployment-checklist.md`](./docs/deployment-checklist.md)
-- Local env template: [`.env.example`](./.env.example)
-- Hosted env template: [`.env.production.example`](./.env.production.example)
+This repository has two independent projects:
 
-## Local development
+- `corsair-email/` - the NovusMail product: Next.js application, self-hosted Corsair runtime, and Postgres-backed workspace.
+- Root scripts - a small hosted-Corsair provisioning harness used to inspect or provision hosted development resources. It is separate from the app and its data.
 
-Run everything from `corsair-email`.
+Most contributors will work from `corsair-email/`.
 
-### 1. Install dependencies
+## Run locally
+
+Prerequisites: Node.js 20.9+, Docker, a Google OAuth client, and a PostgreSQL instance (Docker Compose supplies one locally).
 
 ```bash
+cd corsair-email
 npm install
-```
-
-### 2. Start local Postgres
-
-```bash
 docker compose up -d
 ```
 
-### 3. Create your local env file
-
-PowerShell:
+Create the local environment file:
 
 ```powershell
 Copy-Item .env.example .env.local
 ```
 
-macOS / Linux:
-
-```bash
-cp .env.example .env.local
-```
-
-### 4. Fill in the important env vars
-
-| Variable | Local example | Why it matters |
-| --- | --- | --- |
-| `CORSAIR_KEK` | `32+` byte random secret | Encrypts stored Google credentials. Keep it stable after setup. |
-| `SESSION_SECRET` | Long random secret | Signs the app session cookie. |
-| `DATABASE_URL` | `postgres://postgres:postgres@127.0.0.1:5432/corsair_email` | Connects the app and Corsair to Postgres. |
-| `NEXT_PUBLIC_APP_URL` | `http://localhost:3000` | Public app URL used by auth and cookies. |
-| `GOOGLE_OAUTH_CLIENT_ID` | `...apps.googleusercontent.com` | Enables Google sign-in and can also seed Gmail and Calendar OAuth locally. |
-| `GOOGLE_OAUTH_CLIENT_SECRET` | Google OAuth secret | Pairs with `GOOGLE_OAUTH_CLIENT_ID`. |
-| `AI_BASE_URL` | `https://api.openai.com/v1` | Optional. Enables the AI operator. |
-| `AI_API_KEY` | `sk-...` | Optional. API key for the chosen provider. |
-| `AI_MODEL` | `gpt-4o-mini` | Optional. Model id to use. |
-| `AI_OPERATOR_LABEL` | `AI` | Optional. Label shown in the agent UI. |
-
-Agent Chat is provider-neutral. Any OpenAI-compatible chat completions endpoint works, including OpenAI, xAI, Gemini's compatibility endpoint, Groq, OpenRouter, Mistral, Ollama, or LM Studio. Leave the `AI_*` vars blank if you want to run the product without the agent.
-
-### 5. Register the Google OAuth redirect URIs
-
-For sign-in:
-
-```text
-http://localhost:3000/api/auth/google/callback
-```
-
-For Gmail and Calendar connection:
-
-```text
-http://localhost:3000/api/auth/corsair/callback
-```
-
-If you reuse `GOOGLE_OAUTH_CLIENT_ID` and `GOOGLE_OAUTH_CLIENT_SECRET` for data access, the app can seed the Gmail and Calendar integration credentials automatically. You do not need a separate terminal auth flow for the normal browser-based connect experience.
-
-If you want separate OAuth clients for Gmail and Calendar, save them explicitly:
-
-```bash
-npm run corsair:setup -- --gmail client_id=YOUR_GOOGLE_CLIENT_ID client_secret=YOUR_GOOGLE_CLIENT_SECRET --googlecalendar client_id=YOUR_GOOGLE_CLIENT_ID client_secret=YOUR_GOOGLE_CLIENT_SECRET
-```
-
-### 6. Start the app
+Set `CORSAIR_KEK`, `SESSION_SECRET`, `DATABASE_URL`, and `NEXT_PUBLIC_APP_URL` in `.env.local`. Add Google OAuth credentials to sign in and connect Gmail/Calendar. AI is optional; configure `AI_BASE_URL`, `AI_API_KEY`, and `AI_MODEL` only when you want the AI operator enabled.
 
 ```bash
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+Then open [http://localhost:3000](http://localhost:3000). For the complete OAuth, webhook, and deployment setup, see the [app README](./corsair-email/README.md) and [deployment checklist](./corsair-email/docs/deployment-checklist.md).
 
-### 7. Complete the product flow
+## Useful commands
 
-- Sign in with Google, or use the local email-only path in development
-- Open the connect screen
-- Click `Connect Gmail`
-- Click `Connect Calendar`
-- Return to the dashboard once both integrations are live
-
-The workspace tenant id is derived from the signed-in email address. Example: `dave@company.com` becomes `dave-company-com`.
-
-## Useful scripts
+Run these from `corsair-email/`:
 
 ```bash
-npm run dev
-npm run build
-npm run start
-npm run typecheck
-npm run db:generate
-npm run db:push
-npm run corsair:setup
-npm run corsair:watch-renew
+npm run dev           # Start the development server
+npm run typecheck     # Type-check the app
+npm run test          # Run the test suite
+npm run build         # Create a production build
+npm run db:push       # Apply the Drizzle schema
+npm run corsair:setup # Store Gmail and Calendar OAuth client credentials
 ```
 
-## Webhooks and live sync
+## Demo and source
 
-The app accepts Google webhook deliveries at:
-
-```text
-/api/webhooks?tenantId=<tenant-id>&token=<WEBHOOK_SECRET>
-```
-
-On a valid webhook:
-
-- the tenant cache is refreshed
-- the browser receives a live refresh event over SSE
-- the polling fallback can still detect the new sync timestamps on serverless
-
-For local webhook testing, expose the app with a tunnel such as:
-
-```bash
-ngrok http 3000
-```
-
-Then use the public HTTPS URL as the webhook target when renewing watches.
-
-## Deploying the product
-
-The current production path is:
-
-- Vercel for the Next.js application
-- Neon for managed Postgres
-- Google OAuth clients for sign-in plus Gmail and Calendar data access
-
-Start with [`.env.production.example`](./.env.production.example), then follow [`docs/deployment-checklist.md`](./docs/deployment-checklist.md) for the full hosted setup, webhook configuration, cron renewal, and health-check flow.
+See the product in action in the [demo video](https://cap.so/s/7mzq85nxce9der6), try the [live deployment](https://novus.vinayrp.in), or explore the [GitHub repository](https://github.com/GhostInHex/novus-mail/).
