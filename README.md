@@ -4,7 +4,7 @@
 
 [Open the live app](https://novus.vinayrp.in) | [Watch the demo](https://cap.so/s/7mzq85nxce9der6) | [View the source](https://github.com/GhostInHex/novus-mail/)
 
-![NovusMail landing page](./docs/screenshots/landing.png)
+![NovusMail landing page](./docs/screenshots/landing.webp)
 
 ## Why NovusMail
 
@@ -36,31 +36,31 @@ The product treats AI as a copilot, not an autopilot: it can search, summarize c
 
 The primary workspace keeps a priority-aware message queue, the active thread, and calendar context in view at the same time.
 
-![NovusMail inbox, thread, and calendar workspace](./docs/screenshots/workspace.png)
+![NovusMail inbox, thread, and calendar workspace](./docs/screenshots/workspace.webp)
 
 ### Command-driven workflows
 
 The command console turns natural language and Gmail search operators into fast searches, emails, scheduled meetings, and combined follow-up workflows.
 
-![NovusMail command console](./docs/screenshots/command-console.png)
+![NovusMail command console](./docs/screenshots/command-console.webp)
 
 ### AI assistance with user approval
 
 The AI operator can inspect the inbox and agenda, then draft or propose work for review. Nothing is sent or scheduled without an explicit confirmation.
 
-![NovusMail AI assistant](./docs/screenshots/ai-assistant.png)
+![NovusMail AI assistant](./docs/screenshots/ai-assistant.webp)
 
 ### Create calendar events in context
 
 Schedule a meeting directly from the workspace without losing the email thread or calendar context that prompted it.
 
-![NovusMail new event dialog](./docs/screenshots/new-event.png)
+![NovusMail new event dialog](./docs/screenshots/new-event.webp)
 
 ### Personalize the workspace
 
 Built-in light and dark theme presets make the command deck comfortable across different working environments.
 
-![NovusMail theme presets](./docs/screenshots/theme-presets.png)
+![NovusMail theme presets](./docs/screenshots/theme-presets.webp)
 
 ## Built for a real integration, not a mockup
 
