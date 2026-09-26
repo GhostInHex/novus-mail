@@ -68,6 +68,14 @@ NovusMail connects to live Google data through Corsair's Gmail and Google Calend
 
 The app reads from a Postgres-backed synced cache first for a fast experience. Live Google API calls are used for writes and as a fallback when cached data is unavailable. Full-text search uses PostgreSQL `tsvector` and a GIN index, while webhook-triggered sync events notify the browser through SSE.
 
+## Architecture
+
+NovusMail runs as a Next.js frontend over API routes, a tenant-scoped workspace service, a self-hosted Corsair runtime that speaks to Gmail and Calendar, and a Postgres-backed cache that fronts every read. Realtime updates reach the browser over server-sent events.
+
+![NovusMail architecture](./corsair-email/docs/novusmail-architecture.svg)
+
+[Open the detailed, interactive architecture](./corsair-email/docs/novusmail-architecture.html) to explore every node and connection, inspect the verified source files behind each component, and trace how a message moves from Gmail to the workspace.
+
 ## Tech stack
 
 | Area | Technology |

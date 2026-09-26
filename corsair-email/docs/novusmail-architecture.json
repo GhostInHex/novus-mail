@@ -1,0 +1,165 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "NovusMail — Gmail and Calendar Workspace",
+    "quality_profile": "showcase",
+    "repository": {
+      "url": "https://github.com/GhostInHex/novus-mail",
+      "provider": "github",
+      "link_mode": "web",
+      "revision": "32001c6fd41d34432596cef9634790aa55dc3cff"
+    },
+    "legend": { "mode": "hidden" }
+  },
+  "layout": {
+    "mode": "grid",
+    "cols": 5,
+    "gapX": 70,
+    "gapY": 100,
+    "cellW": 110,
+    "cellH": 60
+  },
+  "components": [
+    {
+      "id": "ui",
+      "type": "frontend",
+      "label": "Workspace",
+      "sublabel": "inbox + agenda",
+      "row": 0,
+      "col": 0,
+      "size": [110, 60],
+      "sources": [{ "path": "corsair-email/src/components/workspace-shell.tsx" }]
+    },
+    {
+      "id": "api",
+      "type": "backend",
+      "label": "API Routes",
+      "sublabel": "HMAC session",
+      "brand": "next-js",
+      "row": 0,
+      "col": 1,
+      "size": [110, 60],
+      "sources": [{ "path": "corsair-email/src/server/route-helpers.ts" }]
+    },
+    {
+      "id": "service",
+      "type": "backend",
+      "label": "Workspace Service",
+      "sublabel": "cache-first reads",
+      "row": 0,
+      "col": 2,
+      "size": [110, 60],
+      "sources": [{ "path": "corsair-email/src/server/workspace.ts" }]
+    },
+    {
+      "id": "corsair",
+      "type": "backend",
+      "label": "Corsair Runtime",
+      "sublabel": "gmail + calendar",
+      "row": 0,
+      "col": 3,
+      "size": [110, 60],
+      "sources": [{ "path": "corsair-email/src/server/corsair-runtime.ts" }]
+    },
+    {
+      "id": "gmail",
+      "type": "external",
+      "label": "Gmail API",
+      "sublabel": "threads, send",
+      "row": 0,
+      "col": 4,
+      "size": [110, 60],
+      "sources": [
+        { "path": "corsair-email/src/server/workspace.ts", "line": 1919, "label": "messages.send" }
+      ]
+    },
+    {
+      "id": "agent",
+      "type": "backend",
+      "label": "AI Operator",
+      "sublabel": "read-only tools",
+      "row": 1,
+      "col": 2,
+      "size": [110, 60],
+      "sources": [{ "path": "corsair-email/src/server/agent.ts" }]
+    },
+    {
+      "id": "push",
+      "type": "external",
+      "label": "Google Push",
+      "sublabel": "Pub/Sub topic",
+      "row": 1,
+      "col": 1,
+      "size": [110, 60],
+      "sources": [{ "path": "corsair-email/src/app/api/webhooks/route.ts" }]
+    },
+    {
+      "id": "cache",
+      "type": "database",
+      "label": "Postgres",
+      "sublabel": "tsvector + GIN",
+      "brand": "postgresql",
+      "row": 1,
+      "col": 3,
+      "size": [110, 60],
+      "sources": [{ "path": "corsair-email/src/server/db/schema.ts" }]
+    },
+    {
+      "id": "calendar",
+      "type": "external",
+      "label": "Calendar API",
+      "sublabel": "push channels",
+      "row": 1,
+      "col": 4,
+      "size": [110, 60],
+      "sources": [
+        { "path": "corsair-email/src/server/workspace.ts", "line": 2060, "label": "events.create" }
+      ]
+    }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "Google APIs", "wraps": ["gmail", "calendar"] }
+  ],
+  "connections": [
+    { "id": "rest", "from": "ui", "to": "api", "label": "REST", "variant": "emphasis", "labelAt": [185, 206] },
+    { "id": "sse", "from": "api", "to": "ui", "label": "SSE", "labelAt": [185, 246] },
+    { "id": "route", "from": "api", "to": "service", "label": "workspace" },
+    { "id": "tenant", "from": "service", "to": "corsair", "label": "tenant" },
+    { "id": "mail", "from": "corsair", "to": "gmail", "label": "threads" },
+    { "id": "cal", "from": "corsair", "to": "calendar", "label": "events" },
+    { "id": "cache", "from": "service", "to": "cache", "label": "cache read" },
+    { "id": "hook", "from": "push", "to": "api", "label": "webhook", "variant": "dashed" },
+    { "id": "chat", "from": "api", "to": "agent", "label": "chat" },
+    { "id": "tools", "from": "agent", "to": "service", "label": "read tools" }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Cache-first reads",
+      "items": [
+        "Postgres thread and calendar cache behind every read",
+        "tsvector column with a GIN index powers local search",
+        "Live Gmail and Calendar calls cover writes and misses"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Realtime with a floor",
+      "items": [
+        "Shared-secret webhook gate, rate limited per tenant",
+        "Per-tenant refresh channel over SSE, 25s client poll",
+        "Cron renews Gmail and Calendar watches before expiry"
+      ]
+    },
+    {
+      "dot": "violet",
+      "title": "AI stays advisory",
+      "items": [
+        "Any OpenAI-compatible chat-completions endpoint",
+        "Read tools run inside the tenant, proposal tools do not",
+        "Sends and event writes run after explicit confirmation"
+      ]
+    }
+  ]
+}
