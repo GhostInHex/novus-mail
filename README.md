@@ -74,7 +74,7 @@ NovusMail runs as a Next.js frontend over API routes, a tenant-scoped workspace 
 
 ![NovusMail architecture](./corsair-email/docs/novusmail-architecture.svg)
 
-[Open the detailed, interactive architecture](./corsair-email/docs/novusmail-architecture.html) to explore every node and connection, inspect the verified source files behind each component, and trace how a message moves from Gmail to the workspace.
+[Open the detailed, interactive architecture](https://rococo-platypus-2e3831.netlify.app/) to explore every node and connection, inspect the verified source files behind each component, and trace how a message moves from Gmail to the workspace.
 
 ## Tech stack
 
