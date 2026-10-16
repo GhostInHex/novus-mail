@@ -80,3 +80,14 @@ Desktop.ini
 *.tmp
 *.swp
 *.swo
+
+# Brag / demo video outputs (local, regenerable)
+brag-output/
+brag-output-*/
+
+# Local preview / visual-check artifacts (regenerable)
+corsair-email/README.preview.md
+corsair-email/docs/novusmail-architecture.html
+corsair-email/docs/novusmail-architecture.visual-check.*
+netlify-live-check.png
+*-live-check.png
