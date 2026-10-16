@@ -17,7 +17,9 @@ const csp = [
   `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""}`,
   // Same-origin SSE (/api/stream) + dev websocket for HMR.
   `connect-src 'self'${isDev ? " ws: wss:" : ""}`,
-  "form-action 'self'",
+  // Must allow the OAuth 307 to accounts.google.com. 'self' alone aborts
+  // form/navigation redirects (form-action violation / ERR_ABORTED).
+  "form-action 'self' https://accounts.google.com",
 ]
   .join("; ")
   .concat(";");
