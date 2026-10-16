@@ -177,14 +177,16 @@ export function AccessPanel({
         </p>
       )}
 
+      {/* Full top-level navigation (anchor, not <form>): Next.js intercepts
+          <form action="/api/..."> as client-side fetch and cannot follow the
+          cross-origin 307 to accounts.google.com (net::ERR_ABORTED). */}
       {googleEnabled && (
-        <form action="/api/auth/google/start" method="get" className="mt-6">
-          <input type="hidden" name="redirectTo" value={ROUTES.dashboard} />
-          <Button type="submit" size="lg" variant="outline" className="h-11 w-full bg-background">
+        <Button asChild size="lg" variant="outline" className="mt-6 h-11 w-full bg-background">
+          <a href={`/api/auth/google/start?redirectTo=${encodeURIComponent(ROUTES.dashboard)}`}>
             <GoogleGlyph />
             Continue with Google
-          </Button>
-        </form>
+          </a>
+        </Button>
       )}
 
       {hasBothMethods && (
