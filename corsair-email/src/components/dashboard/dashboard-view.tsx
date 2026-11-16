@@ -598,6 +598,8 @@ export function DashboardView(p: Props) {
                         <button
                           type="button"
                           className="dashboard-earlier"
+                          aria-expanded={earlier}
+                          aria-controls="thread-earlier-messages"
                           onClick={() => setEarlier(!earlier)}
                         >
                           {earlier ? "Hide" : "Show"}{" "}
@@ -606,7 +608,7 @@ export function DashboardView(p: Props) {
                         </button>
                       )}
                       {earlier && (
-                        <div className="dashboard-earlier-messages">
+                        <div id="thread-earlier-messages" className="dashboard-earlier-messages">
                           {p.thread.messages.slice(0, -1).map((message) => (
                             <article key={message.id}>
                               <p>{message.from}</p>

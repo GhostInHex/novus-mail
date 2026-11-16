@@ -114,7 +114,7 @@
   cursor: pointer;
   transition:
     filter 150ms ease,
-    transform 150ms ease,
+    transform 100ms cubic-bezier(0.23, 1, 0.32, 1),
     box-shadow 150ms ease;
 }
 .nm-glaze::before {
@@ -154,12 +154,12 @@
     var(--nm-ascii-elevated);
   color: var(--nm-ascii-ink);
 }
-.nm-glaze:hover {
-  filter: brightness(1.08);
-  transform: translateY(-1px);
+@media (hover: hover) and (pointer: fine) {
+  .nm-glaze:hover { filter: brightness(1.08); }
 }
 .nm-glaze:active {
-  transform: translateY(1px);
+  transform: scale(0.97);
+  transition-duration: 160ms;
   box-shadow: inset 0 2px 4px var(--nm-ascii-shadow);
 }
 .nm-glaze:focus-visible {
@@ -195,7 +195,8 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .nm-glaze {
-    transition: none;
+    transition-property: opacity, color, background-color, border-color;
+    transition-duration: 200ms;
   }
   .nm-glaze:hover,
   .nm-glaze:active {
@@ -251,7 +252,8 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .nm-control {
-    transition: none;
+    transition-property: opacity, color, background-color, border-color;
+    transition-duration: 200ms;
   }
 }
 
@@ -414,10 +416,50 @@
   .landing-page *::before,
   .landing-page *::after {
     animation: none;
-    transition: none;
+    transition-property: opacity, color, background-color, border-color;
+    transition-duration: 200ms;
     scroll-behavior: auto;
   }
   .landing-page .group:hover img {
     transform: none;
   }
+}
+
+.landing-preview-reveal {
+  overflow: hidden;
+  opacity: 0;
+  transition: height var(--motion-duration-snappy) var(--motion-ease-out),
+    opacity var(--motion-duration-snappy) var(--motion-ease-out);
+}
+.landing-preview-reveal[data-open="true"] {
+  opacity: 1;
+  transition-duration: var(--motion-duration-panel), var(--motion-duration-snappy);
+}
+.landing-proposal-action { position: relative; }
+.landing-proposal-check {
+  position: absolute;
+  left: 12px;
+  opacity: 0;
+  transform: scale(0.97);
+  transition: opacity var(--motion-duration-snappy) var(--motion-ease-out),
+    transform var(--motion-duration-snappy) var(--motion-ease-out);
+}
+.landing-proposal-action[data-confirmed="true"] .landing-proposal-check {
+  opacity: 1;
+  transform: scale(1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .landing-proposal-check { transform: none !important; }
+}
+.landing-preview-reveal[data-instant="true"],
+.landing-proposal-action[data-instant="true"] .landing-proposal-check {
+  transition: none !important;
+}
+
+.landing-proposal-title { display: grid; }
+.landing-proposal-title > span { grid-area: 1 / 1; }
+.landing-proposal-action { padding-inline: 32px; }
+@media (pointer: coarse) {
+  .landing-page .nm-control,
+  .landing-page .nm-glaze { min-height: 44px; }
 }

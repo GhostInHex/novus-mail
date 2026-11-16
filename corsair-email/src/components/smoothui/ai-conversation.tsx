@@ -84,7 +84,7 @@ const AIConversation = ({
   // the reader never sees a flash of the pre-scroll position.
   useLayoutEffect(() => {
     if (isPinned) {
-      scrollToBottom(shouldReduceMotion ? "auto" : "smooth");
+      scrollToBottom("instant");
     }
   }, [contentKey, isPinned, scrollToBottom, shouldReduceMotion]);
 

@@ -78,7 +78,7 @@ export function CommandPalette({ open, activeThread, onClose, onRun }: Props) {
       open={open}
       onOpenChange={(value) => !value && !pending && onClose()}
     >
-      <DialogContent className="gap-0 overflow-hidden p-0 sm:max-w-[780px]">
+      <DialogContent instant className="gap-0 overflow-hidden p-0 sm:max-w-[780px]">
         <DialogHeader className="border-b border-border px-6 py-5">
           <DialogTitle className="flex items-center gap-2 text-xl">
             <TerminalIcon className="size-4" />

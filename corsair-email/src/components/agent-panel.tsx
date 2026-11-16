@@ -880,7 +880,7 @@ export function AgentPanel({
               <div
                 key={turn.id}
                 className={cn(
-                  "motion-enter-soft flex flex-col gap-2",
+                  "flex flex-col gap-2",
                   turn.role === "user" ? "items-end" : "items-start",
                 )}
               >

@@ -48,14 +48,18 @@ function DialogContent({
   className,
   children,
   showCloseButton = true,
+  instant = false,
   ...props
 }: React.ComponentProps<typeof DialogPrimitive.Content> & {
   showCloseButton?: boolean;
+  instant?: boolean;
 }) {
   return (
     <DialogPortal data-slot="dialog-portal">
-      <DialogOverlay />
+      <DialogOverlay transition={instant ? { duration: 0 } : undefined} exitTransition={instant ? { duration: 0 } : undefined} />
       <DialogPrimitive.Content
+        transition={instant ? { duration: 0 } : undefined}
+        exitTransition={instant ? { duration: 0 } : undefined}
         data-slot="dialog-content"
         className={cn(
           "fixed left-1/2 top-1/2 z-50 grid max-h-[calc(100dvh-2rem)] w-full max-w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 gap-4 overflow-y-auto rounded-lg border bg-background p-6 shadow-lg outline-none sm:max-w-lg",

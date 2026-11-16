@@ -23,7 +23,6 @@ import {
 import {
   type AIState,
   getAIStateAccentColor,
-  getAIStateMotion,
 } from "./ai-core";
 
 const SUBMIT_ICON_SIZE = 17;
@@ -92,14 +91,7 @@ const formatSize = (bytes: number): string => {
   return `${(bytes / megabyte).toFixed(1)} MB`;
 };
 
-/**
- * The prompt composer.
- *
- * Growth is animated with a layout spring rather than a CSS height transition,
- * so a pasted paragraph settles instead of snapping — and because the height is
- * measured from the textarea's own scroll height, the surrounding page never
- * reflows mid-keystroke.
- */
+/** The prompt composer resizes immediately as the user types. */
 const AIPromptInput = ({
   "aria-label": ariaLabel,
   attachments = [],
@@ -117,7 +109,6 @@ const AIPromptInput = ({
   value,
 }: AIPromptInputProps) => {
   const shouldReduceMotion = useReducedMotion();
-  const stateMotion = getAIStateMotion(state);
   const accentColor = getAIStateAccentColor(state, "transparent");
 
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
@@ -198,7 +189,6 @@ const AIPromptInput = ({
         disabled && "opacity-60",
         className,
       )}
-      layout={shouldReduceMotion ? false : "position"}
       style={
         {
           // The accent ring is the only place status shows here: a composer that
@@ -338,8 +328,6 @@ const AIPromptInput = ({
             disabled={disabled || !(canSubmit || isStreaming)}
             isStreaming={isStreaming}
             onClick={submit}
-            shouldReduceMotion={Boolean(shouldReduceMotion)}
-            speed={stateMotion.speed}
           />
         </div>
       </div>
@@ -351,70 +339,25 @@ type AIPromptSubmitProps = {
   disabled: boolean;
   isStreaming: boolean;
   onClick: () => void;
-  shouldReduceMotion: boolean;
-  speed: number;
 };
 
-const AIPromptSubmit = ({
-  disabled,
-  isStreaming,
-  onClick,
-  shouldReduceMotion,
-  speed,
-}: AIPromptSubmitProps) => (
-  <motion.button
+const AIPromptSubmit = ({ disabled, isStreaming, onClick }: AIPromptSubmitProps) => (
+  <button
     aria-label={isStreaming ? "Stop generating" : "Send message"}
     className={cn(
       "flex size-9 items-center justify-center rounded-xl",
-      disabled
-        ? "bg-muted text-muted-foreground"
-        : "bg-foreground text-background",
+      disabled ? "bg-muted text-muted-foreground" : "bg-foreground text-background",
     )}
     disabled={disabled}
     onClick={onClick}
-    transition={shouldReduceMotion ? { duration: 0 } : SPRING_DEFAULT}
     type="button"
-    whileHover={disabled || shouldReduceMotion ? undefined : { scale: 1.05 }}
-    whileTap={disabled || shouldReduceMotion ? undefined : { scale: 0.95 }}
   >
-    {/* Real lucide glyphs, swapped rather than morphed.
-        An earlier version interpolated one hand-authored `d` into another, which
-        bought a nice fold at the cost of not being a lucide icon at all — and a
-        filled wedge reads as "play", not "send". A thin stroked arrow is the
-        convention, and lucide's own geometry is what the rest of the library
-        uses. The swap is scale-and-fade so it still reads as one control. */}
-    <AnimatePresence initial={false} mode="popLayout">
-      <motion.span
-        animate={{ opacity: 1, scale: 1 }}
-        className="flex items-center justify-center"
-        exit={
-          shouldReduceMotion
-            ? { opacity: 0, transition: { duration: 0 } }
-            : { opacity: 0, scale: 0.6 }
-        }
-        initial={
-          shouldReduceMotion ? { opacity: 1 } : { opacity: 0, scale: 0.6 }
-        }
-        key={isStreaming ? "stop" : "send"}
-        transition={
-          shouldReduceMotion
-            ? { duration: 0 }
-            : { duration: 0.18 / speed, ease: EASE_OUT }
-        }
-      >
-        {isStreaming ? (
-          <Square
-            aria-hidden="true"
-            className="fill-current"
-            size={STOP_ICON_SIZE}
-            strokeWidth={0}
-          />
-        ) : (
-          <ArrowUp aria-hidden="true" size={SUBMIT_ICON_SIZE} />
-        )}
-      </motion.span>
-    </AnimatePresence>
-  </motion.button>
+    {isStreaming ? (
+      <Square aria-hidden="true" className="fill-current" size={STOP_ICON_SIZE} strokeWidth={0} />
+    ) : (
+      <ArrowUp aria-hidden="true" size={SUBMIT_ICON_SIZE} />
+    )}
+  </button>
 );
 
 export default AIPromptInput;
