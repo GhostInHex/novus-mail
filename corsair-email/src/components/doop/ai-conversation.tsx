@@ -1,7 +1,7 @@
-// Source: https://smoothui.dev/r/ai-conversation.json (MIT). Styled for NovusMail.
+// Scroll-follow behavior adapted from SmoothUI (MIT; see ./LICENSE). Doop presentation.
 "use client";
 
-import SmoothButton from "@/components/smoothui/smooth-button";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { ArrowDown } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
@@ -118,7 +118,6 @@ const AIConversation = ({
           const viewport = viewportRef.current;
           if (viewport)
             viewport.scrollTo({ top: viewport.scrollTop, behavior: "instant" });
-          setIsPinned(false);
         }}
         onWheelCapture={() => setIsPinned(false)}
         onScroll={measure}
@@ -144,20 +143,19 @@ const AIConversation = ({
             }
             transition={shouldReduceMotion ? { duration: 0 } : SPRING_DEFAULT}
           >
-            <SmoothButton
+            <Button
               aria-label="Jump to latest"
               className="border border-border bg-background/90 py-1.5 pr-3 pl-2.5 text-xs shadow-sm backdrop-blur"
               onClick={() =>
                 scrollToBottom(shouldReduceMotion ? "auto" : "smooth")
               }
-              shape="pill"
               size="xs"
               type="button"
               variant="outline"
             >
               <ArrowDown aria-hidden="true" size={13} />
               Jump to latest
-            </SmoothButton>
+            </Button>
           </motion.div>
         )}
       </AnimatePresence>

@@ -1,7 +1,7 @@
 "use client";
 
 import { ArrowUpRight } from "lucide-react";
-import type { AISuggestion } from "@/components/smoothui/ai-suggestions";
+import type { DoopSuggestion as AISuggestion } from "./ai-suggestions";
 import "./ai-welcome.css";
 
 /** AI Welcome Content from Doop sa5ThibhQK / 0XY1pUt-1N. */

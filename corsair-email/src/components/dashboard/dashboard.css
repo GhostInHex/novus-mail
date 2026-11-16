@@ -557,9 +557,6 @@
 .dashboard-embedded-assistant > header button {
   color: var(--muted-foreground);
 }
-.dashboard-embedded-assistant .doop-ai-suggestions button {
-  font-size: 12px;
-}
 @media (max-width: 1199px) {
   .dashboard-toolbar {
     grid-template-columns: 160px minmax(240px, 480px) 1fr;

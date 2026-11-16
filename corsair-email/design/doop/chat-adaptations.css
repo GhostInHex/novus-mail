@@ -1,0 +1,56 @@
+:root { --warning-background: #fbf0d9; --warning-foreground: #8a5a00; }
+.dark { --warning-background: #463c2b; --warning-foreground: #f0cf8a; }
+/* Interactive semantics and responsive constraints for the source artboards. */
+.doop-source-message { max-width: 100%; font-size: 14px; line-height: 1.57143; overflow-wrap: anywhere; }
+.doop-source-message[data-from="assistant"] { color: var(--foreground); }
+.doop-source-message[data-from="user"] { max-width: min(580px, 100%); }
+.doop-source-message p { margin: 0; white-space: pre-wrap; }
+.doop-source-artifact { width: 100%; min-width: 0; overflow: hidden; }
+.doop-source-artifact .doop-proposal-body { display: flex; flex-direction: column; gap: 16px; }
+.doop-source-artifact .doop-proposal-body > p { line-height: 1.57143; }
+.doop-source-artifact .doop-proposal-body > div:last-child { gap: 12px; padding-top: 8px; }
+.doop-source-artifact .doop-proposal-body [data-slot="input"] { width: 100%; min-height: 49px; padding: 12px; }
+.doop-source-artifact .doop-proposal-body [data-slot="textarea"] { width: 100%; min-height: 135px; padding: 12px; }
+.doop-source-tool { font-size: 12px; color: var(--success); }
+.doop-source-tool[data-state="running"] { color: var(--muted-foreground); }
+.doop-source-tool svg { flex-shrink: 0; }
+.doop-agent-composer .doop-source-prompt { display: flex; gap: 16px; min-height: 60px; }
+.doop-agent-composer .doop-source-prompt textarea { flex: 1; width: 100%; min-width: 0; resize: none; background: transparent; border: 0; outline: 0; font: inherit; line-height: 1.5; padding: 0 !important; color: var(--foreground); }
+.doop-agent-composer .doop-source-prompt:focus-within { outline: 2px solid var(--ring); outline-offset: 2px; }
+.doop-agent-composer .doop-source-prompt button { flex-shrink: 0; display: grid; place-items: center; cursor: pointer; }
+.doop-source-history { display: flex; flex-direction: column; gap: 24px; }
+.doop-source-history > header { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+.doop-source-history h3 { font-size: 23px; font-weight: 500; letter-spacing: -.575px; line-height: 1.26087; }
+.doop-source-history h4 { font-size: 13px; font-weight: 400; color: var(--muted-foreground); margin-bottom: 12px; }
+.doop-source-history > header > div { display: flex; gap: 8px; }
+.doop-source-history > header button { padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 13px; }
+.doop-source-history .doop-source-results button { width: 100%; text-align: left; min-width: 0; }
+.doop-source-history .doop-source-results button[aria-current="true"] { background: var(--accent); }
+.doop-source-result-details { min-width: 0; }
+.doop-source-result-details strong { overflow-wrap: anywhere; }
+.doop-source-history svg { flex-shrink: 0; }
+.doop-source-suggestions { list-style: none; padding: 0; }
+.doop-source-suggestions li { width: 100%; }
+.doop-source-suggestions button { width: 100%; text-align: left; font-size: 14px; }
+.doop-source-suggestions button span { flex: 1; }
+.doop-source-suggestions svg { flex-shrink: 0; }
+.doop-source-approval { border: 1px solid var(--border); border-radius: 12px; display: flex; flex-direction: column; gap: 16px; }
+.doop-source-approval h3 { display: flex; align-items: center; gap: 12px; }
+.doop-source-approval p { line-height: 1.57143; margin: 0 0 16px; }
+.doop-source-approval footer { display: flex; gap: 12px; flex-wrap: wrap; }
+.doop-source-approval button { border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px; color: inherit; background: var(--card); }
+.doop-source-approval button[data-primary="true"] { background: var(--glaze-base); color: var(--glaze-ink); border-radius: 999px; }
+.doop-source-history button, .doop-source-approval button, .doop-source-suggestions button { cursor: pointer; }
+.doop-source-history button:hover, .doop-source-suggestions button:hover { background: var(--accent); }
+.doop-source-history button:focus-visible, .doop-source-approval button:focus-visible, .doop-source-prompt button:focus-visible, .doop-source-suggestions button:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+.doop-source-prompt button:disabled, .doop-source-suggestions button:disabled { opacity: .5; cursor: default; }
+@media (max-width: 639px) {
+  .doop-source-history > header { flex-wrap: wrap; }
+  .doop-source-approval { padding: 16px; }
+  .doop-source-artifact .doop-proposal-body { padding: 16px; }
+}
+
+.doop-agent-triage .doop-source-results { display: flex; flex-direction: column; gap: 8px; padding: 0 20px 20px; }
+.doop-agent-triage .doop-source-results button { display: flex; align-items: center; border: 1px solid var(--border); border-radius: 8px; padding: 12px; gap: 12px; width: 100%; text-align: left; }
+.doop-agent-triage .doop-source-results svg { flex-shrink: 0; }
+.doop-agent-triage .doop-source-results button > span:last-child { color: inherit; font-size: inherit; }

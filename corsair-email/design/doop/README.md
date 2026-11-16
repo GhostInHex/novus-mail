@@ -27,6 +27,15 @@ These mappings identify implementation ownership; they do not certify identical 
 
 ## AI chat import
 
-AI chat itself is inline in the screen frames, rather than a named library component. `src/components/doop/ai-welcome.tsx` and its generated CSS import the welcome layout, title, description, suggestion rows, and assistant title styling. Conversation streaming, tools, proposals, history, and composer continue to use their existing functional React components. Those remaining components have not been replaced one to one by this import.
+AI chat itself is inline in the screen frames, rather than a named library component. `src/components/doop/ai-welcome.tsx` and its generated CSS import the welcome layout, title, description, suggestion rows, and assistant title styling. Messages, email/event proposals and their editors, tool activity, history, approval, suggestions, and composer now use the Doop components in src/components/doop. Existing state, API handlers, streaming, history persistence, and explicit action approval remain connected. The scrolling behavior is adapted from the MIT-licensed implementation, with attribution retained in src/components/doop/LICENSE. The unused SmoothUI presentation components were removed.
 
 Local `.env` and `.env.local` were copied from the master checkout, remain ignored, and must never be added to this source directory.
+
+
+## Complete assistant source conversion
+
+Twenty current assistant artboards (ten states, each light/dark) are pinned under `screens/`. `node scripts/import-doop-chat.mjs` extracts declarations from named source nodes for message bubbles, activity, cards, proposal title/status/actions/fields, history rows/details, composer, suggestions, retry, and approval. Each generated CSS rule records its frame ID and source selector. `chat-adaptations.css` contains semantic-control, focus, resizing, and mobile constraints needed to make static artboards interactive.
+
+The user-message and proposal contents are live data, not the artboards' example text. History timestamps and message counts come from saved conversations. The composer supports IME composition, multiline input, resizing, explicit send, and stop. Source plus and arrow icons are preserved; the plus is decorative because attachments are not supported by the API.
+
+Validation: typecheck, eight unit tests, production build, the workspace behavior suite, and 46 light/dark panel captures passed during this conversion. UI suites use mocked assistant/write responses and do not send live email or create live Google events. Passing these checks proves the implemented flows and geometry checks; it is not a claim that every app pixel equals a static reference with different content.

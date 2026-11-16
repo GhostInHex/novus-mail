@@ -25,7 +25,7 @@ Content comes from the existing application data. Missing Google configuration d
 
 ## Component integration
 
-SmoothUI components were obtained from its official registry and are vendored under `src/components/smoothui`. The original component behavior and animations remain. The integration uses conversation scrolling, messages, suggestions, tool activity, artifacts, approval, prompt input, and loading states. The upstream MIT license is included alongside the source.
+The assistant presentation is implemented in `src/components/doop` from the current Doop source artboards. It covers conversation messages, suggestions, tool activity, proposal cards and editors, approval, prompt input, history, triage, and retry states. Source declarations are extracted by the import scripts; pinned artboards and mappings live in `design/doop`. Scroll-follow behavior retains MIT attribution alongside the components. Unused SmoothUI presentation components were removed.
 
 Animate UI is installed as `@animate-ui/react`. Its actual primitives power the sidebar, collapsibles, calendar tabs, dialogs, switches, menus, and tooltips. `src/app/doop-theme.css` applies the shared Doop styling. Motion respects the operating system's reduced-motion preference. Theme persistence uses `next-themes`; completion feedback uses Sonner, and the command picker uses cmdk.
 
@@ -80,7 +80,7 @@ All eight landscape assets use lossless WebP at their original dimensions. The d
 
 ## Dashboard replacement
 
-The dashboard renderer and styles now live in `src/components/dashboard`. The former dashboard JSX and theme overrides were removed. The inbox uses the Doop sender/subject rows, plain reader, reply actions, and suggested next step. Compose opens inline with the existing SmoothUI assistant beside it. The agenda uses compact event rows, and the dedicated calendar view has month/week tabs and selectable dates. The full calendar uses the bordered Doop week grid; empty time slots open an event with the selected date and time. Today starts on the current date, including when demo events are from an older month.
+The dashboard renderer and styles now live in `src/components/dashboard`. The former dashboard JSX and theme overrides were removed. The inbox uses the Doop sender/subject rows, plain reader, reply actions, and suggested next step. Compose opens inline with the Doop assistant beside it. The agenda uses compact event rows, and the dedicated calendar view has month/week tabs and selectable dates. The full calendar uses the bordered Doop week grid; empty time slots open an event with the selected date and time. Today starts on the current date, including when demo events are from an older month.
 
 `verify:dashboard` checks legacy UI removal, fixed folder navigation, date selection, reduced-motion tab visibility, inline compose, time-slot presets, and mobile navigation. `verify:panels` checks all major panel families in both themes. See [DOOP_AUDIT.md](DOOP_AUDIT.md) for source IDs, corrections, evidence, and the remaining intentional differences.
 

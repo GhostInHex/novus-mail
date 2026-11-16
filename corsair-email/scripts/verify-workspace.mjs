@@ -230,7 +230,7 @@ try {
     path: "../artifacts/assistant-draft-dark.png",
     fullPage: true,
   });
-  log("SmoothUI messages, tools, artifacts, and editable draft proposals");
+  log("Doop messages, tools, artifacts, and editable draft proposals");
   await dialog.getByRole("button", { name: "Send reply", exact: true }).click();
   await expect(dialog.getByText("Sent", { exact: true })).toBeVisible();
   log("explicit proposal approval handles a mocked successful send");

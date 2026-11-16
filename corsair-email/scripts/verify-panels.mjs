@@ -354,7 +354,7 @@ try {
       "[role=dialog]",
     );
     await dialog
-      .locator(".doop-agent-history")
+      .locator(".doop-source-history")
       .getByRole("button", { name: "Close", exact: true })
       .click();
     await page.unroute("**/api/agent");
