@@ -58,9 +58,9 @@ Schedule a meeting directly from the workspace without losing the email thread o
 
 ### Personalize the workspace
 
-Built-in light and dark theme presets make the command deck comfortable across different working environments.
+The Doop frontend includes coordinated light and dark themes across the inbox, calendar, composer, and assistant.
 
-![NovusMail theme presets](./docs/screenshots/theme-presets.webp)
+Frontend implementation and verification details: [Doop implementation](./corsair-email/docs/DOOP_IMPLEMENTATION.md) and [design audit](./corsair-email/docs/DOOP_AUDIT.md).
 
 ## Built for a real integration, not a mockup
 

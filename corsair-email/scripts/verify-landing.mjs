@@ -1,3 +1,4 @@
+const BASE_URL = process.env.BASE_URL || "http://localhost:3100";
 import { chromium } from "@playwright/test";
 import { mkdir } from "node:fs/promises";
 const browser = await chromium.launch({ channel: "chrome", headless: true });
@@ -7,7 +8,7 @@ const errors = [];
 page.on("pageerror", (e) => errors.push(e.message));
 await mkdir("../artifacts", { recursive: true });
 try {
-  await page.goto("http://localhost:3100");
+  await page.goto(BASE_URL + "");
   await page.locator(".landing-page").waitFor();
   await page.evaluate(() => document.fonts.ready);
   for (const mode of ["dark", "light"]) {

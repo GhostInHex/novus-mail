@@ -1,6 +1,7 @@
 // Source: https://smoothui.dev/r/ai-suggestions.json (MIT). Styled for NovusMail.
 "use client";
 
+import { ArrowUpRight } from "lucide-react";
 import SmoothButton from "@/components/smoothui/smooth-button";
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
@@ -20,6 +21,7 @@ export type AISuggestion = {
 
 export type AISuggestionsProps = {
   className?: string;
+  disabled?: boolean;
   /** Optional heading, e.g. "Follow-ups". */
   label?: string;
   onSelect?: (suggestion: AISuggestion) => void;
@@ -47,6 +49,7 @@ const centreOutOrder = (count: number): number[] => {
  */
 const AISuggestions = ({
   className,
+  disabled = false,
   label,
   onSelect,
   suggestions,
@@ -92,14 +95,19 @@ const AISuggestions = ({
               }
             >
               <SmoothButton
+                disabled={disabled}
                 className="h-auto px-3 py-1.5 font-normal"
                 onClick={() => onSelect?.(suggestion)}
-                shape="pill"
+                shape="default"
                 size="sm"
                 type="button"
                 variant="outline"
               >
                 {suggestion.label}
+                <ArrowUpRight
+                  aria-hidden="true"
+                  className="ml-auto size-4 shrink-0"
+                />
               </SmoothButton>
             </motion.li>
           ))}

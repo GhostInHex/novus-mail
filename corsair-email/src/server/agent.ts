@@ -3,11 +3,17 @@ import type {
   AgentChatContext,
   AgendaEvent,
   InboxTriageMode,
+  InboxTriageResult,
   SessionUser,
 } from "@/lib/types";
 import type { AiMessage, AiTool, AiToolCall } from "@/server/ai";
 import { aiChat } from "@/server/ai";
-import { getThreadDetail, refreshCalendar, searchThreadsLocal, triageInbox } from "@/server/workspace";
+import {
+  getThreadDetail,
+  refreshCalendar,
+  searchThreadsLocal,
+  triageInbox,
+} from "@/server/workspace";
 
 /**
  * Conversational agent over the tenant's Corsair-backed Gmail + Calendar.
@@ -20,7 +26,13 @@ import { getThreadDetail, refreshCalendar, searchThreadsLocal, triageInbox } fro
  */
 
 export type AgentProposal =
-  | { kind: "email"; to: string; subject: string; body: string; threadId?: string }
+  | {
+      kind: "email";
+      to: string;
+      subject: string;
+      body: string;
+      threadId?: string;
+    }
   | {
       kind: "event";
       summary: string;
@@ -33,6 +45,7 @@ export type AgentProposal =
 
 export type AgentEvent =
   | { type: "tool"; label: string }
+  | { type: "triage"; result: InboxTriageResult }
   | { type: "proposal"; proposal: AgentProposal }
   | { type: "assistant"; content: string };
 
@@ -74,7 +87,8 @@ const TOOLS: AiTool[] = [
           },
           query: {
             type: "string",
-            description: "Optional search query, especially for summarize_threads.",
+            description:
+              "Optional search query, especially for summarize_threads.",
           },
           threadIds: {
             type: "array",
@@ -99,7 +113,11 @@ const TOOLS: AiTool[] = [
       parameters: {
         type: "object",
         properties: {
-          query: { type: "string", description: "Search keywords or a Gmail query like 'from:alice unread'." },
+          query: {
+            type: "string",
+            description:
+              "Search keywords or a Gmail query like 'from:alice unread'.",
+          },
         },
         required: ["query"],
       },
@@ -109,11 +127,15 @@ const TOOLS: AiTool[] = [
     type: "function",
     function: {
       name: "read_thread",
-      description: "Read the full body and messages of one thread by its threadId (get this from search_inbox).",
+      description:
+        "Read the full body and messages of one thread by its threadId (get this from search_inbox).",
       parameters: {
         type: "object",
         properties: {
-          threadId: { type: "string", description: "The threadId returned by search_inbox." },
+          threadId: {
+            type: "string",
+            description: "The threadId returned by search_inbox.",
+          },
         },
         required: ["threadId"],
       },
@@ -136,10 +158,16 @@ const TOOLS: AiTool[] = [
       parameters: {
         type: "object",
         properties: {
-          to: { type: "string", description: "Recipient email address(es), comma-separated." },
+          to: {
+            type: "string",
+            description: "Recipient email address(es), comma-separated.",
+          },
           subject: { type: "string", description: "Email subject." },
           body: { type: "string", description: "Email body (plain text)." },
-          threadId: { type: "string", description: "Optional: the thread to reply within." },
+          threadId: {
+            type: "string",
+            description: "Optional: the thread to reply within.",
+          },
         },
         required: ["to", "subject", "body"],
       },
@@ -155,11 +183,28 @@ const TOOLS: AiTool[] = [
         type: "object",
         properties: {
           summary: { type: "string", description: "Event title." },
-          start: { type: "string", description: "Start datetime, ISO 8601 (e.g. 2026-06-14T09:00:00)." },
-          end: { type: "string", description: "End datetime, ISO 8601. Default to 30 minutes after start." },
-          attendees: { type: "string", description: "Optional: attendee email address(es), comma-separated." },
-          description: { type: "string", description: "Optional: event description." },
-          location: { type: "string", description: "Optional: event location." },
+          start: {
+            type: "string",
+            description: "Start datetime, ISO 8601 (e.g. 2026-06-14T09:00:00).",
+          },
+          end: {
+            type: "string",
+            description:
+              "End datetime, ISO 8601. Default to 30 minutes after start.",
+          },
+          attendees: {
+            type: "string",
+            description:
+              "Optional: attendee email address(es), comma-separated.",
+          },
+          description: {
+            type: "string",
+            description: "Optional: event description.",
+          },
+          location: {
+            type: "string",
+            description: "Optional: event location.",
+          },
         },
         required: ["summary", "start", "end"],
       },
@@ -191,7 +236,9 @@ function buildSystemPrompt(profile: SessionUser, now: Date): string {
 function safeParseArgs(raw: string): Record<string, unknown> {
   try {
     const parsed = JSON.parse(raw || "{}");
-    return parsed && typeof parsed === "object" ? (parsed as Record<string, unknown>) : {};
+    return parsed && typeof parsed === "object"
+      ? (parsed as Record<string, unknown>)
+      : {};
   } catch {
     return {};
   }
@@ -207,10 +254,15 @@ function asNumber(value: unknown, fallback: number) {
 }
 
 function asStringArray(value: unknown) {
-  return Array.isArray(value) ? value.map((item) => asString(item)).filter(Boolean) : [];
+  return Array.isArray(value)
+    ? value.map((item) => asString(item)).filter(Boolean)
+    : [];
 }
 
-function buildToolAwareHint(mode: InboxTriageMode | null, checkpointAt?: string | null) {
+function buildToolAwareHint(
+  mode: InboxTriageMode | null,
+  checkpointAt?: string | null,
+) {
   if (mode === "reply_candidates") {
     return "Use triage_inbox with mode reply_candidates first, then read_thread for the top thread(s) before drafting.";
   }
@@ -231,7 +283,12 @@ function buildToolAwareHint(mode: InboxTriageMode | null, checkpointAt?: string 
   return "Use triage_inbox, search_inbox, or read_thread before answering.";
 }
 
-type ToolOutcome = { label: string; content: string; proposal?: AgentProposal };
+type ToolOutcome = {
+  label: string;
+  content: string;
+  proposal?: AgentProposal;
+  triage?: InboxTriageResult;
+};
 
 async function executeTool(
   ctx: { tenantId: string; context?: AgentChatContext; now: Date },
@@ -243,17 +300,20 @@ async function executeTool(
   if (name === "triage_inbox") {
     const result = await triageInbox(ctx.tenantId, {
       mode: asString(args.mode) as InboxTriageMode,
-      timeframe: (asString(args.timeframe) || undefined) as "today" | "week" | "all" | undefined,
+      timeframe: (asString(args.timeframe) || undefined) as
+        "today" | "week" | "all" | undefined,
       limit: asNumber(args.limit, MAX_TRIAGE_RESULTS),
       query: asString(args.query) || undefined,
       threadIds: asStringArray(args.threadIds),
-      checkpointAt: asString(args.checkpointAt) || ctx.context?.checkpointAt || null,
+      checkpointAt:
+        asString(args.checkpointAt) || ctx.context?.checkpointAt || null,
       now: ctx.now.toISOString(),
     });
 
     return {
       label: `Triaged inbox - ${result.mode.replaceAll("_", " ")}`,
       content: JSON.stringify(result),
+      triage: result,
     };
   }
 
@@ -279,7 +339,10 @@ async function executeTool(
   if (name === "read_thread") {
     const threadId = asString(args.threadId);
     if (!threadId) {
-      return { label: "Read thread", content: JSON.stringify({ error: "threadId is required" }) };
+      return {
+        label: "Read thread",
+        content: JSON.stringify({ error: "threadId is required" }),
+      };
     }
     const detail = await getThreadDetail(ctx.tenantId, threadId);
     return {
@@ -322,7 +385,8 @@ async function executeTool(
     };
     return {
       label: `Drafted email - ${proposal.to}`,
-      content: "Email drafted and shown to the user for review. The user will confirm before it is sent.",
+      content:
+        "Email drafted and shown to the user for review. The user will confirm before it is sent.",
       proposal,
     };
   }
@@ -339,12 +403,16 @@ async function executeTool(
     };
     return {
       label: `Proposed event - ${proposal.summary}`,
-      content: "Event proposed and shown to the user for review. The user will confirm before it is created.",
+      content:
+        "Event proposed and shown to the user for review. The user will confirm before it is created.",
       proposal,
     };
   }
 
-  return { label: `Unknown tool: ${name}`, content: JSON.stringify({ error: `Unknown tool ${name}` }) };
+  return {
+    label: `Unknown tool: ${name}`,
+    content: JSON.stringify({ error: `Unknown tool ${name}` }),
+  };
 }
 
 export async function* runAgent(params: {
@@ -355,8 +423,13 @@ export async function* runAgent(params: {
   now: Date;
   signal?: AbortSignal;
 }): AsyncGenerator<AgentEvent> {
-  const latestUserMessage = [...params.messages].reverse().find((message) => message.role === "user");
-  const request = classifyAgentRequest(latestUserMessage?.content ?? "", params.context?.suggestionIntent);
+  const latestUserMessage = [...params.messages]
+    .reverse()
+    .find((message) => message.role === "user");
+  const request = classifyAgentRequest(
+    latestUserMessage?.content ?? "",
+    params.context?.suggestionIntent,
+  );
   const conversation: AiMessage[] = [
     { role: "system", content: buildSystemPrompt(params.profile, params.now) },
     ...params.messages,
@@ -403,6 +476,7 @@ export async function* runAgent(params: {
       usedTool = true;
       const outcome = await executeTool(params, call);
       yield { type: "tool", label: outcome.label };
+      if (outcome.triage) yield { type: "triage", result: outcome.triage };
       if (outcome.proposal) {
         yield { type: "proposal", proposal: outcome.proposal };
       }
@@ -417,6 +491,7 @@ export async function* runAgent(params: {
 
   yield {
     type: "assistant",
-    content: "I've reached the step limit for this turn. Let me know how you'd like to continue.",
+    content:
+      "I've reached the step limit for this turn. Let me know how you'd like to continue.",
   };
 }

@@ -20,6 +20,7 @@ export type AIArtifactPane = "preview" | "code";
 
 export type AIArtifactProps = {
   className?: string;
+  showHeader?: boolean;
   /** The raw form — source, JSON, markup. */
   code?: ReactNode;
   /** Plain text handed to the clipboard. Omit to hide the copy action. */
@@ -44,6 +45,7 @@ const PANES: AIArtifactPane[] = ["preview", "code"];
  */
 const AIArtifact = ({
   className,
+  showHeader = true,
   code,
   copyText,
   defaultPane = "preview",
@@ -88,69 +90,71 @@ const AIArtifact = ({
         className,
       )}
     >
-      <div className="flex items-center gap-2 border-border border-b px-2 py-1.5">
-        <span className="min-w-0 truncate px-1 font-medium text-foreground text-xs">
-          {title}
-        </span>
+      {showHeader && (
+        <div className="flex items-center gap-2 border-border border-b px-2 py-1.5">
+          <span className="min-w-0 truncate px-1 font-medium text-foreground text-xs">
+            {title}
+          </span>
 
-        {available.length > 1 && (
-          <div
-            aria-label="Artifact view"
-            className="ml-auto flex items-center gap-0.5 rounded-lg bg-muted p-0.5"
-            role="tablist"
-          >
-            {available.map((candidate) => (
-              <button
-                aria-selected={pane === candidate}
-                className={cn(
-                  "relative cursor-pointer rounded-md px-2 py-1 text-xs capitalize transition-colors",
-                  pane === candidate
-                    ? "text-foreground"
-                    : "text-muted-foreground hover:text-foreground",
-                )}
-                key={candidate}
-                onClick={() => setPane(candidate)}
-                role="tab"
-                type="button"
-              >
-                {pane === candidate && (
-                  // A single shared element slides between the tabs. Two
-                  // separately styled tabs would just swap colour, which reads
-                  // as two states rather than one selection moving.
-                  <motion.span
-                    className="absolute inset-0 rounded-md bg-background shadow-sm"
-                    layoutId={`${indicatorId}-indicator`}
-                    transition={
-                      shouldReduceMotion ? { duration: 0 } : SPRING_DEFAULT
-                    }
-                  />
-                )}
-                <span className="relative">{candidate}</span>
-              </button>
-            ))}
-          </div>
-        )}
+          {available.length > 1 && (
+            <div
+              aria-label="Artifact view"
+              className="ml-auto flex items-center gap-0.5 rounded-lg bg-muted p-0.5"
+              role="tablist"
+            >
+              {available.map((candidate) => (
+                <button
+                  aria-selected={pane === candidate}
+                  className={cn(
+                    "relative cursor-pointer rounded-md px-2 py-1 text-xs capitalize transition-colors",
+                    pane === candidate
+                      ? "text-foreground"
+                      : "text-muted-foreground hover:text-foreground",
+                  )}
+                  key={candidate}
+                  onClick={() => setPane(candidate)}
+                  role="tab"
+                  type="button"
+                >
+                  {pane === candidate && (
+                    // A single shared element slides between the tabs. Two
+                    // separately styled tabs would just swap colour, which reads
+                    // as two states rather than one selection moving.
+                    <motion.span
+                      className="absolute inset-0 rounded-md bg-background shadow-sm"
+                      layoutId={`${indicatorId}-indicator`}
+                      transition={
+                        shouldReduceMotion ? { duration: 0 } : SPRING_DEFAULT
+                      }
+                    />
+                  )}
+                  <span className="relative">{candidate}</span>
+                </button>
+              ))}
+            </div>
+          )}
 
-        {copyText ? (
-          <SmoothButton
-            aria-label={hasCopied ? "Copied" : "Copy"}
-            className={cn(
-              available.length > 1 ? "" : "ml-auto",
-              hasCopied ? "text-foreground" : "text-muted-foreground",
-            )}
-            onClick={copy}
-            size="icon-sm"
-            type="button"
-            variant="ghost"
-          >
-            {hasCopied ? (
-              <Check aria-hidden="true" size={13} />
-            ) : (
-              <Copy aria-hidden="true" size={13} />
-            )}
-          </SmoothButton>
-        ) : null}
-      </div>
+          {copyText ? (
+            <SmoothButton
+              aria-label={hasCopied ? "Copied" : "Copy"}
+              className={cn(
+                available.length > 1 ? "" : "ml-auto",
+                hasCopied ? "text-foreground" : "text-muted-foreground",
+              )}
+              onClick={copy}
+              size="icon-sm"
+              type="button"
+              variant="ghost"
+            >
+              {hasCopied ? (
+                <Check aria-hidden="true" size={13} />
+              ) : (
+                <Copy aria-hidden="true" size={13} />
+              )}
+            </SmoothButton>
+          ) : null}
+        </div>
+      )}
 
       <div className="relative overflow-hidden">
         <AnimatePresence custom={direction} initial={false} mode="wait">
@@ -175,7 +179,7 @@ const AIArtifact = ({
             }
           >
             {pane === "preview" ? (
-              <div className="p-3">{preview}</div>
+              <div className={showHeader ? "p-3" : undefined}>{preview}</div>
             ) : (
               <pre className="overflow-x-auto p-3 font-mono text-foreground text-xs leading-relaxed">
                 {code}

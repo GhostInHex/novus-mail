@@ -1,4 +1,5 @@
-﻿import { chromium, expect } from "@playwright/test";
+const BASE_URL = process.env.BASE_URL || "http://localhost:3100";
+import { chromium, expect } from "@playwright/test";
 import { mkdir } from "node:fs/promises";
 const browser = await chromium.launch({ channel: "chrome", headless: true });
 const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
@@ -8,7 +9,7 @@ page.on("pageerror", (e) => errors.push(e.message));
 await mkdir("../artifacts", { recursive: true });
 const log = (s) => console.log("PASS", s);
 try {
-  await page.goto("http://localhost:3100/start");
+  await page.goto(BASE_URL + "/start");
   await page
     .getByRole("button", { name: "Open demo workspace", exact: true })
     .click();
@@ -19,29 +20,21 @@ try {
   await page.locator(".dashboard-queue li button").first().click();
   await expect(page.locator(".dashboard-reader h2").first()).toBeVisible();
   log("demo inbox and thread reading");
-  await page
-    .getByRole("navigation", { name: "Workspace", exact: true })
-    .getByRole("button", { name: "Collapse sidebar", exact: true })
-    .click();
   await expect(
-    page.getByRole("button", { name: "Expand sidebar", exact: true }),
-  ).toBeVisible();
+    page.getByRole("button", { name: "Collapse sidebar", exact: true }),
+  ).toHaveCount(0);
   await page
-    .getByRole("button", { name: "Expand sidebar", exact: true })
-    .click();
-  await page
-    .getByRole("button", { name: "Expand calendar width", exact: true })
+    .getByRole("button", { name: "Open month calendar", exact: true })
     .click();
   await page.getByRole("tab", { name: "Week", exact: true }).click();
   await page.getByRole("tab", { name: "Month", exact: true }).click();
-  await page
-    .getByRole("button", { name: "Collapse calendar width", exact: true })
-    .click();
-  log("animated sidebar and calendar tabs");
+  log("fixed folder navigation and animated full calendar tabs");
+
   await page.getByRole("button", { name: "Calendar", exact: true }).click();
   await expect(
     page.getByRole("region", { name: "Calendar week" }),
   ).toBeVisible();
+  await page.getByRole("tab", { name: "Week", exact: true }).click();
   await page.getByRole("button", { name: "Next week", exact: true }).click();
   await page
     .getByRole("button", { name: "Previous week", exact: true })
@@ -191,7 +184,7 @@ try {
   });
   await dialog.getByRole("switch", { name: "Auto-approve actions" }).click();
   await page
-    .getByRole("button", { name: "Keep reviewing each action", exact: true })
+    .getByRole("button", { name: "Keep asking me", exact: true })
     .click();
   await expect(
     dialog.getByRole("switch", { name: "Auto-approve actions" }),
@@ -227,7 +220,9 @@ try {
   ).toBeVisible();
   await dialog.getByRole("button", { name: "Edit", exact: true }).click();
   await dialog.getByLabel("Subject", { exact: true }).fill("Edited proposal");
-  await dialog.getByRole("button", { name: "Done", exact: true }).click();
+  await dialog
+    .getByRole("button", { name: "Done editing", exact: true })
+    .click();
   await expect(
     dialog.getByText("Edited proposal", { exact: true }),
   ).toBeVisible();
@@ -236,7 +231,7 @@ try {
     fullPage: true,
   });
   log("SmoothUI messages, tools, artifacts, and editable draft proposals");
-  await dialog.getByRole("button", { name: "Send", exact: true }).click();
+  await dialog.getByRole("button", { name: "Send reply", exact: true }).click();
   await expect(dialog.getByText("Sent", { exact: true })).toBeVisible();
   log("explicit proposal approval handles a mocked successful send");
   await page.unroute("**/api/agent");
@@ -338,6 +333,16 @@ try {
   log("reduced-motion composer");
   if (errors.length) throw new Error(errors.join("\n"));
   console.log("ALL WORKSPACE CHECKS PASSED");
+} catch (error) {
+  await page.screenshot({
+    path: "../artifacts/workspace-failure.png",
+    fullPage: true,
+  });
+  console.log("BROWSER ERRORS", errors);
+  console.log(
+    (await page.locator("[role=dialog]").first().innerText()).slice(-2200),
+  );
+  throw error;
 } finally {
   await browser.close();
 }

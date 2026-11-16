@@ -1,6 +1,12 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import { CalendarIcon, MailIcon, SearchIcon, TerminalIcon } from "lucide-react";
+import {
+  CalendarIcon,
+  MailIcon,
+  SearchIcon,
+  CommandIcon,
+  ArrowUpRight,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -78,10 +84,10 @@ export function CommandPalette({ open, activeThread, onClose, onRun }: Props) {
       open={open}
       onOpenChange={(value) => !value && !pending && onClose()}
     >
-      <DialogContent instant className="gap-0 overflow-hidden p-0 sm:max-w-[780px]">
+      <DialogContent instant className="doop-modal doop-command-modal">
         <DialogHeader className="border-b border-border px-6 py-5">
           <DialogTitle className="flex items-center gap-2 text-xl">
-            <TerminalIcon className="size-4" />
+            <CommandIcon className="size-5" />
             Command console
           </DialogTitle>
           <DialogDescription>
@@ -122,10 +128,14 @@ export function CommandPalette({ open, activeThread, onClose, onRun }: Props) {
                       {item.detail}
                     </span>
                   </span>
+                  <ArrowUpRight className="ml-auto size-4 shrink-0" />
                 </CommandItem>
               ))}
             </CommandGroup>
           </CommandList>
+          <p className="doop-command-help">
+            ↑ ↓ Navigate · Enter Run · Escape Close
+          </p>
         </Command>
         {error && (
           <p role="alert" className="px-6 py-2 text-sm text-destructive">
@@ -134,7 +144,7 @@ export function CommandPalette({ open, activeThread, onClose, onRun }: Props) {
         )}
         <footer className="flex flex-wrap items-center justify-between gap-3 border-t border-border px-6 py-4">
           <span className="text-xs text-muted-foreground">
-            Arrow keys navigate · Enter Select · Escape Close
+            Context: {activeThread?.subject || "All mail"}
           </span>
           <Button
             disabled={pending || !command.trim()}

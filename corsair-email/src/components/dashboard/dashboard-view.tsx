@@ -1,27 +1,6 @@
 ﻿"use client";
 
-import * as Sidebar from "@animate-ui/react/primitives/sidebar";
-import { format, isToday, isYesterday } from "date-fns";
-import { useState, type ReactNode, type RefObject } from "react";
-import {
-  ChevronLeft,
-  ChevronRight,
-  Menu,
-  MoreHorizontal,
-  Inbox,
-  Mail,
-  Star,
-  FilePenLine,
-  Send,
-  CalendarDays,
-  SquarePen,
-  PanelLeftClose,
-  PanelLeftOpen,
-  Command,
-  Bot,
-  CalendarPlus,
-  RefreshCw,
-} from "lucide-react";
+import { useTheme } from "@/components/theme-provider";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -30,12 +9,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import { useTheme } from "@/components/theme-provider";
 import { WorkspaceCalendarPanel } from "@/components/workspace-calendar-panel";
 import { WorkspaceWeekView } from "@/components/workspace-week-view";
 import type {
@@ -47,12 +20,24 @@ import type {
   ThreadSummary,
 } from "@/lib/types";
 import { cn } from "@/lib/utils";
+import * as Sidebar from "@animate-ui/react/primitives/sidebar";
+import { format, isToday, isYesterday } from "date-fns";
+import {
+  CalendarDays,
+  ChevronLeft,
+  ChevronRight,
+  Menu,
+  MoreHorizontal,
+} from "lucide-react";
+import { useState, type ReactNode, type RefObject } from "react";
 import "./dashboard.css";
 
 type MailView =
   "focus" | "unread" | "starred" | "drafts" | "sent" | "later" | "all";
 type Folder = { id: MailView; label: string; count: number; hint: string };
 type Props = {
+  mobileReaderOpen: boolean;
+  onMobileReader: (open: boolean) => void;
   composerTitle: string;
   session: SessionUser;
   threads: ThreadSummary[];
@@ -82,14 +67,10 @@ type Props = {
   events: AgendaEvent[];
   onEvent: (event: AgendaEvent) => void;
   onNewEvent: (preset?: Partial<EventInput>) => void;
-  sidebarCollapsed: boolean;
-  onSidebar: (collapsed: boolean) => void;
   agendaCollapsed: boolean;
   onAgenda: (collapsed: boolean) => void;
   calendarView: boolean;
   onCalendar: (value: boolean) => void;
-  agendaExpanded: boolean;
-  onExpandAgenda: (expanded: boolean) => void;
   hasMore: boolean;
   loadingMore: boolean;
   onMoreThreads: () => void;
@@ -97,23 +78,6 @@ type Props = {
   assistant?: ReactNode;
   renderHtml: (message: ThreadDetail["messages"][number]) => ReactNode;
 };
-const folderIcons = {
-  focus: Inbox,
-  all: Mail,
-  starred: Star,
-  drafts: FilePenLine,
-  sent: Send,
-  unread: Mail,
-  later: Mail,
-};
-function RailTip({ label, children }: { label: string; children: ReactNode }) {
-  return (
-    <Tooltip>
-      <TooltipTrigger asChild>{children}</TooltipTrigger>
-      <TooltipContent side="right">{label}</TooltipContent>
-    </Tooltip>
-  );
-}
 function mailTime(value: string | null) {
   if (!value) return "";
   const d = new Date(value);
@@ -139,7 +103,12 @@ function Message({
 export function DashboardView(p: Props) {
   const { resolvedTheme, setResolvedTheme } = useTheme();
   const [mobileNav, setMobileNav] = useState(false);
-  const [mobileThread, setMobileThread] = useState(false);
+  const [selectedDay, setSelectedDay] = useState(() => new Date());
+  const [calendarMode, setCalendarMode] = useState<"month" | "week" | "day">(
+    "week",
+  );
+  const mobileThread = p.mobileReaderOpen;
+  const setMobileThread = p.onMobileReader;
   const [earlier, setEarlier] = useState(false);
   const initials = p.session.displayName
     .split(/\s+/)
@@ -242,9 +211,6 @@ export function DashboardView(p: Props) {
               Keyboard shortcuts
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onSelect={() => p.onSidebar(!p.sidebarCollapsed)}>
-              {p.sidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"}
-            </DropdownMenuItem>
             <form action="/api/logout" method="post">
               <DropdownMenuItem asChild>
                 <button type="submit" className="w-full">
@@ -255,11 +221,7 @@ export function DashboardView(p: Props) {
           </DropdownMenuContent>
         </DropdownMenu>
       </header>
-      <Sidebar.Provider
-        open={!p.sidebarCollapsed}
-        onOpenChange={(open) => p.onSidebar(!open)}
-        className="dashboard-body"
-      >
+      <Sidebar.Provider open={true} className="dashboard-body">
         {mobileNav && (
           <button
             className="dashboard-nav-scrim"
@@ -269,10 +231,9 @@ export function DashboardView(p: Props) {
         )}
         <Sidebar.Container
           className={cn("dashboard-sidebar", mobileNav && "is-mobile-open")}
-          style={{ width: p.sidebarCollapsed ? 72 : 200 }}
+          style={{ width: 200 }}
           role="navigation"
           aria-label="Workspace"
-          data-collapsed={p.sidebarCollapsed}
         >
           <Button
             className="dashboard-compose-button"
@@ -282,113 +243,49 @@ export function DashboardView(p: Props) {
             }}
             aria-label="Compose"
           >
-            {p.sidebarCollapsed ? <SquarePen size={18} /> : "Compose"}
+            Compose
           </Button>
           <nav aria-label="Mail folders">
-            {ordered.map((folder) => {
-              const Icon = folderIcons[folder.id];
-              const label =
-                folder.id === "focus" ? "Focus queue" : folder.label;
-              const button = (
-                <button
-                  type="button"
-                  aria-label={label}
-                  data-sidebar="menu-button"
-                  aria-current={
-                    !p.calendarView && p.view === folder.id ? "page" : undefined
-                  }
-                  onClick={() => choose(folder.id)}
-                >
-                  {p.sidebarCollapsed ? (
-                    <Icon size={18} />
-                  ) : (
-                    <>
-                      {label}
-                      {folder.id !== "sent" && <span>{folder.count}</span>}
-                    </>
-                  )}
-                </button>
-              );
-              return p.sidebarCollapsed ? (
-                <RailTip key={folder.id} label={label}>
-                  {button}
-                </RailTip>
-              ) : (
-                <div key={folder.id}>{button}</div>
-              );
-            })}
-            <RailTip label="Calendar">
+            {ordered.map((folder) => (
               <button
+                key={folder.id}
                 type="button"
-                aria-label="Calendar"
-                data-sidebar="menu-button"
-                aria-current={p.calendarView ? "page" : undefined}
-                onClick={() => {
-                  p.onCalendar(true);
-                  setMobileNav(false);
-                  setMobileThread(false);
-                }}
+                aria-label={
+                  folder.id === "focus" ? "Focus queue" : folder.label
+                }
+                aria-current={
+                  !p.calendarView && p.view === folder.id ? "page" : undefined
+                }
+                onClick={() => choose(folder.id)}
               >
-                {p.sidebarCollapsed ? <CalendarDays size={18} /> : "Calendar"}
+                {folder.id === "focus" ? "Focus queue" : folder.label}
+                {folder.id !== "sent" && <span>{folder.count}</span>}
               </button>
-            </RailTip>
-          </nav>
-          {p.sidebarCollapsed && (
-            <div className="dashboard-rail-utilities">
-              {[
-                {
-                  label: "Command console",
-                  Icon: Command,
-                  action: p.onCommand,
-                },
-                { label: "Ask assistant", Icon: Bot, action: p.onAssistant },
-                {
-                  label: "New event",
-                  Icon: CalendarPlus,
-                  action: () => p.onNewEvent(),
-                },
-                { label: "Sync now", Icon: RefreshCw, action: p.onSync },
-              ].map(({ label, Icon, action }) => (
-                <RailTip key={label} label={label}>
-                  <button type="button" aria-label={label} onClick={action}>
-                    <Icon size={17} />
-                  </button>
-                </RailTip>
-              ))}
-            </div>
-          )}
-
-          {!p.sidebarCollapsed && (
-            <p className="dashboard-connections">
-              Gmail{" "}
-              {p.connection?.gmail.authorized === false
-                ? "not connected"
-                : "connected"}
-              <br />
-              Calendar{" "}
-              {p.connection?.calendar.authorized === false
-                ? "not connected"
-                : "connected"}
-            </p>
-          )}
-          <RailTip
-            label={p.sidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"}
-          >
+            ))}
             <button
               type="button"
-              className="dashboard-sidebar-toggle"
-              aria-label={
-                p.sidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"
-              }
-              onClick={() => p.onSidebar(!p.sidebarCollapsed)}
+              aria-label="Calendar"
+              aria-current={p.calendarView ? "page" : undefined}
+              onClick={() => {
+                p.onCalendar(true);
+                setMobileNav(false);
+                setMobileThread(false);
+              }}
             >
-              {p.sidebarCollapsed ? (
-                <PanelLeftOpen size={16} />
-              ) : (
-                <PanelLeftClose size={16} />
-              )}
+              Calendar
             </button>
-          </RailTip>
+          </nav>
+          <p className="dashboard-connections">
+            Gmail{" "}
+            {p.connection?.gmail.authorized === false
+              ? "not connected"
+              : "connected"}
+            <br />
+            Calendar{" "}
+            {p.connection?.calendar.authorized === false
+              ? "not connected"
+              : "connected"}
+          </p>
         </Sidebar.Container>
         {p.composer ? (
           <div className="dashboard-compose-layout">
@@ -402,12 +299,19 @@ export function DashboardView(p: Props) {
           <div
             className={cn(
               "dashboard-content",
+              p.calendarView && calendarMode === "day" && "calendar-day-view",
               p.agendaCollapsed && "agenda-is-collapsed",
-              p.agendaExpanded && "agenda-is-expanded",
             )}
           >
             {p.calendarView ? (
               <WorkspaceWeekView
+                view={calendarMode}
+                onViewChange={setCalendarMode}
+                selectedDay={selectedDay}
+                onSelectDay={(day) => {
+                  setSelectedDay(day);
+                  setCalendarMode("day");
+                }}
                 events={p.events}
                 onCreateEvent={p.onNewEvent}
                 onSelectEvent={p.onEvent}
@@ -564,14 +468,7 @@ export function DashboardView(p: Props) {
                               >
                                 {p.agendaCollapsed ? "Show" : "Hide"} agenda
                               </DropdownMenuItem>
-                              <DropdownMenuItem
-                                onSelect={() =>
-                                  p.onSidebar(!p.sidebarCollapsed)
-                                }
-                              >
-                                {p.sidebarCollapsed ? "Expand" : "Collapse"}{" "}
-                                sidebar
-                              </DropdownMenuItem>
+
                               <DropdownMenuSeparator />
                               <DropdownMenuItem
                                 onSelect={() => p.onThreadAction("trash")}
@@ -667,22 +564,22 @@ export function DashboardView(p: Props) {
                   onClick={() => p.onAgenda(false)}
                 >
                   <ChevronLeft size={18} />
+                  <span>Agenda</span>
                 </button>
               ) : (
                 <>
                   <header>
-                    <h2>Today</h2>
+                    <h2>{isToday(selectedDay) ? "Today" : "Agenda"}</h2>
                     <div className="dashboard-agenda-controls">
                       <button
-                        aria-label={
-                          p.agendaExpanded
-                            ? "Collapse calendar width"
-                            : "Expand calendar width"
-                        }
-                        onClick={() => p.onExpandAgenda(!p.agendaExpanded)}
+                        aria-label="Open month calendar"
                         title="Month calendar"
+                        onClick={() => {
+                          setCalendarMode("month");
+                          p.onCalendar(true);
+                        }}
                       >
-                        <Menu size={15} />
+                        <CalendarDays size={15} />
                       </button>
                       <button
                         aria-label="Collapse agenda"
@@ -693,8 +590,8 @@ export function DashboardView(p: Props) {
                     </div>
                   </header>
                   <WorkspaceCalendarPanel
+                    selectedDate={selectedDay}
                     events={p.events}
-                    expanded={p.agendaExpanded}
                     onCreateEvent={p.onNewEvent}
                     onSelectEvent={p.onEvent}
                   />

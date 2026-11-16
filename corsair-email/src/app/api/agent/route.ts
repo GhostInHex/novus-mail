@@ -6,7 +6,11 @@ import type { AiMessage } from "@/server/ai";
 import { isAiConfigured } from "@/server/ai";
 import { runAgent } from "@/server/agent";
 import { log } from "@/server/log";
-import { asErrorResponse, readLimitedJson, requireSession } from "@/server/route-helpers";
+import {
+  asErrorResponse,
+  readLimitedJson,
+  requireSession,
+} from "@/server/route-helpers";
 import { enforceRateLimit } from "@/server/rate-limit";
 
 export const runtime = "nodejs";
@@ -108,13 +112,13 @@ export async function POST(request: Request) {
 
   const stream = new ReadableStream<Uint8Array>({
     async start(controller) {
-      const send = (data: unknown) => controller.enqueue(encoder.encode(sse(data)));
+      const send = (data: unknown) =>
+        controller.enqueue(encoder.encode(sse(data)));
 
       if (!isAiConfigured()) {
         send({
           type: "token",
-          text:
-            "Agent Chat isn't configured yet. Set AI_BASE_URL, AI_API_KEY, and AI_MODEL in corsair-email/.env.local (any OpenAI-compatible provider) and restart.",
+          text: "Agent Chat isn't configured yet. Set AI_BASE_URL, AI_API_KEY, and AI_MODEL in corsair-email/.env.local (any OpenAI-compatible provider) and restart.",
         });
         send({ type: "done" });
         controller.close();
@@ -136,6 +140,8 @@ export async function POST(request: Request) {
             }
           } else if (event.type === "tool") {
             send({ type: "tool", label: event.label });
+          } else if (event.type === "triage") {
+            send({ type: "triage", result: event.result });
           } else if (event.type === "proposal") {
             send({ type: "proposal", proposal: event.proposal });
           }

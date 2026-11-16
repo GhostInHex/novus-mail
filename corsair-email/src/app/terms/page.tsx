@@ -7,7 +7,7 @@ export default function TermsPage() {
   return (
     <main className="doop-auth">
       <SiteHeader />
-      <section className="motion-enter mx-auto flex max-w-3xl flex-col px-6 py-16">
+      <section className="doop-legal motion-enter">
         <p className="text-sm font-medium text-muted-foreground">
           Terms of Service
         </p>

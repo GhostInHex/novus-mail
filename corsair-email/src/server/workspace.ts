@@ -107,14 +107,9 @@ const CONNECTION_CHECK_TIMEOUT_MS = 5_000;
 const DASHBOARD_REMOTE_FALLBACK_TIMEOUT_MS = 15_000;
 const DEMO_THREAD_TARGET = 68;
 const DEMO_EVENT_TARGET = 14;
-const demoMemoryStore = new Map<
-  string,
-  {
-    threads: Map<string, ThreadDetail>;
-    events: Map<string, AgendaEvent>;
-    syncedAt: { inbox: string | null; calendar: string | null };
-  }
->();
+type DemoMemoryStore = Map<string, {threads:Map<string,ThreadDetail>;events:Map<string,AgendaEvent>;syncedAt:{inbox:string|null;calendar:string|null}}>;
+const demoRuntime = globalThis as typeof globalThis & {novusMailDemoMemoryStore?:DemoMemoryStore};
+const demoMemoryStore: DemoMemoryStore = demoRuntime.novusMailDemoMemoryStore ??= new Map();
 
 function now() {
   return new Date();
@@ -776,66 +771,79 @@ async function writeThreadSummary(tenantId: string, detail: ThreadDetail) {
     workspace.threads.set(detail.threadId, persisted);
   }
 
-  const db = await drizzleDb();
-  const priority = classifyPriority(detail);
-  const timestamp = now();
-  const values = {
-    tenantId,
-    threadId: detail.threadId,
-    subject: detail.subject,
-    sender: detail.sender,
-    senderEmail: detail.senderEmail,
-    recipients: JSON.stringify(detail.recipients),
-    snippet: detail.snippet,
-    bodyExcerpt: detail.bodyExcerpt,
-    bodyText: detail.body,
-    htmlBody: detail.htmlBody,
-    messagesJson: detail.messages,
-    receivedAt: toTimestamp(detail.receivedAt),
-    messageCount: detail.messageCount,
-    labelsJson: JSON.stringify(detail.labels),
-    unread: detail.unread,
-    starred: detail.starred,
-    archived: detail.archived,
-    priorityBand: priority.priorityBand,
-    priorityScore: priority.priorityScore,
-    priorityReason: priority.priorityReason,
-    createdAt: timestamp,
-    updatedAt: timestamp,
-  };
+  try {
+    const db = await drizzleDb();
+    const priority = classifyPriority(detail);
+    const timestamp = now();
+    const values = {
+      tenantId,
+      threadId: detail.threadId,
+      subject: detail.subject,
+      sender: detail.sender,
+      senderEmail: detail.senderEmail,
+      recipients: JSON.stringify(detail.recipients),
+      snippet: detail.snippet,
+      bodyExcerpt: detail.bodyExcerpt,
+      bodyText: detail.body,
+      htmlBody: detail.htmlBody,
+      messagesJson: detail.messages,
+      receivedAt: toTimestamp(detail.receivedAt),
+      messageCount: detail.messageCount,
+      labelsJson: JSON.stringify(detail.labels),
+      unread: detail.unread,
+      starred: detail.starred,
+      archived: detail.archived,
+      priorityBand: priority.priorityBand,
+      priorityScore: priority.priorityScore,
+      priorityReason: priority.priorityReason,
+      createdAt: timestamp,
+      updatedAt: timestamp,
+    };
 
-  await db
-    .insert(schema.emailThreadCache)
-    .values(values)
-    .onConflictDoUpdate({
-      target: [schema.emailThreadCache.tenantId, schema.emailThreadCache.threadId],
-      set: {
-        subject: values.subject,
-        sender: values.sender,
-        senderEmail: values.senderEmail,
-        recipients: values.recipients,
-        snippet: values.snippet,
-        bodyExcerpt: values.bodyExcerpt,
-        bodyText: values.bodyText,
-        htmlBody: values.htmlBody,
-        messagesJson: values.messagesJson,
-        receivedAt: values.receivedAt,
-        messageCount: values.messageCount,
-        labelsJson: values.labelsJson,
-        unread: values.unread,
-        starred: values.starred,
-        archived: values.archived,
-        priorityBand: values.priorityBand,
-        priorityScore: values.priorityScore,
-        priorityReason: values.priorityReason,
-        updatedAt: values.updatedAt,
-      },
+    await db
+      .insert(schema.emailThreadCache)
+      .values(values)
+      .onConflictDoUpdate({
+        target: [
+          schema.emailThreadCache.tenantId,
+          schema.emailThreadCache.threadId,
+        ],
+        set: {
+          subject: values.subject,
+          sender: values.sender,
+          senderEmail: values.senderEmail,
+          recipients: values.recipients,
+          snippet: values.snippet,
+          bodyExcerpt: values.bodyExcerpt,
+          bodyText: values.bodyText,
+          htmlBody: values.htmlBody,
+          messagesJson: values.messagesJson,
+          receivedAt: values.receivedAt,
+          messageCount: values.messageCount,
+          labelsJson: values.labelsJson,
+          unread: values.unread,
+          starred: values.starred,
+          archived: values.archived,
+          priorityBand: values.priorityBand,
+          priorityScore: values.priorityScore,
+          priorityReason: values.priorityReason,
+          updatedAt: values.updatedAt,
+        },
+      });
+
+    return {
+      ...detail,
+      ...priority,
+    };
+  } catch (error) {
+    if (!isDemoTenant(tenantId)) throw error;
+    log.warn("demo_write_fallback_to_memory", {
+      tenantId,
+      operation: "writeThreadSummary",
+      error,
     });
-
-  return {
-    ...detail,
-    ...priority,
-  };
+    return { ...detail, ...classifyPriority(detail) };
+  }
 }
 
 function mapThreadRow(row: ThreadCacheRow): ThreadSummary {
@@ -1199,49 +1207,62 @@ async function writeCalendarEvents(tenantId: string, events: AgendaEvent[]) {
     }
   }
 
-  const db = await drizzleDb();
-  const timestamp = now();
+  try {
+    const db = await drizzleDb();
+    const timestamp = now();
 
-  for (const event of events) {
-    const values = {
+    for (const event of events) {
+      const values = {
+        tenantId,
+        eventId: event.id,
+        summary: event.summary,
+        description: event.description,
+        location: event.location,
+        startAt: toTimestamp(event.start),
+        endAt: toTimestamp(event.end),
+        startValue: event.start,
+        endValue: event.end,
+        attendeesJson: JSON.stringify(event.attendees),
+        status: event.status,
+        htmlLink: event.htmlLink,
+        createdAt: timestamp,
+        updatedAt: timestamp,
+      };
+
+      await db
+        .insert(schema.calendarEventCache)
+        .values(values)
+        .onConflictDoUpdate({
+          target: [
+            schema.calendarEventCache.tenantId,
+            schema.calendarEventCache.eventId,
+          ],
+          set: {
+            summary: values.summary,
+            description: values.description,
+            location: values.location,
+            startAt: values.startAt,
+            endAt: values.endAt,
+            startValue: values.startValue,
+            endValue: values.endValue,
+            attendeesJson: values.attendeesJson,
+            status: values.status,
+            htmlLink: values.htmlLink,
+            updatedAt: values.updatedAt,
+          },
+        });
+    }
+
+    return events;
+  } catch (error) {
+    if (!isDemoTenant(tenantId)) throw error;
+    log.warn("demo_write_fallback_to_memory", {
       tenantId,
-      eventId: event.id,
-      summary: event.summary,
-      description: event.description,
-      location: event.location,
-      startAt: toTimestamp(event.start),
-      endAt: toTimestamp(event.end),
-      startValue: event.start,
-      endValue: event.end,
-      attendeesJson: JSON.stringify(event.attendees),
-      status: event.status,
-      htmlLink: event.htmlLink,
-      createdAt: timestamp,
-      updatedAt: timestamp,
-    };
-
-    await db
-      .insert(schema.calendarEventCache)
-      .values(values)
-      .onConflictDoUpdate({
-        target: [schema.calendarEventCache.tenantId, schema.calendarEventCache.eventId],
-        set: {
-          summary: values.summary,
-          description: values.description,
-          location: values.location,
-          startAt: values.startAt,
-          endAt: values.endAt,
-          startValue: values.startValue,
-          endValue: values.endValue,
-          attendeesJson: values.attendeesJson,
-          status: values.status,
-          htmlLink: values.htmlLink,
-          updatedAt: values.updatedAt,
-        },
-      });
+      operation: "writeCalendarEvents",
+      error,
+    });
+    return events;
   }
-
-  return events;
 }
 
 function mapCalendarRow(row: CalendarCacheRow): AgendaEvent {
@@ -1317,16 +1338,25 @@ async function writeSyncState(tenantId: string, resource: SyncResource) {
   if (isDemoTenant(tenantId)) {
     touchDemoSyncState(tenantId, resource);
   }
-  const db = await drizzleDb();
-  const syncedAt = now();
+  try {
+    const db = await drizzleDb();
+    const syncedAt = now();
 
-  await db
-    .insert(schema.syncState)
-    .values({ tenantId, resource, syncedAt })
-    .onConflictDoUpdate({
-      target: [schema.syncState.tenantId, schema.syncState.resource],
-      set: { syncedAt },
+    await db
+      .insert(schema.syncState)
+      .values({ tenantId, resource, syncedAt })
+      .onConflictDoUpdate({
+        target: [schema.syncState.tenantId, schema.syncState.resource],
+        set: { syncedAt },
+      });
+  } catch (error) {
+    if (!isDemoTenant(tenantId)) throw error;
+    log.warn("demo_write_fallback_to_memory", {
+      tenantId,
+      operation: "writeSyncState",
+      error,
     });
+  }
 }
 
 async function readSyncState(tenantId: string, resource: SyncResource) {

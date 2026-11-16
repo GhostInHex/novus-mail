@@ -3,15 +3,10 @@ import { AgentPanel, type AgentOperator } from "@/components/agent-panel";
 import { CommandPalette } from "@/components/command-palette";
 import { ComposeSheet } from "@/components/compose-sheet";
 import { DashboardView } from "@/components/dashboard/dashboard-view";
+import { KeyboardShortcuts } from "@/components/keyboard-shortcuts";
 import { EventSheet } from "@/components/event-sheet";
 import { useTheme } from "@/components/theme-provider";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
+
 import type {
   AgendaEvent,
   CommandResult,
@@ -24,8 +19,7 @@ import type {
   WorkspacePayload,
 } from "@/lib/types";
 import { firstEmail } from "@/lib/utils";
-import { addHours, addMinutes, isToday, startOfHour } from "date-fns";
-import { KeyboardIcon } from "lucide-react";
+import { addHours, addMinutes, startOfHour } from "date-fns";
 import {
   startTransition,
   useCallback,
@@ -48,20 +42,6 @@ type WorkspaceView =
 type ThreadSortMode =
   "priority" | "newest" | "oldest" | "unread" | "starred" | "sender";
 type AgendaSortMode = "soonest" | "latest" | "title" | "status";
-const SHORTCUTS: Array<{ label: string; keys: string }> = [
-  { label: "Search", keys: "/" },
-  { label: "Command console", keys: "Cmd/Ctrl K" },
-  { label: "Agent chat", keys: "A or Cmd/Ctrl J" },
-  { label: "Compose", keys: "C" },
-  { label: "Reply", keys: "R" },
-  { label: "Schedule event", keys: "G" },
-  { label: "Next / previous", keys: "J / K" },
-  { label: "Archive", keys: "E" },
-  { label: "Star", keys: "S" },
-  { label: "Toggle unread", keys: "U" },
-  { label: "Trash", keys: "Del" },
-  { label: "Shortcuts", keys: "?" },
-];
 // Polling fallback cadence for live updates when SSE can't reach this instance.
 const POLL_INTERVAL_MS = 25_000;
 const PANEL_STATE_KEY = "novus.dashboard.panels.v2";
@@ -373,9 +353,8 @@ export function WorkspaceShell({
   const [agentOpen, setAgentOpen] = useState(false);
   const [shortcutsOpen, setShortcutsOpen] = useState(false);
   const [calendarView, setCalendarView] = useState(false);
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [mobileReaderOpen, setMobileReaderOpen] = useState(false);
   const [agendaCollapsed, setAgendaCollapsed] = useState(false);
-  const [agendaExpanded, setAgendaExpanded] = useState(false);
   const [threadLoading, setThreadLoading] = useState(false);
   const [loadingMoreThreads, setLoadingMoreThreads] = useState(false);
   const [panelPrefsReady, setPanelPrefsReady] = useState(false);
@@ -637,12 +616,8 @@ export function WorkspaceShell({
       const rawValue = window.localStorage.getItem(PANEL_STATE_KEY);
       if (rawValue) {
         const parsed = JSON.parse(rawValue) as {
-          sidebarCollapsed?: boolean;
           agendaCollapsed?: boolean;
         };
-        if (typeof parsed.sidebarCollapsed === "boolean") {
-          setSidebarCollapsed(parsed.sidebarCollapsed);
-        }
         if (typeof parsed.agendaCollapsed === "boolean") {
           setAgendaCollapsed(parsed.agendaCollapsed);
         }
@@ -660,11 +635,10 @@ export function WorkspaceShell({
     window.localStorage.setItem(
       PANEL_STATE_KEY,
       JSON.stringify({
-        sidebarCollapsed,
         agendaCollapsed,
       }),
     );
-  }, [agendaCollapsed, panelPrefsReady, sidebarCollapsed]);
+  }, [agendaCollapsed, panelPrefsReady]);
   useEffect(() => {
     const timeout = window.setTimeout(() => {
       void runSearch(deferredSearch.trim());
@@ -1044,7 +1018,23 @@ export function WorkspaceShell({
         selectThreadDetail(payload);
       }
       setComposeDraft(null);
-      setNotice("Email sent.");
+      toast.success(
+        input.threadId
+          ? `Reply sent to ${input.to}`
+          : `Email sent to ${input.to}`,
+        {
+          description: input.subject,
+          action: {
+            label: "View sent mail",
+            onClick: () => {
+              setView("sent");
+              setCalendarView(false);
+              setAgentOpen(false);
+              setComposeOpen(false);
+            },
+          },
+        },
+      );
       startTransition(() => {
         void refreshWorkspace(search.trim());
       });
@@ -1081,7 +1071,9 @@ export function WorkspaceShell({
           body: JSON.stringify(input),
         }),
       );
-      setNotice(input.id ? "Event updated." : "Event created.");
+      toast.success(input.id ? "Event updated" : "Event created", {
+        description: input.summary,
+      });
       setEventPreset(null);
       setEventDraft(null);
       setEvents((current) => {
@@ -1162,6 +1154,8 @@ export function WorkspaceShell({
         composerTitle={
           composeDraft?.threadId ? "Review your reply" : "Review your message"
         }
+        mobileReaderOpen={mobileReaderOpen}
+        onMobileReader={setMobileReaderOpen}
         session={session}
         threads={visibleThreads}
         thread={selectedThread}
@@ -1232,14 +1226,10 @@ export function WorkspaceShell({
           setEventPreset(preset ?? null);
           setEventOpen(true);
         }}
-        sidebarCollapsed={sidebarCollapsed}
-        onSidebar={setSidebarCollapsed}
         agendaCollapsed={agendaCollapsed}
         onAgenda={setAgendaCollapsed}
         calendarView={calendarView}
         onCalendar={setCalendarView}
-        agendaExpanded={agendaExpanded}
-        onExpandAgenda={setAgendaExpanded}
         hasMore={threadsPage.hasMore}
         loadingMore={loadingMoreThreads}
         onMoreThreads={() => void loadMoreThreads()}
@@ -1258,6 +1248,11 @@ export function WorkspaceShell({
           composeOpen ? (
             <AgentPanel
               embedded
+              onOpenThread={(id) => {
+                setComposeOpen(false);
+                setMobileReaderOpen(true);
+                void openThread(id);
+              }}
               open={composeOpen}
               operator={aiOperator}
               onClose={() => setComposeOpen(false)}
@@ -1283,6 +1278,11 @@ export function WorkspaceShell({
       />
       <AgentPanel
         open={agentOpen}
+        onOpenThread={(id) => {
+          setAgentOpen(false);
+          setMobileReaderOpen(true);
+          void openThread(id);
+        }}
         operator={aiOperator}
         onClose={() => setAgentOpen(false)}
         onConfirmEmail={async (input) => {
@@ -1292,32 +1292,7 @@ export function WorkspaceShell({
           await submitEvent(input);
         }}
       />
-      <Dialog open={shortcutsOpen} onOpenChange={setShortcutsOpen}>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle className="flex items-center gap-2">
-              <KeyboardIcon className="size-4" />
-              Keyboard shortcuts
-            </DialogTitle>
-            <DialogDescription>
-              Move through the workspace without the mouse.
-            </DialogDescription>
-          </DialogHeader>
-          <div className="grid grid-cols-1 gap-1 sm:grid-cols-2">
-            {SHORTCUTS.map((shortcut) => (
-              <div
-                key={shortcut.label}
-                className="flex items-center justify-between gap-3 rounded-md px-2 py-1.5 text-sm"
-              >
-                <span className="text-muted-foreground">{shortcut.label}</span>
-                <kbd className="rounded border border-border bg-muted px-1.5 py-0.5 font-mono text-[0.7rem] text-foreground">
-                  {shortcut.keys}
-                </kbd>
-              </div>
-            ))}
-          </div>
-        </DialogContent>
-      </Dialog>
+      <KeyboardShortcuts open={shortcutsOpen} onOpenChange={setShortcutsOpen} />
     </>
   );
 }
