@@ -785,9 +785,6 @@ export function AgentPanel({
       )}
 
       <AIConversation
-        autoScrollBehavior={
-          latestAssistant?.proposals.length ? "instant" : "smooth"
-        }
         className="min-h-0 flex-1"
         contentKey={turns
           .map(
