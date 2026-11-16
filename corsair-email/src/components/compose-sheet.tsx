@@ -1,225 +1,160 @@
-"use client";
-
+﻿"use client";
 import { useEffect, useRef, useState } from "react";
-import { SendIcon } from "lucide-react";
-
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import type { ComposeInput } from "@/lib/types";
 
-type ComposeSheetProps = {
+type Props = {
   open: boolean;
   initialDraft?: Partial<ComposeInput> | null;
   onClose: () => void;
   onSend: (input: ComposeInput) => Promise<void>;
   onDraft: (input: ComposeInput) => Promise<void>;
 };
-
-const EMPTY_COMPOSE: ComposeInput = {
-  to: "",
-  cc: "",
-  bcc: "",
-  subject: "",
-  body: "",
-};
-
-function toComposeState(
-  initialDraft?: Partial<ComposeInput> | null,
-): ComposeInput {
-  return {
-    ...EMPTY_COMPOSE,
-    ...initialDraft,
-  };
-}
-
+const EMPTY: ComposeInput = { to: "", cc: "", bcc: "", subject: "", body: "" };
 export function ComposeSheet({
   open,
   initialDraft,
   onClose,
   onSend,
   onDraft,
-}: ComposeSheetProps) {
-  const pendingRef = useRef(false);
+}: Props) {
+  const [draft, setDraft] = useState<ComposeInput>(EMPTY);
   const [pending, setPending] = useState(false);
   const [error, setError] = useState("");
-  const [draft, setDraft] = useState<ComposeInput>(EMPTY_COMPOSE);
-
+  const [ccOpen, setCcOpen] = useState(false);
+  const [bccOpen, setBccOpen] = useState(false);
+  const lock = useRef(false);
   useEffect(() => {
-    if (!open) {
-      setDraft(EMPTY_COMPOSE);
-      return;
+    if (open) {
+      setDraft({ ...EMPTY, ...initialDraft });
+      setError("");
+      setCcOpen(!!initialDraft?.cc);
+      setBccOpen(!!initialDraft?.bcc);
     }
-
-    setError("");
-    setDraft(toComposeState(initialDraft));
-  }, [initialDraft, open]);
-
-  const isReply = Boolean(initialDraft?.threadId);
-  const canSend = Boolean(
-    draft.to.trim() && draft.subject.trim() && draft.body.trim(),
+  }, [open, initialDraft]);
+  const isReply = !!initialDraft?.threadId;
+  const canSend = !!(
+    draft.to.trim() &&
+    draft.subject.trim() &&
+    draft.body.trim()
   );
-
   async function submit(kind: "send" | "draft") {
-    if (pendingRef.current || (kind === "send" && !canSend)) return;
-    pendingRef.current = true;
+    if (lock.current || (kind === "send" && !canSend)) return;
+    lock.current = true;
     setPending(true);
     setError("");
     try {
       await (kind === "send" ? onSend(draft) : onDraft(draft));
       onClose();
-    } catch (error) {
+    } catch (e) {
       setError(
-        error instanceof Error
-          ? error.message
-          : "Your message could not be saved. Please try again.",
+        e instanceof Error
+          ? e.message
+          : "Unable to save your message. Please try again.",
       );
     } finally {
-      pendingRef.current = false;
+      lock.current = false;
       setPending(false);
     }
   }
-  const handleSend = () => submit("send");
-  const handleDraft = () => submit("draft");
-
+  function field(name: "to" | "cc" | "bcc" | "subject", label: string) {
+    return (
+      <div className="dashboard-compose-field">
+        <label htmlFor={"compose-" + name}>{label} /</label>
+        <input
+          id={"compose-" + name}
+          aria-label={label}
+          autoFocus={name === "to" && !draft.to}
+          value={draft[name] ?? ""}
+          onChange={(e) => setDraft((d) => ({ ...d, [name]: e.target.value }))}
+          autoComplete="off"
+          disabled={pending}
+        />
+      </div>
+    );
+  }
   return (
-    <Dialog
-      open={open}
-      onOpenChange={(value) => !value && !pending && onClose()}
+    <section
+      className="dashboard-composer"
+      role="region"
+      aria-label={isReply ? "Reply composer" : "New message composer"}
+      onKeyDown={(e) => {
+        if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
+          e.preventDefault();
+          void submit("send");
+        }
+      }}
     >
-      <DialogContent
-        className="doop-compose sm:max-w-[780px]"
-        onKeyDown={(event) => {
-          if ((event.metaKey || event.ctrlKey) && event.key === "Enter") {
-            event.preventDefault();
-            void handleSend();
-          }
-        }}
-      >
-        <DialogHeader>
-          <DialogTitle>
-            {isReply
-              ? "Reply to " + (draft.to || "your conversation")
-              : "New message"}
-          </DialogTitle>
-          <DialogDescription>
-            Review your reply. Nothing is sent until you choose Send.
-          </DialogDescription>
-        </DialogHeader>
-
-        <div className="grid gap-4">
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-            <div className="space-y-1.5 sm:col-span-3">
-              <Label htmlFor="compose-to">To</Label>
-              <Input
-                id="compose-to"
-                autoFocus={!draft.to}
-                value={draft.to}
-                onChange={(event) =>
-                  setDraft((current) => ({
-                    ...current,
-                    to: event.target.value,
-                  }))
-                }
-                placeholder="name@company.com"
-              />
-            </div>
-            <div className="space-y-1.5">
-              <Label htmlFor="compose-cc">Cc</Label>
-              <Input
-                id="compose-cc"
-                value={draft.cc}
-                onChange={(event) =>
-                  setDraft((current) => ({
-                    ...current,
-                    cc: event.target.value,
-                  }))
-                }
-                placeholder="Optional"
-              />
-            </div>
-            <div className="space-y-1.5">
-              <Label htmlFor="compose-bcc">Bcc</Label>
-              <Input
-                id="compose-bcc"
-                value={draft.bcc}
-                onChange={(event) =>
-                  setDraft((current) => ({
-                    ...current,
-                    bcc: event.target.value,
-                  }))
-                }
-                placeholder="Optional"
-              />
-            </div>
-            <div className="space-y-1.5">
-              <Label htmlFor="compose-subject">Subject</Label>
-              <Input
-                id="compose-subject"
-                autoFocus={Boolean(draft.to)}
-                value={draft.subject}
-                onChange={(event) =>
-                  setDraft((current) => ({
-                    ...current,
-                    subject: event.target.value,
-                  }))
-                }
-                placeholder="Board follow-up"
-              />
-            </div>
-          </div>
-
-          <div className="space-y-1.5">
-            <Label htmlFor="compose-body">Body</Label>
-            <Textarea
-              id="compose-body"
-              value={draft.body}
-              onChange={(event) =>
-                setDraft((current) => ({
-                  ...current,
-                  body: event.target.value,
-                }))
-              }
-              rows={10}
-              placeholder="Write your message..."
-            />
-          </div>
-        </div>
-
-        {error && (
-          <p role="alert" className="text-sm text-destructive">
-            {error}
-          </p>
-        )}
-        <DialogFooter>
-          <Button
+      <header>
+        <h2>
+          {isReply
+            ? "Reply to " + (draft.to.split("@")[0] || "conversation")
+            : "New message"}
+        </h2>
+        <button type="button" disabled={pending} onClick={onClose}>
+          Close
+        </button>
+      </header>
+      {field("to", "To")}
+      <div className="dashboard-compose-cc">
+        <button
+          type="button"
+          aria-expanded={ccOpen}
+          onClick={() => setCcOpen(!ccOpen)}
+        >
+          Cc
+        </button>
+        <button
+          type="button"
+          aria-expanded={bccOpen}
+          onClick={() => setBccOpen(!bccOpen)}
+        >
+          Bcc
+        </button>
+      </div>
+      {ccOpen && field("cc", "Cc")}
+      {bccOpen && field("bcc", "Bcc")}
+      {field("subject", "Subject")}
+      <div className="dashboard-compose-body">
+        <label className="sr-only" htmlFor="compose-body">
+          Body
+        </label>
+        <textarea
+          id="compose-body"
+          value={draft.body}
+          onChange={(e) => setDraft((d) => ({ ...d, body: e.target.value }))}
+          placeholder="Write your message…"
+          disabled={pending}
+        />
+      </div>
+      {error && (
+        <p role="alert" className="dashboard-compose-error">
+          {error}
+        </p>
+      )}
+      <footer>
+        <Button
+          type="button"
+          disabled={pending || !canSend}
+          aria-busy={pending}
+          onClick={() => void submit("send")}
+        >
+          {pending ? "Saving…" : isReply ? "Send reply" : "Send"}
+        </Button>
+        <div className="dashboard-compose-secondary">
+          <button
             type="button"
-            variant="ghost"
             disabled={pending}
-            onClick={() => void handleDraft()}
+            onClick={() => void submit("draft")}
           >
             Save draft
-          </Button>
-          <Button
-            type="button"
-            disabled={pending || !canSend}
-            aria-busy={pending}
-            onClick={() => void handleSend()}
-          >
-            <SendIcon className="size-4" />
-            {isReply ? "Send reply" : "Send"}
-          </Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+          </button>
+          <span>/</span>
+          <button type="button" disabled={pending} onClick={onClose}>
+            Discard
+          </button>
+        </div>
+      </footer>
+    </section>
   );
 }

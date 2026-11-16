@@ -1,16 +1,15 @@
 "use client";
 
-import { Collapsible } from "@animate-ui/react/primitives/radix-ui";
-import AIMessage from "@/components/smoothui/ai-message";
-import AISuggestions from "@/components/smoothui/ai-suggestions";
-import AIToolCall from "@/components/smoothui/ai-tool-call";
-import AIArtifact from "@/components/smoothui/ai-artifact";
 import AIApproval from "@/components/smoothui/ai-approval";
-import AIPromptInput from "@/components/smoothui/ai-prompt-input";
+import AIArtifact from "@/components/smoothui/ai-artifact";
 import AIConversation from "@/components/smoothui/ai-conversation";
 import AILoader from "@/components/smoothui/ai-loader";
+import AIMessage from "@/components/smoothui/ai-message";
+import AIPromptInput from "@/components/smoothui/ai-prompt-input";
+import AISuggestions from "@/components/smoothui/ai-suggestions";
+import AIToolCall from "@/components/smoothui/ai-tool-call";
+import { Collapsible } from "@animate-ui/react/primitives/radix-ui";
 import { format } from "date-fns";
-import { useEffect, useRef, useState } from "react";
 import {
   CalendarIcon,
   CheckCircle2Icon,
@@ -19,14 +18,10 @@ import {
   MailIcon,
   MessageSquarePlusIcon,
   PencilIcon,
-  SendIcon,
   SparklesIcon,
 } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 
-import {
-  buildContextualSuggestions,
-  getDefaultAgentSuggestions,
-} from "@/lib/agent-suggestions";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -40,13 +35,12 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
+import {
+  buildContextualSuggestions,
+  getDefaultAgentSuggestions,
+} from "@/lib/agent-suggestions";
+import type { AgentChatContext, ComposeInput, EventInput } from "@/lib/types";
 import { cn } from "@/lib/utils";
-import type {
-  AgentChatContext,
-  AgentSuggestion,
-  ComposeInput,
-  EventInput,
-} from "@/lib/types";
 
 type EmailProposal = {
   kind: "email";
@@ -103,6 +97,7 @@ export type AgentOperator = {
 };
 
 type AgentPanelProps = {
+  embedded?: boolean;
   open: boolean;
   operator: AgentOperator;
   onClose: () => void;
@@ -318,6 +313,7 @@ function toProposalKinds(items: ProposalItem[]) {
 }
 
 export function AgentPanel({
+  embedded = false,
   open,
   operator,
   onClose,
@@ -711,444 +707,271 @@ export function AgentPanel({
     proposals: toProposalKinds(latestAssistant?.proposals ?? []),
   });
 
-  return (
-    <Dialog open={open} onOpenChange={(value) => !value && onClose()}>
-      <DialogContent className="doop-ai-panel flex h-[min(85dvh,800px)] flex-col gap-0 overflow-hidden p-0 sm:max-w-[780px]">
-        <DialogHeader className="flex-row items-start justify-between gap-4 border-b border-border px-5 py-4 text-left">
-          <div className="min-w-0 space-y-1">
-            <DialogTitle className="flex items-center gap-2">
-              <SparklesIcon className="size-4 text-primary" />
-              Ask your inbox
-            </DialogTitle>
-            <DialogDescription className="truncate">
-              {operator.label}
-              {operator.model ? ` · ${operator.model}` : ""} — you confirm every
-              action.
-            </DialogDescription>
-          </div>
-          <div className="flex shrink-0 items-center gap-1.5 pr-8">
-            <Button
-              type="button"
-              size="icon-sm"
-              variant="ghost"
-              aria-label="New chat"
-              title="New chat"
-              disabled={busy}
-              onClick={startNewChat}
-            >
-              <MessageSquarePlusIcon className="size-4" />
-            </Button>
-            <Button
-              type="button"
-              size="icon-sm"
-              variant={historyOpen ? "secondary" : "ghost"}
-              aria-label="Chat history"
-              disabled={busy}
-              title="Chat history"
-              aria-pressed={historyOpen}
-              onClick={() => setHistoryOpen((value) => !value)}
-            >
-              <Clock3Icon className="size-4" />
-            </Button>
-            <Label className="ml-2 flex cursor-pointer items-center gap-2 whitespace-nowrap text-xs text-muted-foreground">
-              <Switch
-                checked={autoApprove}
-                onCheckedChange={(checked) =>
-                  checked ? setApprovalOpen(true) : setAutoApprove(false)
-                }
-                size="sm"
-                aria-label="Auto-approve actions"
-              />
-              Auto-approve
-            </Label>
-          </div>
-        </DialogHeader>
+  const PanelHeader = embedded ? "header" : DialogHeader;
+  const PanelTitle = embedded ? "h2" : DialogTitle;
+  const PanelDescription = embedded ? "p" : DialogDescription;
+  const content = (
+    <>
+      <PanelHeader className="flex-row items-start justify-between gap-4 border-b border-border px-5 py-4 text-left">
+        <div className="min-w-0 space-y-1">
+          <PanelTitle className="flex items-center gap-2">
+            <SparklesIcon className="size-4 text-primary" />
+            {embedded ? "Assistant" : "Ask your inbox"}
+          </PanelTitle>
+          <PanelDescription className="truncate">
+            {operator.label}
+            {operator.model ? ` · ${operator.model}` : ""} — you confirm every
+            action.
+          </PanelDescription>
+        </div>
+        <div className="flex shrink-0 items-center gap-1.5 pr-8">
+          <Button
+            type="button"
+            size="icon-sm"
+            variant="ghost"
+            aria-label="New chat"
+            title="New chat"
+            disabled={busy}
+            onClick={startNewChat}
+          >
+            <MessageSquarePlusIcon className="size-4" />
+          </Button>
+          <Button
+            type="button"
+            size="icon-sm"
+            variant={historyOpen ? "secondary" : "ghost"}
+            aria-label="Chat history"
+            disabled={busy}
+            title="Chat history"
+            aria-pressed={historyOpen}
+            onClick={() => setHistoryOpen((value) => !value)}
+          >
+            <Clock3Icon className="size-4" />
+          </Button>
+          <Label className="ml-2 flex cursor-pointer items-center gap-2 whitespace-nowrap text-xs text-muted-foreground">
+            <Switch
+              checked={autoApprove}
+              onCheckedChange={(checked) =>
+                checked ? setApprovalOpen(true) : setAutoApprove(false)
+              }
+              size="sm"
+              aria-label="Auto-approve actions"
+            />
+            Auto-approve
+          </Label>
+        </div>
+        {embedded && (
+          <button type="button" disabled={busy} onClick={startNewChat}>
+            New conversation
+          </button>
+        )}
+      </PanelHeader>
 
-        <AIConversation
-          className="min-h-0 flex-1"
-          contentKey={turns
-            .map(
-              (turn) =>
-                turn.content.length + turn.tools.length + turn.proposals.length,
-            )
-            .join(":")}
-        >
-          <div className="space-y-4 px-6 py-5">
-            {historyOpen && (
-              <div className="motion-enter rounded-lg border border-border bg-card p-3">
-                <div className="mb-3 flex items-center justify-between gap-3">
-                  <div className="flex items-center gap-2 text-sm font-semibold">
-                    <Clock3Icon className="size-4 text-primary" />
-                    Your chats
-                  </div>
-                  <Button
-                    type="button"
-                    size="xs"
-                    variant="ghost"
-                    onClick={() => setHistoryOpen(false)}
-                  >
-                    Close
-                  </Button>
+      <AIConversation
+        className="min-h-0 flex-1"
+        contentKey={turns
+          .map(
+            (turn) =>
+              turn.content.length + turn.tools.length + turn.proposals.length,
+          )
+          .join(":")}
+      >
+        <div className="space-y-4 px-6 py-5">
+          {historyOpen && (
+            <div className="motion-enter rounded-lg border border-border bg-card p-3">
+              <div className="mb-3 flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2 text-sm font-semibold">
+                  <Clock3Icon className="size-4 text-primary" />
+                  Your chats
                 </div>
-                {savedChats.length > 0 ? (
-                  <div className="space-y-4">
-                    {[
-                      ["Today", groupedChats.today],
-                      ["Last 7 days", groupedChats.last7Days],
-                      ["Older", groupedChats.older],
-                    ].map(([label, chats]) =>
-                      (chats as SavedChat[]).length > 0 ? (
-                        <section key={label as string} className="space-y-1.5">
-                          <h3 className="px-2 text-xs font-medium text-muted-foreground">
-                            {label as string}
-                          </h3>
-                          {(chats as SavedChat[]).map((chat) => (
-                            <button
-                              key={chat.id}
-                              type="button"
-                              className={cn(
-                                "motion-state flex w-full items-center gap-2 rounded-md px-2 py-2 text-left text-sm outline-none hover:bg-accent focus-visible:ring-2 focus-visible:ring-ring",
-                                chat.id === activeChatId &&
-                                  "bg-accent text-accent-foreground",
-                              )}
-                              onClick={() => openSavedChat(chat)}
-                            >
-                              <MailIcon className="size-4 shrink-0 text-primary" />
-                              <span className="min-w-0 flex-1 truncate">
-                                {chat.title}
-                              </span>
-                            </button>
-                          ))}
-                        </section>
-                      ) : null,
-                    )}
-                  </div>
-                ) : (
-                  <p className="text-sm text-muted-foreground">
-                    Chats you start will be saved here on this device.
-                  </p>
-                )}
+                <Button
+                  type="button"
+                  size="xs"
+                  variant="ghost"
+                  onClick={() => setHistoryOpen(false)}
+                >
+                  Close
+                </Button>
               </div>
-            )}
-
-            {turns.length === 0 ? (
-              operator.configured ? (
-                <div className="space-y-5">
-                  <h2 className="text-xl font-medium tracking-tight">
-                    What would you like to make room for?
-                  </h2>
-                  <p className="text-sm text-muted-foreground">
-                    Find a thread, prepare a reply, or plan your next meeting.
-                    You review every action.
-                  </p>
-                  <AISuggestions
-                    className="doop-ai-suggestions"
-                    suggestions={SUGGESTIONS}
-                    onSelect={(suggestion) =>
-                      void send(suggestion.label, {
-                        suggestionIntent: [
-                          ...SUGGESTIONS,
-                          ...contextualSuggestions,
-                        ].find((item) => item.id === suggestion.id)?.id,
-                        checkpointAt:
-                          suggestion.id === "triage_changes_since_check"
-                            ? lastInboxCheckpointAt
-                            : undefined,
-                      })
-                    }
-                  />
+              {savedChats.length > 0 ? (
+                <div className="space-y-4">
+                  {[
+                    ["Today", groupedChats.today],
+                    ["Last 7 days", groupedChats.last7Days],
+                    ["Older", groupedChats.older],
+                  ].map(([label, chats]) =>
+                    (chats as SavedChat[]).length > 0 ? (
+                      <section key={label as string} className="space-y-1.5">
+                        <h3 className="px-2 text-xs font-medium text-muted-foreground">
+                          {label as string}
+                        </h3>
+                        {(chats as SavedChat[]).map((chat) => (
+                          <button
+                            key={chat.id}
+                            type="button"
+                            className={cn(
+                              "motion-state flex w-full items-center gap-2 rounded-md px-2 py-2 text-left text-sm outline-none hover:bg-accent focus-visible:ring-2 focus-visible:ring-ring",
+                              chat.id === activeChatId &&
+                                "bg-accent text-accent-foreground",
+                            )}
+                            onClick={() => openSavedChat(chat)}
+                          >
+                            <MailIcon className="size-4 shrink-0 text-primary" />
+                            <span className="min-w-0 flex-1 truncate">
+                              {chat.title}
+                            </span>
+                          </button>
+                        ))}
+                      </section>
+                    ) : null,
+                  )}
                 </div>
               ) : (
-                <div className="motion-enter-soft rounded-lg border border-border bg-muted/50 p-4">
-                  <p className="text-sm font-medium">
-                    Agent Chat isn&apos;t configured yet.
-                  </p>
-                  <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
-                    Set <code className="font-mono">AI_BASE_URL</code>,{" "}
-                    <code className="font-mono">AI_API_KEY</code>, and{" "}
-                    <code className="font-mono">AI_MODEL</code> in{" "}
-                    <code className="font-mono">corsair-email/.env.local</code>{" "}
-                    (any OpenAI-compatible provider) and restart.
-                  </p>
-                </div>
-              )
+                <p className="text-sm text-muted-foreground">
+                  Chats you start will be saved here on this device.
+                </p>
+              )}
+            </div>
+          )}
+
+          {turns.length === 0 ? (
+            operator.configured ? (
+              <div className="space-y-5">
+                <h2 className="text-xl font-medium tracking-tight">
+                  What would you like to make room for?
+                </h2>
+                <p className="text-sm text-muted-foreground">
+                  Find a thread, prepare a reply, or plan your next meeting. You
+                  review every action.
+                </p>
+                <AISuggestions
+                  className="doop-ai-suggestions"
+                  suggestions={SUGGESTIONS}
+                  onSelect={(suggestion) =>
+                    void send(suggestion.label, {
+                      suggestionIntent: [
+                        ...SUGGESTIONS,
+                        ...contextualSuggestions,
+                      ].find((item) => item.id === suggestion.id)?.id,
+                      checkpointAt:
+                        suggestion.id === "triage_changes_since_check"
+                          ? lastInboxCheckpointAt
+                          : undefined,
+                    })
+                  }
+                />
+              </div>
             ) : (
-              turns.map((turn) => (
-                <div
-                  key={turn.id}
-                  className={cn(
-                    "motion-enter-soft flex flex-col gap-2",
-                    turn.role === "user" ? "items-end" : "items-start",
-                  )}
-                >
-                  {turn.content.trim() && (
-                    <AIMessage
-                      from={turn.role}
-                      copyText={turn.content}
-                      timestamp={format(new Date(turn.createdAt), "h:mm a")}
-                      className="max-w-full"
-                      bubble={turn.role === "user"}
-                    >
-                      <p className="whitespace-pre-wrap text-sm leading-relaxed">
-                        {turn.content}
-                      </p>
-                    </AIMessage>
-                  )}
+              <div className="motion-enter-soft rounded-lg border border-border bg-muted/50 p-4">
+                <p className="text-sm font-medium">
+                  Agent Chat isn&apos;t configured yet.
+                </p>
+                <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+                  Set <code className="font-mono">AI_BASE_URL</code>,{" "}
+                  <code className="font-mono">AI_API_KEY</code>, and{" "}
+                  <code className="font-mono">AI_MODEL</code> in{" "}
+                  <code className="font-mono">corsair-email/.env.local</code>{" "}
+                  (any OpenAI-compatible provider) and restart.
+                </p>
+              </div>
+            )
+          ) : (
+            turns.map((turn) => (
+              <div
+                key={turn.id}
+                className={cn(
+                  "motion-enter-soft flex flex-col gap-2",
+                  turn.role === "user" ? "items-end" : "items-start",
+                )}
+              >
+                {turn.content.trim() && (
+                  <AIMessage
+                    from={turn.role}
+                    copyText={turn.content}
+                    timestamp={format(new Date(turn.createdAt), "h:mm a")}
+                    className="max-w-full"
+                    bubble={turn.role === "user"}
+                  >
+                    <p className="whitespace-pre-wrap text-sm leading-relaxed">
+                      {turn.content}
+                    </p>
+                  </AIMessage>
+                )}
 
-                  {turn.tools.length > 0 && (
-                    <div className="w-full space-y-2">
-                      {turn.tools.map((tool, index) => (
-                        <AIToolCall
-                          key={`${turn.id}-tool-${index}`}
-                          name={tool}
-                          status={
-                            busy &&
-                            turn === turns.at(-1) &&
-                            index === turn.tools.length - 1
-                              ? "running"
-                              : "success"
-                          }
-                        />
-                      ))}
-                    </div>
-                  )}
+                {turn.tools.length > 0 && (
+                  <div className="w-full space-y-2">
+                    {turn.tools.map((tool, index) => (
+                      <AIToolCall
+                        key={`${turn.id}-tool-${index}`}
+                        name={tool}
+                        status={
+                          busy &&
+                          turn === turns.at(-1) &&
+                          index === turn.tools.length - 1
+                            ? "running"
+                            : "success"
+                        }
+                      />
+                    ))}
+                  </div>
+                )}
 
-                  {turn.proposals.map((item, proposalIndex) => (
-                    <Collapsible.Root
-                      key={item.id}
-                      defaultOpen={proposalIndex === 0}
-                      className="w-full"
-                    >
-                      {proposalIndex > 0 && (
-                        <Collapsible.Trigger className="mb-2 w-full rounded-lg border border-border px-4 py-3 text-left text-sm">
-                          {item.proposal.kind === "email"
-                            ? item.proposal.subject || "Another reply draft"
-                            : item.proposal.summary ||
-                              "Another meeting proposal"}
-                        </Collapsible.Trigger>
-                      )}
-                      <Collapsible.Content>
-                        <AIArtifact
-                          title={
-                            item.proposal.kind === "email"
-                              ? "Reply draft"
-                              : "Meeting proposal"
-                          }
-                          className="w-full bg-card"
-                          preview={
-                            <div className="space-y-3 p-4">
-                              <div className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground">
-                                {item.proposal.kind === "email" ? (
-                                  <MailIcon className="size-3.5" />
-                                ) : (
-                                  <CalendarIcon className="size-3.5" />
-                                )}
-                                {item.proposal.kind === "email"
-                                  ? "Draft email"
-                                  : "Proposed event"}
-                              </div>
-
+                {turn.proposals.map((item, proposalIndex) => (
+                  <Collapsible.Root
+                    key={item.id}
+                    defaultOpen={proposalIndex === 0}
+                    className="w-full"
+                  >
+                    {proposalIndex > 0 && (
+                      <Collapsible.Trigger className="mb-2 w-full rounded-lg border border-border px-4 py-3 text-left text-sm">
+                        {item.proposal.kind === "email"
+                          ? item.proposal.subject || "Another reply draft"
+                          : item.proposal.summary || "Another meeting proposal"}
+                      </Collapsible.Trigger>
+                    )}
+                    <Collapsible.Content>
+                      <AIArtifact
+                        title={
+                          item.proposal.kind === "email"
+                            ? "Reply draft"
+                            : "Meeting proposal"
+                        }
+                        className="w-full bg-card"
+                        preview={
+                          <div className="space-y-3 p-4">
+                            <div className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground">
                               {item.proposal.kind === "email" ? (
-                                item.editing ? (
-                                  <div className="space-y-3">
-                                    <div className="space-y-1.5">
-                                      <Label
-                                        className="text-xs text-muted-foreground"
-                                        htmlFor={`proposal-to-${item.id}`}
-                                      >
-                                        To
-                                      </Label>
-                                      <Input
-                                        id={`proposal-to-${item.id}`}
-                                        value={item.proposal.to}
-                                        onChange={(event) =>
-                                          updateProposal(
-                                            turn.id,
-                                            item.id,
-                                            (proposal) =>
-                                              proposal.kind === "email"
-                                                ? {
-                                                    ...proposal,
-                                                    to: event.target.value,
-                                                  }
-                                                : proposal,
-                                          )
-                                        }
-                                      />
-                                    </div>
-                                    <div className="space-y-1.5">
-                                      <Label
-                                        className="text-xs text-muted-foreground"
-                                        htmlFor={`proposal-subject-${item.id}`}
-                                      >
-                                        Subject
-                                      </Label>
-                                      <Input
-                                        id={`proposal-subject-${item.id}`}
-                                        value={item.proposal.subject}
-                                        onChange={(event) =>
-                                          updateProposal(
-                                            turn.id,
-                                            item.id,
-                                            (proposal) =>
-                                              proposal.kind === "email"
-                                                ? {
-                                                    ...proposal,
-                                                    subject: event.target.value,
-                                                  }
-                                                : proposal,
-                                          )
-                                        }
-                                      />
-                                    </div>
-                                    <div className="space-y-1.5">
-                                      <Label
-                                        className="text-xs text-muted-foreground"
-                                        htmlFor={`proposal-body-${item.id}`}
-                                      >
-                                        Body
-                                      </Label>
-                                      <Textarea
-                                        id={`proposal-body-${item.id}`}
-                                        rows={8}
-                                        value={item.proposal.body}
-                                        onChange={(event) =>
-                                          updateProposal(
-                                            turn.id,
-                                            item.id,
-                                            (proposal) =>
-                                              proposal.kind === "email"
-                                                ? {
-                                                    ...proposal,
-                                                    body: event.target.value,
-                                                  }
-                                                : proposal,
-                                          )
-                                        }
-                                      />
-                                    </div>
-                                  </div>
-                                ) : (
-                                  <>
-                                    <strong className="block text-sm">
-                                      {item.proposal.subject || "(no subject)"}
-                                    </strong>
-                                    <p className="text-xs text-muted-foreground">
-                                      To {item.proposal.to}
-                                    </p>
-                                    <p className="whitespace-pre-wrap text-sm leading-relaxed text-foreground/90">
-                                      {item.proposal.body}
-                                    </p>
-                                  </>
-                                )
-                              ) : item.editing ? (
+                                <MailIcon className="size-3.5" />
+                              ) : (
+                                <CalendarIcon className="size-3.5" />
+                              )}
+                              {item.proposal.kind === "email"
+                                ? "Draft email"
+                                : "Proposed event"}
+                            </div>
+
+                            {item.proposal.kind === "email" ? (
+                              item.editing ? (
                                 <div className="space-y-3">
                                   <div className="space-y-1.5">
                                     <Label
                                       className="text-xs text-muted-foreground"
-                                      htmlFor={`proposal-summary-${item.id}`}
+                                      htmlFor={`proposal-to-${item.id}`}
                                     >
-                                      Title
+                                      To
                                     </Label>
                                     <Input
-                                      id={`proposal-summary-${item.id}`}
-                                      value={item.proposal.summary}
+                                      id={`proposal-to-${item.id}`}
+                                      value={item.proposal.to}
                                       onChange={(event) =>
                                         updateProposal(
                                           turn.id,
                                           item.id,
                                           (proposal) =>
-                                            proposal.kind === "event"
+                                            proposal.kind === "email"
                                               ? {
                                                   ...proposal,
-                                                  summary: event.target.value,
-                                                }
-                                              : proposal,
-                                        )
-                                      }
-                                    />
-                                  </div>
-                                  <div className="grid gap-3 sm:grid-cols-2">
-                                    <div className="space-y-1.5">
-                                      <Label
-                                        className="text-xs text-muted-foreground"
-                                        htmlFor={`proposal-start-${item.id}`}
-                                      >
-                                        Start
-                                      </Label>
-                                      <Input
-                                        id={`proposal-start-${item.id}`}
-                                        type="datetime-local"
-                                        value={toEditableDateTime(
-                                          item.proposal.start,
-                                        )}
-                                        onChange={(event) =>
-                                          updateProposal(
-                                            turn.id,
-                                            item.id,
-                                            (proposal) =>
-                                              proposal.kind === "event"
-                                                ? {
-                                                    ...proposal,
-                                                    start: fromEditableDateTime(
-                                                      event.target.value,
-                                                    ),
-                                                  }
-                                                : proposal,
-                                          )
-                                        }
-                                      />
-                                    </div>
-                                    <div className="space-y-1.5">
-                                      <Label
-                                        className="text-xs text-muted-foreground"
-                                        htmlFor={`proposal-end-${item.id}`}
-                                      >
-                                        End
-                                      </Label>
-                                      <Input
-                                        id={`proposal-end-${item.id}`}
-                                        type="datetime-local"
-                                        value={toEditableDateTime(
-                                          item.proposal.end,
-                                        )}
-                                        onChange={(event) =>
-                                          updateProposal(
-                                            turn.id,
-                                            item.id,
-                                            (proposal) =>
-                                              proposal.kind === "event"
-                                                ? {
-                                                    ...proposal,
-                                                    end: fromEditableDateTime(
-                                                      event.target.value,
-                                                    ),
-                                                  }
-                                                : proposal,
-                                          )
-                                        }
-                                      />
-                                    </div>
-                                  </div>
-                                  <div className="space-y-1.5">
-                                    <Label
-                                      className="text-xs text-muted-foreground"
-                                      htmlFor={`proposal-attendees-${item.id}`}
-                                    >
-                                      Attendees
-                                    </Label>
-                                    <Input
-                                      id={`proposal-attendees-${item.id}`}
-                                      value={item.proposal.attendees ?? ""}
-                                      onChange={(event) =>
-                                        updateProposal(
-                                          turn.id,
-                                          item.id,
-                                          (proposal) =>
-                                            proposal.kind === "event"
-                                              ? {
-                                                  ...proposal,
-                                                  attendees: event.target.value,
+                                                  to: event.target.value,
                                                 }
                                               : proposal,
                                         )
@@ -1158,22 +981,22 @@ export function AgentPanel({
                                   <div className="space-y-1.5">
                                     <Label
                                       className="text-xs text-muted-foreground"
-                                      htmlFor={`proposal-location-${item.id}`}
+                                      htmlFor={`proposal-subject-${item.id}`}
                                     >
-                                      Location
+                                      Subject
                                     </Label>
                                     <Input
-                                      id={`proposal-location-${item.id}`}
-                                      value={item.proposal.location ?? ""}
+                                      id={`proposal-subject-${item.id}`}
+                                      value={item.proposal.subject}
                                       onChange={(event) =>
                                         updateProposal(
                                           turn.id,
                                           item.id,
                                           (proposal) =>
-                                            proposal.kind === "event"
+                                            proposal.kind === "email"
                                               ? {
                                                   ...proposal,
-                                                  location: event.target.value,
+                                                  subject: event.target.value,
                                                 }
                                               : proposal,
                                         )
@@ -1183,24 +1006,23 @@ export function AgentPanel({
                                   <div className="space-y-1.5">
                                     <Label
                                       className="text-xs text-muted-foreground"
-                                      htmlFor={`proposal-description-${item.id}`}
+                                      htmlFor={`proposal-body-${item.id}`}
                                     >
-                                      Description
+                                      Body
                                     </Label>
                                     <Textarea
-                                      id={`proposal-description-${item.id}`}
-                                      rows={6}
-                                      value={item.proposal.description ?? ""}
+                                      id={`proposal-body-${item.id}`}
+                                      rows={8}
+                                      value={item.proposal.body}
                                       onChange={(event) =>
                                         updateProposal(
                                           turn.id,
                                           item.id,
                                           (proposal) =>
-                                            proposal.kind === "event"
+                                            proposal.kind === "email"
                                               ? {
                                                   ...proposal,
-                                                  description:
-                                                    event.target.value,
+                                                  body: event.target.value,
                                                 }
                                               : proposal,
                                         )
@@ -1211,202 +1033,393 @@ export function AgentPanel({
                               ) : (
                                 <>
                                   <strong className="block text-sm">
-                                    {item.proposal.summary}
+                                    {item.proposal.subject || "(no subject)"}
                                   </strong>
-                                  <p className="text-xs text-primary">
-                                    {formatRange(
-                                      item.proposal.start,
-                                      item.proposal.end,
-                                    )}
+                                  <p className="text-xs text-muted-foreground">
+                                    To {item.proposal.to}
                                   </p>
-                                  {item.proposal.attendees && (
-                                    <p className="text-xs text-muted-foreground">
-                                      With {item.proposal.attendees}
-                                    </p>
+                                  <p className="whitespace-pre-wrap text-sm leading-relaxed text-foreground/90">
+                                    {item.proposal.body}
+                                  </p>
+                                </>
+                              )
+                            ) : item.editing ? (
+                              <div className="space-y-3">
+                                <div className="space-y-1.5">
+                                  <Label
+                                    className="text-xs text-muted-foreground"
+                                    htmlFor={`proposal-summary-${item.id}`}
+                                  >
+                                    Title
+                                  </Label>
+                                  <Input
+                                    id={`proposal-summary-${item.id}`}
+                                    value={item.proposal.summary}
+                                    onChange={(event) =>
+                                      updateProposal(
+                                        turn.id,
+                                        item.id,
+                                        (proposal) =>
+                                          proposal.kind === "event"
+                                            ? {
+                                                ...proposal,
+                                                summary: event.target.value,
+                                              }
+                                            : proposal,
+                                      )
+                                    }
+                                  />
+                                </div>
+                                <div className="grid gap-3 sm:grid-cols-2">
+                                  <div className="space-y-1.5">
+                                    <Label
+                                      className="text-xs text-muted-foreground"
+                                      htmlFor={`proposal-start-${item.id}`}
+                                    >
+                                      Start
+                                    </Label>
+                                    <Input
+                                      id={`proposal-start-${item.id}`}
+                                      type="datetime-local"
+                                      value={toEditableDateTime(
+                                        item.proposal.start,
+                                      )}
+                                      onChange={(event) =>
+                                        updateProposal(
+                                          turn.id,
+                                          item.id,
+                                          (proposal) =>
+                                            proposal.kind === "event"
+                                              ? {
+                                                  ...proposal,
+                                                  start: fromEditableDateTime(
+                                                    event.target.value,
+                                                  ),
+                                                }
+                                              : proposal,
+                                        )
+                                      }
+                                    />
+                                  </div>
+                                  <div className="space-y-1.5">
+                                    <Label
+                                      className="text-xs text-muted-foreground"
+                                      htmlFor={`proposal-end-${item.id}`}
+                                    >
+                                      End
+                                    </Label>
+                                    <Input
+                                      id={`proposal-end-${item.id}`}
+                                      type="datetime-local"
+                                      value={toEditableDateTime(
+                                        item.proposal.end,
+                                      )}
+                                      onChange={(event) =>
+                                        updateProposal(
+                                          turn.id,
+                                          item.id,
+                                          (proposal) =>
+                                            proposal.kind === "event"
+                                              ? {
+                                                  ...proposal,
+                                                  end: fromEditableDateTime(
+                                                    event.target.value,
+                                                  ),
+                                                }
+                                              : proposal,
+                                        )
+                                      }
+                                    />
+                                  </div>
+                                </div>
+                                <div className="space-y-1.5">
+                                  <Label
+                                    className="text-xs text-muted-foreground"
+                                    htmlFor={`proposal-attendees-${item.id}`}
+                                  >
+                                    Attendees
+                                  </Label>
+                                  <Input
+                                    id={`proposal-attendees-${item.id}`}
+                                    value={item.proposal.attendees ?? ""}
+                                    onChange={(event) =>
+                                      updateProposal(
+                                        turn.id,
+                                        item.id,
+                                        (proposal) =>
+                                          proposal.kind === "event"
+                                            ? {
+                                                ...proposal,
+                                                attendees: event.target.value,
+                                              }
+                                            : proposal,
+                                      )
+                                    }
+                                  />
+                                </div>
+                                <div className="space-y-1.5">
+                                  <Label
+                                    className="text-xs text-muted-foreground"
+                                    htmlFor={`proposal-location-${item.id}`}
+                                  >
+                                    Location
+                                  </Label>
+                                  <Input
+                                    id={`proposal-location-${item.id}`}
+                                    value={item.proposal.location ?? ""}
+                                    onChange={(event) =>
+                                      updateProposal(
+                                        turn.id,
+                                        item.id,
+                                        (proposal) =>
+                                          proposal.kind === "event"
+                                            ? {
+                                                ...proposal,
+                                                location: event.target.value,
+                                              }
+                                            : proposal,
+                                      )
+                                    }
+                                  />
+                                </div>
+                                <div className="space-y-1.5">
+                                  <Label
+                                    className="text-xs text-muted-foreground"
+                                    htmlFor={`proposal-description-${item.id}`}
+                                  >
+                                    Description
+                                  </Label>
+                                  <Textarea
+                                    id={`proposal-description-${item.id}`}
+                                    rows={6}
+                                    value={item.proposal.description ?? ""}
+                                    onChange={(event) =>
+                                      updateProposal(
+                                        turn.id,
+                                        item.id,
+                                        (proposal) =>
+                                          proposal.kind === "event"
+                                            ? {
+                                                ...proposal,
+                                                description: event.target.value,
+                                              }
+                                            : proposal,
+                                      )
+                                    }
+                                  />
+                                </div>
+                              </div>
+                            ) : (
+                              <>
+                                <strong className="block text-sm">
+                                  {item.proposal.summary}
+                                </strong>
+                                <p className="text-xs text-primary">
+                                  {formatRange(
+                                    item.proposal.start,
+                                    item.proposal.end,
                                   )}
+                                </p>
+                                {item.proposal.attendees && (
+                                  <p className="text-xs text-muted-foreground">
+                                    With {item.proposal.attendees}
+                                  </p>
+                                )}
+                              </>
+                            )}
+
+                            {item.error && (
+                              <p className="text-xs text-destructive">
+                                {item.error}
+                              </p>
+                            )}
+
+                            <div className="flex flex-wrap items-center gap-2 pt-1">
+                              {item.status === "done" ? (
+                                <Badge className="motion-enter-soft gap-1 border-success/30 bg-success/10 text-success">
+                                  <CheckCircle2Icon className="size-3" />
+                                  {item.proposal.kind === "email"
+                                    ? "Sent"
+                                    : "Created"}
+                                </Badge>
+                              ) : item.status === "cancelled" ? (
+                                <Badge
+                                  variant="outline"
+                                  className="motion-enter-soft text-muted-foreground"
+                                >
+                                  Dismissed
+                                </Badge>
+                              ) : (
+                                <>
+                                  <Button
+                                    type="button"
+                                    size="sm"
+                                    disabled={
+                                      item.status === "confirming" ||
+                                      !canConfirmProposal(item.proposal)
+                                    }
+                                    onClick={() =>
+                                      void confirmProposal(turn.id, item.id)
+                                    }
+                                  >
+                                    {item.status === "confirming" ? (
+                                      <>
+                                        <Loader2Icon className="size-4 animate-spin" />
+                                        Working...
+                                      </>
+                                    ) : item.proposal.kind === "email" ? (
+                                      "Send"
+                                    ) : (
+                                      "Create"
+                                    )}
+                                  </Button>
+                                  <Button
+                                    type="button"
+                                    size="sm"
+                                    variant="ghost"
+                                    disabled={item.status === "confirming"}
+                                    onClick={() =>
+                                      setProposalEditing(
+                                        turn.id,
+                                        item.id,
+                                        !item.editing,
+                                      )
+                                    }
+                                  >
+                                    <PencilIcon className="size-4" />
+                                    {item.editing ? "Done" : "Edit"}
+                                  </Button>
+                                  <Button
+                                    type="button"
+                                    size="sm"
+                                    variant="ghost"
+                                    disabled={item.status === "confirming"}
+                                    onClick={() =>
+                                      setProposalStatus(
+                                        turn.id,
+                                        item.id,
+                                        "cancelled",
+                                      )
+                                    }
+                                  >
+                                    Dismiss
+                                  </Button>
                                 </>
                               )}
-
-                              {item.error && (
-                                <p className="text-xs text-destructive">
-                                  {item.error}
-                                </p>
-                              )}
-
-                              <div className="flex flex-wrap items-center gap-2 pt-1">
-                                {item.status === "done" ? (
-                                  <Badge className="motion-enter-soft gap-1 border-success/30 bg-success/10 text-success">
-                                    <CheckCircle2Icon className="size-3" />
-                                    {item.proposal.kind === "email"
-                                      ? "Sent"
-                                      : "Created"}
-                                  </Badge>
-                                ) : item.status === "cancelled" ? (
-                                  <Badge
-                                    variant="outline"
-                                    className="motion-enter-soft text-muted-foreground"
-                                  >
-                                    Dismissed
-                                  </Badge>
-                                ) : (
-                                  <>
-                                    <Button
-                                      type="button"
-                                      size="sm"
-                                      disabled={
-                                        item.status === "confirming" ||
-                                        !canConfirmProposal(item.proposal)
-                                      }
-                                      onClick={() =>
-                                        void confirmProposal(turn.id, item.id)
-                                      }
-                                    >
-                                      {item.status === "confirming" ? (
-                                        <>
-                                          <Loader2Icon className="size-4 animate-spin" />
-                                          Working...
-                                        </>
-                                      ) : item.proposal.kind === "email" ? (
-                                        "Send"
-                                      ) : (
-                                        "Create"
-                                      )}
-                                    </Button>
-                                    <Button
-                                      type="button"
-                                      size="sm"
-                                      variant="ghost"
-                                      disabled={item.status === "confirming"}
-                                      onClick={() =>
-                                        setProposalEditing(
-                                          turn.id,
-                                          item.id,
-                                          !item.editing,
-                                        )
-                                      }
-                                    >
-                                      <PencilIcon className="size-4" />
-                                      {item.editing ? "Done" : "Edit"}
-                                    </Button>
-                                    <Button
-                                      type="button"
-                                      size="sm"
-                                      variant="ghost"
-                                      disabled={item.status === "confirming"}
-                                      onClick={() =>
-                                        setProposalStatus(
-                                          turn.id,
-                                          item.id,
-                                          "cancelled",
-                                        )
-                                      }
-                                    >
-                                      Dismiss
-                                    </Button>
-                                  </>
-                                )}
-                              </div>
                             </div>
-                          }
-                        />
-                      </Collapsible.Content>
-                    </Collapsible.Root>
-                  ))}
-                </div>
-              ))
-            )}
-
-            {showFollowUps && (
-              <AISuggestions
-                className="doop-ai-suggestions"
-                suggestions={contextualSuggestions}
-                onSelect={(suggestion) =>
-                  void send(suggestion.label, {
-                    suggestionIntent: [
-                      ...SUGGESTIONS,
-                      ...contextualSuggestions,
-                    ].find((item) => item.id === suggestion.id)?.id,
-                    checkpointAt:
-                      suggestion.id === "triage_changes_since_check"
-                        ? lastInboxCheckpointAt
-                        : undefined,
-                  })
-                }
-              />
-            )}
-
-            {busy && (
-              <div className="motion-enter-soft flex items-center gap-2 text-sm text-muted-foreground">
-                <AILoader variant="dots" />
-                Thinking...
+                          </div>
+                        }
+                      />
+                    </Collapsible.Content>
+                  </Collapsible.Root>
+                ))}
               </div>
-            )}
-            {error && (
-              <div className="motion-enter-soft rounded-md border border-destructive/30 bg-destructive/10 px-3 py-2 text-sm text-destructive">
-                {error}
-              </div>
-            )}
-          </div>
-        </AIConversation>
-        {error && (
-          <Button
-            variant="ghost"
-            size="sm"
-            className="mx-6 mb-2 self-start"
-            disabled={busy}
-            onClick={() => {
-              const previous = [...turns]
-                .reverse()
-                .find((turn) => turn.role === "user");
-              if (previous) void send(previous.content);
-            }}
-          >
-            Retry response
-          </Button>
-        )}
-        <div ref={composerRef} className="border-t border-border px-6 py-4">
-          <AIPromptInput
-            aria-label="Message your assistant"
-            value={input}
-            onValueChange={setInput}
-            state={busy ? "streaming" : "idle"}
-            disabled={!operator.configured}
-            placeholder={
-              operator.configured
-                ? "Ask your inbox..."
-                : "Your assistant is not available yet"
-            }
-            onSubmit={(value) => void send(value)}
-            onStop={() => abortRef.current?.abort()}
-          />
-        </div>
-        <Dialog open={approvalOpen} onOpenChange={setApprovalOpen}>
-          <DialogContent className="sm:max-w-md">
-            <DialogHeader>
-              <DialogTitle>Enable auto-approval?</DialogTitle>
-              <DialogDescription>
-                Future email and calendar proposals in this session will run
-                without another review. Keep it off to confirm each action.
-              </DialogDescription>
-            </DialogHeader>
-            <AIApproval
-              key={String(approvalOpen)}
-              question="Choose how your assistant acts"
-              options={[
-                { id: "review", label: "Keep reviewing each action" },
-                {
-                  id: "enable",
-                  label: "Enable auto-approval",
-                  detail: "Allow sends and calendar changes in this session",
-                },
-              ]}
-              onDecide={(option) => {
-                setAutoApprove(option.id === "enable");
-                setApprovalOpen(false);
-              }}
+            ))
+          )}
+
+          {showFollowUps && (
+            <AISuggestions
+              className="doop-ai-suggestions"
+              suggestions={contextualSuggestions}
+              onSelect={(suggestion) =>
+                void send(suggestion.label, {
+                  suggestionIntent: [
+                    ...SUGGESTIONS,
+                    ...contextualSuggestions,
+                  ].find((item) => item.id === suggestion.id)?.id,
+                  checkpointAt:
+                    suggestion.id === "triage_changes_since_check"
+                      ? lastInboxCheckpointAt
+                      : undefined,
+                })
+              }
             />
-          </DialogContent>
-        </Dialog>
+          )}
+
+          {busy && (
+            <div className="motion-enter-soft flex items-center gap-2 text-sm text-muted-foreground">
+              <AILoader variant="dots" />
+              Thinking...
+            </div>
+          )}
+          {error && (
+            <div className="motion-enter-soft rounded-md border border-destructive/30 bg-destructive/10 px-3 py-2 text-sm text-destructive">
+              {error}
+            </div>
+          )}
+        </div>
+      </AIConversation>
+      {error && (
+        <Button
+          variant="ghost"
+          size="sm"
+          className="mx-6 mb-2 self-start"
+          disabled={busy}
+          onClick={() => {
+            const previous = [...turns]
+              .reverse()
+              .find((turn) => turn.role === "user");
+            if (previous) void send(previous.content);
+          }}
+        >
+          Retry response
+        </Button>
+      )}
+      <div ref={composerRef} className="border-t border-border px-6 py-4">
+        <AIPromptInput
+          aria-label="Message your assistant"
+          value={input}
+          onValueChange={setInput}
+          state={busy ? "streaming" : "idle"}
+          disabled={!operator.configured}
+          placeholder={
+            operator.configured
+              ? "Ask your inbox..."
+              : "Your assistant is not available yet"
+          }
+          onSubmit={(value) => void send(value)}
+          onStop={() => abortRef.current?.abort()}
+        />
+      </div>
+      <Dialog open={approvalOpen} onOpenChange={setApprovalOpen}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>Enable auto-approval?</DialogTitle>
+            <DialogDescription>
+              Future email and calendar proposals in this session will run
+              without another review. Keep it off to confirm each action.
+            </DialogDescription>
+          </DialogHeader>
+          <AIApproval
+            key={String(approvalOpen)}
+            question="Choose how your assistant acts"
+            options={[
+              { id: "review", label: "Keep reviewing each action" },
+              {
+                id: "enable",
+                label: "Enable auto-approval",
+                detail: "Allow sends and calendar changes in this session",
+              },
+            ]}
+            onDecide={(option) => {
+              setAutoApprove(option.id === "enable");
+              setApprovalOpen(false);
+            }}
+          />
+        </DialogContent>
+      </Dialog>
+    </>
+  );
+  if (embedded)
+    return (
+      <aside className="dashboard-embedded-assistant" aria-label="Assistant">
+        {content}
+      </aside>
+    );
+  return (
+    <Dialog open={open} onOpenChange={(value) => !value && onClose()}>
+      <DialogContent className="doop-ai-panel flex h-[min(85dvh,800px)] flex-col gap-0 overflow-hidden p-0 sm:max-w-[780px]">
+        {content}
       </DialogContent>
     </Dialog>
   );

@@ -18,7 +18,8 @@
     "corsair:auth:calendar": "corsair auth --plugin googlecalendar",
     "corsair:watch-renew": "corsair watch-renew",
     "verify:landing": "node scripts/verify-landing.mjs",
-    "verify:workspace": "node scripts/verify-workspace.mjs"
+    "verify:workspace": "node scripts/verify-workspace.mjs",
+    "verify:dashboard": "node scripts/verify-dashboard-design.mjs"
   },
   "keywords": [
     "corsair",

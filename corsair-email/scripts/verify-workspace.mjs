@@ -16,8 +16,8 @@ try {
   await page
     .getByRole("heading", { name: "Focus queue", exact: true })
     .waitFor();
-  await page.locator(".doop-inbox-list li button").first().click();
-  await expect(page.locator(".doop-reader h2").first()).toBeVisible();
+  await page.locator(".dashboard-queue li button").first().click();
+  await expect(page.locator(".dashboard-reader h2").first()).toBeVisible();
   log("demo inbox and thread reading");
   await page
     .getByRole("navigation", { name: "Workspace", exact: true })
@@ -32,8 +32,8 @@ try {
   await page
     .getByRole("button", { name: "Expand calendar width", exact: true })
     .click();
-  await page.getByRole("tab", { name: "week", exact: true }).click();
-  await page.getByRole("tab", { name: "month", exact: true }).click();
+  await page.getByRole("tab", { name: "Week", exact: true }).click();
+  await page.getByRole("tab", { name: "Month", exact: true }).click();
   await page
     .getByRole("button", { name: "Collapse calendar width", exact: true })
     .click();
@@ -50,10 +50,16 @@ try {
     path: "../artifacts/calendar-dark.png",
     fullPage: true,
   });
-  await page.getByRole("button", { name: /Focus queue/ }).click();
+  await page
+    .getByRole("navigation", { name: "Workspace", exact: true })
+    .getByRole("button", { name: "Focus queue", exact: true })
+    .click();
   log("calendar navigation");
   await page.getByRole("button", { name: "Compose", exact: true }).click();
-  let dialog = page.getByRole("dialog");
+  let dialog = page.getByRole("region", {
+    name: "New message composer",
+    exact: true,
+  });
   await dialog.getByLabel("To", { exact: true }).fill("ari@example.com");
   await dialog
     .getByLabel("Subject", { exact: true })
@@ -78,9 +84,7 @@ try {
       el.click();
       el.click();
     });
-  await expect(
-    dialog.getByRole("button", { name: "Send", exact: true }),
-  ).toBeDisabled();
+  await expect(dialog.getByRole("button", { name: /^Saving/ })).toBeDisabled();
   releaseSend();
   await expect(dialog.getByRole("alert")).toContainText(
     "Simulated send failure",
@@ -98,7 +102,10 @@ try {
   log(
     "failed send retains content, prevents duplicates, and handles a mocked successful retry",
   );
-  await page.getByRole("button", { name: "New event", exact: true }).click();
+  await page
+    .getByRole("button", { name: "Workspace menu", exact: true })
+    .click();
+  await page.getByRole("menuitem", { name: "New event", exact: true }).click();
   dialog = page.getByRole("dialog");
   await dialog.getByLabel("Title", { exact: true }).fill("Doop review");
   await dialog.getByLabel("Start", { exact: true }).fill("2026-11-18T15:00");
@@ -169,7 +176,10 @@ try {
     .getByRole("textbox", { name: "Search mail", exact: true })
     .fill("");
   await page
-    .getByRole("button", { name: "Ask assistant", exact: true })
+    .getByRole("button", { name: "Workspace menu", exact: true })
+    .click();
+  await page
+    .getByRole("menuitem", { name: "Ask assistant", exact: true })
     .click();
   dialog = page.getByRole("dialog").first();
   await expect(dialog.getByLabel("Message your assistant")).toBeEnabled();
@@ -290,8 +300,14 @@ try {
     .click();
   await page.keyboard.press("Escape");
   await page
-    .getByRole("button", { name: "Switch to light mode", exact: true })
+    .getByRole("button", { name: "Workspace menu", exact: true })
     .click();
+  const lightMode = page.getByRole("menuitem", {
+    name: "Switch to light mode",
+    exact: true,
+  });
+  if (await lightMode.count()) await lightMode.click();
+  else await page.keyboard.press("Escape");
   await expect(page.locator("html")).toHaveClass(/light/);
   await page.screenshot({
     path: "../artifacts/workspace-light.png",
@@ -310,12 +326,16 @@ try {
   );
   log("light theme and mobile layout");
   await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.getByRole("button", { name: "Open folders", exact: true }).click();
+  await page.getByRole("button", { name: "Compose", exact: true }).click();
+  await expect(
+    page.getByRole("region", { name: "New message composer" }),
+  ).toBeVisible();
   await page
-    .getByRole("button", { name: "Compose email", exact: true })
+    .getByRole("region", { name: "New message composer" })
+    .getByRole("button", { name: "Close", exact: true })
     .click();
-  await expect(page.getByRole("dialog")).toBeVisible();
-  await page.keyboard.press("Escape");
-  log("reduced-motion dialog");
+  log("reduced-motion composer");
   if (errors.length) throw new Error(errors.join("\n"));
   console.log("ALL WORKSPACE CHECKS PASSED");
 } finally {

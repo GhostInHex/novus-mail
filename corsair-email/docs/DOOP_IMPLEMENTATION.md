@@ -6,22 +6,22 @@ The implementation lives in `corsair-email` on branch `feat/doop-nextjs-implemen
 
 The [NovusMail Doop canvas](https://doop.design/c/CCwouJnWg1) is the visual source. The supplied `novusmail-nextjs` project provided the ASCII mountain animation, image dissolve treatment, and landscape assets. The landing implementation retains these effects and uses the Doop typography, colors, Glaze buttons, sage actions, and light/dark variants.
 
-| Area | Doop frame | Implementation |
-| --- | --- | --- |
-| Landing, dark | `tZpJbgGcF5` | `src/components/landing/landing-page.tsx` |
-| Landing, light | `StnxuxcdNT` | Same component with light tokens |
-| Sign-in | `zR46pVQtqo`, `T-RWCDO3pN` | `/start`, `auth-landing.tsx` |
-| Google connection | `lyGlR1B5Jp`, `r5LPleAiTI` | `/connect`, `connect-state.tsx` |
-| Inbox and reader | `LwTPn9MJXU`, `nwOnX0aVws` | `workspace-shell.tsx` |
-| Calendar week | `TvnvIbjgPo`, `0t83YzC7LR` | `workspace-week-view.tsx` |
-| Agenda, expanded month, selected day | `qWTFqZ5lwm`, `8KlwJCCU9M` | `workspace-calendar-panel.tsx` |
-| Compose and reply | `LBIBo1A_05`, `pFxVhCB3hp` | `compose-sheet.tsx` |
-| Assistant welcome and proposals | `0XY1pUt-1N`, `VpyKBw3wII`, `GIruPrcKHT` | `agent-panel.tsx` |
-| Event form | `F5ItS-WXTF` | `event-sheet.tsx` |
-| Command console | `L5Eac6sbE4` | `command-palette.tsx` |
-| Privacy and terms | `0SudpaDmVv`, `jX9CyhpLJ6` | `/privacy`, `/terms` |
+| Area                                 | Doop frame                               | Implementation                                        |
+| ------------------------------------ | ---------------------------------------- | ----------------------------------------------------- |
+| Landing, dark                        | `tZpJbgGcF5`                             | `src/components/landing/landing-page.tsx`             |
+| Landing, light                       | `StnxuxcdNT`                             | Same component with light tokens                      |
+| Sign-in                              | `zR46pVQtqo`, `T-RWCDO3pN`               | `/start`, `auth-landing.tsx`                          |
+| Google connection                    | `lyGlR1B5Jp`, `r5LPleAiTI`               | `/connect`, `connect-state.tsx`                       |
+| Inbox and reader                     | `LwTPn9MJXU`, `nwOnX0aVws`               | `dashboard/dashboard-view.tsx`, `workspace-shell.tsx` |
+| Calendar week                        | `TvnvIbjgPo`, `0t83YzC7LR`               | `workspace-week-view.tsx`                             |
+| Agenda, expanded month, selected day | `qWTFqZ5lwm`, `8KlwJCCU9M`               | `workspace-calendar-panel.tsx`                        |
+| Compose and reply                    | `LBIBo1A_05`, `pFxVhCB3hp`               | `compose-sheet.tsx`                                   |
+| Assistant welcome and proposals      | `0XY1pUt-1N`, `VpyKBw3wII`, `GIruPrcKHT` | `agent-panel.tsx`                                     |
+| Event form                           | `F5ItS-WXTF`                             | `event-sheet.tsx`                                     |
+| Command console                      | `L5Eac6sbE4`                             | `command-palette.tsx`                                 |
+| Privacy and terms                    | `0SudpaDmVv`, `jX9CyhpLJ6`               | `/privacy`, `/terms`                                  |
 
-Content comes from the existing application data. Missing Google configuration disables Google sign-in; local development access stays in a disclosure. Gmail and Calendar have separate OAuth actions because the existing backend authorizes them separately. Smaller layouts adapt the desktop frames with horizontal folder navigation and a full-width thread reader.
+Content comes from the existing application data. Missing Google configuration disables Google sign-in; local development access stays in a disclosure. Gmail and Calendar have separate OAuth actions because the existing backend authorizes them separately. Smaller layouts use a folder drawer and a full-width inbox or reader. The desktop sidebar collapses into a 72px icon rail with named tooltips.
 
 ## Component integration
 
@@ -77,3 +77,9 @@ Live Google OAuth, email delivery, Calendar writes, and AI provider responses we
 ## Landscape image compression
 
 All eight landscape assets use lossless WebP at their original dimensions. The decoded RGBA pixels were compared byte-for-byte against their PNG sources and are identical. The image set decreased from 17,480,842 bytes to 11,104,986 bytes, a 36.5% reduction. The PNG originals remain in Git history and the supplied source project.
+
+## Dashboard replacement
+
+The dashboard renderer and styles now live in `src/components/dashboard`. The former dashboard JSX and theme overrides were removed. The inbox uses the Doop sender/subject rows, plain reader, reply actions, and suggested next step. Compose opens inline with the existing SmoothUI assistant beside it. The agenda uses compact event rows, and the expanded calendar has selectable month/week dates. The full calendar uses the bordered Doop week grid; empty time slots open an event with the selected date and time. Today starts on the current date, including when demo events are from an older month.
+
+`verify:dashboard` checks legacy UI removal, icon rail overflow, date selection, reduced-motion tab visibility, inline compose, time-slot presets, and mobile navigation in both themes.

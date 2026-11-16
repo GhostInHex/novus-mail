@@ -1,10 +1,11 @@
-"use client";
+﻿"use client";
 import { addDays, addWeeks, format, isSameDay, startOfWeek } from "date-fns";
-import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import type { AgendaEvent, EventInput } from "@/lib/types";
 
+const HOURS = [9, 10, 12, 15];
 export function WorkspaceWeekView({
   events,
   onSelectEvent,
@@ -18,101 +19,102 @@ export function WorkspaceWeekView({
     startOfWeek(new Date(), { weekStartsOn: 1 }),
   );
   const days = Array.from({ length: 5 }, (_, i) => addDays(week, i));
+  function create(day: Date, hour: number) {
+    const start = new Date(day);
+    start.setHours(hour, 0, 0, 0);
+    const end = new Date(start);
+    end.setMinutes(30);
+    onCreateEvent({ start: start.toISOString(), end: end.toISOString() });
+  }
   return (
-    <section
-      aria-label="Calendar week"
-      className="doop-week-view min-h-0 overflow-auto p-5 lg:col-span-2 lg:p-7"
-    >
-      <header className="mb-6 flex flex-wrap items-center justify-between gap-3">
-        <h1 className="text-2xl tracking-tight">
-          {format(week, "MMMM d")}–{format(addDays(week, 4), "d, yyyy")}
+    <section aria-label="Calendar week" className="dashboard-week-view">
+      <header>
+        <h1>
+          {format(week, "MMMM d")}–{format(addDays(week, 4), "d")}
         </h1>
-        <div className="flex items-center gap-2">
-          <Button onClick={() => onCreateEvent()}>New event</Button>
-          <Button
-            variant="ghost"
-            onClick={() =>
-              setWeek(startOfWeek(new Date(), { weekStartsOn: 1 }))
-            }
-          >
-            Today
-          </Button>
-          <Button
-            size="icon-sm"
-            variant="ghost"
-            aria-label="Previous week"
-            onClick={() => setWeek(addWeeks(week, -1))}
-          >
-            <ChevronLeftIcon className="size-4" />
-          </Button>
-          <Button
-            size="icon-sm"
-            variant="ghost"
-            aria-label="Next week"
-            onClick={() => setWeek(addWeeks(week, 1))}
-          >
-            <ChevronRightIcon className="size-4" />
-          </Button>
-        </div>
+        <Button onClick={() => onCreateEvent()}>New event</Button>
       </header>
-      <div className="grid min-w-[600px] grid-cols-5 overflow-hidden rounded-xl border border-border bg-card">
-        {days.map((day) => (
-          <section
-            key={day.toISOString()}
-            className="min-h-[520px] border-r border-border p-3 last:border-r-0"
-          >
-            <h2 className="mb-6 text-sm font-medium">{format(day, "EEE d")}</h2>
-            <div className="space-y-3">
-              {events
-                .filter(
-                  (event) =>
-                    event.start && isSameDay(new Date(event.start), day),
-                )
-                .sort((a, b) => (a.start ?? "").localeCompare(b.start ?? ""))
-                .map((event) => (
-                  <button
-                    key={event.id}
-                    type="button"
-                    className="w-full rounded-lg border border-border bg-muted p-3 text-left text-sm hover:bg-accent focus-visible:outline-2 focus-visible:outline-ring"
-                    onClick={() => onSelectEvent(event)}
-                  >
-                    <span className="block font-medium">{event.summary}</span>
-                    <span className="mt-2 block text-xs text-muted-foreground">
-                      {format(new Date(event.start!), "HH:mm")}
-                      {event.end &&
-                        ` – ${format(new Date(event.end), "HH:mm")}`}
-                    </span>
-                  </button>
-                ))}
-              <button
-                type="button"
-                className="w-full rounded-lg border border-dashed border-border px-3 py-5 text-left text-sm text-muted-foreground hover:bg-accent"
-                onClick={() => {
-                  const start = new Date(day);
-                  start.setHours(15, 0, 0, 0);
-                  const end = new Date(start);
-                  end.setMinutes(30);
-                  onCreateEvent({
-                    start: start.toISOString(),
-                    end: end.toISOString(),
+      <div className="dashboard-week-navigation">
+        <button
+          type="button"
+          onClick={() => setWeek(startOfWeek(new Date(), { weekStartsOn: 1 }))}
+        >
+          Today
+        </button>
+        <button
+          type="button"
+          aria-label="Previous week"
+          onClick={() => setWeek(addWeeks(week, -1))}
+        >
+          <ChevronLeft size={16} />
+        </button>
+        <button
+          type="button"
+          aria-label="Next week"
+          onClick={() => setWeek(addWeeks(week, 1))}
+        >
+          <ChevronRight size={16} />
+        </button>
+        <span>Week view</span>
+      </div>
+      <div className="dashboard-week-scroll">
+        <div className="dashboard-week-grid">
+          {days.map((day) => {
+            const dayEvents = events
+              .filter((e) => e.start && isSameDay(new Date(e.start), day))
+              .sort((a, b) => (a.start ?? "").localeCompare(b.start ?? ""));
+            return (
+              <section key={day.toISOString()} className="dashboard-week-day">
+                <h2 data-today={isSameDay(day, new Date())}>
+                  {format(day, "EEE d")}
+                </h2>
+                {HOURS.map((hour, index) => {
+                  const items = dayEvents.filter((e) => {
+                    const h = new Date(e.start!).getHours();
+                    return (
+                      (index === 0 || h >= hour) &&
+                      (index === HOURS.length - 1 || h < HOURS[index + 1])
+                    );
                   });
-                }}
-              >
-                <span className="block">
-                  {events.some(
-                    (event) =>
-                      event.start && isSameDay(new Date(event.start), day),
-                  )
-                    ? "Add an event"
-                    : "Open afternoon"}
-                </span>
-                <span className="mt-2 block text-xs">
-                  Choose time for your work
-                </span>
-              </button>
-            </div>
-          </section>
-        ))}
+                  return (
+                    <div
+                      className="dashboard-week-slot"
+                      key={hour}
+                      data-occupied={!!items.length}
+                    >
+                      {items.length ? (
+                        items.map((event) => (
+                          <button
+                            type="button"
+                            className="dashboard-week-event"
+                            key={event.id}
+                            onClick={() => onSelectEvent(event)}
+                          >
+                            <span>{event.summary}</span>
+                            <time>
+                              {format(new Date(event.start!), "HH:mm")}
+                              {event.end &&
+                                ` – ${format(new Date(event.end), "HH:mm")}`}
+                            </time>
+                          </button>
+                        ))
+                      ) : (
+                        <button
+                          type="button"
+                          className="dashboard-week-empty"
+                          aria-label={`New event ${format(day, "EEEE, MMMM d")} at ${hour}:00`}
+                          onClick={() => create(day, hour)}
+                        >
+                          <time>{String(hour).padStart(2, "0")}:00</time>
+                        </button>
+                      )}
+                    </div>
+                  );
+                })}
+              </section>
+            );
+          })}
+        </div>
       </div>
     </section>
   );
