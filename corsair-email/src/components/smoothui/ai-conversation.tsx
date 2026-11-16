@@ -35,6 +35,7 @@ export type AIConversationProps = {
    * Used to decide when to follow the bottom.
    */
   contentKey?: string | number;
+  autoScrollBehavior?: ScrollBehavior;
 };
 
 /**
@@ -49,6 +50,7 @@ const AIConversation = ({
   children,
   className,
   contentKey,
+  autoScrollBehavior = "smooth",
 }: AIConversationProps) => {
   const shouldReduceMotion = useReducedMotion();
   const viewportRef = useRef<HTMLDivElement | null>(null);
@@ -84,9 +86,15 @@ const AIConversation = ({
   // the reader never sees a flash of the pre-scroll position.
   useLayoutEffect(() => {
     if (isPinned) {
-      scrollToBottom(shouldReduceMotion ? "auto" : "smooth");
+      scrollToBottom(shouldReduceMotion ? "auto" : autoScrollBehavior);
     }
-  }, [contentKey, isPinned, scrollToBottom, shouldReduceMotion]);
+  }, [
+    contentKey,
+    isPinned,
+    scrollToBottom,
+    shouldReduceMotion,
+    autoScrollBehavior,
+  ]);
 
   useEffect(() => {
     const viewport = viewportRef.current;
@@ -106,6 +114,13 @@ const AIConversation = ({
     <div className={cn("relative min-h-0 w-full", className)}>
       <div
         className="h-full overflow-y-auto overscroll-contain"
+        onPointerDownCapture={() => {
+          const viewport = viewportRef.current;
+          if (viewport)
+            viewport.scrollTo({ top: viewport.scrollTop, behavior: "instant" });
+          setIsPinned(false);
+        }}
+        onWheelCapture={() => setIsPinned(false)}
         onScroll={measure}
         ref={viewportRef}
       >

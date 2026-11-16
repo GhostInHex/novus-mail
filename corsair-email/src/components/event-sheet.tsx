@@ -1,8 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import { format } from "date-fns";
-import { CalendarCheckIcon } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -125,7 +124,7 @@ export function EventSheet({
       open={open}
       onOpenChange={(value) => !value && !pending && onClose()}
     >
-      <DialogContent className="sm:max-w-xl">
+      <DialogContent className="doop-modal doop-event-modal">
         <DialogHeader>
           <DialogTitle>{initialEvent ? "Edit event" : "New event"}</DialogTitle>
           <DialogDescription>
@@ -133,7 +132,7 @@ export function EventSheet({
           </DialogDescription>
         </DialogHeader>
 
-        <div className="grid gap-4">
+        <fieldset disabled={pending} className="doop-event-fields">
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div className="space-y-1.5 sm:col-span-2">
               <Label htmlFor="event-summary">Title</Label>
@@ -222,7 +221,7 @@ export function EventSheet({
               placeholder="Agenda, context, expected outcome."
             />
           </div>
-        </div>
+        </fieldset>
 
         {draft.start &&
           draft.end &&
@@ -246,7 +245,6 @@ export function EventSheet({
             aria-busy={pending}
             onClick={() => void handleSubmit()}
           >
-            <CalendarCheckIcon className="size-4" />
             {initialEvent ? "Update event" : "Create event"}
           </Button>
         </DialogFooter>

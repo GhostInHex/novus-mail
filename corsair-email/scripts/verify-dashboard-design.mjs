@@ -1,4 +1,5 @@
-﻿import { chromium, expect } from "@playwright/test";
+const BASE_URL = process.env.BASE_URL || "http://localhost:3100";
+import { chromium, expect } from "@playwright/test";
 import { mkdir } from "node:fs/promises";
 await mkdir("../artifacts", { recursive: true });
 const browser = await chromium.launch({ channel: "chrome", headless: true });
@@ -13,7 +14,7 @@ try {
   await page.addInitScript(() =>
     localStorage.setItem("novusmail-theme", "light-default"),
   );
-  await page.goto("http://localhost:3100/start");
+  await page.goto(BASE_URL + "/start");
   await page
     .getByRole("button", { name: "Open demo workspace", exact: true })
     .click();
@@ -39,60 +40,35 @@ try {
   console.log(
     "PASS new light layout and no legacy badges, previews, or white email frame",
   );
-  await page
-    .getByRole("button", { name: "Collapse sidebar", exact: true })
-    .click();
-  await expect(page.locator(".dashboard-sidebar")).toHaveAttribute(
-    "data-collapsed",
-    "true",
-  );
+  await expect(
+    page.getByRole("button", { name: "Collapse sidebar", exact: true }),
+  ).toHaveCount(0);
   expect(
     await page
       .locator(".dashboard-sidebar")
       .evaluate((el) => el.scrollWidth <= el.clientWidth),
   ).toBe(true);
-  for (const label of [
-    "Focus queue",
-    "All mail",
-    "Starred",
-    "Drafts",
-    "Sent",
-    "Calendar",
-  ])
-    await expect(
-      page
-        .getByRole("navigation", { name: "Workspace", exact: true })
-        .getByRole("button", { name: label, exact: true })
-        .locator("svg"),
-    ).toBeVisible();
-  await page.screenshot({
-    path: "../artifacts/dashboard-collapsed-light.png",
-    fullPage: true,
-  });
-  console.log("PASS collapsed icon rail with no clipped labels");
+  await expect(page.locator(".dashboard-sidebar")).toHaveCSS("width", "200px");
+  console.log("PASS stable full folder navigation without a collapsed rail");
   await page
-    .getByRole("button", { name: "Expand sidebar", exact: true })
-    .click();
-  await page
-    .getByRole("button", { name: "Expand calendar width", exact: true })
+    .getByRole("button", { name: "Open month calendar", exact: true })
     .click();
   await page.getByRole("tab", { name: "Week", exact: true }).click();
   await page.getByRole("tab", { name: "Month", exact: true }).click();
-  await expect(page.locator(".dashboard-month-grid button")).toHaveCount(42);
-  const selectedDay = page.locator(".dashboard-month-grid button").nth(12);
+  expect(
+    await page.locator(".dashboard-calendar-dates button").count(),
+  ).toBeGreaterThanOrEqual(35);
+  const selectedDay = page.locator(".dashboard-calendar-dates button").nth(12);
   const selectedLabel = await selectedDay.getAttribute("aria-label");
   await selectedDay.click();
-  await expect(page.locator(".dashboard-agenda-date")).toHaveText(
-    selectedLabel,
-  );
+  await expect(
+    page.locator(".dashboard-selected-day .dashboard-agenda-date"),
+  ).toHaveText(selectedLabel);
   await expect(page.getByRole("tabpanel")).toHaveCSS("filter", "none");
   await page.screenshot({
     path: "../artifacts/dashboard-calendar-light.png",
     fullPage: true,
   });
-  await page
-    .getByRole("button", { name: "Collapse calendar width", exact: true })
-    .click();
   console.log("PASS new month calendar and day selection");
   await page
     .getByRole("button", { name: "Workspace menu", exact: true })
@@ -108,6 +84,10 @@ try {
     path: "../artifacts/dashboard-new-dark.png",
     fullPage: true,
   });
+  await page
+    .getByRole("navigation", { name: "Workspace", exact: true })
+    .getByRole("button", { name: "Focus queue", exact: true })
+    .click();
   await page.getByRole("button", { name: "Reply", exact: true }).click();
   await expect(
     page.getByRole("region", { name: "Reply composer", exact: true }),
@@ -126,6 +106,7 @@ try {
     .getByRole("navigation", { name: "Workspace", exact: true })
     .getByRole("button", { name: "Calendar", exact: true })
     .click();
+  await page.getByRole("tab", { name: "Week", exact: true }).click();
   await page.locator(".dashboard-week-empty").first().click();
   await expect(
     page.getByRole("dialog").getByLabel("Start", { exact: true }),

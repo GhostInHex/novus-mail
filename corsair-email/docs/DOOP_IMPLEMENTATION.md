@@ -21,7 +21,7 @@ The [NovusMail Doop canvas](https://doop.design/c/CCwouJnWg1) is the visual sour
 | Command console                      | `L5Eac6sbE4`                             | `command-palette.tsx`                                 |
 | Privacy and terms                    | `0SudpaDmVv`, `jX9CyhpLJ6`               | `/privacy`, `/terms`                                  |
 
-Content comes from the existing application data. Missing Google configuration disables Google sign-in; local development access stays in a disclosure. Gmail and Calendar have separate OAuth actions because the existing backend authorizes them separately. Smaller layouts use a folder drawer and a full-width inbox or reader. The desktop sidebar collapses into a 72px icon rail with named tooltips.
+Content comes from the existing application data. Missing Google configuration disables Google sign-in; local development access stays in a disclosure. Gmail and Calendar have separate OAuth actions because the existing backend authorizes them separately. Smaller layouts use a folder drawer and a full-width inbox or reader. The desktop folder sidebar remains fixed at 200px; the collapsed rail was removed after review.
 
 ## Component integration
 
@@ -80,6 +80,8 @@ All eight landscape assets use lossless WebP at their original dimensions. The d
 
 ## Dashboard replacement
 
-The dashboard renderer and styles now live in `src/components/dashboard`. The former dashboard JSX and theme overrides were removed. The inbox uses the Doop sender/subject rows, plain reader, reply actions, and suggested next step. Compose opens inline with the existing SmoothUI assistant beside it. The agenda uses compact event rows, and the expanded calendar has selectable month/week dates. The full calendar uses the bordered Doop week grid; empty time slots open an event with the selected date and time. Today starts on the current date, including when demo events are from an older month.
+The dashboard renderer and styles now live in `src/components/dashboard`. The former dashboard JSX and theme overrides were removed. The inbox uses the Doop sender/subject rows, plain reader, reply actions, and suggested next step. Compose opens inline with the existing SmoothUI assistant beside it. The agenda uses compact event rows, and the dedicated calendar view has month/week tabs and selectable dates. The full calendar uses the bordered Doop week grid; empty time slots open an event with the selected date and time. Today starts on the current date, including when demo events are from an older month.
 
-`verify:dashboard` checks legacy UI removal, icon rail overflow, date selection, reduced-motion tab visibility, inline compose, time-slot presets, and mobile navigation in both themes.
+`verify:dashboard` checks legacy UI removal, fixed folder navigation, date selection, reduced-motion tab visibility, inline compose, time-slot presets, and mobile navigation. `verify:panels` checks all major panel families in both themes. See [DOOP_AUDIT.md](DOOP_AUDIT.md) for source IDs, corrections, evidence, and the remaining intentional differences.
+
+Verification scripts accept `BASE_URL` when another worktree owns the default port. For this review, the updated worktree runs at `http://localhost:3101`; set `$env:BASE_URL = 'http://localhost:3101'` before running browser checks.
