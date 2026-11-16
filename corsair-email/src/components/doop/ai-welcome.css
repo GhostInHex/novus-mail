@@ -1,0 +1,17 @@
+/* Generated from design/doop/ai-welcome.html. Source geometry preserved; theme tokens mapped. */
+.doop-source-welcome { display:flex;flex-direction:column;align-items:flex-start;padding-inline:0px;padding-block:calc(0.25rem * 4);gap:calc(0.25rem * 4) }
+.doop-source-welcome h2 { width:fit-content;color:var(--foreground);font-family:Geist, sans-serif;font-size:23px;--tw-font-weight:500;font-weight:500;--tw-leading:1.26087;line-height:1.26087;--tw-tracking:-0.575px;letter-spacing:-0.575px;text-align:left;overflow-wrap:normal;display:block }
+.doop-source-welcome > p { width:fit-content;color:var(--muted-foreground);font-family:Geist, sans-serif;font-size:13px;--tw-leading:1.53846;line-height:1.53846;text-align:left;overflow-wrap:normal;display:block }
+.doop-source-welcome ul { display:flex;width:100%;flex-direction:column;margin-top:calc(0.25rem * 5);margin-bottom:0px;margin-inline:0px;gap:calc(0.25rem * 3) }
+.doop-source-welcome button { display:flex;justify-content:space-between;align-items:center;background-color:var(--card);border-top-style:solid;border-top-width:1px;border-top-color:var(--border);border-bottom-style:solid;border-bottom-width:1px;border-bottom-color:var(--border);border-left-style:solid;border-left-width:1px;border-left-color:var(--border);border-right-style:solid;border-right-width:1px;border-right-color:var(--border);border-radius:10px;padding:calc(0.25rem * 4);gap:calc(0.25rem * 4) }
+.doop-source-welcome button > span { width:fit-content;color:var(--foreground);font-family:Geist, sans-serif;font-size:0.875rem;line-height:1.5;--tw-leading:1.5;text-align:left;overflow-wrap:normal;display:block }
+.doop-ai-panel [data-slot="dialog-title"] { width:fit-content;color:var(--foreground);font-family:Geist, sans-serif;font-size:23px;--tw-font-weight:500;font-weight:500;--tw-leading:1.26087;line-height:1.26087;--tw-tracking:-0.575px;letter-spacing:-0.575px;text-align:left;overflow-wrap:normal;display:flex;align-items:center;gap:12px }
+
+.doop-source-welcome ul { list-style: none; padding: 0; }
+.doop-source-welcome li { width: 100%; }
+.doop-source-welcome button { width: 100%; text-align: left; cursor: pointer; }
+.doop-source-welcome button > span { flex: 1; }
+.doop-source-welcome button > svg { flex-shrink: 0; }
+.doop-source-welcome button:hover { background: var(--accent); }
+.doop-source-welcome button:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+.doop-source-welcome button:disabled { opacity: .5; cursor: default; }

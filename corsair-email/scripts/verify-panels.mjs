@@ -200,7 +200,7 @@ try {
       dialog.getByText("What needs your attention?", { exact: true }),
     ).toBeVisible();
     await expect(
-      dialog.locator(".doop-ai-suggestions button").first(),
+      dialog.locator(".doop-source-welcome button").first(),
     ).toHaveCSS("border-radius", "10px");
     await capture(
       "assistant-welcome",

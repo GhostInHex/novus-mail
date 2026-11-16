@@ -5,6 +5,7 @@ import {
   parseTriageSnapshot,
   type TriageSnapshot,
 } from "@/components/agent-triage-card";
+import { DoopAIWelcome } from "@/components/doop/ai-welcome";
 import AIApproval from "@/components/smoothui/ai-approval";
 import AIArtifact from "@/components/smoothui/ai-artifact";
 import AIConversation from "@/components/smoothui/ai-conversation";
@@ -732,7 +733,7 @@ export function AgentPanel({
           {!embedded && (
             <PanelDescription className="truncate">
               {operator.label}
-              {operator.model ? ` · ${operator.model}` : ""}
+              {operator.model ? ` Â· ${operator.model}` : ""}
             </PanelDescription>
           )}
         </div>
@@ -887,14 +888,7 @@ export function AgentPanel({
 
             {!historyOpen &&
               (turns.length === 0 ? (
-                <div className="doop-agent-welcome">
-                  <BotIcon size={28} />
-                  <h2>What needs your attention?</h2>
-                  <p>
-                    Ask about your inbox, prepare a reply, or find time to meet.
-                  </p>
-                  <AISuggestions
-                    className="doop-ai-suggestions"
+                <DoopAIWelcome
                     disabled={!operator.configured}
                     suggestions={SUGGESTIONS}
                     onSelect={(suggestion) =>
@@ -910,7 +904,6 @@ export function AgentPanel({
                       })
                     }
                   />
-                </div>
               ) : (
                 turns.map((turn) => (
                   <div
