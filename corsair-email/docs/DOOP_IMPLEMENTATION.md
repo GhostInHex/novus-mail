@@ -85,3 +85,11 @@ The dashboard renderer and styles now live in `src/components/dashboard`. The fo
 `verify:dashboard` checks legacy UI removal, fixed folder navigation, date selection, reduced-motion tab visibility, inline compose, time-slot presets, and mobile navigation. `verify:panels` checks all major panel families in both themes. See [DOOP_AUDIT.md](DOOP_AUDIT.md) for source IDs, corrections, evidence, and the remaining intentional differences.
 
 Verification scripts accept `BASE_URL` when another worktree owns the default port. For this review, the updated worktree runs at `http://localhost:3101`; set `$env:BASE_URL = 'http://localhost:3101'` before running browser checks.
+
+## Live AI validation (16 November 2026)
+
+Validated against OpenRouter with `nvidia/nemotron-3.5-lightning:free` using a securely supplied key loaded only into the local server process. Actual API responses passed greeting, structured inbox triage, thread lookup, reply proposal, and calendar/event proposal checks. Proposals did not execute automatically. Explicit approval through the real demo send/event endpoints succeeded and the demo results were readable. No Google delivery or live Calendar write was performed.
+
+Fixed demo writes failing after an in-memory update when PostgreSQL is unavailable. The fallback store is shared across route bundles in the same process. Live tenants still propagate database errors. Demo changes without PostgreSQL are temporary and disappear when the server process ends; separate server processes do not share this fallback.
+
+With a configured local server, run `node scripts/verify-live-ai.mjs`, then `node scripts/verify-demo-ai-actions.mjs`. Both accept `BASE_URL` (default `http://localhost:3101`). The second script explicitly approves demo-only writes using proposals from the first. Evidence is written to the ignored artifacts directory; API keys are never included.
