@@ -314,10 +314,6 @@
     animation: corsair-fade-in 200ms ease !important;
   }
 
-  .ai-message-root:focus-within .ai-message-action {
-    transition: none !important;
-  }
-
   .motion-drift,
   .motion-pulse {
     animation: none !important;
