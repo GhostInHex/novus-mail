@@ -34,6 +34,7 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  devIndicators: false,
   serverExternalPackages: [
     "corsair",
     "@corsair-dev/gmail",

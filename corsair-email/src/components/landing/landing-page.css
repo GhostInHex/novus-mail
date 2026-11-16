@@ -1,0 +1,423 @@
+.landing-page {
+  --nm-ascii-page: #f2f1ed;
+  --nm-ascii-card: #eae8e3;
+  --nm-ascii-elevated: #f5f4f0;
+  --nm-ascii-ink: #252422;
+  --nm-ascii-secondary: #5e5c57;
+  --nm-ascii-muted: #7b7871;
+  --nm-ascii-line: #2524221f;
+  --nm-ascii-pill: #f2f1edd9;
+  --nm-ascii-button: #4a4844;
+  --nm-ascii-on-button: #f5f4f0;
+  --nm-ascii-composer: #242529;
+  --nm-ascii-composer-ink: #ededee;
+  --nm-ascii-composer-secondary: #b2b3b7;
+  --nm-ascii-accent: #a1c4b3;
+  --nm-ascii-on-accent: #0b1712;
+  --nm-ascii-silver: #d8dade;
+  --nm-ascii-on-silver: #17181a;
+  --nm-ascii-sheen: #ffffff47;
+  --nm-ascii-rim: #ffffff3d;
+  --nm-ascii-shadow: #00000026;
+  --nm-ascii-glaze-graphite-top: #62666d;
+  --nm-ascii-glaze-graphite-base: #35383e;
+  --nm-ascii-glaze-graphite-bottom: #24262b;
+  --nm-ascii-glaze-graphite-rim: #aeb4bf80;
+  --nm-ascii-glaze-graphite-ink: #f5f6f7;
+  --nm-ascii-radius-panel: 16px;
+  --nm-ascii-radius-control: 999px;
+  --nm-ascii-space-2: 8px;
+  --nm-ascii-space-3: 12px;
+  --nm-ascii-space-5: 20px;
+  --nm-ascii-height-control: 36px;
+  --font-sans: system-ui, sans-serif;
+  --nm-ascii-sans: Geist, sans-serif;
+  --nm-ascii-mono: Geist Mono, monospace;
+  --nm-ascii-display: "Instrument Serif", Georgia, serif;
+  --nm-ascii-size-label: 12px;
+}
+.landing-page[data-theme-mode="dark"] {
+  --nm-ascii-page: #000000;
+  --nm-ascii-card: #121315;
+  --nm-ascii-elevated: #191a1d;
+  --nm-ascii-ink: #ededee;
+  --nm-ascii-secondary: #b2b3b7;
+  --nm-ascii-muted: #96979d;
+  --nm-ascii-line: #ededee26;
+  --nm-ascii-pill: #1b1c1fe6;
+  --nm-ascii-button: #d8dade;
+  --nm-ascii-on-button: #17181a;
+  --nm-ascii-composer: #242529;
+  --nm-ascii-composer-ink: #ededee;
+  --nm-ascii-composer-secondary: #b2b3b7;
+  --nm-ascii-accent: #a1c4b3;
+  --nm-ascii-on-accent: #0b1712;
+  --nm-ascii-silver: #d8dade;
+  --nm-ascii-on-silver: #17181a;
+  --nm-ascii-sheen: #ffffff47;
+  --nm-ascii-rim: #ffffff3d;
+  --nm-ascii-shadow: #00000040;
+  --nm-ascii-glaze-graphite-top: #62666d;
+  --nm-ascii-glaze-graphite-base: #35383e;
+  --nm-ascii-glaze-graphite-bottom: #24262b;
+  --nm-ascii-glaze-graphite-rim: #aeb4bf80;
+  --nm-ascii-glaze-graphite-ink: #f5f6f7;
+  --nm-ascii-radius-panel: 16px;
+  --nm-ascii-radius-control: 999px;
+  --nm-ascii-space-2: 8px;
+  --nm-ascii-space-3: 12px;
+  --nm-ascii-space-5: 20px;
+  --nm-ascii-height-control: 36px;
+  --font-sans: system-ui, sans-serif;
+  --nm-ascii-sans: Geist, sans-serif;
+  --nm-ascii-mono: Geist Mono, monospace;
+  --nm-ascii-display: "Instrument Serif", Georgia, serif;
+  --nm-ascii-size-label: 12px;
+}
+
+/* Reusable families: Glaze actions / Quartz panels / Geist text.
+   Primary: graphite in light, silver in dark. Accent: sage review actions.
+   All actions share the same rim, catch light, inset depth and focus treatment. */
+.landing-page {
+  font-family: var(--nm-ascii-sans);
+  background: var(--nm-ascii-page);
+  color: var(--nm-ascii-ink);
+}
+.nm-glaze {
+  --action-base: var(--nm-ascii-button);
+  --action-ink: var(--nm-ascii-on-button);
+  display: inline-flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  gap: var(--nm-ascii-space-2);
+  isolation: isolate;
+  min-height: var(--nm-ascii-height-control);
+  padding: var(--nm-ascii-space-2) var(--nm-ascii-space-5);
+  border: 1px solid var(--nm-ascii-rim);
+  border-radius: var(--nm-ascii-radius-control);
+  background:
+    linear-gradient(180deg, var(--nm-ascii-sheen), transparent 65%),
+    var(--action-base);
+  color: var(--action-ink);
+  font-family: var(--nm-ascii-sans);
+  font-size: var(--nm-ascii-size-label);
+  font-weight: 500;
+  line-height: 1.2;
+  box-shadow:
+    inset 0 -12px 16px #ffffff0f,
+    inset 0 4px 16px #ffffff29,
+    inset 0 1px 0 #ffffff52,
+    0 2px 4px var(--nm-ascii-shadow);
+  overflow: hidden;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    filter 150ms ease,
+    transform 150ms ease,
+    box-shadow 150ms ease;
+}
+.nm-glaze::before {
+  content: "";
+  position: absolute;
+  left: var(--nm-ascii-space-3);
+  right: var(--nm-ascii-space-3);
+  top: 2px;
+  height: 44%;
+  border-radius: inherit;
+  background: linear-gradient(var(--nm-ascii-sheen), transparent);
+  pointer-events: none;
+  z-index: -1;
+}
+.nm-glaze[data-tone="quiet"] {
+  --action-base: var(--nm-ascii-card);
+  --action-ink: var(--nm-ascii-ink);
+  border-color: var(--nm-ascii-line);
+}
+.nm-glaze[data-tone="sage"] {
+  --action-base: var(--nm-ascii-accent);
+  --action-ink: var(--nm-ascii-on-accent);
+}
+.nm-glaze[data-tone="silver"] {
+  --action-base: var(--nm-ascii-silver);
+  --action-ink: var(--nm-ascii-on-silver);
+}
+.nm-glaze[data-size="small"] {
+  min-height: 28px;
+  padding: 6px 14px;
+  font-size: 11px;
+}
+.nm-glaze[data-selected="true"] {
+  border-color: var(--nm-ascii-secondary);
+  background:
+    linear-gradient(var(--nm-ascii-sheen), transparent),
+    var(--nm-ascii-elevated);
+  color: var(--nm-ascii-ink);
+}
+.nm-glaze:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+.nm-glaze:active {
+  transform: translateY(1px);
+  box-shadow: inset 0 2px 4px var(--nm-ascii-shadow);
+}
+.nm-glaze:focus-visible {
+  outline: 2px solid var(--nm-ascii-accent);
+  outline-offset: 4px;
+}
+.nm-glaze:disabled,
+.nm-glaze[aria-disabled="true"] {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+  filter: none;
+}
+.nm-glaze[aria-busy="true"]::after {
+  content: "";
+  width: 12px;
+  height: 12px;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: nm-spin 0.8s linear infinite;
+}
+@keyframes nm-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.nm-quartz {
+  border-radius: var(--nm-ascii-radius-panel);
+}
+.landing-page[data-theme-mode="dark"] section > img[aria-hidden="true"] {
+  filter: grayscale(1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .nm-glaze {
+    transition: none;
+  }
+  .nm-glaze:hover,
+  .nm-glaze:active {
+    transform: none;
+  }
+  .nm-glaze[aria-busy="true"]::after {
+    animation: none;
+  }
+}
+
+/* Glass belongs to the page CTAs. Theme, tabs and demo controls stay flat. */
+.nm-control {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--nm-ascii-space-2);
+  min-height: 28px;
+  padding: 6px 14px;
+  border: 1px solid var(--nm-ascii-line);
+  border-radius: var(--nm-ascii-radius-control);
+  background: var(--nm-ascii-pill);
+  color: var(--nm-ascii-secondary);
+  font-family: var(--nm-ascii-sans);
+  font-size: 11px;
+  line-height: 1.2;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    background 150ms ease,
+    color 150ms ease;
+}
+.nm-control[data-selected="true"] {
+  background: var(--nm-ascii-elevated);
+  color: var(--nm-ascii-ink);
+  border-color: var(--nm-ascii-secondary);
+}
+.nm-control[data-tone="sage"] {
+  background: var(--nm-ascii-accent);
+  color: var(--nm-ascii-on-accent);
+  border-color: transparent;
+}
+.nm-control:hover {
+  color: var(--nm-ascii-ink);
+  background: var(--nm-ascii-elevated);
+}
+.nm-control:focus-visible {
+  outline: 2px solid var(--nm-ascii-accent);
+  outline-offset: 4px;
+}
+.nm-control:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+@media (prefers-reduced-motion: reduce) {
+  .nm-control {
+    transition: none;
+  }
+}
+
+/* Dark Glaze CTA: graphite body, curved catch light and inset lower edge. */
+.landing-page[data-theme-mode="dark"] .nm-glaze {
+  color: var(--nm-ascii-glaze-graphite-ink);
+  border-color: var(--nm-ascii-glaze-graphite-rim);
+  background: linear-gradient(
+    180deg,
+    var(--nm-ascii-glaze-graphite-top) 0%,
+    var(--nm-ascii-glaze-graphite-base) 48%,
+    var(--nm-ascii-glaze-graphite-bottom) 100%
+  );
+  box-shadow:
+    inset 0 1px 0 var(--nm-ascii-sheen),
+    inset 0 -2px 3px var(--nm-ascii-shadow),
+    0 2px 4px var(--nm-ascii-shadow);
+  text-shadow: 0 1px 1px var(--nm-ascii-shadow);
+}
+.landing-page[data-theme-mode="dark"] .nm-glaze::before {
+  top: 2px;
+  left: 5px;
+  right: 5px;
+  height: 42%;
+  background: linear-gradient(180deg, var(--nm-ascii-sheen), transparent);
+  border-top: 1px solid var(--nm-ascii-rim);
+  border-radius: 999px 999px 70% 70%;
+}
+.landing-page[data-theme-mode="dark"] .nm-glaze:hover {
+  filter: brightness(1.17);
+}
+.landing-page[data-theme-mode="dark"] .nm-glaze:active {
+  filter: brightness(0.95);
+  box-shadow: inset 0 2px 4px var(--nm-ascii-shadow);
+}
+
+/* Sage Glaze is the approval/action colour; graphite remains the page CTA colour. */
+.landing-page[data-theme-mode="dark"] .nm-glaze[data-tone="sage"] {
+  color: var(--nm-ascii-on-accent);
+  border-color: var(--nm-ascii-rim);
+  background:
+    linear-gradient(180deg, var(--nm-ascii-sheen) 0%, transparent 55%),
+    linear-gradient(
+      180deg,
+      var(--nm-ascii-accent) 0%,
+      color-mix(in srgb, var(--nm-ascii-accent) 82%, var(--nm-ascii-on-accent))
+        100%
+    );
+  box-shadow:
+    inset 0 1px 0 var(--nm-ascii-sheen),
+    inset 0 -2px 3px var(--nm-ascii-shadow),
+    0 2px 4px var(--nm-ascii-shadow);
+  text-shadow: none;
+}
+
+.landing-page {
+  --bg-page: var(--nm-ascii-page);
+  --bg-card: var(--nm-ascii-card);
+  --bg-card-elevated: var(--nm-ascii-elevated);
+  --text-primary: var(--nm-ascii-ink);
+  --text-secondary: var(--nm-ascii-secondary);
+  --text-muted: var(--nm-ascii-muted);
+  --border-subtle: var(--nm-ascii-line);
+  --btn-bg: var(--nm-ascii-button);
+  --btn-text: var(--nm-ascii-on-button);
+  --pill-bg: var(--nm-ascii-pill);
+  --nm-ascii-sans: var(--font-geist-sans), sans-serif;
+  --nm-ascii-mono: var(--font-geist-mono), monospace;
+  --nm-ascii-display: var(--font-instrument-serif), Georgia, serif;
+  min-height: 100dvh;
+  background: var(--nm-ascii-page);
+  color: var(--nm-ascii-ink);
+}
+.landing-page .font-serif-display {
+  font-family: var(--nm-ascii-display);
+  font-weight: 400;
+}
+.landing-page .font-mono-ascii {
+  font-family: var(--nm-ascii-mono);
+}
+.landing-page h1,
+.landing-page h2,
+.landing-page h3 {
+  text-wrap: balance;
+}
+.landing-page :is(a, button):focus-visible {
+  outline: 2px solid var(--nm-ascii-accent);
+  outline-offset: 4px;
+}
+.landing-composer {
+  background: color-mix(in srgb, var(--nm-ascii-composer) 92%, transparent);
+  color: var(--nm-ascii-composer-ink);
+  border: 1px solid var(--nm-ascii-rim);
+}
+.landing-composer .composer-secondary {
+  color: var(--nm-ascii-composer-secondary);
+}
+.landing-preview {
+  border: 1px solid var(--nm-ascii-rim);
+  background: #0003;
+  color: var(--nm-ascii-composer-ink);
+}
+.landing-page [data-tone="sage"]:hover {
+  background: var(--nm-ascii-accent);
+  color: var(--nm-ascii-on-accent);
+  filter: brightness(1.05);
+}
+.landing-page .landing-feature {
+  box-shadow: none;
+}
+.landing-page .landing-feature:hover {
+  border-color: var(--nm-ascii-secondary);
+}
+.landing-page .landing-status {
+  color: #087052;
+  background: #0870521a;
+}
+.landing-page[data-theme-mode="dark"] .landing-status {
+  color: #76d5b4;
+  background: #76d5b41a;
+}
+.landing-skip {
+  position: absolute;
+  left: 16px;
+  top: 8px;
+  z-index: 30;
+  transform: translateY(-150%);
+  background: var(--nm-ascii-elevated);
+  padding: 8px 16px;
+  border-radius: 8px;
+}
+.landing-skip:focus {
+  transform: translateY(0);
+}
+@media (max-width: 639px) {
+  .landing-page h1 {
+    font-size: clamp(2.35rem, 9vw, 3rem);
+    line-height: 1.02;
+  }
+  .landing-page .nm-control {
+    min-height: 36px;
+  }
+  .landing-page .landing-integrations {
+    justify-content: center;
+    text-align: center;
+  }
+  .landing-page .landing-integrations > div {
+    gap: 24px;
+  }
+  .landing-page .landing-composer {
+    padding: 16px;
+  }
+  .landing-page footer > div {
+    justify-content: center;
+    text-align: center;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .landing-page *,
+  .landing-page *::before,
+  .landing-page *::after {
+    animation: none;
+    transition: none;
+    scroll-behavior: auto;
+  }
+  .landing-page .group:hover img {
+    transform: none;
+  }
+}

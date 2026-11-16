@@ -91,3 +91,6 @@ corsair-email/docs/novusmail-architecture.html
 corsair-email/docs/novusmail-architecture.visual-check.*
 netlify-live-check.png
 *-live-check.png
+
+# Generated browser verification screenshots
+/artifacts/

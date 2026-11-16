@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { format } from "date-fns";
 import { CalendarCheckIcon } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -39,10 +40,14 @@ function toEditableDateTime(value: string | null | undefined) {
     return "";
   }
 
-  return value.slice(0, 16);
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? "" : format(date, "yyyy-MM-dd'T'HH:mm");
 }
 
-function toDraftValue(initialEvent?: AgendaEvent | null, draftPreset?: Partial<EventInput> | null): EventInput {
+function toDraftValue(
+  initialEvent?: AgendaEvent | null,
+  draftPreset?: Partial<EventInput> | null,
+): EventInput {
   if (initialEvent) {
     return {
       summary: initialEvent.summary,
@@ -62,7 +67,16 @@ function toDraftValue(initialEvent?: AgendaEvent | null, draftPreset?: Partial<E
   };
 }
 
-export function EventSheet({ open, initialEvent, draftPreset, onClose, onSubmit }: EventSheetProps) {
+export function EventSheet({
+  open,
+  initialEvent,
+  draftPreset,
+  onClose,
+  onSubmit,
+}: EventSheetProps) {
+  const pendingRef = useRef(false);
+  const [pending, setPending] = useState(false);
+  const [error, setError] = useState("");
   const [draft, setDraft] = useState<EventInput>(EMPTY_EVENT);
 
   useEffect(() => {
@@ -70,31 +84,53 @@ export function EventSheet({ open, initialEvent, draftPreset, onClose, onSubmit 
       return;
     }
 
+    setError("");
     setDraft(toDraftValue(initialEvent, draftPreset));
   }, [draftPreset, initialEvent, open]);
 
-  const canSubmit = Boolean(draft.summary.trim() && draft.start && draft.end);
+  const canSubmit = Boolean(
+    draft.summary.trim() &&
+    draft.start &&
+    draft.end &&
+    new Date(draft.end) > new Date(draft.start),
+  );
 
   async function handleSubmit() {
-    if (!canSubmit) {
-      return;
+    if (!canSubmit || pendingRef.current) return;
+    pendingRef.current = true;
+    setPending(true);
+    setError("");
+    try {
+      await onSubmit({
+        ...draft,
+        id: initialEvent?.id,
+        start: new Date(draft.start).toISOString(),
+        end: new Date(draft.end).toISOString(),
+      });
+      onClose();
+    } catch (error) {
+      setError(
+        error instanceof Error
+          ? error.message
+          : "The event could not be saved. Please try again.",
+      );
+    } finally {
+      pendingRef.current = false;
+      setPending(false);
     }
-
-    await onSubmit({
-      ...draft,
-      id: initialEvent?.id,
-      start: new Date(draft.start).toISOString(),
-      end: new Date(draft.end).toISOString(),
-    });
-    onClose();
   }
 
   return (
-    <Dialog open={open} onOpenChange={(value) => !value && onClose()}>
+    <Dialog
+      open={open}
+      onOpenChange={(value) => !value && !pending && onClose()}
+    >
       <DialogContent className="sm:max-w-xl">
         <DialogHeader>
-          <DialogTitle>{initialEvent ? "Move the meeting cleanly." : "Protect calendar focus."}</DialogTitle>
-          <DialogDescription>Start with the attendee, then lock the slot.</DialogDescription>
+          <DialogTitle>{initialEvent ? "Edit event" : "New event"}</DialogTitle>
+          <DialogDescription>
+            Plan time directly from the conversation.
+          </DialogDescription>
         </DialogHeader>
 
         <div className="grid gap-4">
@@ -104,7 +140,12 @@ export function EventSheet({ open, initialEvent, draftPreset, onClose, onSubmit 
               <Input
                 id="event-summary"
                 value={draft.summary}
-                onChange={(event) => setDraft((current) => ({ ...current, summary: event.target.value }))}
+                onChange={(event) =>
+                  setDraft((current) => ({
+                    ...current,
+                    summary: event.target.value,
+                  }))
+                }
                 placeholder="Investor prep"
               />
             </div>
@@ -113,7 +154,12 @@ export function EventSheet({ open, initialEvent, draftPreset, onClose, onSubmit 
               <Input
                 id="event-attendees"
                 value={draft.attendees}
-                onChange={(event) => setDraft((current) => ({ ...current, attendees: event.target.value }))}
+                onChange={(event) =>
+                  setDraft((current) => ({
+                    ...current,
+                    attendees: event.target.value,
+                  }))
+                }
                 placeholder="name@company.com, another@company.com"
               />
             </div>
@@ -123,7 +169,12 @@ export function EventSheet({ open, initialEvent, draftPreset, onClose, onSubmit 
                 id="event-start"
                 type="datetime-local"
                 value={draft.start}
-                onChange={(event) => setDraft((current) => ({ ...current, start: event.target.value }))}
+                onChange={(event) =>
+                  setDraft((current) => ({
+                    ...current,
+                    start: event.target.value,
+                  }))
+                }
               />
             </div>
             <div className="space-y-1.5">
@@ -132,7 +183,12 @@ export function EventSheet({ open, initialEvent, draftPreset, onClose, onSubmit 
                 id="event-end"
                 type="datetime-local"
                 value={draft.end}
-                onChange={(event) => setDraft((current) => ({ ...current, end: event.target.value }))}
+                onChange={(event) =>
+                  setDraft((current) => ({
+                    ...current,
+                    end: event.target.value,
+                  }))
+                }
               />
             </div>
             <div className="space-y-1.5 sm:col-span-2">
@@ -140,7 +196,12 @@ export function EventSheet({ open, initialEvent, draftPreset, onClose, onSubmit 
               <Input
                 id="event-location"
                 value={draft.location}
-                onChange={(event) => setDraft((current) => ({ ...current, location: event.target.value }))}
+                onChange={(event) =>
+                  setDraft((current) => ({
+                    ...current,
+                    location: event.target.value,
+                  }))
+                }
                 placeholder="Zoom or conference room"
               />
             </div>
@@ -151,15 +212,40 @@ export function EventSheet({ open, initialEvent, draftPreset, onClose, onSubmit 
             <Textarea
               id="event-description"
               value={draft.description}
-              onChange={(event) => setDraft((current) => ({ ...current, description: event.target.value }))}
+              onChange={(event) =>
+                setDraft((current) => ({
+                  ...current,
+                  description: event.target.value,
+                }))
+              }
               rows={6}
               placeholder="Agenda, context, expected outcome."
             />
           </div>
         </div>
 
+        {draft.start &&
+          draft.end &&
+          new Date(draft.end) <= new Date(draft.start) && (
+            <p role="alert" className="text-sm text-destructive">
+              End time must be after start time.
+            </p>
+          )}
+        {error && (
+          <p role="alert" className="text-sm text-destructive">
+            {error}
+          </p>
+        )}
         <DialogFooter>
-          <Button type="button" disabled={!canSubmit} onClick={() => void handleSubmit()}>
+          <Button variant="ghost" disabled={pending} onClick={onClose}>
+            Cancel
+          </Button>
+          <Button
+            type="button"
+            disabled={pending || !canSubmit}
+            aria-busy={pending}
+            onClick={() => void handleSubmit()}
+          >
             <CalendarCheckIcon className="size-4" />
             {initialEvent ? "Update event" : "Create event"}
           </Button>

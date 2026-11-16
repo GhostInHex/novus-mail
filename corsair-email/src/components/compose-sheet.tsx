@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { SendIcon } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -33,14 +33,25 @@ const EMPTY_COMPOSE: ComposeInput = {
   body: "",
 };
 
-function toComposeState(initialDraft?: Partial<ComposeInput> | null): ComposeInput {
+function toComposeState(
+  initialDraft?: Partial<ComposeInput> | null,
+): ComposeInput {
   return {
     ...EMPTY_COMPOSE,
     ...initialDraft,
   };
 }
 
-export function ComposeSheet({ open, initialDraft, onClose, onSend, onDraft }: ComposeSheetProps) {
+export function ComposeSheet({
+  open,
+  initialDraft,
+  onClose,
+  onSend,
+  onDraft,
+}: ComposeSheetProps) {
+  const pendingRef = useRef(false);
+  const [pending, setPending] = useState(false);
+  const [error, setError] = useState("");
   const [draft, setDraft] = useState<ComposeInput>(EMPTY_COMPOSE);
 
   useEffect(() => {
@@ -49,30 +60,44 @@ export function ComposeSheet({ open, initialDraft, onClose, onSend, onDraft }: C
       return;
     }
 
+    setError("");
     setDraft(toComposeState(initialDraft));
   }, [initialDraft, open]);
 
   const isReply = Boolean(initialDraft?.threadId);
-  const canSend = Boolean(draft.to.trim() && draft.subject.trim() && draft.body.trim());
+  const canSend = Boolean(
+    draft.to.trim() && draft.subject.trim() && draft.body.trim(),
+  );
 
-  async function handleSend() {
-    if (!canSend) {
-      return;
+  async function submit(kind: "send" | "draft") {
+    if (pendingRef.current || (kind === "send" && !canSend)) return;
+    pendingRef.current = true;
+    setPending(true);
+    setError("");
+    try {
+      await (kind === "send" ? onSend(draft) : onDraft(draft));
+      onClose();
+    } catch (error) {
+      setError(
+        error instanceof Error
+          ? error.message
+          : "Your message could not be saved. Please try again.",
+      );
+    } finally {
+      pendingRef.current = false;
+      setPending(false);
     }
-
-    await onSend(draft);
-    onClose();
   }
-
-  async function handleDraft() {
-    await onDraft(draft);
-    onClose();
-  }
+  const handleSend = () => submit("send");
+  const handleDraft = () => submit("draft");
 
   return (
-    <Dialog open={open} onOpenChange={(value) => !value && onClose()}>
+    <Dialog
+      open={open}
+      onOpenChange={(value) => !value && !pending && onClose()}
+    >
       <DialogContent
-        className="sm:max-w-xl"
+        className="doop-compose sm:max-w-[780px]"
         onKeyDown={(event) => {
           if ((event.metaKey || event.ctrlKey) && event.key === "Enter") {
             event.preventDefault();
@@ -81,8 +106,14 @@ export function ComposeSheet({ open, initialDraft, onClose, onSend, onDraft }: C
         }}
       >
         <DialogHeader>
-          <DialogTitle>{isReply ? "Respond while the context is warm." : "Send with intent."}</DialogTitle>
-          <DialogDescription>Cmd/Ctrl + Enter sends immediately.</DialogDescription>
+          <DialogTitle>
+            {isReply
+              ? "Reply to " + (draft.to || "your conversation")
+              : "New message"}
+          </DialogTitle>
+          <DialogDescription>
+            Review your reply. Nothing is sent until you choose Send.
+          </DialogDescription>
         </DialogHeader>
 
         <div className="grid gap-4">
@@ -93,7 +124,12 @@ export function ComposeSheet({ open, initialDraft, onClose, onSend, onDraft }: C
                 id="compose-to"
                 autoFocus={!draft.to}
                 value={draft.to}
-                onChange={(event) => setDraft((current) => ({ ...current, to: event.target.value }))}
+                onChange={(event) =>
+                  setDraft((current) => ({
+                    ...current,
+                    to: event.target.value,
+                  }))
+                }
                 placeholder="name@company.com"
               />
             </div>
@@ -102,7 +138,12 @@ export function ComposeSheet({ open, initialDraft, onClose, onSend, onDraft }: C
               <Input
                 id="compose-cc"
                 value={draft.cc}
-                onChange={(event) => setDraft((current) => ({ ...current, cc: event.target.value }))}
+                onChange={(event) =>
+                  setDraft((current) => ({
+                    ...current,
+                    cc: event.target.value,
+                  }))
+                }
                 placeholder="Optional"
               />
             </div>
@@ -111,7 +152,12 @@ export function ComposeSheet({ open, initialDraft, onClose, onSend, onDraft }: C
               <Input
                 id="compose-bcc"
                 value={draft.bcc}
-                onChange={(event) => setDraft((current) => ({ ...current, bcc: event.target.value }))}
+                onChange={(event) =>
+                  setDraft((current) => ({
+                    ...current,
+                    bcc: event.target.value,
+                  }))
+                }
                 placeholder="Optional"
               />
             </div>
@@ -121,7 +167,12 @@ export function ComposeSheet({ open, initialDraft, onClose, onSend, onDraft }: C
                 id="compose-subject"
                 autoFocus={Boolean(draft.to)}
                 value={draft.subject}
-                onChange={(event) => setDraft((current) => ({ ...current, subject: event.target.value }))}
+                onChange={(event) =>
+                  setDraft((current) => ({
+                    ...current,
+                    subject: event.target.value,
+                  }))
+                }
                 placeholder="Board follow-up"
               />
             </div>
@@ -132,18 +183,38 @@ export function ComposeSheet({ open, initialDraft, onClose, onSend, onDraft }: C
             <Textarea
               id="compose-body"
               value={draft.body}
-              onChange={(event) => setDraft((current) => ({ ...current, body: event.target.value }))}
+              onChange={(event) =>
+                setDraft((current) => ({
+                  ...current,
+                  body: event.target.value,
+                }))
+              }
               rows={10}
-              placeholder="Write plainly. Move quickly."
+              placeholder="Write your message..."
             />
           </div>
         </div>
 
+        {error && (
+          <p role="alert" className="text-sm text-destructive">
+            {error}
+          </p>
+        )}
         <DialogFooter>
-          <Button type="button" variant="ghost" onClick={() => void handleDraft()}>
+          <Button
+            type="button"
+            variant="ghost"
+            disabled={pending}
+            onClick={() => void handleDraft()}
+          >
             Save draft
           </Button>
-          <Button type="button" disabled={!canSend} onClick={() => void handleSend()}>
+          <Button
+            type="button"
+            disabled={pending || !canSend}
+            aria-busy={pending}
+            onClick={() => void handleSend()}
+          >
             <SendIcon className="size-4" />
             {isReply ? "Send reply" : "Send"}
           </Button>

@@ -1,4 +1,4 @@
-import { AuthLanding } from "@/components/auth-landing";
+import { LandingPage } from "@/components/landing/landing-page";
 import { ROUTES } from "@/lib/routes";
 import { getSession } from "@/lib/session";
 import { redirect } from "next/navigation";
@@ -10,5 +10,5 @@ export default async function HomePage() {
     redirect(ROUTES.dashboard);
   }
 
-  return <AuthLanding />;
+  return <LandingPage />;
 }

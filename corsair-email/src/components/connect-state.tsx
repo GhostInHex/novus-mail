@@ -1,3 +1,4 @@
+import { SiteHeader, SiteFooter } from "@/components/site-chrome";
 import type { ReactNode } from "react";
 import {
   AlertCircleIcon,
@@ -11,10 +12,20 @@ import {
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { ROUTES } from "@/lib/routes";
 import { cn } from "@/lib/utils";
-import type { ConnectionStatus, ProviderStatus, SessionUser } from "@/lib/types";
+import type {
+  ConnectionStatus,
+  ProviderStatus,
+  SessionUser,
+} from "@/lib/types";
 import { corsairOAuthRedirectUri } from "@/server/corsair-oauth";
 
 type ConnectStateProps = {
@@ -26,12 +37,19 @@ type ConnectStateProps = {
 const CONNECTION_ERROR_COPY: Record<string, string> = {
   missing_config:
     "This app is not configured for Google data access yet. Ask the app owner to finish setup.",
-  oauth_denied: "Google access was not granted. Try connecting again.",
+  oauth_denied: "Set up your workspace was not granted. Try connecting again.",
   oauth_failed: "The Google connection did not complete. Try again.",
-  tenant_mismatch: "The Google connection did not match this workspace. Try again.",
+  tenant_mismatch:
+    "The Google connection did not match this workspace. Try again.",
 };
 
-function StatusPill({ label, status }: { label: string; status: ProviderStatus }) {
+function StatusPill({
+  label,
+  status,
+}: {
+  label: string;
+  status: ProviderStatus;
+}) {
   const live = status.authorized;
   const healthy = status.healthy;
   return (
@@ -42,7 +60,7 @@ function StatusPill({ label, status }: { label: string; status: ProviderStatus }
           ? "border-success/30 bg-success/10 text-success"
           : live
             ? "border-amber-300/40 bg-amber-100/50 text-amber-900 dark:border-amber-700/50 dark:bg-amber-950/30 dark:text-amber-200"
-          : "border-border bg-muted text-muted-foreground",
+            : "border-border bg-muted text-muted-foreground",
       )}
     >
       {live && healthy !== false ? (
@@ -50,12 +68,19 @@ function StatusPill({ label, status }: { label: string; status: ProviderStatus }
       ) : (
         <CircleDashedIcon className="size-4 motion-pulse" />
       )}
-      {label} {live ? (healthy === false ? "degraded" : "connected") : "pending"}
+      {label}{" "}
+      {live ? (healthy === false ? "degraded" : "connected") : "pending"}
     </div>
   );
 }
 
-function CommandBlock({ title, children }: { title: string; children: string }) {
+function CommandBlock({
+  title,
+  children,
+}: {
+  title: string;
+  children: string;
+}) {
   return (
     <div className="space-y-2">
       <p className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground">
@@ -90,7 +115,9 @@ function ConnectAction({
         </span>
         <div className="min-w-0">
           <p className="font-medium">{label}</p>
-          <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{description}</p>
+          <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+            {description}
+          </p>
         </div>
       </div>
 
@@ -100,112 +127,118 @@ function ConnectAction({
           Connected
         </span>
       ) : (
-        <form action={action} method="get" className="w-full">
-          <Button type="submit" className="h-10 w-full">
-            Connect {label}
-          </Button>
-        </form>
+        <Button asChild className="h-10 w-full">
+          <a href={action}>Connect {label}</a>
+        </Button>
       )}
     </div>
   );
 }
 
-export function ConnectState({ session, status, connectionError }: ConnectStateProps) {
+export function ConnectState({
+  session,
+  status,
+  connectionError,
+}: ConnectStateProps) {
   const errorMessage = connectionError
-    ? CONNECTION_ERROR_COPY[connectionError] ?? CONNECTION_ERROR_COPY.oauth_failed
+    ? (CONNECTION_ERROR_COPY[connectionError] ??
+      CONNECTION_ERROR_COPY.oauth_failed)
     : null;
-  const showDeveloperDetails = process.env.NODE_ENV !== "production" && status.setupLog;
+  const showDeveloperDetails =
+    process.env.NODE_ENV !== "production" && status.setupLog;
 
   return (
-    <main className="flex min-h-dvh items-center justify-center bg-background px-6 py-12">
-      <Card className="motion-enter w-full max-w-2xl shadow-elevation-2">
-        <CardHeader>
-          <Badge variant="secondary" className="w-fit">
-            Google access
-          </Badge>
-          <CardTitle className="mt-2 text-2xl">
-            Connect Gmail and Calendar
-          </CardTitle>
-          <CardDescription>
-            Give NovusMail permission to read, organize, send mail, and manage your
-            calendar for{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-[0.8em] text-foreground">
-              {session.tenantId}
-            </code>
-            .
-          </CardDescription>
-        </CardHeader>
+    <main className="doop-auth">
+      <SiteHeader />
+      <section className="doop-auth-main">
+        <Card className="doop-connect w-full max-w-[560px] shadow-none">
+          <CardHeader>
+            <Badge variant="secondary" className="w-fit">
+              Set up your workspace
+            </Badge>
+            <CardTitle className="mt-2 text-2xl">
+              Connect your everyday tools
+            </CardTitle>
+            <CardDescription>
+              Bring your conversations and commitments into one place.
+            </CardDescription>
+          </CardHeader>
 
-        <CardContent className="space-y-6">
-          {errorMessage && (
-            <p className="motion-enter-soft flex items-start gap-2 rounded-md border border-destructive/30 bg-destructive/10 px-3 py-2 text-sm text-destructive">
-              <AlertCircleIcon className="mt-0.5 size-4 shrink-0" />
-              {errorMessage}
+          <CardContent className="space-y-6">
+            {errorMessage && (
+              <p className="motion-enter-soft flex items-start gap-2 rounded-md border border-destructive/30 bg-destructive/10 px-3 py-2 text-sm text-destructive">
+                <AlertCircleIcon className="mt-0.5 size-4 shrink-0" />
+                {errorMessage}
+              </p>
+            )}
+
+            {status.degraded && (
+              <p className="motion-enter-soft flex items-start gap-2 rounded-md border border-amber-300/40 bg-amber-100/50 px-3 py-2 text-sm text-amber-900 dark:border-amber-700/50 dark:bg-amber-950/30 dark:text-amber-200">
+                <AlertCircleIcon className="mt-0.5 size-4 shrink-0" />
+                Gmail or Calendar is authorized but currently slow to respond.
+                The workspace can still open once both providers are connected.
+              </p>
+            )}
+
+            <div className="grid gap-3">
+              <StatusPill label="Gmail" status={status.gmail} />
+              <StatusPill label="Calendar" status={status.calendar} />
+            </div>
+
+            <div className="space-y-3">
+              <ConnectAction
+                label="Gmail"
+                description="Allow inbox search, labels, drafts, sending, and thread actions."
+                connected={status.gmail.authorized}
+                action="/api/auth/corsair/start/gmail"
+                icon={<MailIcon className="size-4" />}
+              />
+              <ConnectAction
+                label="Calendar"
+                description="Allow agenda lookup, availability checks, and event scheduling."
+                connected={status.calendar.authorized}
+                action="/api/auth/corsair/start/googlecalendar"
+                icon={<CalendarDaysIcon className="size-4" />}
+              />
+            </div>
+
+            {showDeveloperDetails && (
+              <details className="motion-surface rounded-md border border-border bg-muted/40 p-3 open:bg-muted/55">
+                <summary className="flex cursor-pointer items-center gap-1.5 text-xs font-medium text-muted-foreground">
+                  <TerminalIcon className="size-3.5" />
+                  Developer details
+                </summary>
+                <div className="mt-3 space-y-3">
+                  <CommandBlock title="Google Cloud authorized redirect URI">
+                    {corsairOAuthRedirectUri()}
+                  </CommandBlock>
+                  <CommandBlock title="Corsair setup log">
+                    {status.setupLog || "No setup output yet."}
+                  </CommandBlock>
+                </div>
+              </details>
+            )}
+
+            <p className="text-sm leading-relaxed text-muted-foreground">
+              You review replies and new events before they are sent or created.
             </p>
-          )}
-
-          {status.degraded && (
-            <p className="motion-enter-soft flex items-start gap-2 rounded-md border border-amber-300/40 bg-amber-100/50 px-3 py-2 text-sm text-amber-900 dark:border-amber-700/50 dark:bg-amber-950/30 dark:text-amber-200">
-              <AlertCircleIcon className="mt-0.5 size-4 shrink-0" />
-              Gmail or Calendar is authorized but currently slow to respond. The workspace can
-              still open once both providers are connected.
-            </p>
-          )}
-
-          <div className="grid gap-3 sm:grid-cols-2">
-            <StatusPill label="Gmail" status={status.gmail} />
-            <StatusPill label="Calendar" status={status.calendar} />
-          </div>
-
-          <div className="space-y-3">
-            <ConnectAction
-              label="Gmail"
-              description="Allow inbox search, labels, drafts, sending, and thread actions."
-              connected={status.gmail.authorized}
-              action="/api/auth/corsair/start/gmail"
-              icon={<MailIcon className="size-4" />}
-            />
-            <ConnectAction
-              label="Calendar"
-              description="Allow agenda lookup, availability checks, and event scheduling."
-              connected={status.calendar.authorized}
-              action="/api/auth/corsair/start/googlecalendar"
-              icon={<CalendarDaysIcon className="size-4" />}
-            />
-          </div>
-
-          {showDeveloperDetails && (
-            <details className="motion-surface rounded-md border border-border bg-muted/40 p-3 open:bg-muted/55">
-              <summary className="flex cursor-pointer items-center gap-1.5 text-xs font-medium text-muted-foreground">
-                <TerminalIcon className="size-3.5" />
-                Developer details
-              </summary>
-              <div className="mt-3 space-y-3">
-                <CommandBlock title="Google Cloud authorized redirect URI">
-                  {corsairOAuthRedirectUri()}
-                </CommandBlock>
-                <CommandBlock title="Corsair setup log">
-                  {status.setupLog || "No setup output yet."}
-                </CommandBlock>
-              </div>
-            </details>
-          )}
-
-          <div className="flex flex-wrap gap-3 pt-1">
-            <form action={ROUTES.connect} method="get">
-              <Button type="submit">
-                <RefreshCwIcon className="size-4" />
-                Recheck connection
-              </Button>
-            </form>
-            <form action="/api/logout" method="post">
-              <Button type="submit" variant="ghost">
-                Switch workspace
-              </Button>
-            </form>
-          </div>
-        </CardContent>
-      </Card>
+            <div className="flex flex-wrap gap-3 pt-1">
+              <form action={ROUTES.connect} method="get">
+                <Button type="submit">
+                  <RefreshCwIcon className="size-4" />
+                  Recheck connection
+                </Button>
+              </form>
+              <form action="/api/logout" method="post">
+                <Button type="submit" variant="ghost">
+                  Switch workspace
+                </Button>
+              </form>
+            </div>
+          </CardContent>
+        </Card>
+      </section>
+      <SiteFooter />
     </main>
   );
 }

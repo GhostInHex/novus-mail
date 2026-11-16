@@ -1,8 +1,6 @@
 "use client";
-
-import { useEffect, useState } from "react";
-import { CornerDownLeftIcon, TerminalIcon } from "lucide-react";
-
+import { useEffect, useRef, useState } from "react";
+import { CalendarIcon, MailIcon, SearchIcon, TerminalIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -11,107 +9,141 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
+import {
+  Command,
+  CommandInput,
+  CommandList,
+  CommandItem,
+  CommandGroup,
+} from "@/components/ui/command";
 import type { ThreadDetail } from "@/lib/types";
 
-type CommandPaletteProps = {
+type Props = {
   open: boolean;
   activeThread?: ThreadDetail | null;
   onClose: () => void;
   onRun: (command: string) => Promise<void>;
 };
-
-function buildSuggestions(activeThread?: ThreadDetail | null) {
-  const suggestions = [
-    "from:boss newer_than:7d",
-    "email teammate@example.com about Launch follow-up :: Great meeting today.",
-    "schedule meeting with teammate@example.com tomorrow 9am :: Product review",
-    "schedule meeting with teammate@example.com tomorrow 9am and send email saying Looking forward to it.",
-  ];
-
-  if (activeThread?.senderEmail) {
-    suggestions.unshift(`from:${activeThread.senderEmail}`);
-    suggestions.unshift(
-      `schedule meeting with ${activeThread.senderEmail} tomorrow 9am :: Follow up on ${activeThread.subject}`,
-    );
-  }
-
-  return suggestions;
-}
-
-export function CommandPalette({ open, activeThread, onClose, onRun }: CommandPaletteProps) {
+export function CommandPalette({ open, activeThread, onClose, onRun }: Props) {
   const [command, setCommand] = useState("");
-
+  const [pending, setPending] = useState(false);
+  const [error, setError] = useState("");
+  const lock = useRef(false);
   useEffect(() => {
-    if (!open) {
+    if (open) {
       setCommand("");
+      setError("");
     }
   }, [open]);
-
-  const suggestions = buildSuggestions(activeThread);
-
-  async function handleRun() {
-    if (!command.trim()) {
-      return;
+  const sender = activeThread?.senderEmail || "teammate@example.com";
+  const suggestions = [
+    {
+      label: "Schedule a meeting",
+      detail: "Tomorrow at 9:00 AM",
+      value: `schedule meeting with ${sender} tomorrow 9am :: ${activeThread?.subject || "Follow up"}`,
+      icon: CalendarIcon,
+    },
+    {
+      label: "Schedule and prepare an email",
+      detail: "Create an event and draft a follow-up",
+      value: `schedule meeting with ${sender} tomorrow 9am and send email saying Looking forward to it.`,
+      icon: MailIcon,
+    },
+    {
+      label: "Search mail",
+      detail: `from:${sender} newer_than:7d`,
+      value: `from:${sender} newer_than:7d`,
+      icon: SearchIcon,
+    },
+  ];
+  async function run(value = command) {
+    if (!value.trim() || lock.current) return;
+    lock.current = true;
+    setPending(true);
+    setError("");
+    try {
+      await onRun(value);
+      onClose();
+    } catch (e) {
+      setError(
+        e instanceof Error ? e.message : "Command failed. Please try again.",
+      );
+    } finally {
+      lock.current = false;
+      setPending(false);
     }
-
-    await onRun(command);
-    onClose();
   }
-
   return (
-    <Dialog open={open} onOpenChange={(value) => !value && onClose()}>
-      <DialogContent
-        className="gap-0 overflow-hidden p-0 sm:max-w-2xl"
-        onKeyDown={(event) => {
-          if (event.key === "Enter" && !event.shiftKey) {
-            event.preventDefault();
-            void handleRun();
-          }
-        }}
-      >
-        <DialogHeader className="border-b border-border px-5 py-4">
-          <DialogTitle className="flex items-center gap-2">
+    <Dialog
+      open={open}
+      onOpenChange={(value) => !value && !pending && onClose()}
+    >
+      <DialogContent className="gap-0 overflow-hidden p-0 sm:max-w-[780px]">
+        <DialogHeader className="border-b border-border px-6 py-5">
+          <DialogTitle className="flex items-center gap-2 text-xl">
             <TerminalIcon className="size-4" />
             Command console
           </DialogTitle>
-          <DialogDescription>Search, schedule, send, or do both in one sentence.</DialogDescription>
+          <DialogDescription>
+            Search, schedule, send, or do both in one sentence.
+          </DialogDescription>
         </DialogHeader>
-
-        <div className="px-5 py-4">
-          <div className="relative">
-            <Input
-              autoFocus
-              value={command}
-              onChange={(event) => setCommand(event.target.value)}
-              className="h-11 pr-10 font-mono text-sm"
-              placeholder="schedule meeting with teammate@example.com tomorrow 9am and send email saying …"
-            />
-            <CornerDownLeftIcon className="pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
-          </div>
-
-          <p className="mt-5 mb-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">
-            Try one of these
+        <Command shouldFilter={false} className="bg-card">
+          <CommandInput
+            aria-label="Command"
+            value={command}
+            onValueChange={setCommand}
+            placeholder="Search mail or describe your next step..."
+            disabled={pending}
+          />
+          <CommandList className="p-3">
+            <CommandGroup heading="Commands">
+              {command.trim() && (
+                <CommandItem
+                  value="run-typed-command"
+                  onSelect={() => void run(command)}
+                  disabled={pending}
+                >
+                  Run: {command}
+                </CommandItem>
+              )}
+              {suggestions.map((item) => (
+                <CommandItem
+                  key={item.label}
+                  value={item.label}
+                  onSelect={() => setCommand(item.value)}
+                  disabled={pending}
+                  className="gap-3 px-3 py-3"
+                >
+                  <item.icon className="size-4" />
+                  <span>
+                    <span className="block text-sm">{item.label}</span>
+                    <span className="mt-1 block text-xs text-muted-foreground">
+                      {item.detail}
+                    </span>
+                  </span>
+                </CommandItem>
+              ))}
+            </CommandGroup>
+          </CommandList>
+        </Command>
+        {error && (
+          <p role="alert" className="px-6 py-2 text-sm text-destructive">
+            {error}
           </p>
-          <div className="scroll-area-thin max-h-64 space-y-1.5 overflow-y-auto">
-            {suggestions.map((suggestion) => (
-              <button
-                key={suggestion}
-                type="button"
-                className="motion-state w-full rounded-md border border-border bg-card px-3 py-2 text-left outline-none hover:border-primary/30 hover:bg-accent focus-visible:ring-2 focus-visible:ring-ring"
-                onClick={() => setCommand(suggestion)}
-              >
-                <code className="font-mono text-xs text-foreground/80">{suggestion}</code>
-              </button>
-            ))}
-          </div>
-        </div>
-
-        <div className="flex justify-end border-t border-border px-5 py-3">
-          <Button type="button" disabled={!command.trim()} onClick={() => void handleRun()}>
+        )}
+        <footer className="flex flex-wrap items-center justify-between gap-3 border-t border-border px-6 py-4">
+          <span className="text-xs text-muted-foreground">
+            Arrow keys navigate · Enter Select · Escape Close
+          </span>
+          <Button
+            disabled={pending || !command.trim()}
+            aria-busy={pending}
+            onClick={() => void run()}
+          >
             Run command
           </Button>
-        </div>
+        </footer>
       </DialogContent>
     </Dialog>
   );

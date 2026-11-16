@@ -29,6 +29,7 @@ import {
 } from "lucide-react";
 import { useMemo, useState } from "react";
 
+import { Collapsible, Tabs } from "@animate-ui/react/primitives/radix-ui";
 import { Button } from "@/components/ui/button";
 import type { AgendaEvent, EventInput } from "@/lib/types";
 import { cn } from "@/lib/utils";
@@ -39,6 +40,7 @@ type AgendaSection = {
 };
 
 type CalendarPanelProps = {
+  expanded?: boolean;
   events: AgendaEvent[];
   agendaSections: AgendaSection[];
   onCreateEvent: (preset?: Partial<EventInput>) => void;
@@ -71,7 +73,10 @@ function buildPresetForDay(date: Date): Partial<EventInput> {
   const now = new Date();
   const start =
     isToday(date) && now > base
-      ? setSeconds(setMinutes(setHours(now, Math.min(now.getHours() + 1, 20)), 0), 0)
+      ? setSeconds(
+          setMinutes(setHours(now, Math.min(now.getHours() + 1, 20)), 0),
+          0,
+        )
       : setSeconds(setMinutes(setHours(base, 9), 0), 0);
 
   return {
@@ -121,7 +126,12 @@ function DayEventRow({
             ) : null}
           </div>
         </div>
-        <span className={cn("rounded-full px-2 py-0.5 text-[0.68rem] font-medium capitalize", statusClasses(event.status))}>
+        <span
+          className={cn(
+            "rounded-full px-2 py-0.5 text-[0.68rem] font-medium capitalize",
+            statusClasses(event.status),
+          )}
+        >
           {event.status}
         </span>
       </div>
@@ -142,19 +152,25 @@ function DayEventRow({
 
 export function WorkspaceCalendarPanel({
   events,
+  expanded = false,
   agendaSections,
   onCreateEvent,
   onSelectEvent,
 }: CalendarPanelProps) {
   const initialDate = useMemo(() => {
-    const upcoming = events.find((event) => event.start && new Date(event.start) >= startOfDay(new Date()));
-    const fallback = upcoming?.start ?? events.find((event) => event.start)?.start;
+    const upcoming = events.find(
+      (event) => event.start && new Date(event.start) >= startOfDay(new Date()),
+    );
+    const fallback =
+      upcoming?.start ?? events.find((event) => event.start)?.start;
     return fallback ? startOfDay(new Date(fallback)) : startOfDay(new Date());
   }, [events]);
 
   const [view, setView] = useState<CalendarView>("month");
   const [selectedDate, setSelectedDate] = useState<Date>(initialDate);
-  const [visibleMonth, setVisibleMonth] = useState<Date>(startOfMonth(initialDate));
+  const [visibleMonth, setVisibleMonth] = useState<Date>(
+    startOfMonth(initialDate),
+  );
 
   function shiftPeriod(direction: -1 | 1) {
     if (view === "week") {
@@ -164,11 +180,16 @@ export function WorkspaceCalendarPanel({
       return;
     }
 
-    const nextMonth = direction === -1 ? subMonths(visibleMonth, 1) : addMonths(visibleMonth, 1);
+    const nextMonth =
+      direction === -1
+        ? subMonths(visibleMonth, 1)
+        : addMonths(visibleMonth, 1);
     setVisibleMonth(nextMonth);
     setSelectedDate((current) => {
       const nextDate = addDays(startOfMonth(nextMonth), current.getDate() - 1);
-      return isSameMonth(nextDate, nextMonth) ? nextDate : startOfMonth(nextMonth);
+      return isSameMonth(nextDate, nextMonth)
+        ? nextDate
+        : startOfMonth(nextMonth);
     });
   }
 
@@ -227,195 +248,313 @@ export function WorkspaceCalendarPanel({
   }, [selectedDate, view, visibleMonth]);
 
   const todayCount = useMemo(
-    () => events.filter((event) => event.start && isToday(new Date(event.start))).length,
+    () =>
+      events.filter((event) => event.start && isToday(new Date(event.start)))
+        .length,
     [events],
   );
   const weekCount = useMemo(
-    () => events.filter((event) => event.start && isThisWeek(new Date(event.start), { weekStartsOn: 1 })).length,
+    () =>
+      events.filter(
+        (event) =>
+          event.start && isThisWeek(new Date(event.start), { weekStartsOn: 1 }),
+      ).length,
     [events],
   );
-  const tentativeCount = useMemo(() => events.filter((event) => event.status === "tentative").length, [events]);
+  const tentativeCount = useMemo(
+    () => events.filter((event) => event.status === "tentative").length,
+    [events],
+  );
 
-  return (
-    <div className="space-y-4 px-4 py-4">
-      <section className="rounded-[22px] border border-border/70 bg-card/90 p-4 shadow-elevation-1">
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <div>
-            <p className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">Calendar deck</p>
-            <h3 className="mt-1 text-lg font-semibold tracking-tight">{periodLabel}</h3>
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="inline-flex rounded-lg border border-border/80 bg-muted/70 p-1">
-              {(["month", "week"] as const).map((option) => (
-                <button
-                  key={option}
-                  type="button"
-                  onClick={() => setView(option)}
-                  className={cn(
-                    "motion-interactive rounded-md px-3 py-1.5 text-xs font-medium capitalize outline-none focus-visible:ring-2 focus-visible:ring-ring",
-                    view === option ? "bg-background text-foreground shadow-xs" : "text-muted-foreground hover:text-foreground",
-                  )}
-                >
-                  {option}
-                </button>
-              ))}
-            </div>
-            <Button
-              type="button"
-              size="icon-sm"
-              variant="ghost"
-              aria-label={view === "week" ? "Previous week" : "Previous month"}
-              onClick={() => shiftPeriod(-1)}
-            >
-              <ChevronLeftIcon className="size-4" />
-            </Button>
-            <Button
-              type="button"
-              size="icon-sm"
-              variant="ghost"
-              aria-label={view === "week" ? "Next week" : "Next month"}
-              onClick={() => shiftPeriod(1)}
-            >
-              <ChevronRightIcon className="size-4" />
-            </Button>
-          </div>
+  if (!expanded) {
+    const nextEvent =
+      selectedDayEvents[0] ?? events.find((event) => event.start);
+    return (
+      <section className="px-5 py-5" aria-label="Day agenda">
+        <p className="mb-5 text-sm text-muted-foreground">
+          {format(selectedDate, "EEEE, MMMM d")}
+        </p>
+        <div className="overflow-hidden rounded-xl border border-border bg-card">
+          {selectedDayEvents.length ? (
+            selectedDayEvents.map((event) => (
+              <button
+                key={event.id}
+                type="button"
+                onClick={() => onSelectEvent(event)}
+                className="flex w-full gap-2 border-b border-border px-5 py-4 text-left text-sm last:border-b-0 hover:bg-accent"
+              >
+                <span className="shrink-0 text-muted-foreground">
+                  {event.start && format(new Date(event.start), "HH:mm")}
+                </span>
+                <span className="truncate">{event.summary}</span>
+              </button>
+            ))
+          ) : (
+            <p className="px-5 py-5 text-sm text-muted-foreground">
+              No events on this day.
+            </p>
+          )}
         </div>
-
-        <div className="mt-4 grid grid-cols-3 gap-2">
-          {[
-            { label: "Today", value: todayCount, hint: "on deck" },
-            { label: "This week", value: weekCount, hint: "scheduled" },
-            { label: "Tentative", value: tentativeCount, hint: "needs clarity" },
-          ].map((stat) => (
-            <div key={stat.label} className="rounded-xl bg-muted/65 px-3 py-2.5">
-              <p className="text-[0.68rem] font-medium uppercase tracking-[0.16em] text-muted-foreground">
-                {stat.label}
+        {nextEvent && (
+          <div className="mt-5 rounded-xl bg-muted p-5">
+            <p className="text-sm text-muted-foreground">Next up</p>
+            <h3 className="mt-5 text-xl font-normal">{nextEvent.summary}</h3>
+            <p className="mt-5 text-sm text-muted-foreground">
+              {formatTimeRange(nextEvent)}
+            </p>
+            {nextEvent.location && (
+              <p className="mt-1 text-sm text-muted-foreground">
+                {nextEvent.location}
               </p>
-              <p className="mt-1 text-lg font-semibold tabular-nums">{stat.value}</p>
-              <p className="text-[0.68rem] text-muted-foreground">{stat.hint}</p>
-            </div>
-          ))}
-        </div>
-
-        {view === "month" ? (
-          <div className="mt-4">
-            <div className="grid grid-cols-7 gap-2">
-              {weekdayLabels.map((label) => (
-                <p key={label} className="px-1 text-center text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
-                  {label}
-                </p>
-              ))}
-            </div>
-            <div className="mt-2 grid grid-cols-7 gap-2">
-              {monthDays.map((day) => {
-                const dayEvents = eventsByDay.get(dateKey(day)) ?? [];
-                const active = isSameDay(day, selectedDate);
-
-                return (
-                  <button
-                    key={day.toISOString()}
-                    type="button"
-                    onClick={() => {
-                      setSelectedDate(day);
-                      setVisibleMonth(startOfMonth(day));
-                    }}
-                    className={cn(
-                      "motion-interactive min-h-[92px] rounded-2xl border px-2.5 py-2 text-left outline-none focus-visible:ring-2 focus-visible:ring-ring",
-                      active
-                        ? "border-primary/40 bg-secondary/65 text-secondary-foreground"
-                        : "border-border/70 bg-background/80 hover:border-primary/25 hover:bg-accent",
-                      !isSameMonth(day, visibleMonth) && "opacity-55",
-                    )}
-                  >
-                    <div className="flex items-center justify-between gap-2">
-                      <span
-                        className={cn(
-                          "inline-flex size-6 items-center justify-center rounded-full text-xs font-semibold",
-                          isToday(day) && !active && "bg-primary text-primary-foreground",
-                        )}
-                      >
-                        {format(day, "d")}
-                      </span>
-                      {dayEvents.length > 0 ? (
-                        <span className="rounded-full bg-muted px-1.5 py-0.5 text-[0.62rem] font-medium text-muted-foreground">
-                          {dayEvents.length}
-                        </span>
-                      ) : null}
-                    </div>
-                    <div className="mt-2 space-y-1">
-                      {dayEvents.slice(0, 2).map((event) => (
-                        <span
-                          key={event.id}
-                          className="block truncate rounded-md bg-primary/10 px-1.5 py-1 text-[0.65rem] font-medium text-primary"
-                        >
-                          {event.summary}
-                        </span>
-                      ))}
-                      {dayEvents.length > 2 ? (
-                        <span className="block text-[0.62rem] font-medium text-muted-foreground">
-                          +{dayEvents.length - 2} more
-                        </span>
-                      ) : null}
-                    </div>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-        ) : (
-          <div className="mt-4 grid gap-2">
-            {weekDays.map((day) => {
-              const dayEvents = eventsByDay.get(dateKey(day)) ?? [];
-              const active = isSameDay(day, selectedDate);
-
-              return (
-                <button
-                  key={day.toISOString()}
-                  type="button"
-                  onClick={() => setSelectedDate(day)}
-                  className={cn(
-                    "motion-interactive rounded-2xl border px-3 py-3 text-left outline-none focus-visible:ring-2 focus-visible:ring-ring",
-                    active
-                      ? "border-primary/40 bg-secondary/60"
-                      : "border-border/70 bg-background/80 hover:border-primary/25 hover:bg-accent",
-                  )}
-                >
-                  <div className="flex items-center justify-between gap-3">
-                    <div>
-                      <p className="text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
-                        {format(day, "EEE")}
-                      </p>
-                      <p className="mt-1 text-sm font-semibold">{format(day, "MMM d")}</p>
-                    </div>
-                    <span className="rounded-full bg-muted px-2 py-0.5 text-[0.68rem] font-medium text-muted-foreground">
-                      {dayEvents.length}
-                    </span>
-                  </div>
-                  <div className="mt-2 space-y-1">
-                    {dayEvents.length > 0 ? (
-                      dayEvents.slice(0, 3).map((event) => (
-                        <div key={event.id} className="truncate text-xs text-foreground/80">
-                          {formatTimeRange(event)} · {event.summary}
-                        </div>
-                      ))
-                    ) : (
-                      <p className="text-xs text-muted-foreground">No events scheduled.</p>
-                    )}
-                  </div>
-                </button>
-              );
-            })}
+            )}
+            <Button
+              className="mt-5 w-full"
+              size="sm"
+              onClick={() => onSelectEvent(nextEvent)}
+            >
+              View event
+            </Button>
           </div>
         )}
       </section>
+    );
+  }
+
+  return (
+    <div className="space-y-4 px-4 py-4">
+      <Collapsible.Root open={expanded}>
+        <Collapsible.Content>
+          <Tabs.Root
+            value={view}
+            onValueChange={(value) => {
+              if (value === "month" || value === "week") setView(value);
+            }}
+          >
+            <section className="rounded-[22px] border border-border/70 bg-card/90 p-4 shadow-elevation-1">
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <div>
+                  <p className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
+                    Calendar deck
+                  </p>
+                  <h3 className="mt-1 text-lg font-semibold tracking-tight">
+                    {periodLabel}
+                  </h3>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Tabs.List
+                    aria-label="Calendar view"
+                    className="inline-flex rounded-lg border border-border/80 bg-muted/70 p-1"
+                  >
+                    {(["month", "week"] as const).map((option) => (
+                      <Tabs.Trigger
+                        key={option}
+                        value={option}
+                        className={cn(
+                          "motion-interactive rounded-md px-3 py-1.5 text-xs font-medium capitalize outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                          view === option
+                            ? "bg-background text-foreground shadow-xs"
+                            : "text-muted-foreground hover:text-foreground",
+                        )}
+                      >
+                        {option}
+                      </Tabs.Trigger>
+                    ))}
+                  </Tabs.List>
+                  <Button
+                    type="button"
+                    size="icon-sm"
+                    variant="ghost"
+                    aria-label={
+                      view === "week" ? "Previous week" : "Previous month"
+                    }
+                    onClick={() => shiftPeriod(-1)}
+                  >
+                    <ChevronLeftIcon className="size-4" />
+                  </Button>
+                  <Button
+                    type="button"
+                    size="icon-sm"
+                    variant="ghost"
+                    aria-label={view === "week" ? "Next week" : "Next month"}
+                    onClick={() => shiftPeriod(1)}
+                  >
+                    <ChevronRightIcon className="size-4" />
+                  </Button>
+                </div>
+              </div>
+
+              <div className="mt-4 grid grid-cols-3 gap-2">
+                {[
+                  { label: "Today", value: todayCount, hint: "on deck" },
+                  { label: "This week", value: weekCount, hint: "scheduled" },
+                  {
+                    label: "Tentative",
+                    value: tentativeCount,
+                    hint: "needs clarity",
+                  },
+                ].map((stat) => (
+                  <div
+                    key={stat.label}
+                    className="rounded-xl bg-muted/65 px-3 py-2.5"
+                  >
+                    <p className="text-[0.68rem] font-medium uppercase tracking-[0.16em] text-muted-foreground">
+                      {stat.label}
+                    </p>
+                    <p className="mt-1 text-lg font-semibold tabular-nums">
+                      {stat.value}
+                    </p>
+                    <p className="text-[0.68rem] text-muted-foreground">
+                      {stat.hint}
+                    </p>
+                  </div>
+                ))}
+              </div>
+
+              <Tabs.Content value={view}>
+                {view === "month" ? (
+                  <div className="mt-4">
+                    <div className="grid grid-cols-7 gap-2">
+                      {weekdayLabels.map((label) => (
+                        <p
+                          key={label}
+                          className="px-1 text-center text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-muted-foreground"
+                        >
+                          {label}
+                        </p>
+                      ))}
+                    </div>
+                    <div className="mt-2 grid grid-cols-7 gap-2">
+                      {monthDays.map((day) => {
+                        const dayEvents = eventsByDay.get(dateKey(day)) ?? [];
+                        const active = isSameDay(day, selectedDate);
+
+                        return (
+                          <button
+                            key={day.toISOString()}
+                            type="button"
+                            onClick={() => {
+                              setSelectedDate(day);
+                              setVisibleMonth(startOfMonth(day));
+                            }}
+                            className={cn(
+                              "motion-interactive min-h-[92px] rounded-2xl border px-2.5 py-2 text-left outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                              active
+                                ? "border-primary/40 bg-secondary/65 text-secondary-foreground"
+                                : "border-border/70 bg-background/80 hover:border-primary/25 hover:bg-accent",
+                              !isSameMonth(day, visibleMonth) && "opacity-55",
+                            )}
+                          >
+                            <div className="flex items-center justify-between gap-2">
+                              <span
+                                className={cn(
+                                  "inline-flex size-6 items-center justify-center rounded-full text-xs font-semibold",
+                                  isToday(day) &&
+                                    !active &&
+                                    "bg-primary text-primary-foreground",
+                                )}
+                              >
+                                {format(day, "d")}
+                              </span>
+                              {dayEvents.length > 0 ? (
+                                <span className="rounded-full bg-muted px-1.5 py-0.5 text-[0.62rem] font-medium text-muted-foreground">
+                                  {dayEvents.length}
+                                </span>
+                              ) : null}
+                            </div>
+                            <div className="mt-2 space-y-1">
+                              {dayEvents.slice(0, 2).map((event) => (
+                                <span
+                                  key={event.id}
+                                  className="block truncate rounded-md bg-primary/10 px-1.5 py-1 text-[0.65rem] font-medium text-primary"
+                                >
+                                  {event.summary}
+                                </span>
+                              ))}
+                              {dayEvents.length > 2 ? (
+                                <span className="block text-[0.62rem] font-medium text-muted-foreground">
+                                  +{dayEvents.length - 2} more
+                                </span>
+                              ) : null}
+                            </div>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ) : (
+                  <div className="mt-4 grid gap-2">
+                    {weekDays.map((day) => {
+                      const dayEvents = eventsByDay.get(dateKey(day)) ?? [];
+                      const active = isSameDay(day, selectedDate);
+
+                      return (
+                        <button
+                          key={day.toISOString()}
+                          type="button"
+                          onClick={() => setSelectedDate(day)}
+                          className={cn(
+                            "motion-interactive rounded-2xl border px-3 py-3 text-left outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                            active
+                              ? "border-primary/40 bg-secondary/60"
+                              : "border-border/70 bg-background/80 hover:border-primary/25 hover:bg-accent",
+                          )}
+                        >
+                          <div className="flex items-center justify-between gap-3">
+                            <div>
+                              <p className="text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+                                {format(day, "EEE")}
+                              </p>
+                              <p className="mt-1 text-sm font-semibold">
+                                {format(day, "MMM d")}
+                              </p>
+                            </div>
+                            <span className="rounded-full bg-muted px-2 py-0.5 text-[0.68rem] font-medium text-muted-foreground">
+                              {dayEvents.length}
+                            </span>
+                          </div>
+                          <div className="mt-2 space-y-1">
+                            {dayEvents.length > 0 ? (
+                              dayEvents.slice(0, 3).map((event) => (
+                                <div
+                                  key={event.id}
+                                  className="truncate text-xs text-foreground/80"
+                                >
+                                  {formatTimeRange(event)} · {event.summary}
+                                </div>
+                              ))
+                            ) : (
+                              <p className="text-xs text-muted-foreground">
+                                No events scheduled.
+                              </p>
+                            )}
+                          </div>
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
+              </Tabs.Content>
+            </section>
+          </Tabs.Root>
+        </Collapsible.Content>
+      </Collapsible.Root>
 
       <section className="rounded-[22px] border border-border/70 bg-card/90 p-4 shadow-elevation-1">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
-            <p className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">Selected day</p>
-            <h3 className="mt-1 text-base font-semibold tracking-tight">{format(selectedDate, "EEEE, MMM d")}</h3>
+            <p className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
+              Selected day
+            </p>
+            <h3 className="mt-1 text-base font-semibold tracking-tight">
+              {format(selectedDate, "EEEE, MMM d")}
+            </h3>
           </div>
-          <Button type="button" size="sm" variant="outline" onClick={() => onCreateEvent(buildPresetForDay(selectedDate))}>
+          <Button
+            type="button"
+            size="sm"
+            variant="outline"
+            onClick={() => onCreateEvent(buildPresetForDay(selectedDate))}
+          >
             <CalendarDaysIcon className="size-4" />
             New on this day
           </Button>
@@ -423,7 +562,13 @@ export function WorkspaceCalendarPanel({
 
         <div className="mt-3 space-y-2">
           {selectedDayEvents.length > 0 ? (
-            selectedDayEvents.map((event) => <DayEventRow key={event.id} event={event} onSelect={onSelectEvent} />)
+            selectedDayEvents.map((event) => (
+              <DayEventRow
+                key={event.id}
+                event={event}
+                onSelect={onSelectEvent}
+              />
+            ))
           ) : (
             <div className="rounded-xl border border-dashed border-border/80 bg-muted/40 px-4 py-6 text-center">
               <p className="text-sm font-medium">No events on this day.</p>
@@ -438,8 +583,12 @@ export function WorkspaceCalendarPanel({
       <section className="rounded-[22px] border border-border/70 bg-card/90 p-4 shadow-elevation-1">
         <div className="flex items-center justify-between gap-3">
           <div>
-            <p className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">Agenda runway</p>
-            <h3 className="mt-1 text-base font-semibold tracking-tight">All upcoming agendas</h3>
+            <p className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
+              Agenda runway
+            </p>
+            <h3 className="mt-1 text-base font-semibold tracking-tight">
+              All upcoming agendas
+            </h3>
           </div>
           <span className="rounded-full bg-muted px-2 py-1 text-xs font-medium text-muted-foreground">
             {events.length} total
@@ -455,11 +604,17 @@ export function WorkspaceCalendarPanel({
                     <p className="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
                       {section.label}
                     </p>
-                    <span className="text-xs text-muted-foreground">{section.items.length}</span>
+                    <span className="text-xs text-muted-foreground">
+                      {section.items.length}
+                    </span>
                   </div>
                   <div className="space-y-2">
                     {section.items.map((event) => (
-                      <DayEventRow key={event.id} event={event} onSelect={onSelectEvent} />
+                      <DayEventRow
+                        key={event.id}
+                        event={event}
+                        onSelect={onSelectEvent}
+                      />
                     ))}
                   </div>
                 </div>
@@ -469,7 +624,8 @@ export function WorkspaceCalendarPanel({
             <div className="rounded-xl border border-dashed border-border/80 bg-muted/40 px-4 py-6 text-center">
               <p className="text-sm font-medium">No upcoming agenda yet.</p>
               <p className="mt-1 text-xs text-muted-foreground">
-                Create the next meeting from the rail or schedule directly from a thread.
+                Create the next meeting from the rail or schedule directly from
+                a thread.
               </p>
             </div>
           )}

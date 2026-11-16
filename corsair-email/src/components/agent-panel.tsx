@@ -1,5 +1,14 @@
 "use client";
 
+import { Collapsible } from "@animate-ui/react/primitives/radix-ui";
+import AIMessage from "@/components/smoothui/ai-message";
+import AISuggestions from "@/components/smoothui/ai-suggestions";
+import AIToolCall from "@/components/smoothui/ai-tool-call";
+import AIArtifact from "@/components/smoothui/ai-artifact";
+import AIApproval from "@/components/smoothui/ai-approval";
+import AIPromptInput from "@/components/smoothui/ai-prompt-input";
+import AIConversation from "@/components/smoothui/ai-conversation";
+import AILoader from "@/components/smoothui/ai-loader";
 import { format } from "date-fns";
 import { useEffect, useRef, useState } from "react";
 import {
@@ -39,7 +48,13 @@ import type {
   EventInput,
 } from "@/lib/types";
 
-type EmailProposal = { kind: "email"; to: string; subject: string; body: string; threadId?: string };
+type EmailProposal = {
+  kind: "email";
+  to: string;
+  subject: string;
+  body: string;
+  threadId?: string;
+};
 type EventProposal = {
   kind: "event";
   summary: string;
@@ -81,7 +96,11 @@ type AgentRequestMessage = {
   content: string;
 };
 
-export type AgentOperator = { configured: boolean; label: string; model: string };
+export type AgentOperator = {
+  configured: boolean;
+  label: string;
+  model: string;
+};
 
 type AgentPanelProps = {
   open: boolean;
@@ -103,7 +122,12 @@ function uid() {
 }
 
 function buildChatTitle(turns: Turn[]) {
-  return turns.find((turn) => turn.role === "user" && turn.content.trim())?.content.trim().slice(0, 72) || "New chat";
+  return (
+    turns
+      .find((turn) => turn.role === "user" && turn.content.trim())
+      ?.content.trim()
+      .slice(0, 72) || "New chat"
+  );
 }
 
 function normalizeTurn(value: unknown): Turn | null {
@@ -126,9 +150,14 @@ function normalizeTurn(value: unknown): Turn | null {
     id: candidate.id,
     role: candidate.role,
     content: candidate.content,
-    tools: candidate.tools.filter((item): item is string => typeof item === "string"),
+    tools: candidate.tools.filter(
+      (item): item is string => typeof item === "string",
+    ),
     proposals: candidate.proposals as ProposalItem[],
-    createdAt: typeof candidate.createdAt === "string" ? candidate.createdAt : new Date().toISOString(),
+    createdAt:
+      typeof candidate.createdAt === "string"
+        ? candidate.createdAt
+        : new Date().toISOString(),
   };
 }
 
@@ -152,14 +181,17 @@ function normalizeSavedChats(value: unknown): SavedChat[] {
         return [];
       }
 
-      const turns = candidate.turns.map(normalizeTurn).filter((turn): turn is Turn => Boolean(turn));
+      const turns = candidate.turns
+        .map(normalizeTurn)
+        .filter((turn): turn is Turn => Boolean(turn));
       return [
         {
           id: candidate.id,
           title: candidate.title,
           updatedAt: candidate.updatedAt,
           lastInboxCheckpointAt:
-            typeof candidate.lastInboxCheckpointAt === "string" || candidate.lastInboxCheckpointAt === null
+            typeof candidate.lastInboxCheckpointAt === "string" ||
+            candidate.lastInboxCheckpointAt === null
               ? candidate.lastInboxCheckpointAt
               : null,
           turns,
@@ -175,12 +207,18 @@ function readSavedChats() {
   }
 
   try {
-    const next = normalizeSavedChats(JSON.parse(window.localStorage.getItem(CHAT_HISTORY_STORAGE_KEY) || "[]"));
+    const next = normalizeSavedChats(
+      JSON.parse(window.localStorage.getItem(CHAT_HISTORY_STORAGE_KEY) || "[]"),
+    );
     if (next.length > 0) {
       return next;
     }
 
-    return normalizeSavedChats(JSON.parse(window.localStorage.getItem(LEGACY_CHAT_HISTORY_STORAGE_KEY) || "[]"));
+    return normalizeSavedChats(
+      JSON.parse(
+        window.localStorage.getItem(LEGACY_CHAT_HISTORY_STORAGE_KEY) || "[]",
+      ),
+    );
   } catch {
     return [];
   }
@@ -191,7 +229,10 @@ function writeSavedChats(chats: SavedChat[]) {
     return;
   }
 
-  window.localStorage.setItem(CHAT_HISTORY_STORAGE_KEY, JSON.stringify(chats.slice(0, MAX_SAVED_CHATS)));
+  window.localStorage.setItem(
+    CHAT_HISTORY_STORAGE_KEY,
+    JSON.stringify(chats.slice(0, MAX_SAVED_CHATS)),
+  );
 }
 
 function getGroupedChats(chats: SavedChat[]) {
@@ -200,10 +241,16 @@ function getGroupedChats(chats: SavedChat[]) {
   const todayKey = today.toDateString();
 
   return {
-    today: chats.filter((chat) => new Date(chat.updatedAt).toDateString() === todayKey),
+    today: chats.filter(
+      (chat) => new Date(chat.updatedAt).toDateString() === todayKey,
+    ),
     last7Days: chats.filter((chat) => {
       const updatedAt = new Date(chat.updatedAt).getTime();
-      return Number.isFinite(updatedAt) && now - updatedAt <= 7 * ONE_DAY_MS && new Date(chat.updatedAt).toDateString() !== todayKey;
+      return (
+        Number.isFinite(updatedAt) &&
+        now - updatedAt <= 7 * ONE_DAY_MS &&
+        new Date(chat.updatedAt).toDateString() !== todayKey
+      );
     }),
     older: chats.filter((chat) => {
       const updatedAt = new Date(chat.updatedAt).getTime();
@@ -248,10 +295,17 @@ function fromEditableDateTime(value: string) {
 
 function canConfirmProposal(proposal: Proposal) {
   if (proposal.kind === "email") {
-    return Boolean(proposal.to.trim() && proposal.subject.trim() && proposal.body.trim());
+    return Boolean(
+      proposal.to.trim() && proposal.subject.trim() && proposal.body.trim(),
+    );
   }
 
-  return Boolean(proposal.summary.trim() && proposal.start && proposal.end);
+  return Boolean(
+    proposal.summary.trim() &&
+    proposal.start &&
+    proposal.end &&
+    new Date(proposal.end) > new Date(proposal.start),
+  );
 }
 
 function extractLatestCheckpoint(turns: Turn[]) {
@@ -263,26 +317,37 @@ function toProposalKinds(items: ProposalItem[]) {
   return items.map((item) => ({ kind: item.proposal.kind }));
 }
 
-export function AgentPanel({ open, operator, onClose, onConfirmEmail, onConfirmEvent }: AgentPanelProps) {
+export function AgentPanel({
+  open,
+  operator,
+  onClose,
+  onConfirmEmail,
+  onConfirmEvent,
+}: AgentPanelProps) {
   const [turns, setTurns] = useState<Turn[]>([]);
   const [activeChatId, setActiveChatId] = useState(() => uid());
   const [input, setInput] = useState("");
   const [busy, setBusy] = useState(false);
   const [autoApprove, setAutoApprove] = useState(false);
+  const [approvalOpen, setApprovalOpen] = useState(false);
+  const abortRef = useRef<AbortController | null>(null);
+  const confirmingRef = useRef(new Set<string>());
+  const sendingRef = useRef(false);
   const [error, setError] = useState("");
   const [historyOpen, setHistoryOpen] = useState(false);
   const [savedChats, setSavedChats] = useState<SavedChat[]>([]);
-  const [lastInboxCheckpointAt, setLastInboxCheckpointAt] = useState<string | null>(null);
+  const [lastInboxCheckpointAt, setLastInboxCheckpointAt] = useState<
+    string | null
+  >(null);
 
-  const transcriptRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLTextAreaElement>(null);
+  const composerRef = useRef<HTMLDivElement>(null);
   const autoApproveRef = useRef(autoApprove);
   const skipNextSaveRef = useRef(false);
   autoApproveRef.current = autoApprove;
 
   useEffect(() => {
     if (open) {
-      inputRef.current?.focus();
+      composerRef.current?.querySelector("textarea")?.focus();
     }
   }, [open]);
 
@@ -290,13 +355,7 @@ export function AgentPanel({ open, operator, onClose, onConfirmEmail, onConfirmE
     setSavedChats(readSavedChats());
   }, []);
 
-  useEffect(() => {
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    transcriptRef.current?.scrollTo({
-      top: transcriptRef.current.scrollHeight,
-      behavior: reducedMotion ? "auto" : "smooth",
-    });
-  }, [turns]);
+  useEffect(() => () => abortRef.current?.abort(), []);
 
   useEffect(() => {
     if (skipNextSaveRef.current) {
@@ -317,7 +376,10 @@ export function AgentPanel({ open, operator, onClose, onConfirmEmail, onConfirmE
     };
 
     setSavedChats((current) => {
-      const next = [savedChat, ...current.filter((chat) => chat.id !== activeChatId)].slice(0, MAX_SAVED_CHATS);
+      const next = [
+        savedChat,
+        ...current.filter((chat) => chat.id !== activeChatId),
+      ].slice(0, MAX_SAVED_CHATS);
       writeSavedChats(next);
       return next;
     });
@@ -336,53 +398,66 @@ export function AgentPanel({ open, operator, onClose, onConfirmEmail, onConfirmE
     });
   }
 
-  async function confirmProposal(turnId: string, proposalId: string) {
-    let target: ProposalItem | undefined;
-    setTurns((current) =>
-      current.map((turn) => {
-        if (turn.id !== turnId) {
-          return turn;
-        }
-        return {
-          ...turn,
-          proposals: turn.proposals.map((item) => {
-            if (item.id !== proposalId) {
-              return item;
-            }
-            target = item;
-            return { ...item, status: "confirming", error: undefined };
-          }),
-        };
-      }),
-    );
-
-    if (!target) {
+  async function confirmProposal(
+    turnId: string,
+    proposalId: string,
+    incoming?: ProposalItem,
+  ) {
+    const target =
+      incoming ??
+      turns
+        .find((turn) => turn.id === turnId)
+        ?.proposals.find((item) => item.id === proposalId);
+    if (
+      !target ||
+      target.status !== "pending" ||
+      confirmingRef.current.has(proposalId)
+    )
       return;
-    }
+    confirmingRef.current.add(proposalId);
+    setProposalStatus(turnId, proposalId, "confirming");
 
     try {
       if (target.proposal.kind === "email") {
         const { to, subject, body, threadId } = target.proposal;
         await onConfirmEmail({ to, subject, body, threadId });
       } else {
-        const { summary, start, end, attendees, description, location } = target.proposal;
-        await onConfirmEvent({ summary, start, end, attendees, description, location });
+        const { summary, start, end, attendees, description, location } =
+          target.proposal;
+        await onConfirmEvent({
+          summary,
+          start,
+          end,
+          attendees,
+          description,
+          location,
+        });
       }
       setProposalStatus(turnId, proposalId, "done");
     } catch (confirmError) {
-      const message = confirmError instanceof Error ? confirmError.message : "Action failed";
+      const message =
+        confirmError instanceof Error ? confirmError.message : "Action failed";
       setProposalStatus(turnId, proposalId, "pending", message);
+    } finally {
+      confirmingRef.current.delete(proposalId);
     }
   }
 
-  function setProposalStatus(turnId: string, proposalId: string, status: ProposalItem["status"], proposalError?: string) {
+  function setProposalStatus(
+    turnId: string,
+    proposalId: string,
+    status: ProposalItem["status"],
+    proposalError?: string,
+  ) {
     setTurns((current) =>
       current.map((turn) =>
         turn.id === turnId
           ? {
               ...turn,
               proposals: turn.proposals.map((item) =>
-                item.id === proposalId ? { ...item, status, error: proposalError } : item,
+                item.id === proposalId
+                  ? { ...item, status, error: proposalError }
+                  : item,
               ),
             }
           : turn,
@@ -390,14 +465,24 @@ export function AgentPanel({ open, operator, onClose, onConfirmEmail, onConfirmE
     );
   }
 
-  function setProposalEditing(turnId: string, proposalId: string, editing: boolean) {
+  function setProposalEditing(
+    turnId: string,
+    proposalId: string,
+    editing: boolean,
+  ) {
     setTurns((current) =>
       current.map((turn) =>
         turn.id === turnId
           ? {
               ...turn,
               proposals: turn.proposals.map((item) =>
-                item.id === proposalId ? { ...item, editing, error: editing ? undefined : item.error } : item,
+                item.id === proposalId
+                  ? {
+                      ...item,
+                      editing,
+                      error: editing ? undefined : item.error,
+                    }
+                  : item,
               ),
             }
           : turn,
@@ -405,14 +490,24 @@ export function AgentPanel({ open, operator, onClose, onConfirmEmail, onConfirmE
     );
   }
 
-  function updateProposal(turnId: string, proposalId: string, mutate: (proposal: Proposal) => Proposal) {
+  function updateProposal(
+    turnId: string,
+    proposalId: string,
+    mutate: (proposal: Proposal) => Proposal,
+  ) {
     setTurns((current) =>
       current.map((turn) =>
         turn.id === turnId
           ? {
               ...turn,
               proposals: turn.proposals.map((item) =>
-                item.id === proposalId ? { ...item, proposal: mutate(item.proposal), error: undefined } : item,
+                item.id === proposalId
+                  ? {
+                      ...item,
+                      proposal: mutate(item.proposal),
+                      error: undefined,
+                    }
+                  : item,
               ),
             }
           : turn,
@@ -427,7 +522,10 @@ export function AgentPanel({ open, operator, onClose, onConfirmEmail, onConfirmE
     setError("");
     setHistoryOpen(false);
     setLastInboxCheckpointAt(null);
-    window.setTimeout(() => inputRef.current?.focus(), 0);
+    window.setTimeout(
+      () => composerRef.current?.querySelector("textarea")?.focus(),
+      0,
+    );
   }
 
   function openSavedChat(chat: SavedChat) {
@@ -438,15 +536,19 @@ export function AgentPanel({ open, operator, onClose, onConfirmEmail, onConfirmE
     setError("");
     setHistoryOpen(false);
     setLastInboxCheckpointAt(chat.lastInboxCheckpointAt);
-    window.setTimeout(() => inputRef.current?.focus(), 0);
+    window.setTimeout(
+      () => composerRef.current?.querySelector("textarea")?.focus(),
+      0,
+    );
   }
 
   async function send(text: string, context?: AgentChatContext) {
     const trimmed = text.trim();
-    if (!trimmed || busy) {
+    if (!trimmed || busy || sendingRef.current) {
       return;
     }
 
+    sendingRef.current = true;
     setError("");
     setInput("");
     setHistoryOpen(false);
@@ -454,19 +556,39 @@ export function AgentPanel({ open, operator, onClose, onConfirmEmail, onConfirmE
     const history: AgentRequestMessage[] = turns
       .filter((turn) => turn.content.trim())
       .map((turn) => ({ role: turn.role, content: turn.content }));
-    const payloadMessages = [...history, { role: "user" as const, content: trimmed }];
+    const payloadMessages = [
+      ...history,
+      { role: "user" as const, content: trimmed },
+    ];
 
     const now = new Date().toISOString();
     const assistantId = uid();
     setTurns((current) => [
       ...current,
-      { id: uid(), role: "user", content: trimmed, tools: [], proposals: [], createdAt: now },
-      { id: assistantId, role: "assistant", content: "", tools: [], proposals: [], createdAt: new Date().toISOString() },
+      {
+        id: uid(),
+        role: "user",
+        content: trimmed,
+        tools: [],
+        proposals: [],
+        createdAt: now,
+      },
+      {
+        id: assistantId,
+        role: "assistant",
+        content: "",
+        tools: [],
+        proposals: [],
+        createdAt: new Date().toISOString(),
+      },
     ]);
     setBusy(true);
+    const controller = new AbortController();
+    abortRef.current = controller;
 
     try {
       const response = await fetch("/api/agent", {
+        signal: controller.signal,
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ messages: payloadMessages, context }),
@@ -484,17 +606,33 @@ export function AgentPanel({ open, operator, onClose, onConfirmEmail, onConfirmE
       const handle = (event: Record<string, unknown>) => {
         if (event.type === "token" && typeof event.text === "string") {
           const textPart = event.text;
-          updateLastAssistant((turn) => ({ ...turn, content: turn.content + textPart }));
+          updateLastAssistant((turn) => ({
+            ...turn,
+            content: turn.content + textPart,
+          }));
         } else if (event.type === "tool" && typeof event.label === "string") {
           const label = event.label;
-          updateLastAssistant((turn) => ({ ...turn, tools: [...turn.tools, label] }));
+          updateLastAssistant((turn) => ({
+            ...turn,
+            tools: [...turn.tools, label],
+          }));
         } else if (event.type === "proposal" && event.proposal) {
-          const item: ProposalItem = { id: uid(), proposal: event.proposal as Proposal, status: "pending" };
-          updateLastAssistant((turn) => ({ ...turn, proposals: [...turn.proposals, item] }));
+          const item: ProposalItem = {
+            id: uid(),
+            proposal: event.proposal as Proposal,
+            status: "pending",
+          };
+          updateLastAssistant((turn) => ({
+            ...turn,
+            proposals: [...turn.proposals, item],
+          }));
           if (autoApproveRef.current) {
-            void confirmProposal(assistantId, item.id);
+            void confirmProposal(assistantId, item.id, item);
           }
-        } else if (event.type === "error" && typeof event.message === "string") {
+        } else if (
+          event.type === "error" &&
+          typeof event.message === "string"
+        ) {
           setError(event.message);
         }
       };
@@ -509,7 +647,9 @@ export function AgentPanel({ open, operator, onClose, onConfirmEmail, onConfirmE
         while (boundary !== -1) {
           const rawEvent = buffer.slice(0, boundary);
           buffer = buffer.slice(boundary + 2);
-          const dataLine = rawEvent.split("\n").find((line) => line.startsWith("data:"));
+          const dataLine = rawEvent
+            .split("\n")
+            .find((line) => line.startsWith("data:"));
           if (dataLine) {
             const json = dataLine.slice(5).trim();
             if (json) {
@@ -525,19 +665,44 @@ export function AgentPanel({ open, operator, onClose, onConfirmEmail, onConfirmE
       }
 
       if (context?.suggestionIntent?.startsWith("triage_")) {
-        setLastInboxCheckpointAt(extractLatestCheckpoint([...turns, { id: "checkpoint", role: "user", content: trimmed, tools: [], proposals: [], createdAt: now }]));
+        setLastInboxCheckpointAt(
+          extractLatestCheckpoint([
+            ...turns,
+            {
+              id: "checkpoint",
+              role: "user",
+              content: trimmed,
+              tools: [],
+              proposals: [],
+              createdAt: now,
+            },
+          ]),
+        );
       }
     } catch (sendError) {
-      setError(sendError instanceof Error ? sendError.message : "Agent error");
+      setError(
+        controller.signal.aborted
+          ? "Response stopped. You can retry when ready."
+          : sendError instanceof Error
+            ? sendError.message
+            : "Agent error",
+      );
     } finally {
       setBusy(false);
+      sendingRef.current = false;
     }
   }
 
   const lastTurn = turns.at(-1);
-  const showFollowUps = operator.configured && !busy && turns.length > 0 && lastTurn?.role === "assistant";
+  const showFollowUps =
+    operator.configured &&
+    !busy &&
+    turns.length > 0 &&
+    lastTurn?.role === "assistant";
   const groupedChats = getGroupedChats(savedChats);
-  const latestAssistant = [...turns].reverse().find((turn) => turn.role === "assistant");
+  const latestAssistant = [...turns]
+    .reverse()
+    .find((turn) => turn.role === "assistant");
   const latestUser = [...turns].reverse().find((turn) => turn.role === "user");
   const contextualSuggestions = buildContextualSuggestions({
     latestUserContent: latestUser?.content,
@@ -548,7 +713,7 @@ export function AgentPanel({ open, operator, onClose, onConfirmEmail, onConfirmE
 
   return (
     <Dialog open={open} onOpenChange={(value) => !value && onClose()}>
-      <DialogContent className="flex h-[min(80dvh,680px)] flex-col gap-0 overflow-hidden p-0 sm:max-w-xl">
+      <DialogContent className="doop-ai-panel flex h-[min(85dvh,800px)] flex-col gap-0 overflow-hidden p-0 sm:max-w-[780px]">
         <DialogHeader className="flex-row items-start justify-between gap-4 border-b border-border px-5 py-4 text-left">
           <div className="min-w-0 space-y-1">
             <DialogTitle className="flex items-center gap-2">
@@ -557,7 +722,8 @@ export function AgentPanel({ open, operator, onClose, onConfirmEmail, onConfirmE
             </DialogTitle>
             <DialogDescription className="truncate">
               {operator.label}
-              {operator.model ? ` · ${operator.model}` : ""} — you confirm every action.
+              {operator.model ? ` · ${operator.model}` : ""} — you confirm every
+              action.
             </DialogDescription>
           </div>
           <div className="flex shrink-0 items-center gap-1.5 pr-8">
@@ -567,7 +733,7 @@ export function AgentPanel({ open, operator, onClose, onConfirmEmail, onConfirmE
               variant="ghost"
               aria-label="New chat"
               title="New chat"
-              disabled={busy && turns.length === 0}
+              disabled={busy}
               onClick={startNewChat}
             >
               <MessageSquarePlusIcon className="size-4" />
@@ -577,6 +743,7 @@ export function AgentPanel({ open, operator, onClose, onConfirmEmail, onConfirmE
               size="icon-sm"
               variant={historyOpen ? "secondary" : "ghost"}
               aria-label="Chat history"
+              disabled={busy}
               title="Chat history"
               aria-pressed={historyOpen}
               onClick={() => setHistoryOpen((value) => !value)}
@@ -584,432 +751,662 @@ export function AgentPanel({ open, operator, onClose, onConfirmEmail, onConfirmE
               <Clock3Icon className="size-4" />
             </Button>
             <Label className="ml-2 flex cursor-pointer items-center gap-2 whitespace-nowrap text-xs text-muted-foreground">
-              <Switch checked={autoApprove} onCheckedChange={setAutoApprove} size="sm" />
+              <Switch
+                checked={autoApprove}
+                onCheckedChange={(checked) =>
+                  checked ? setApprovalOpen(true) : setAutoApprove(false)
+                }
+                size="sm"
+                aria-label="Auto-approve actions"
+              />
               Auto-approve
             </Label>
           </div>
         </DialogHeader>
 
-        <div ref={transcriptRef} className="scroll-area-thin flex-1 space-y-4 overflow-y-auto px-5 py-4">
-          {historyOpen && (
-            <div className="motion-enter rounded-lg border border-border bg-card p-3">
-              <div className="mb-3 flex items-center justify-between gap-3">
-                <div className="flex items-center gap-2 text-sm font-semibold">
-                  <Clock3Icon className="size-4 text-primary" />
-                  Your chats
-                </div>
-                <Button type="button" size="xs" variant="ghost" onClick={() => setHistoryOpen(false)}>
-                  Close
-                </Button>
-              </div>
-              {savedChats.length > 0 ? (
-                <div className="space-y-4">
-                  {[
-                    ["Today", groupedChats.today],
-                    ["Last 7 days", groupedChats.last7Days],
-                    ["Older", groupedChats.older],
-                  ].map(([label, chats]) =>
-                    (chats as SavedChat[]).length > 0 ? (
-                      <section key={label as string} className="space-y-1.5">
-                        <h3 className="px-2 text-xs font-medium text-muted-foreground">{label as string}</h3>
-                        {(chats as SavedChat[]).map((chat) => (
-                          <button
-                            key={chat.id}
-                            type="button"
-                            className={cn(
-                              "motion-state flex w-full items-center gap-2 rounded-md px-2 py-2 text-left text-sm outline-none hover:bg-accent focus-visible:ring-2 focus-visible:ring-ring",
-                              chat.id === activeChatId && "bg-accent text-accent-foreground",
-                            )}
-                            onClick={() => openSavedChat(chat)}
-                          >
-                            <MailIcon className="size-4 shrink-0 text-primary" />
-                            <span className="min-w-0 flex-1 truncate">{chat.title}</span>
-                          </button>
-                        ))}
-                      </section>
-                    ) : null,
-                  )}
-                </div>
-              ) : (
-                <p className="text-sm text-muted-foreground">Chats you start will be saved here on this device.</p>
-              )}
-            </div>
-          )}
-
-          {turns.length === 0 ? (
-            operator.configured ? (
-              <div className="motion-enter-soft space-y-2">
-                <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-                  Try one of these
-                </p>
-                {SUGGESTIONS.map((suggestion) => (
-                  <button
-                    key={suggestion.id}
+        <AIConversation
+          className="min-h-0 flex-1"
+          contentKey={turns
+            .map(
+              (turn) =>
+                turn.content.length + turn.tools.length + turn.proposals.length,
+            )
+            .join(":")}
+        >
+          <div className="space-y-4 px-6 py-5">
+            {historyOpen && (
+              <div className="motion-enter rounded-lg border border-border bg-card p-3">
+                <div className="mb-3 flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-2 text-sm font-semibold">
+                    <Clock3Icon className="size-4 text-primary" />
+                    Your chats
+                  </div>
+                  <Button
                     type="button"
-                    className="motion-state w-full rounded-md border border-border bg-card px-3 py-2 text-left text-sm outline-none hover:border-primary/30 hover:bg-accent focus-visible:ring-2 focus-visible:ring-ring"
-                    onClick={() =>
+                    size="xs"
+                    variant="ghost"
+                    onClick={() => setHistoryOpen(false)}
+                  >
+                    Close
+                  </Button>
+                </div>
+                {savedChats.length > 0 ? (
+                  <div className="space-y-4">
+                    {[
+                      ["Today", groupedChats.today],
+                      ["Last 7 days", groupedChats.last7Days],
+                      ["Older", groupedChats.older],
+                    ].map(([label, chats]) =>
+                      (chats as SavedChat[]).length > 0 ? (
+                        <section key={label as string} className="space-y-1.5">
+                          <h3 className="px-2 text-xs font-medium text-muted-foreground">
+                            {label as string}
+                          </h3>
+                          {(chats as SavedChat[]).map((chat) => (
+                            <button
+                              key={chat.id}
+                              type="button"
+                              className={cn(
+                                "motion-state flex w-full items-center gap-2 rounded-md px-2 py-2 text-left text-sm outline-none hover:bg-accent focus-visible:ring-2 focus-visible:ring-ring",
+                                chat.id === activeChatId &&
+                                  "bg-accent text-accent-foreground",
+                              )}
+                              onClick={() => openSavedChat(chat)}
+                            >
+                              <MailIcon className="size-4 shrink-0 text-primary" />
+                              <span className="min-w-0 flex-1 truncate">
+                                {chat.title}
+                              </span>
+                            </button>
+                          ))}
+                        </section>
+                      ) : null,
+                    )}
+                  </div>
+                ) : (
+                  <p className="text-sm text-muted-foreground">
+                    Chats you start will be saved here on this device.
+                  </p>
+                )}
+              </div>
+            )}
+
+            {turns.length === 0 ? (
+              operator.configured ? (
+                <div className="space-y-5">
+                  <h2 className="text-xl font-medium tracking-tight">
+                    What would you like to make room for?
+                  </h2>
+                  <p className="text-sm text-muted-foreground">
+                    Find a thread, prepare a reply, or plan your next meeting.
+                    You review every action.
+                  </p>
+                  <AISuggestions
+                    className="doop-ai-suggestions"
+                    suggestions={SUGGESTIONS}
+                    onSelect={(suggestion) =>
                       void send(suggestion.label, {
-                        suggestionIntent: suggestion.id,
-                        checkpointAt: suggestion.id === "triage_changes_since_check" ? lastInboxCheckpointAt : undefined,
+                        suggestionIntent: [
+                          ...SUGGESTIONS,
+                          ...contextualSuggestions,
+                        ].find((item) => item.id === suggestion.id)?.id,
+                        checkpointAt:
+                          suggestion.id === "triage_changes_since_check"
+                            ? lastInboxCheckpointAt
+                            : undefined,
                       })
                     }
-                  >
-                    {suggestion.label}
-                  </button>
-                ))}
-              </div>
+                  />
+                </div>
+              ) : (
+                <div className="motion-enter-soft rounded-lg border border-border bg-muted/50 p-4">
+                  <p className="text-sm font-medium">
+                    Agent Chat isn&apos;t configured yet.
+                  </p>
+                  <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+                    Set <code className="font-mono">AI_BASE_URL</code>,{" "}
+                    <code className="font-mono">AI_API_KEY</code>, and{" "}
+                    <code className="font-mono">AI_MODEL</code> in{" "}
+                    <code className="font-mono">corsair-email/.env.local</code>{" "}
+                    (any OpenAI-compatible provider) and restart.
+                  </p>
+                </div>
+              )
             ) : (
-              <div className="motion-enter-soft rounded-lg border border-border bg-muted/50 p-4">
-                <p className="text-sm font-medium">Agent Chat isn&apos;t configured yet.</p>
-                <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
-                  Set <code className="font-mono">AI_BASE_URL</code>,{" "}
-                  <code className="font-mono">AI_API_KEY</code>, and{" "}
-                  <code className="font-mono">AI_MODEL</code> in{" "}
-                  <code className="font-mono">corsair-email/.env.local</code> (any OpenAI-compatible
-                  provider) and restart.
-                </p>
-              </div>
-            )
-          ) : (
-            turns.map((turn) => (
-              <div
-                key={turn.id}
-                className={cn("motion-enter-soft flex flex-col gap-2", turn.role === "user" ? "items-end" : "items-start")}
-              >
-                {turn.content.trim() && (
-                  <div
-                    className={cn(
-                      "motion-state max-w-[85%] whitespace-pre-wrap rounded-2xl px-3.5 py-2 text-sm leading-relaxed",
-                      turn.role === "user"
-                        ? "rounded-br-sm bg-primary text-primary-foreground"
-                        : "rounded-bl-sm bg-muted text-foreground",
-                    )}
-                  >
-                    {turn.content}
-                  </div>
-                )}
-
-                {turn.tools.length > 0 && (
-                  <div className="flex flex-wrap gap-1.5">
-                    {turn.tools.map((tool, index) => (
-                      <Badge key={`${turn.id}-tool-${index}`} variant="secondary" className="font-normal">
-                        {tool}
-                      </Badge>
-                    ))}
-                  </div>
-                )}
-
-                {turn.proposals.map((item) => (
-                  <div
-                    key={item.id}
-                    className="motion-enter w-full max-w-[85%] space-y-2 rounded-lg border border-border bg-card p-3.5 shadow-elevation-1"
-                  >
-                    <div className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground">
-                      {item.proposal.kind === "email" ? (
-                        <MailIcon className="size-3.5" />
-                      ) : (
-                        <CalendarIcon className="size-3.5" />
-                      )}
-                      {item.proposal.kind === "email" ? "Draft email" : "Proposed event"}
-                    </div>
-
-                    {item.proposal.kind === "email" ? (
-                      item.editing ? (
-                        <div className="space-y-3">
-                          <div className="space-y-1.5">
-                            <Label className="text-xs text-muted-foreground" htmlFor={`proposal-to-${item.id}`}>
-                              To
-                            </Label>
-                            <Input
-                              id={`proposal-to-${item.id}`}
-                              value={item.proposal.to}
-                              onChange={(event) =>
-                                updateProposal(turn.id, item.id, (proposal) =>
-                                  proposal.kind === "email" ? { ...proposal, to: event.target.value } : proposal,
-                                )
-                              }
-                            />
-                          </div>
-                          <div className="space-y-1.5">
-                            <Label className="text-xs text-muted-foreground" htmlFor={`proposal-subject-${item.id}`}>
-                              Subject
-                            </Label>
-                            <Input
-                              id={`proposal-subject-${item.id}`}
-                              value={item.proposal.subject}
-                              onChange={(event) =>
-                                updateProposal(turn.id, item.id, (proposal) =>
-                                  proposal.kind === "email"
-                                    ? { ...proposal, subject: event.target.value }
-                                    : proposal,
-                                )
-                              }
-                            />
-                          </div>
-                          <div className="space-y-1.5">
-                            <Label className="text-xs text-muted-foreground" htmlFor={`proposal-body-${item.id}`}>
-                              Body
-                            </Label>
-                            <Textarea
-                              id={`proposal-body-${item.id}`}
-                              rows={8}
-                              value={item.proposal.body}
-                              onChange={(event) =>
-                                updateProposal(turn.id, item.id, (proposal) =>
-                                  proposal.kind === "email" ? { ...proposal, body: event.target.value } : proposal,
-                                )
-                              }
-                            />
-                          </div>
-                        </div>
-                      ) : (
-                        <>
-                          <strong className="block text-sm">{item.proposal.subject || "(no subject)"}</strong>
-                          <p className="text-xs text-muted-foreground">To {item.proposal.to}</p>
-                          <p className="whitespace-pre-wrap text-sm leading-relaxed text-foreground/90">
-                            {item.proposal.body}
-                          </p>
-                        </>
-                      )
-                    ) : (
-                      item.editing ? (
-                        <div className="space-y-3">
-                          <div className="space-y-1.5">
-                            <Label className="text-xs text-muted-foreground" htmlFor={`proposal-summary-${item.id}`}>
-                              Title
-                            </Label>
-                            <Input
-                              id={`proposal-summary-${item.id}`}
-                              value={item.proposal.summary}
-                              onChange={(event) =>
-                                updateProposal(turn.id, item.id, (proposal) =>
-                                  proposal.kind === "event"
-                                    ? { ...proposal, summary: event.target.value }
-                                    : proposal,
-                                )
-                              }
-                            />
-                          </div>
-                          <div className="grid gap-3 sm:grid-cols-2">
-                            <div className="space-y-1.5">
-                              <Label className="text-xs text-muted-foreground" htmlFor={`proposal-start-${item.id}`}>
-                                Start
-                              </Label>
-                              <Input
-                                id={`proposal-start-${item.id}`}
-                                type="datetime-local"
-                                value={toEditableDateTime(item.proposal.start)}
-                                onChange={(event) =>
-                                  updateProposal(turn.id, item.id, (proposal) =>
-                                    proposal.kind === "event"
-                                      ? { ...proposal, start: fromEditableDateTime(event.target.value) }
-                                      : proposal,
-                                  )
-                                }
-                              />
-                            </div>
-                            <div className="space-y-1.5">
-                              <Label className="text-xs text-muted-foreground" htmlFor={`proposal-end-${item.id}`}>
-                                End
-                              </Label>
-                              <Input
-                                id={`proposal-end-${item.id}`}
-                                type="datetime-local"
-                                value={toEditableDateTime(item.proposal.end)}
-                                onChange={(event) =>
-                                  updateProposal(turn.id, item.id, (proposal) =>
-                                    proposal.kind === "event"
-                                      ? { ...proposal, end: fromEditableDateTime(event.target.value) }
-                                      : proposal,
-                                  )
-                                }
-                              />
-                            </div>
-                          </div>
-                          <div className="space-y-1.5">
-                            <Label className="text-xs text-muted-foreground" htmlFor={`proposal-attendees-${item.id}`}>
-                              Attendees
-                            </Label>
-                            <Input
-                              id={`proposal-attendees-${item.id}`}
-                              value={item.proposal.attendees ?? ""}
-                              onChange={(event) =>
-                                updateProposal(turn.id, item.id, (proposal) =>
-                                  proposal.kind === "event"
-                                    ? { ...proposal, attendees: event.target.value }
-                                    : proposal,
-                                )
-                              }
-                            />
-                          </div>
-                          <div className="space-y-1.5">
-                            <Label className="text-xs text-muted-foreground" htmlFor={`proposal-location-${item.id}`}>
-                              Location
-                            </Label>
-                            <Input
-                              id={`proposal-location-${item.id}`}
-                              value={item.proposal.location ?? ""}
-                              onChange={(event) =>
-                                updateProposal(turn.id, item.id, (proposal) =>
-                                  proposal.kind === "event"
-                                    ? { ...proposal, location: event.target.value }
-                                    : proposal,
-                                )
-                              }
-                            />
-                          </div>
-                          <div className="space-y-1.5">
-                            <Label
-                              className="text-xs text-muted-foreground"
-                              htmlFor={`proposal-description-${item.id}`}
-                            >
-                              Description
-                            </Label>
-                            <Textarea
-                              id={`proposal-description-${item.id}`}
-                              rows={6}
-                              value={item.proposal.description ?? ""}
-                              onChange={(event) =>
-                                updateProposal(turn.id, item.id, (proposal) =>
-                                  proposal.kind === "event"
-                                    ? { ...proposal, description: event.target.value }
-                                    : proposal,
-                                )
-                              }
-                            />
-                          </div>
-                        </div>
-                      ) : (
-                        <>
-                          <strong className="block text-sm">{item.proposal.summary}</strong>
-                          <p className="text-xs text-primary">
-                            {formatRange(item.proposal.start, item.proposal.end)}
-                          </p>
-                          {item.proposal.attendees && (
-                            <p className="text-xs text-muted-foreground">With {item.proposal.attendees}</p>
-                          )}
-                        </>
-                      )
-                    )}
-
-                    {item.error && <p className="text-xs text-destructive">{item.error}</p>}
-
-                    <div className="flex flex-wrap items-center gap-2 pt-1">
-                      {item.status === "done" ? (
-                        <Badge className="motion-enter-soft gap-1 border-success/30 bg-success/10 text-success">
-                          <CheckCircle2Icon className="size-3" />
-                          {item.proposal.kind === "email" ? "Sent" : "Created"}
-                        </Badge>
-                      ) : item.status === "cancelled" ? (
-                        <Badge variant="outline" className="motion-enter-soft text-muted-foreground">
-                          Dismissed
-                        </Badge>
-                      ) : (
-                        <>
-                          <Button
-                            type="button"
-                            size="sm"
-                            disabled={item.status === "confirming" || !canConfirmProposal(item.proposal)}
-                            onClick={() => void confirmProposal(turn.id, item.id)}
-                          >
-                            {item.status === "confirming" ? (
-                              <>
-                                <Loader2Icon className="size-4 animate-spin" />
-                                Working...
-                              </>
-                            ) : item.proposal.kind === "email" ? (
-                              "Send"
-                            ) : (
-                              "Create"
-                            )}
-                          </Button>
-                          <Button
-                            type="button"
-                            size="sm"
-                            variant="ghost"
-                            disabled={item.status === "confirming"}
-                            onClick={() => setProposalEditing(turn.id, item.id, !item.editing)}
-                          >
-                            <PencilIcon className="size-4" />
-                            {item.editing ? "Done" : "Edit"}
-                          </Button>
-                          <Button
-                            type="button"
-                            size="sm"
-                            variant="ghost"
-                            disabled={item.status === "confirming"}
-                            onClick={() => setProposalStatus(turn.id, item.id, "cancelled")}
-                          >
-                            Dismiss
-                          </Button>
-                        </>
-                      )}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            ))
-          )}
-
-          {showFollowUps && (
-            <div className="motion-enter-soft flex flex-wrap gap-2 pt-1">
-              {contextualSuggestions.map((suggestion: AgentSuggestion) => (
-                <button
-                  key={suggestion.id}
-                  type="button"
-                  className="motion-state inline-flex max-w-full items-center gap-2 rounded-full border border-border bg-card px-3 py-2 text-sm text-foreground outline-none hover:border-primary/30 hover:bg-accent focus-visible:ring-2 focus-visible:ring-ring"
-                  onClick={() =>
-                    void send(suggestion.label, {
-                      suggestionIntent: suggestion.id,
-                      checkpointAt: suggestion.id === "triage_changes_since_check" ? lastInboxCheckpointAt : undefined,
-                    })
-                  }
+              turns.map((turn) => (
+                <div
+                  key={turn.id}
+                  className={cn(
+                    "motion-enter-soft flex flex-col gap-2",
+                    turn.role === "user" ? "items-end" : "items-start",
+                  )}
                 >
-                  <MailIcon className="size-4 shrink-0 text-primary" />
-                  <span className="truncate">{suggestion.label}</span>
-                </button>
-              ))}
-            </div>
-          )}
+                  {turn.content.trim() && (
+                    <AIMessage
+                      from={turn.role}
+                      copyText={turn.content}
+                      timestamp={format(new Date(turn.createdAt), "h:mm a")}
+                      className="max-w-full"
+                      bubble={turn.role === "user"}
+                    >
+                      <p className="whitespace-pre-wrap text-sm leading-relaxed">
+                        {turn.content}
+                      </p>
+                    </AIMessage>
+                  )}
 
-          {busy && (
-            <div className="motion-enter-soft flex items-center gap-2 text-sm text-muted-foreground">
-              <Loader2Icon className="size-4 animate-spin" />
-              Thinking...
-            </div>
-          )}
-          {error && (
-            <div className="motion-enter-soft rounded-md border border-destructive/30 bg-destructive/10 px-3 py-2 text-sm text-destructive">
-              {error}
-            </div>
-          )}
-        </div>
+                  {turn.tools.length > 0 && (
+                    <div className="w-full space-y-2">
+                      {turn.tools.map((tool, index) => (
+                        <AIToolCall
+                          key={`${turn.id}-tool-${index}`}
+                          name={tool}
+                          status={
+                            busy &&
+                            turn === turns.at(-1) &&
+                            index === turn.tools.length - 1
+                              ? "running"
+                              : "success"
+                          }
+                        />
+                      ))}
+                    </div>
+                  )}
 
-        <div className="flex items-end gap-2 border-t border-border px-5 py-3">
-          <Textarea
-            ref={inputRef}
-            value={input}
-            rows={2}
-            className="min-h-0 resize-none"
-            placeholder={operator.configured ? "Message the agent..." : "Configure AI_* in .env.local to enable"}
-            onChange={(event) => setInput(event.target.value)}
-            onKeyDown={(event) => {
-              if (event.key === "Enter" && !event.shiftKey) {
-                event.preventDefault();
-                void send(input);
-              }
-            }}
-          />
+                  {turn.proposals.map((item, proposalIndex) => (
+                    <Collapsible.Root
+                      key={item.id}
+                      defaultOpen={proposalIndex === 0}
+                      className="w-full"
+                    >
+                      {proposalIndex > 0 && (
+                        <Collapsible.Trigger className="mb-2 w-full rounded-lg border border-border px-4 py-3 text-left text-sm">
+                          {item.proposal.kind === "email"
+                            ? item.proposal.subject || "Another reply draft"
+                            : item.proposal.summary ||
+                              "Another meeting proposal"}
+                        </Collapsible.Trigger>
+                      )}
+                      <Collapsible.Content>
+                        <AIArtifact
+                          title={
+                            item.proposal.kind === "email"
+                              ? "Reply draft"
+                              : "Meeting proposal"
+                          }
+                          className="w-full bg-card"
+                          preview={
+                            <div className="space-y-3 p-4">
+                              <div className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground">
+                                {item.proposal.kind === "email" ? (
+                                  <MailIcon className="size-3.5" />
+                                ) : (
+                                  <CalendarIcon className="size-3.5" />
+                                )}
+                                {item.proposal.kind === "email"
+                                  ? "Draft email"
+                                  : "Proposed event"}
+                              </div>
+
+                              {item.proposal.kind === "email" ? (
+                                item.editing ? (
+                                  <div className="space-y-3">
+                                    <div className="space-y-1.5">
+                                      <Label
+                                        className="text-xs text-muted-foreground"
+                                        htmlFor={`proposal-to-${item.id}`}
+                                      >
+                                        To
+                                      </Label>
+                                      <Input
+                                        id={`proposal-to-${item.id}`}
+                                        value={item.proposal.to}
+                                        onChange={(event) =>
+                                          updateProposal(
+                                            turn.id,
+                                            item.id,
+                                            (proposal) =>
+                                              proposal.kind === "email"
+                                                ? {
+                                                    ...proposal,
+                                                    to: event.target.value,
+                                                  }
+                                                : proposal,
+                                          )
+                                        }
+                                      />
+                                    </div>
+                                    <div className="space-y-1.5">
+                                      <Label
+                                        className="text-xs text-muted-foreground"
+                                        htmlFor={`proposal-subject-${item.id}`}
+                                      >
+                                        Subject
+                                      </Label>
+                                      <Input
+                                        id={`proposal-subject-${item.id}`}
+                                        value={item.proposal.subject}
+                                        onChange={(event) =>
+                                          updateProposal(
+                                            turn.id,
+                                            item.id,
+                                            (proposal) =>
+                                              proposal.kind === "email"
+                                                ? {
+                                                    ...proposal,
+                                                    subject: event.target.value,
+                                                  }
+                                                : proposal,
+                                          )
+                                        }
+                                      />
+                                    </div>
+                                    <div className="space-y-1.5">
+                                      <Label
+                                        className="text-xs text-muted-foreground"
+                                        htmlFor={`proposal-body-${item.id}`}
+                                      >
+                                        Body
+                                      </Label>
+                                      <Textarea
+                                        id={`proposal-body-${item.id}`}
+                                        rows={8}
+                                        value={item.proposal.body}
+                                        onChange={(event) =>
+                                          updateProposal(
+                                            turn.id,
+                                            item.id,
+                                            (proposal) =>
+                                              proposal.kind === "email"
+                                                ? {
+                                                    ...proposal,
+                                                    body: event.target.value,
+                                                  }
+                                                : proposal,
+                                          )
+                                        }
+                                      />
+                                    </div>
+                                  </div>
+                                ) : (
+                                  <>
+                                    <strong className="block text-sm">
+                                      {item.proposal.subject || "(no subject)"}
+                                    </strong>
+                                    <p className="text-xs text-muted-foreground">
+                                      To {item.proposal.to}
+                                    </p>
+                                    <p className="whitespace-pre-wrap text-sm leading-relaxed text-foreground/90">
+                                      {item.proposal.body}
+                                    </p>
+                                  </>
+                                )
+                              ) : item.editing ? (
+                                <div className="space-y-3">
+                                  <div className="space-y-1.5">
+                                    <Label
+                                      className="text-xs text-muted-foreground"
+                                      htmlFor={`proposal-summary-${item.id}`}
+                                    >
+                                      Title
+                                    </Label>
+                                    <Input
+                                      id={`proposal-summary-${item.id}`}
+                                      value={item.proposal.summary}
+                                      onChange={(event) =>
+                                        updateProposal(
+                                          turn.id,
+                                          item.id,
+                                          (proposal) =>
+                                            proposal.kind === "event"
+                                              ? {
+                                                  ...proposal,
+                                                  summary: event.target.value,
+                                                }
+                                              : proposal,
+                                        )
+                                      }
+                                    />
+                                  </div>
+                                  <div className="grid gap-3 sm:grid-cols-2">
+                                    <div className="space-y-1.5">
+                                      <Label
+                                        className="text-xs text-muted-foreground"
+                                        htmlFor={`proposal-start-${item.id}`}
+                                      >
+                                        Start
+                                      </Label>
+                                      <Input
+                                        id={`proposal-start-${item.id}`}
+                                        type="datetime-local"
+                                        value={toEditableDateTime(
+                                          item.proposal.start,
+                                        )}
+                                        onChange={(event) =>
+                                          updateProposal(
+                                            turn.id,
+                                            item.id,
+                                            (proposal) =>
+                                              proposal.kind === "event"
+                                                ? {
+                                                    ...proposal,
+                                                    start: fromEditableDateTime(
+                                                      event.target.value,
+                                                    ),
+                                                  }
+                                                : proposal,
+                                          )
+                                        }
+                                      />
+                                    </div>
+                                    <div className="space-y-1.5">
+                                      <Label
+                                        className="text-xs text-muted-foreground"
+                                        htmlFor={`proposal-end-${item.id}`}
+                                      >
+                                        End
+                                      </Label>
+                                      <Input
+                                        id={`proposal-end-${item.id}`}
+                                        type="datetime-local"
+                                        value={toEditableDateTime(
+                                          item.proposal.end,
+                                        )}
+                                        onChange={(event) =>
+                                          updateProposal(
+                                            turn.id,
+                                            item.id,
+                                            (proposal) =>
+                                              proposal.kind === "event"
+                                                ? {
+                                                    ...proposal,
+                                                    end: fromEditableDateTime(
+                                                      event.target.value,
+                                                    ),
+                                                  }
+                                                : proposal,
+                                          )
+                                        }
+                                      />
+                                    </div>
+                                  </div>
+                                  <div className="space-y-1.5">
+                                    <Label
+                                      className="text-xs text-muted-foreground"
+                                      htmlFor={`proposal-attendees-${item.id}`}
+                                    >
+                                      Attendees
+                                    </Label>
+                                    <Input
+                                      id={`proposal-attendees-${item.id}`}
+                                      value={item.proposal.attendees ?? ""}
+                                      onChange={(event) =>
+                                        updateProposal(
+                                          turn.id,
+                                          item.id,
+                                          (proposal) =>
+                                            proposal.kind === "event"
+                                              ? {
+                                                  ...proposal,
+                                                  attendees: event.target.value,
+                                                }
+                                              : proposal,
+                                        )
+                                      }
+                                    />
+                                  </div>
+                                  <div className="space-y-1.5">
+                                    <Label
+                                      className="text-xs text-muted-foreground"
+                                      htmlFor={`proposal-location-${item.id}`}
+                                    >
+                                      Location
+                                    </Label>
+                                    <Input
+                                      id={`proposal-location-${item.id}`}
+                                      value={item.proposal.location ?? ""}
+                                      onChange={(event) =>
+                                        updateProposal(
+                                          turn.id,
+                                          item.id,
+                                          (proposal) =>
+                                            proposal.kind === "event"
+                                              ? {
+                                                  ...proposal,
+                                                  location: event.target.value,
+                                                }
+                                              : proposal,
+                                        )
+                                      }
+                                    />
+                                  </div>
+                                  <div className="space-y-1.5">
+                                    <Label
+                                      className="text-xs text-muted-foreground"
+                                      htmlFor={`proposal-description-${item.id}`}
+                                    >
+                                      Description
+                                    </Label>
+                                    <Textarea
+                                      id={`proposal-description-${item.id}`}
+                                      rows={6}
+                                      value={item.proposal.description ?? ""}
+                                      onChange={(event) =>
+                                        updateProposal(
+                                          turn.id,
+                                          item.id,
+                                          (proposal) =>
+                                            proposal.kind === "event"
+                                              ? {
+                                                  ...proposal,
+                                                  description:
+                                                    event.target.value,
+                                                }
+                                              : proposal,
+                                        )
+                                      }
+                                    />
+                                  </div>
+                                </div>
+                              ) : (
+                                <>
+                                  <strong className="block text-sm">
+                                    {item.proposal.summary}
+                                  </strong>
+                                  <p className="text-xs text-primary">
+                                    {formatRange(
+                                      item.proposal.start,
+                                      item.proposal.end,
+                                    )}
+                                  </p>
+                                  {item.proposal.attendees && (
+                                    <p className="text-xs text-muted-foreground">
+                                      With {item.proposal.attendees}
+                                    </p>
+                                  )}
+                                </>
+                              )}
+
+                              {item.error && (
+                                <p className="text-xs text-destructive">
+                                  {item.error}
+                                </p>
+                              )}
+
+                              <div className="flex flex-wrap items-center gap-2 pt-1">
+                                {item.status === "done" ? (
+                                  <Badge className="motion-enter-soft gap-1 border-success/30 bg-success/10 text-success">
+                                    <CheckCircle2Icon className="size-3" />
+                                    {item.proposal.kind === "email"
+                                      ? "Sent"
+                                      : "Created"}
+                                  </Badge>
+                                ) : item.status === "cancelled" ? (
+                                  <Badge
+                                    variant="outline"
+                                    className="motion-enter-soft text-muted-foreground"
+                                  >
+                                    Dismissed
+                                  </Badge>
+                                ) : (
+                                  <>
+                                    <Button
+                                      type="button"
+                                      size="sm"
+                                      disabled={
+                                        item.status === "confirming" ||
+                                        !canConfirmProposal(item.proposal)
+                                      }
+                                      onClick={() =>
+                                        void confirmProposal(turn.id, item.id)
+                                      }
+                                    >
+                                      {item.status === "confirming" ? (
+                                        <>
+                                          <Loader2Icon className="size-4 animate-spin" />
+                                          Working...
+                                        </>
+                                      ) : item.proposal.kind === "email" ? (
+                                        "Send"
+                                      ) : (
+                                        "Create"
+                                      )}
+                                    </Button>
+                                    <Button
+                                      type="button"
+                                      size="sm"
+                                      variant="ghost"
+                                      disabled={item.status === "confirming"}
+                                      onClick={() =>
+                                        setProposalEditing(
+                                          turn.id,
+                                          item.id,
+                                          !item.editing,
+                                        )
+                                      }
+                                    >
+                                      <PencilIcon className="size-4" />
+                                      {item.editing ? "Done" : "Edit"}
+                                    </Button>
+                                    <Button
+                                      type="button"
+                                      size="sm"
+                                      variant="ghost"
+                                      disabled={item.status === "confirming"}
+                                      onClick={() =>
+                                        setProposalStatus(
+                                          turn.id,
+                                          item.id,
+                                          "cancelled",
+                                        )
+                                      }
+                                    >
+                                      Dismiss
+                                    </Button>
+                                  </>
+                                )}
+                              </div>
+                            </div>
+                          }
+                        />
+                      </Collapsible.Content>
+                    </Collapsible.Root>
+                  ))}
+                </div>
+              ))
+            )}
+
+            {showFollowUps && (
+              <AISuggestions
+                className="doop-ai-suggestions"
+                suggestions={contextualSuggestions}
+                onSelect={(suggestion) =>
+                  void send(suggestion.label, {
+                    suggestionIntent: [
+                      ...SUGGESTIONS,
+                      ...contextualSuggestions,
+                    ].find((item) => item.id === suggestion.id)?.id,
+                    checkpointAt:
+                      suggestion.id === "triage_changes_since_check"
+                        ? lastInboxCheckpointAt
+                        : undefined,
+                  })
+                }
+              />
+            )}
+
+            {busy && (
+              <div className="motion-enter-soft flex items-center gap-2 text-sm text-muted-foreground">
+                <AILoader variant="dots" />
+                Thinking...
+              </div>
+            )}
+            {error && (
+              <div className="motion-enter-soft rounded-md border border-destructive/30 bg-destructive/10 px-3 py-2 text-sm text-destructive">
+                {error}
+              </div>
+            )}
+          </div>
+        </AIConversation>
+        {error && (
           <Button
-            type="button"
-            size="icon"
-            disabled={busy || !input.trim()}
-            onClick={() => void send(input)}
-            aria-label="Send message"
+            variant="ghost"
+            size="sm"
+            className="mx-6 mb-2 self-start"
+            disabled={busy}
+            onClick={() => {
+              const previous = [...turns]
+                .reverse()
+                .find((turn) => turn.role === "user");
+              if (previous) void send(previous.content);
+            }}
           >
-            <SendIcon className="size-4" />
+            Retry response
           </Button>
+        )}
+        <div ref={composerRef} className="border-t border-border px-6 py-4">
+          <AIPromptInput
+            aria-label="Message your assistant"
+            value={input}
+            onValueChange={setInput}
+            state={busy ? "streaming" : "idle"}
+            disabled={!operator.configured}
+            placeholder={
+              operator.configured
+                ? "Ask your inbox..."
+                : "Your assistant is not available yet"
+            }
+            onSubmit={(value) => void send(value)}
+            onStop={() => abortRef.current?.abort()}
+          />
         </div>
+        <Dialog open={approvalOpen} onOpenChange={setApprovalOpen}>
+          <DialogContent className="sm:max-w-md">
+            <DialogHeader>
+              <DialogTitle>Enable auto-approval?</DialogTitle>
+              <DialogDescription>
+                Future email and calendar proposals in this session will run
+                without another review. Keep it off to confirm each action.
+              </DialogDescription>
+            </DialogHeader>
+            <AIApproval
+              key={String(approvalOpen)}
+              question="Choose how your assistant acts"
+              options={[
+                { id: "review", label: "Keep reviewing each action" },
+                {
+                  id: "enable",
+                  label: "Enable auto-approval",
+                  detail: "Allow sends and calendar changes in this session",
+                },
+              ]}
+              onDecide={(option) => {
+                setAutoApprove(option.id === "enable");
+                setApprovalOpen(false);
+              }}
+            />
+          </DialogContent>
+        </Dialog>
       </DialogContent>
     </Dialog>
   );
