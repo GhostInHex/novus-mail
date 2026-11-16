@@ -1,6 +1,7 @@
 ﻿"use client";
 import { z } from "zod";
-import AIArtifact from "@/components/smoothui/ai-artifact";
+import { MessageSquare, ArrowUpRight } from "lucide-react";
+import AIArtifact from "@/components/doop/ai-artifact";
 const snapshotSchema = z.object({
   total: z.number().nonnegative(),
   threads: z.array(
@@ -52,7 +53,7 @@ export function AgentTriageCard({
               {high} high priority / {result.threads.length - high} normal
             </p>
           </header>
-          <div>
+          <div className="doop-source-results">
             {[...groups].map(([sender, threads]) => (
               <button
                 key={sender}
@@ -60,19 +61,21 @@ export function AgentTriageCard({
                 disabled={!onOpenThread}
                 onClick={() => onOpenThread?.(threads[0].threadId)}
               >
-                <span>
+                <MessageSquare size={16} aria-hidden="true" />
+                <span className="doop-source-result-details"><strong>
                   {sender}
                   {threads.length > 1
                     ? ` / ${threads.length} threads`
                     : threads[0].priorityBand === "high"
                       ? " / High priority"
                       : ""}
-                </span>
-                <span>
+                </strong>
+                <small>
                   {threads.length > 1
                     ? threads.map((t) => t.subject).join(", ")
                     : threads[0].summaryReason || threads[0].subject}
-                </span>
+                </small></span>
+                <ArrowUpRight size={15} aria-hidden="true" />
               </button>
             ))}
           </div>

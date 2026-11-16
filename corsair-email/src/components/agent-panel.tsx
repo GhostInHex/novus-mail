@@ -6,14 +6,15 @@ import {
   type TriageSnapshot,
 } from "@/components/agent-triage-card";
 import { DoopAIWelcome } from "@/components/doop/ai-welcome";
-import AIApproval from "@/components/smoothui/ai-approval";
-import AIArtifact from "@/components/smoothui/ai-artifact";
-import AIConversation from "@/components/smoothui/ai-conversation";
-import AILoader from "@/components/smoothui/ai-loader";
-import AIMessage from "@/components/smoothui/ai-message";
-import AIPromptInput from "@/components/smoothui/ai-prompt-input";
-import AISuggestions from "@/components/smoothui/ai-suggestions";
-import AIToolCall from "@/components/smoothui/ai-tool-call";
+import AIApproval from "@/components/doop/ai-approval";
+import AIArtifact from "@/components/doop/ai-artifact";
+import AIConversation from "@/components/doop/ai-conversation";
+import { DoopAIHistory } from "@/components/doop/ai-history";
+import "@/components/doop/ai-chat.css";
+import AIMessage from "@/components/doop/ai-message";
+import AIPromptInput from "@/components/doop/ai-prompt-input";
+import { DoopAIWelcomeSuggestions } from "@/components/doop/ai-suggestions";
+import AIToolCall from "@/components/doop/ai-tool-call";
 import { Collapsible } from "@animate-ui/react/primitives/radix-ui";
 import { format } from "date-fns";
 import {
@@ -733,7 +734,7 @@ export function AgentPanel({
           {!embedded && (
             <PanelDescription className="truncate">
               {operator.label}
-              {operator.model ? ` Â· ${operator.model}` : ""}
+              {operator.model ? ` · ${operator.model}` : ""}
             </PanelDescription>
           )}
         </div>
@@ -827,60 +828,13 @@ export function AgentPanel({
         ) : (
           <div className="space-y-4 px-6 py-5 doop-agent-conversation-content">
             {historyOpen && (
-              <div className="doop-agent-history motion-enter">
-                <div className="mb-3 flex items-center justify-between gap-3">
-                  <div className="flex items-center gap-2 text-sm font-semibold">
-                    <Clock3Icon className="size-4 text-primary" />
-                    Your chats
-                  </div>
-                  <Button
-                    type="button"
-                    size="xs"
-                    variant="ghost"
-                    onClick={() => setHistoryOpen(false)}
-                  >
-                    Close
-                  </Button>
-                </div>
-                {savedChats.length > 0 ? (
-                  <div className="space-y-4">
-                    {[
-                      ["Today", groupedChats.today],
-                      ["Last 7 days", groupedChats.last7Days],
-                      ["Older", groupedChats.older],
-                    ].map(([label, chats]) =>
-                      (chats as SavedChat[]).length > 0 ? (
-                        <section key={label as string} className="space-y-1.5">
-                          <h3 className="px-2 text-xs font-medium text-muted-foreground">
-                            {label as string}
-                          </h3>
-                          {(chats as SavedChat[]).map((chat) => (
-                            <button
-                              key={chat.id}
-                              type="button"
-                              className={cn(
-                                "motion-state flex w-full items-center gap-2 rounded-md px-2 py-2 text-left text-sm outline-none hover:bg-accent focus-visible:ring-2 focus-visible:ring-ring",
-                                chat.id === activeChatId &&
-                                  "bg-accent text-accent-foreground",
-                              )}
-                              onClick={() => openSavedChat(chat)}
-                            >
-                              <MailIcon className="size-4 shrink-0 text-primary" />
-                              <span className="min-w-0 flex-1 truncate">
-                                {chat.title}
-                              </span>
-                            </button>
-                          ))}
-                        </section>
-                      ) : null,
-                    )}
-                  </div>
-                ) : (
-                  <p className="text-sm text-muted-foreground">
-                    Chats you start will be saved here on this device.
-                  </p>
-                )}
-              </div>
+              <DoopAIHistory
+                groups={[{ label: "Today", chats: groupedChats.today }, { label: "Last 7 days", chats: groupedChats.last7Days }, { label: "Older", chats: groupedChats.older }]}
+                activeId={activeChatId}
+                onSelect={id => { const chat = savedChats.find(chat => chat.id === id); if (chat) openSavedChat(chat); }}
+                onNew={startNewChat}
+                onClose={() => setHistoryOpen(false)}
+              />
             )}
 
             {!historyOpen &&
@@ -913,9 +867,7 @@ export function AgentPanel({
                     {turn.content.trim() && (
                       <AIMessage
                         from={turn.role}
-                        copyText={turn.content}
                         className="max-w-full"
-                        bubble={turn.role === "user"}
                       >
                         <p className="whitespace-pre-wrap text-sm leading-relaxed">
                           {turn.content}
@@ -972,7 +924,7 @@ export function AgentPanel({
                             showHeader={false}
                             className="doop-agent-proposal w-full bg-card"
                             preview={
-                              <div className="doop-proposal-body" onMouseDownCapture={event=>{const button=(event.target as HTMLElement).closest("button");if(button){event.preventDefault();button.focus({preventScroll:true});}}}>
+                              <div className="doop-proposal-body" onMouseDownCapture={event=>{const button=event.target instanceof Element ? event.target.closest("button") : null;if(button){event.preventDefault();button.focus({preventScroll:true});}}}>
                                 <div className="doop-proposal-heading">
                                   {item.proposal.kind === "email" ? (
                                     <MailIcon className="size-3.5" />
@@ -1379,8 +1331,7 @@ export function AgentPanel({
               ))}
 
             {showFollowUps && !historyOpen && (
-              <AISuggestions
-                className="doop-ai-suggestions"
+              <DoopAIWelcomeSuggestions
                 suggestions={contextualSuggestions}
                 onSelect={(suggestion) =>
                   void send(suggestion.label, {
@@ -1399,7 +1350,7 @@ export function AgentPanel({
 
             {busy && (
               <div className="motion-enter-soft flex items-center gap-2 text-sm text-muted-foreground">
-                <AILoader variant="dots" />
+                <Loader2Icon size={16} className="animate-spin motion-reduce:animate-none" />
                 Thinking...
               </div>
             )}
