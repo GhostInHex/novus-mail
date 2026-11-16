@@ -94,3 +94,4 @@ netlify-live-check.png
 
 # Generated browser verification screenshots
 /artifacts/
+/.ui-review/

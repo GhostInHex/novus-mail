@@ -19,6 +19,7 @@
     "corsair:watch-renew": "corsair watch-renew",
     "verify:landing": "node scripts/verify-landing.mjs",
     "verify:workspace": "node scripts/verify-workspace.mjs",
+    "verify:recovery": "node scripts/verify-ui-recovery.mjs",
     "verify:dashboard": "node scripts/verify-dashboard-design.mjs",
     "verify:panels": "node --import tsx scripts/verify-panels.mjs"
   },

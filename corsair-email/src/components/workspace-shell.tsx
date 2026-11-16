@@ -356,6 +356,7 @@ export function WorkspaceShell({
   const [mobileReaderOpen, setMobileReaderOpen] = useState(false);
   const [agendaCollapsed, setAgendaCollapsed] = useState(false);
   const [threadLoading, setThreadLoading] = useState(false);
+  const [threadError, setThreadError] = useState(false);
   const [loadingMoreThreads, setLoadingMoreThreads] = useState(false);
   const [panelPrefsReady, setPanelPrefsReady] = useState(false);
   const deferredSearch = useDeferredValue(search);
@@ -433,6 +434,7 @@ export function WorkspaceShell({
     setNotice(error instanceof Error ? error.message : "Something went wrong.");
   }, []);
   const selectNoThread = useCallback(() => {
+    setThreadError(false);
     openRequestIdRef.current += 1;
     selectedThreadIdRef.current = null;
     setThreadLoading(false);
@@ -440,6 +442,7 @@ export function WorkspaceShell({
     setActiveThread(null);
   }, []);
   const selectThreadDetail = useCallback((thread: ThreadDetail | null) => {
+    setThreadError(false);
     openRequestIdRef.current += 1;
     selectedThreadIdRef.current = thread?.threadId ?? null;
     setThreadLoading(false);
@@ -451,6 +454,7 @@ export function WorkspaceShell({
       const requestId = openRequestIdRef.current + 1;
       openRequestIdRef.current = requestId;
       selectedThreadIdRef.current = threadId;
+      setThreadError(false);
       setThreadLoading(true);
       setSelectedThreadId(threadId);
       try {
@@ -467,17 +471,17 @@ export function WorkspaceShell({
         }
         setActiveThread(payload);
         setThreadLoading(false);
-      } catch (error) {
+      } catch {
         if (
           requestId === openRequestIdRef.current &&
           selectedThreadIdRef.current === threadId
         ) {
           setThreadLoading(false);
+          setThreadError(true);
         }
-        presentError(error);
       }
     },
-    [presentError],
+    [],
   );
   function applyWorkspacePayload(
     payload: WorkspacePayload,
@@ -859,13 +863,6 @@ export function WorkspaceShell({
         setCommandOpen(false);
         return;
       }
-      if (composeOpen) {
-        setComposeOpen(false);
-        return;
-      }
-      if (eventOpen) {
-        setEventOpen(false);
-      }
     },
     { enableOnFormTags: true },
   );
@@ -1169,6 +1166,10 @@ export function WorkspaceShell({
         onThread={(id) => void openThread(id)}
         onBack={selectNoThread}
         threadLoading={threadLoading}
+        threadError={threadError}
+        onRetryThread={() => {
+          if (selectedThreadId) void openThread(selectedThreadId);
+        }}
         onCompose={() => {
           setComposeDraft(null);
           setComposeOpen(true);
