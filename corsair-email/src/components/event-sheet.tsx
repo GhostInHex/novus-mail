@@ -4,6 +4,7 @@ import { format } from "date-fns";
 import { useEffect, useRef, useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import { DiscardChangesDialog } from "@/components/discard-changes-dialog";
 import {
   Dialog,
   DialogContent,
@@ -77,6 +78,12 @@ export function EventSheet({
   const [pending, setPending] = useState(false);
   const [error, setError] = useState("");
   const [draft, setDraft] = useState<EventInput>(EMPTY_EVENT);
+  const [confirmDiscard, setConfirmDiscard] = useState(false);
+  function requestClose() {
+    if (pendingRef.current) return;
+    if (JSON.stringify(draft) !== JSON.stringify(toDraftValue(initialEvent, draftPreset))) setConfirmDiscard(true);
+    else onClose();
+  }
 
   useEffect(() => {
     if (!open) {
@@ -84,6 +91,7 @@ export function EventSheet({
     }
 
     setError("");
+    setConfirmDiscard(false);
     setDraft(toDraftValue(initialEvent, draftPreset));
   }, [draftPreset, initialEvent, open]);
 
@@ -120,9 +128,9 @@ export function EventSheet({
   }
 
   return (
-    <Dialog
+    <><Dialog
       open={open}
-      onOpenChange={(value) => !value && !pending && onClose()}
+      onOpenChange={(value) => !value && requestClose()}
     >
       <DialogContent className="doop-modal doop-event-modal">
         <DialogHeader>
@@ -236,7 +244,7 @@ export function EventSheet({
           </p>
         )}
         <DialogFooter>
-          <Button variant="ghost" disabled={pending} onClick={onClose}>
+          <Button variant="ghost" disabled={pending} onClick={requestClose}>
             Cancel
           </Button>
           <Button
@@ -250,5 +258,6 @@ export function EventSheet({
         </DialogFooter>
       </DialogContent>
     </Dialog>
+    <DiscardChangesDialog open={confirmDiscard} onKeepEditing={() => setConfirmDiscard(false)} onDiscard={() => { setConfirmDiscard(false); onClose(); }} /></>
   );
 }

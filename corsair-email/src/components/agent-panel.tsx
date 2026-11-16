@@ -351,10 +351,10 @@ export function AgentPanel({
   autoApproveRef.current = autoApprove;
 
   useEffect(() => {
-    if (open) {
+    if (open && !embedded) {
       composerRef.current?.querySelector("textarea")?.focus();
     }
-  }, [open]);
+  }, [open, embedded]);
 
   useEffect(() => {
     setSavedChats(readSavedChats());

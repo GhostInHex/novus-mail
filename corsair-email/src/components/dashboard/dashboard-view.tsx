@@ -52,6 +52,8 @@ type Props = {
   onThread: (id: string) => void;
   onBack: () => void;
   threadLoading: boolean;
+  threadError: boolean;
+  onRetryThread: () => void;
   onCompose: () => void;
   onReply: () => void;
   onForward: () => void;
@@ -159,7 +161,7 @@ export function DashboardView(p: Props) {
             onKeyDown={(e) => {
               if (e.key === "Enter") p.onSearchAll();
             }}
-            placeholder="Search mail, people, or commands"
+            placeholder="Search mail"
           />
           <button
             type="button"
@@ -416,6 +418,12 @@ export function DashboardView(p: Props) {
                       <div />
                       <div />
                       <div />
+                    </div>
+                  ) : p.threadError ? (
+                    <div className="dashboard-reader-empty" role="alert">
+                      <h2>Couldn’t load this conversation</h2>
+                      <p>Check your connection and try again.</p>
+                      <button type="button" onClick={p.onRetryThread}>Retry</button>
                     </div>
                   ) : p.thread ? (
                     <>

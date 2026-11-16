@@ -1,6 +1,7 @@
 ﻿"use client";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
+import { DiscardChangesDialog } from "@/components/discard-changes-dialog";
 import type { ComposeInput } from "@/lib/types";
 
 type Props = {
@@ -24,6 +25,34 @@ export function ComposeSheet({
   const [ccOpen, setCcOpen] = useState(false);
   const [bccOpen, setBccOpen] = useState(false);
   const lock = useRef(false);
+  const [confirmDiscard, setConfirmDiscard] = useState(false);
+  const returnFocus = useRef<HTMLElement | null>(null);
+  const regionRef = useRef<HTMLElement | null>(null);
+  const restoreFrame = useRef<number | null>(null);
+  useEffect(() => {
+    if (restoreFrame.current !== null) cancelAnimationFrame(restoreFrame.current);
+    const target = document.activeElement;
+    if (!returnFocus.current) returnFocus.current = target instanceof HTMLElement ? target : null;
+    document.getElementById(initialDraft?.to ? "compose-body" : "compose-to")?.focus({ preventScroll: true });
+    return () => {
+      const target = returnFocus.current;
+      const region = regionRef.current;
+      restoreFrame.current = requestAnimationFrame(() => {
+        if (region?.isConnected) return;
+        const visible = (element: HTMLElement) => {
+          const rect = element.getBoundingClientRect();
+          return element.isConnected && rect.width > 0 && rect.height > 0 && rect.left >= 0 && rect.right <= window.innerWidth;
+        };
+        const fallback = Array.from(document.querySelectorAll<HTMLElement>('.dashboard-mobile-menu, .dashboard-compose-button')).find(visible);
+        (target && visible(target) ? target : fallback)?.focus({ preventScroll: true });
+      });
+    };
+  }, []);
+  function requestClose() {
+    if (lock.current) return;
+    if (JSON.stringify(draft) !== JSON.stringify({ ...EMPTY, ...initialDraft })) setConfirmDiscard(true);
+    else onClose();
+  }
   useEffect(() => {
     if (open) {
       setDraft({ ...EMPTY, ...initialDraft });
@@ -64,7 +93,6 @@ export function ComposeSheet({
         <input
           id={"compose-" + name}
           aria-label={label}
-          autoFocus={name === "to" && !draft.to}
           value={draft[name] ?? ""}
           onChange={(e) => setDraft((d) => ({ ...d, [name]: e.target.value }))}
           autoComplete="off"
@@ -75,10 +103,15 @@ export function ComposeSheet({
   }
   return (
     <section
+      ref={regionRef}
       className="dashboard-composer"
       role="region"
       aria-label={isReply ? "Reply composer" : "New message composer"}
       onKeyDown={(e) => {
+        if (e.key === "Escape") {
+          e.stopPropagation();
+          if (!confirmDiscard) requestClose();
+        }
         if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
           e.preventDefault();
           void submit("send");
@@ -91,7 +124,7 @@ export function ComposeSheet({
             ? "Reply to " + (draft.to.split("@")[0] || "conversation")
             : "New message"}
         </h2>
-        <button type="button" disabled={pending} onClick={onClose}>
+        <button type="button" disabled={pending} onClick={requestClose}>
           Close
         </button>
       </header>
@@ -155,6 +188,7 @@ export function ComposeSheet({
           </button>
         </div>
       </footer>
+      <DiscardChangesDialog open={confirmDiscard} onKeepEditing={() => setConfirmDiscard(false)} onDiscard={onClose} />
     </section>
   );
 }

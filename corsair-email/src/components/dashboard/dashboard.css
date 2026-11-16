@@ -611,7 +611,7 @@
     font-size: 10px;
   }
   .dashboard-search input::placeholder {
-    color: transparent;
+    color: var(--muted-foreground);
   }
   .dashboard-account {
     font-size: 12px;
