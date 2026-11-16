@@ -202,7 +202,7 @@ export function LandingPage() {
           <div className="relative z-10 mx-auto max-w-5xl px-6">
             <div className="group relative h-[300px] overflow-hidden rounded-[22px] sm:h-[350px]">
               <AsciiDissolveImage
-                src={`${imgDir}/lavender.png`}
+                src={`${imgDir}/lavender.webp`}
                 alt="Monochrome lavender fields with mountain horizon"
                 theme={theme}
                 variant="card"
@@ -286,7 +286,7 @@ export function LandingPage() {
         {/* Full-Bleed Misty Mountain Ridge Section */}
         <section className="group relative my-6 h-[380px] w-full overflow-hidden sm:h-[430px]">
           <AsciiDissolveImage
-            src={`${imgDir}/misty-ridge.png`}
+            src={`${imgDir}/misty-ridge.webp`}
             alt="Misty monochrome mountain valleys"
             theme={theme}
             variant="fullbleed"
@@ -401,7 +401,7 @@ export function LandingPage() {
             <div className="md:col-span-7">
               <div className="group relative h-[290px] overflow-hidden rounded-[22px] sm:h-[320px]">
                 <AsciiDissolveImage
-                  src={`${imgDir}/alpine-peak.png`}
+                  src={`${imgDir}/alpine-peak.webp`}
                   alt="Alpine mountain peak above misty pine forest"
                   theme={theme}
                   variant="card"
@@ -456,7 +456,7 @@ export function LandingPage() {
         <section id="get-started" className="mx-auto max-w-5xl px-6 pt-8 pb-16">
           <div className="group relative h-[240px] overflow-hidden rounded-[22px] sm:h-[260px]">
             <AsciiDissolveImage
-              src={`${imgDir}/panorama.png`}
+              src={`${imgDir}/panorama.webp`}
               alt="Panoramic misty mountain ridges"
               theme={theme}
               variant="banner"

@@ -73,3 +73,7 @@ npm run verify:workspace
 These checks mock assistant responses and successful write responses. They test failed requests, duplicate submission protection, retained input, explicit approval, draft editing, retry/stop, keyboard command selection, calendar navigation, mobile overflow, theme persistence, image loading, and reduced motion. Screenshots are written to the worktree's `artifacts` directory.
 
 Live Google OAuth, email delivery, Calendar writes, and AI provider responses were not verified. This worktree has no running Postgres service or configured live credentials. The production build was checked with temporary build-only environment values, without deploying or changing any remote service.
+
+## Landscape image compression
+
+All eight landscape assets use lossless WebP at their original dimensions. The decoded RGBA pixels were compared byte-for-byte against their PNG sources and are identical. The image set decreased from 17,480,842 bytes to 11,104,986 bytes, a 36.5% reduction. The PNG originals remain in Git history and the supplied source project.
