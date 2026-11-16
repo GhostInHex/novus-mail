@@ -787,9 +787,6 @@ export function AgentPanel({
       )}
 
       <AIConversation
-        autoScrollBehavior={
-          latestAssistant?.proposals.length ? "instant" : "smooth"
-        }
         className="min-h-0 flex-1"
         contentKey={turns
           .map(
@@ -863,7 +860,7 @@ export function AgentPanel({
                   <div
                     key={turn.id}
                     className={cn(
-                      "motion-enter-soft flex flex-col gap-2",
+                      "flex flex-col gap-2",
                       turn.role === "user" ? "items-end" : "items-start",
                     )}
                   >

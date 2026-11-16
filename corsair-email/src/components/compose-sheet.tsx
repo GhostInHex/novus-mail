@@ -25,6 +25,7 @@ export function ComposeSheet({
   const [ccOpen, setCcOpen] = useState(false);
   const [bccOpen, setBccOpen] = useState(false);
   const lock = useRef(false);
+  const focusRecipient = useRef<"cc" | "bcc" | null>(null);
   const [confirmDiscard, setConfirmDiscard] = useState(false);
   const returnFocus = useRef<HTMLElement | null>(null);
   const regionRef = useRef<HTMLElement | null>(null);
@@ -92,6 +93,12 @@ export function ComposeSheet({
         <label htmlFor={"compose-" + name}>{label} /</label>
         <input
           id={"compose-" + name}
+          ref={(node) => {
+            if (node && focusRecipient.current === name) {
+              node.focus();
+              focusRecipient.current = null;
+            }
+          }}
           aria-label={label}
           value={draft[name] ?? ""}
           onChange={(e) => setDraft((d) => ({ ...d, [name]: e.target.value }))}
@@ -133,14 +140,24 @@ export function ComposeSheet({
         <button
           type="button"
           aria-expanded={ccOpen}
-          onClick={() => setCcOpen(!ccOpen)}
+          aria-controls="compose-cc"
+          disabled={pending}
+          onClick={() => {
+            focusRecipient.current = ccOpen ? null : "cc";
+            setCcOpen(!ccOpen);
+          }}
         >
           Cc
         </button>
         <button
           type="button"
           aria-expanded={bccOpen}
-          onClick={() => setBccOpen(!bccOpen)}
+          aria-controls="compose-bcc"
+          disabled={pending}
+          onClick={() => {
+            focusRecipient.current = bccOpen ? null : "bcc";
+            setBccOpen(!bccOpen);
+          }}
         >
           Bcc
         </button>

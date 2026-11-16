@@ -159,7 +159,7 @@ export function AsciiDissolveImage({
         loading={src.includes("lavender") ? "eager" : "lazy"}
         fetchPriority={src.includes("lavender") ? "high" : "auto"}
         decoding="async"
-        className="h-full w-full object-cover object-center select-none transition-transform duration-700 ease-out group-hover:scale-[1.015]"
+        className="h-full w-full object-cover object-center select-none"
       />
       <canvas
         ref={overlayRef}

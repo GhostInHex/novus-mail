@@ -44,7 +44,7 @@ function CommandDialog({
 }) {
   return (
     <Dialog {...props}>
-      <DialogContent
+      <DialogContent instant
         className={cn("overflow-hidden p-0", className)}
         showCloseButton={showCloseButton}
       >

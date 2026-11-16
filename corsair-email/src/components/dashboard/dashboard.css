@@ -18,9 +18,14 @@
 }
 .dashboard button:focus-visible,
 .dashboard a:focus-visible,
-.dashboard input:focus-visible {
+.dashboard input:focus-visible,
+.dashboard textarea:focus-visible {
   outline: 2px solid var(--ring);
   outline-offset: 3px;
+}
+.dashboard .dashboard-compose-body textarea:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: -4px;
 }
 .dashboard-toolbar {
   height: 80px;
@@ -465,6 +470,9 @@
   font-size: 14px;
   white-space: nowrap;
 }
+.dashboard-compose-field:focus-within {
+  background: var(--accent);
+}
 .dashboard-compose-field input {
   background: none;
   border: 0;
@@ -711,7 +719,8 @@
 @media (prefers-reduced-motion: reduce) {
   .dashboard * {
     scroll-behavior: auto;
-    transition: none;
+    transition-property: opacity, color, background-color, border-color;
+    transition-duration: 200ms;
   }
 }
 .dashboard-calendar-panel {

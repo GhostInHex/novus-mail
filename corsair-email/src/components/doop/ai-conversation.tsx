@@ -50,7 +50,7 @@ const AIConversation = ({
   children,
   className,
   contentKey,
-  autoScrollBehavior = "smooth",
+  autoScrollBehavior = "instant",
 }: AIConversationProps) => {
   const shouldReduceMotion = useReducedMotion();
   const viewportRef = useRef<HTMLDivElement | null>(null);

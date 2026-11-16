@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useLayoutEffect, useRef, useState } from "react";
 import {
   Mail,
   Sparkles,
@@ -68,6 +68,20 @@ export function LandingPage() {
   const [activePill, setActivePill] = useState<number>(0);
   const [showReplyPreview, setShowReplyPreview] = useState<boolean>(false);
   const [proposalConfirmed, setProposalConfirmed] = useState<boolean>(false);
+  const [previewInstant, setPreviewInstant] = useState(false);
+  const [proposalInstant, setProposalInstant] = useState(false);
+  const previewRef = useRef<HTMLDivElement>(null);
+  const [previewHeight, setPreviewHeight] = useState(0);
+
+  useLayoutEffect(() => {
+    const content = previewRef.current;
+    if (!content) return;
+    const measure = () => setPreviewHeight(content.getBoundingClientRect().height);
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(content);
+    return () => observer.disconnect();
+  }, []);
 
   const toggleTheme = () =>
     setResolvedTheme(theme === "dark" ? "light" : "dark");
@@ -184,6 +198,7 @@ export function LandingPage() {
                     key={label}
                     type="button"
                     onClick={() => {
+                      setPreviewInstant(true);
                       setActivePill(idx);
                       setShowReplyPreview(false);
                     }}
@@ -219,14 +234,20 @@ export function LandingPage() {
                     )}
                   </div>
 
-                  {showReplyPreview && (
-                    <div
-                      className="landing-preview mb-4 rounded-lg px-3 py-2 text-[11px] leading-relaxed"
-                      role="status"
-                    >
-                      {activeMode.preview}
+                  <div
+                    id="landing-reply-preview"
+                    className="landing-preview-reveal"
+                    data-open={showReplyPreview}
+                    data-instant={previewInstant}
+                    aria-hidden={!showReplyPreview}
+                    style={{ height: showReplyPreview ? previewHeight : 0 }}
+                  >
+                    <div ref={previewRef} className="pb-4">
+                      <div className="landing-preview rounded-lg px-3 py-2 text-[11px] leading-relaxed" role="status">
+                        {activeMode.preview}
+                      </div>
                     </div>
-                  )}
+                  </div>
 
                   <div className="flex items-center justify-between">
                     <span className="text-[11px] composer-secondary">
@@ -234,10 +255,14 @@ export function LandingPage() {
                     </span>
                     <button
                       type="button"
-                      onClick={() => setShowReplyPreview((prev) => !prev)}
+                      onClick={(event) => {
+                        setPreviewInstant(event.detail === 0);
+                        setShowReplyPreview((prev) => !prev);
+                      }}
                       className="nm-control"
                       data-tone="sage"
                       aria-expanded={showReplyPreview}
+                      aria-controls="landing-reply-preview"
                     >
                       {showReplyPreview
                         ? "Hide preview"
@@ -366,7 +391,7 @@ export function LandingPage() {
                 >
                   <div className="mb-4 flex items-center justify-between text-[11px] font-mono-ascii text-[var(--text-muted)]">
                     <span>{isDark ? card.num : ""}</span>
-                    <Icon className="h-4 w-4 text-[var(--text-secondary)] transition-transform duration-300 group-hover:scale-110" />
+                    <Icon className="h-4 w-4 text-[var(--text-secondary)]" />
                   </div>
                   <h3 className="font-serif-display text-2xl text-[var(--text-primary)]">
                     {card.title}
@@ -408,7 +433,7 @@ export function LandingPage() {
                 />
 
                 <div className="relative z-10 flex h-full items-center justify-center p-5">
-                  <div className="w-full max-w-xs rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card-elevated)]/92 p-4 shadow-2xl backdrop-blur-xl transition-all duration-300">
+                  <div className="w-full max-w-xs rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card-elevated)]/92 p-4 shadow-2xl backdrop-blur-xl">
                     <div className="border-b border-[var(--border-subtle)] pb-2.5 text-[11px] text-[var(--text-secondary)]">
                       {isDark
                         ? "Schedule a launch review with Ari"
@@ -423,24 +448,29 @@ export function LandingPage() {
                         {isDark ? "Free at 3 PM" : "Takes ~30s"}
                       </span>
                     </div>
-                    <div className="mt-3 font-serif-display text-xl text-[var(--text-primary)]">
-                      {proposalConfirmed
-                        ? "Proposal ready for review"
-                        : "Launch review"}
+                    <div className="landing-proposal-title mt-3 font-serif-display text-xl text-[var(--text-primary)]">
+                      <span aria-hidden={proposalConfirmed} className={proposalConfirmed ? "invisible" : undefined}>Launch review</span>
+                      <span aria-hidden={!proposalConfirmed} className={!proposalConfirmed ? "invisible" : undefined}>Proposal ready for review</span>
                     </div>
                     <div className="mt-0.5 text-[11px] text-[var(--text-secondary)]">
                       Today · 3:00–3:30 PM · Ari Morgan
                     </div>
                     <button
                       type="button"
-                      onClick={() => setProposalConfirmed((prev) => !prev)}
-                      className="mt-4 w-full nm-glaze"
+                      onClick={(event) => {
+                        setProposalInstant(event.detail === 0);
+                        setProposalConfirmed((prev) => !prev);
+                      }}
+                      className="landing-proposal-action mt-4 w-full nm-glaze"
+                      data-confirmed={proposalConfirmed}
+                      data-instant={proposalInstant}
                       data-tone="sage"
                       data-size="small"
                       aria-pressed={proposalConfirmed}
                     >
+                      <Check className="landing-proposal-check h-3.5 w-3.5" aria-hidden="true" />
                       {proposalConfirmed
-                        ? "✓ Proposal ready to send"
+                        ? "Proposal ready to send"
                         : isDark
                           ? "Review proposal"
                           : "Run the command"}

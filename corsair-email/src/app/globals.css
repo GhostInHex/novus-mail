@@ -4,7 +4,7 @@
 
 :root {
   --radius: 0.625rem;
-  --motion-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --motion-ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --motion-ease-soft: cubic-bezier(0.25, 1, 0.5, 1);
   --motion-duration-quick: 140ms;
   --motion-duration-snappy: 180ms;
@@ -190,16 +190,13 @@
     transition-property:
       transform, background-color, border-color, box-shadow, color, opacity,
       fill, stroke;
-    transition-duration: var(--motion-duration-snappy);
+    transition-duration: 100ms;
     transition-timing-function: var(--motion-ease-out);
   }
 
-  .motion-interactive:hover {
-    transform: translateY(-1px);
-  }
-
   .motion-interactive:active {
-    transform: translateY(0) scale(0.985);
+    transform: scale(0.97);
+    transition-duration: 160ms;
   }
 
   .motion-field {
@@ -302,10 +299,23 @@
   *,
   *::before,
   *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+    animation: none !important;
+    transition-property: opacity, color, background-color, border-color !important;
+    transition-duration: 200ms !important;
     scroll-behavior: auto !important;
+  }
+
+  .motion-interactive:active {
+    transform: none;
+  }
+
+  .motion-enter,
+  .motion-enter-soft {
+    animation: corsair-fade-in 200ms ease !important;
+  }
+
+  .ai-message-root:focus-within .ai-message-action {
+    transition: none !important;
   }
 
   .motion-drift,

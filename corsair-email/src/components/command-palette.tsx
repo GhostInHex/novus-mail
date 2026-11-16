@@ -84,7 +84,7 @@ export function CommandPalette({ open, activeThread, onClose, onRun }: Props) {
       open={open}
       onOpenChange={(value) => !value && !pending && onClose()}
     >
-      <DialogContent className="doop-modal doop-command-modal">
+      <DialogContent instant className="doop-modal doop-command-modal">
         <DialogHeader className="border-b border-border px-6 py-5">
           <DialogTitle className="flex items-center gap-2 text-xl">
             <CommandIcon className="size-5" />
