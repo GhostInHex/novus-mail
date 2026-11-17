@@ -1259,57 +1259,13 @@
   }
 }
 
-/* Glaze source actions retain their layered treatment independently of the
-   graphite treatment used by the assistant suggestion action. */
-.dashboard {
-  --workspace-action-shade: #0000003d;
-}
-html.dark .dashboard {
-  --workspace-action-shade: #00000008;
-}
 .dashboard .dashboard-compose-button,
 .dashboard-reply-actions > [data-slot="button"],
 .dashboard-next-event [data-slot="button"] {
-  isolation: auto;
-  overflow: clip;
-  border-radius: calc(infinity * 1px);
   height: 36px;
   padding: 8px 20px;
   font-size: 16px;
   line-height: normal;
-  background-image:
-    radial-gradient(
-      65% 65% at 50% 50%,
-      var(--workspace-action-shade) 0%,
-      #0000 100%
-    ),
-    linear-gradient(180deg, #ffffff2e 0%, #0000 100%),
-    linear-gradient(var(--glaze-base), var(--glaze-base));
-  background-color: transparent;
-  background-repeat: no-repeat;
-  box-shadow:
-    0 0 #0000,
-    0 0 #0000,
-    0 0 #0000,
-    0 0 #0000,
-    inset 0 -12px 16px rgba(255, 255, 255, 0.06),
-    inset 0 4px 16px rgba(255, 255, 255, 0.16),
-    inset 0 1px 0 rgba(255, 255, 255, 0.32);
-  text-shadow: none;
-}
-.dashboard .dashboard-compose-button::before,
-.dashboard-reply-actions > [data-slot="button"]::before,
-.dashboard-next-event [data-slot="button"]::before,
-.dashboard-suggestion [data-slot="button"]::before,
-.dashboard-week-view > header [data-slot="button"]::before {
-  z-index: auto;
-  left: 12px;
-  right: 12px;
-  top: 2px;
-  height: 44%;
-  border: 0;
-  border-radius: 999px;
-  background: linear-gradient(rgba(255, 255, 255, 0.28), #0000);
 }
 .dashboard-action-label {
   position: relative;

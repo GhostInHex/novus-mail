@@ -173,7 +173,6 @@ const checkGlaze = (items, context, theme, scenario) => {
     const radius = Number.parseFloat(item.radius);
     const issues = [];
     if (!item.backgroundImage.includes("linear-gradient")) issues.push("missing glaze gradient");
-    if (item.beforeContent === "none" || item.beforeContent === "normal") issues.push("missing glaze sheen layer");
     if (item.boxShadow === "none") issues.push("missing glaze shadow");
     if (item.overflow !== "hidden" && item.overflow !== "clip") issues.push(`overflow ${item.overflow}`);
     if (radius <= 12) issues.push(`flattened radius ${item.radius}`);
@@ -271,7 +270,6 @@ const auditState = async (page, { scenario, theme, context, compare }) => {
           glaze: item.glaze,
           radius: item.radius,
           gradient: item.backgroundImage.includes("linear-gradient"),
-          sheen: item.beforeContent !== "none",
           shadow: item.boxShadow !== "none",
         }),
       );
