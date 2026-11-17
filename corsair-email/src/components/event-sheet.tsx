@@ -1,4 +1,6 @@
 "use client";
+import "@/components/doop/assistant-fidelity.css";
+import "@/components/doop/overlay-fidelity.css";
 
 import { format } from "date-fns";
 import { useEffect, useRef, useState } from "react";
@@ -14,6 +16,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import { DoopDateTimeInput } from "@/components/doop/date-time-input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import type { AgendaEvent, EventInput } from "@/lib/types";
@@ -172,9 +175,9 @@ export function EventSheet({
             </div>
             <div className="space-y-1.5">
               <Label htmlFor="event-start">Start</Label>
-              <Input
+              <DoopDateTimeInput
                 id="event-start"
-                type="datetime-local"
+
                 value={draft.start}
                 onChange={(event) =>
                   setDraft((current) => ({
@@ -186,9 +189,9 @@ export function EventSheet({
             </div>
             <div className="space-y-1.5">
               <Label htmlFor="event-end">End</Label>
-              <Input
+              <DoopDateTimeInput
                 id="event-end"
-                type="datetime-local"
+
                 value={draft.end}
                 onChange={(event) =>
                   setDraft((current) => ({
@@ -225,7 +228,7 @@ export function EventSheet({
                   description: event.target.value,
                 }))
               }
-              rows={6}
+              rows={4}
               placeholder="Agenda, context, expected outcome."
             />
           </div>
@@ -253,7 +256,7 @@ export function EventSheet({
             aria-busy={pending}
             onClick={() => void handleSubmit()}
           >
-            {initialEvent ? "Update event" : "Create event"}
+            <span className="doop-accent-label">{initialEvent ? "Update event" : "Create event"}</span>
           </Button>
         </DialogFooter>
       </DialogContent>

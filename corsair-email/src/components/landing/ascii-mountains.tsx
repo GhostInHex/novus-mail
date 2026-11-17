@@ -93,7 +93,7 @@ export function AsciiMountainsHero({
       const w = canvas.clientWidth;
       const h = canvas.clientHeight;
       if (!w || !h) {
-        animId = requestAnimationFrame(render);
+        if (!reducedMotion) animId = requestAnimationFrame(render);
         return;
       }
 

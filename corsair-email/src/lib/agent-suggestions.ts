@@ -25,7 +25,7 @@ const SUGGESTION_REGISTRY: Record<AgentSuggestionIntent, AgentSuggestion> = {
   },
   triage_unread_week: {
     id: "triage_unread_week",
-    label: "Summarize unread mail from this week.",
+    label: "Summarize unread mail from this week",
     family: "triage",
   },
   triage_priority_list: {
@@ -115,17 +115,17 @@ function findExplicitMode(text: string) {
   return INBOX_ANALYSIS_PATTERNS.find((item) => item.pattern.test(text))?.mode ?? null;
 }
 
-export function getDefaultAgentSuggestions(): AgentSuggestion[] {
+export function getDefaultAgentSuggestions({ contactName }: { contactName?: string } = {}): AgentSuggestion[] {
   return [
     getSuggestion("triage_reply_needed"),
     {
       id: "draft_top_two_replies",
-      label: "Draft a reply to the top thread saying I'll review by Friday.",
+      label: "Draft a reply to the top thread saying I will review by Friday",
       family: "draft",
     },
     {
       id: "schedule_open_time",
-      label: "Schedule 30 min with teammate@example.com tomorrow 9am about the roadmap.",
+      label: `Schedule 30 min with ${contactName || "a teammate"} tomorrow at 9 AM about the roadmap`,
       family: "schedule",
     },
     getSuggestion("triage_unread_week"),

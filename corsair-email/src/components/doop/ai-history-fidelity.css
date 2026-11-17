@@ -1,0 +1,12 @@
+.doop-ai-panel .doop-source-history h4 { font-size: 16px; line-height: normal; letter-spacing: 0; }
+.doop-ai-panel .doop-source-history h4 > span { display: block; width: fit-content; font-size: 13px; font-weight: 500; line-height: 1.5; }
+.doop-ai-panel .doop-source-history .doop-source-results { overflow: visible; }
+html.dark .doop-ai-panel .doop-source-history > header button.doop-glaze {
+  background-color: transparent;
+  background-repeat: no-repeat;
+}
+.doop-ai-panel .doop-source-history > header button.doop-glaze::before { border-radius: calc(infinity * 1px); }
+.doop-ai-panel .doop-source-history h4 { text-rendering: auto; }
+.doop-ai-panel .doop-source-history h4 { margin-bottom: 0; }
+.doop-ai-panel .doop-chat-scroll:has(.doop-source-history) > div:first-child { overflow: visible; }
+.doop-ai-panel[data-slot="dialog-content"]:has(.doop-source-history) { overflow-y: auto; }

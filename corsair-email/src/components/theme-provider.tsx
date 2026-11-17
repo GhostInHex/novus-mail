@@ -5,7 +5,7 @@ import {
   ThemeProvider as NextThemeProvider,
   useTheme as useNextTheme,
 } from "next-themes";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, type CSSProperties } from "react";
 import { Toaster } from "sonner";
 import {
   DEFAULT_THEME_PRESET,
@@ -16,6 +16,8 @@ import {
   type ResolvedTheme,
   type ThemePresetId,
 } from "@/lib/theme-presets";
+
+const toastStyle: CSSProperties & Record<"--width", string> = { "--width": "min(370px, calc(100vw - 32px))" };
 
 const themeClasses = Object.fromEntries(
   THEME_PRESETS.map((preset) => [preset.id, preset.mode]),
@@ -31,7 +33,12 @@ function ThemeEffects({ children }: { children: React.ReactNode }) {
       {children}
       <Toaster
         theme={resolvedTheme}
+        className="doop-feedback-stack"
         position="bottom-right"
+        style={toastStyle}
+        expand
+        gap={12}
+        offset={{ bottom: 64, right: 24 }}
         closeButton
         toastOptions={{ className: "doop-toast" }}
       />

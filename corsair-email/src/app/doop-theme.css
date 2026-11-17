@@ -19,6 +19,7 @@ html[data-theme] {
   --input: #2524221f;
   --ring: #699b85;
   --sidebar: #f2f1ed;
+  --shell: #eae8e3;
   --sidebar-foreground: #252422;
   --sidebar-primary: #4a4844;
   --sidebar-primary-foreground: #f5f4f0;
@@ -64,6 +65,7 @@ html.dark[data-theme] {
   --input: #ededee26;
   --ring: #a1c4b3;
   --sidebar: #0b0c0e;
+  --shell: #0f1012;
   --sidebar-foreground: #ededee;
   --sidebar-primary: #35383e;
   --sidebar-primary-foreground: #f5f6f7;
@@ -765,26 +767,6 @@ html.dark[data-theme] {
   font-size: 13px;
   color: var(--muted-foreground);
   margin-top: 12px;
-}
-.doop-agent-triage button {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  gap: 8px;
-  text-align: left;
-  padding: 16px 20px;
-  border-bottom: 1px solid var(--border);
-  font-size: 14px;
-}
-.doop-agent-triage button:last-child {
-  border-bottom: 0;
-}
-.doop-agent-triage button > span:last-child {
-  font-size: 13px;
-  color: var(--muted-foreground);
-}
-.doop-agent-triage button:hover {
-  background: var(--muted);
 }
 .doop-agent-triage button:disabled {
   opacity: 1;

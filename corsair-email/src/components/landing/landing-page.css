@@ -469,3 +469,31 @@
   .landing-page .nm-control,
   .landing-page .nm-glaze { min-height: 44px; }
 }
+
+.landing-hero-poster { display: none; position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+@media (prefers-reduced-motion: reduce) {
+  .landing-hero-poster { display: block; }
+  .landing-page #main-content > section:first-child > canvas,
+  .landing-page .landing-dissolve-canvas { opacity: 0; }
+}
+
+.landing-page { min-height: 100vh; }
+.landing-composer {
+  background: color-mix(in oklab, var(--nm-ascii-composer) 78%, transparent);
+  border-color: color-mix(in oklab, #ffffff 15%, transparent);
+}
+.landing-feature h3 { letter-spacing: normal; }
+.landing-page .landing-status,
+.landing-page[data-theme-mode="dark"] .landing-status {
+  color: oklch(0.696 0.17 162.48);
+  background: color-mix(in oklab, oklch(0.696 0.17 162.48) 15%, transparent);
+}
+@media (prefers-reduced-motion: reduce) {
+  .landing-page .landing-dissolve-canvas { display: none; }
+}
+
+.landing-page .landing-dissolve-picture { display: contents; }
+
+@media (prefers-reduced-motion: reduce) {
+  .landing-page #main-content > section:first-child > canvas { display: none; }
+}

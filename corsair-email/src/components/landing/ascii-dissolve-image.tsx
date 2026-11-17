@@ -4,6 +4,7 @@ import React, { useEffect, useRef } from "react";
 
 interface AsciiDissolveImageProps {
   src: string;
+  reducedMotionSrc?: string;
   alt: string;
   theme: "light" | "dark";
   className?: string;
@@ -17,6 +18,7 @@ interface AsciiDissolveImageProps {
  */
 export function AsciiDissolveImage({
   src,
+  reducedMotionSrc,
   alt,
   theme,
   className = "",
@@ -151,20 +153,28 @@ export function AsciiDissolveImage({
     <div
       className={` pointer-events-none absolute inset-0 overflow-hidden ${className}`}
     >
-      <img
-        src={src}
-        alt={alt}
-        width={1536}
-        height={1024}
-        loading={src.includes("lavender") ? "eager" : "lazy"}
-        fetchPriority={src.includes("lavender") ? "high" : "auto"}
-        decoding="async"
-        className="h-full w-full object-cover object-center select-none"
-      />
+      <picture className="landing-dissolve-picture">
+        {reducedMotionSrc && (
+          <source
+            media="(prefers-reduced-motion: reduce)"
+            srcSet={reducedMotionSrc}
+          />
+        )}
+        <img
+          src={src}
+          alt={alt}
+          width={1536}
+          height={1024}
+          loading={src.includes("lavender") ? "eager" : "lazy"}
+          fetchPriority={src.includes("lavender") ? "high" : "auto"}
+          decoding="async"
+          className="h-full w-full object-cover object-center select-none"
+        />
+      </picture>
       <canvas
         ref={overlayRef}
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 block h-full w-full"
+        className="landing-dissolve-canvas pointer-events-none absolute inset-0 block h-full w-full"
       />
     </div>
   );

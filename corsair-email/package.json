@@ -21,7 +21,11 @@
     "verify:workspace": "node scripts/verify-workspace.mjs",
     "verify:recovery": "node scripts/verify-ui-recovery.mjs",
     "verify:dashboard": "node scripts/verify-dashboard-design.mjs",
-    "verify:panels": "node --import tsx scripts/verify-panels.mjs"
+    "verify:panels": "node --import tsx scripts/verify-panels.mjs",
+    "import:doop": "node scripts/import-doop-workspace.mjs && node scripts/import-doop-welcome.mjs && node scripts/import-doop-chat.mjs",
+    "verify:doop": "node scripts/verify-doop.mjs",
+    "verify:visual": "node scripts/compare-doop-visual.mjs",
+    "report:visual": "node scripts/write-doop-visual-report.mjs"
   },
   "keywords": [
     "corsair",

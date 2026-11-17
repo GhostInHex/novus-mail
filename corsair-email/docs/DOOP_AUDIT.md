@@ -1,3 +1,5 @@
+> Historical implementation notes. Current pixel-comparison evidence is in [DOOP_VISUAL_VERIFICATION.md](DOOP_VISUAL_VERIFICATION.md); [DOOP_VERIFICATION.md](DOOP_VERIFICATION.md) records earlier functional checks. In particular, the collapsed workspace sidebar is now restored.
+
 # Doop fidelity audit — 16 November 2026
 
 The application is **not completely pixel-identical** to every Doop artboard. This audit compared the 52 screen sources on [the NovusMail canvas](https://doop.design/c/CCwouJnWg1), including their light/dark pairs, with the implementation. Shared components were checked through the screens that use them. It does not assign an invented fidelity percentage.

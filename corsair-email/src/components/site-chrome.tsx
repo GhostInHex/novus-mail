@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
 import { ROUTES } from "@/lib/routes";
 
@@ -14,12 +13,11 @@ export function SiteHeader() {
         <Link href="/#how-it-works">How it works</Link>
         <Link href="/#control">Your control</Link>
       </nav>
-      <div className="flex items-center gap-3">
-        <ThemeToggle compact />
-        <Button asChild size="sm">
-          <Link href={ROUTES.start}>Open workspace</Link>
-        </Button>
-      </div>
+      <Button asChild className="doop-public-primary">
+        <Link href={ROUTES.start}>
+          <span>Open workspace</span>
+        </Link>
+      </Button>
     </header>
   );
 }
@@ -28,8 +26,8 @@ export function SiteFooter() {
     <footer className="doop-site-footer">
       <span>NovusMail / A little less inbox. A little more day.</span>
       <nav aria-label="Legal">
-        <Link href={ROUTES.privacy}>Privacy</Link>
-        <Link href={ROUTES.terms}>Terms</Link>
+        <Link href={ROUTES.privacy}>Privacy</Link>{" "}
+        <Link href={ROUTES.terms}>Terms</Link>{" "}
         <a href="https://github.com/GhostInHex/novus-mail/issues">
           Get in touch
         </a>

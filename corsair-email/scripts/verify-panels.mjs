@@ -1,13 +1,16 @@
+import { checkFrameCoverage } from './doop-coverage.mjs';
+import { launchBrowser } from './browser.mjs';
 const BASE_URL=process.env.BASE_URL||"http://localhost:3100";
-﻿import { chromium, expect } from "@playwright/test";
+﻿import { expect } from "@playwright/test";
 import { mkdir, writeFile } from "node:fs/promises";
 import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { ConnectState } from "../src/components/connect-state.tsx";
 const root = "../artifacts/doop-audit";
 await mkdir(root, { recursive: true });
-const browser = await chromium.launch({ channel: "chrome", headless: true });
+const browser = await launchBrowser();
 const results = [];
+const frameResults = [];
 const errors = [];
 const fixtureStatus = {
   gmail: { authorized: false, healthy: null },
@@ -30,18 +33,34 @@ try {
     page.on("pageerror", (e) => errors.push(e.message));
     async function capture(name, frame, selector) {
       await page.evaluate(() => document.fonts.ready);
+      if (name === 'inbox') {
+        await Promise.all([
+          page.waitForResponse(r => r.url().includes('/api/threads/') && r.status() === 200),
+          page.locator('.dashboard-queue li button').first().click(),
+        ]);
+        await expect(page.locator('.dashboard-reader-loading')).toHaveCount(0);
+        await expect(page.locator('.dashboard-reader h2')).toBeVisible();
+      }
+      if (selector === '[role=dialog]') {
+        await expect(page.locator('[data-slot=dropdown-menu-content]')).toHaveCount(0);
+        await expect.poll(() => page.getByRole('dialog').evaluate(el => {
+          const matrix = new DOMMatrixReadOnly(getComputedStyle(el).transform);
+          return Math.abs(matrix.m11 - 1) < 0.001 && Math.abs(matrix.m22 - 1) < 0.001 && Math.abs(matrix.m41) < 0.01 && Math.abs(matrix.m42) < 0.01;
+        })).toBe(true);
+      }
       const locator = selector ? page.locator(selector) : page.locator("main");
       await expect(locator).toBeVisible();
       const box = await locator.boundingBox();
       expect(
         await page.evaluate(() => document.documentElement.scrollWidth),
-      ).toBe(1440);
+      ).toBeLessThanOrEqual(1440);
       const screenshot = `${theme}-${name}.png`;
       await page.screenshot({
         path: `${root}/${screenshot}`,
         fullPage: true,
         animations: "disabled",
       });
+      frameResults.push(...await checkFrameCoverage(page, { scenario: name, theme, screenshot }));
       results.push({
         theme,
         name,
@@ -63,7 +82,7 @@ try {
         .getByRole("button", { name: "Close", exact: true })
         .last()
         .click();
-      await expect(page.getByRole("dialog")).toHaveCount(0);
+      await expect(page.locator("[data-slot=dialog-content]")).toHaveCount(0);
     }
     await page.goto(BASE_URL + "/start");
     await expect(page.locator("html")).toHaveClass(new RegExp(theme));
@@ -73,7 +92,7 @@ try {
       ".doop-access",
     );
     const css = await page
-      .locator("link[rel=stylesheet]")
+      .locator("link[rel=stylesheet], style")
       .evaluateAll((els) => els.map((el) => el.outerHTML).join(""));
     const bodyClass = await page.locator("body").getAttribute("class");
     for (const path of ["privacy", "terms"]) {
@@ -131,6 +150,14 @@ try {
     await page.waitForURL("**/dashboard");
     await expect(page.locator(".dashboard-reader h2")).toBeVisible();
     await capture("inbox", theme === "dark" ? "LwTPn9MJXU" : "nwOnX0aVws");
+    await page.getByRole('button', {name: 'Collapse sidebar', exact: true}).click();
+    await expect(page.locator('.dashboard-sidebar')).toHaveCSS('width', '88px');
+    await capture('collapsed-sidebar', theme === 'dark' ? 'GcrkggAb2V' : '-Kq47IpKPV');
+    await page.getByRole('navigation', {name: 'Workspace', exact: true}).getByRole('button', {name: 'Starred', exact: true}).click();
+    await expect(page.getByRole('heading', {name: 'Starred', exact: true})).toBeVisible();
+    await page.getByRole('navigation', {name: 'Workspace', exact: true}).getByRole('button', {name: 'Focus queue', exact: true}).click();
+    await page.getByRole('button', {name: 'Expand sidebar', exact: true}).click();
+    await expect(page.locator('.dashboard-sidebar')).toHaveCSS('width', '200px');
     await page
       .getByRole("button", { name: "Collapse agenda", exact: true })
       .click();
@@ -256,6 +283,7 @@ try {
     await expect(dialog.locator(".doop-agent-triage h3")).toHaveText(
       "1 thread",
     );
+    await expect(dialog.locator('.doop-agent-triage .doop-source-results button').first()).toHaveCSS('flex-direction', 'row');
     await capture(
       "triage",
       theme === "dark" ? "FTTOWatj_1" : "7UrvprmbYh",
@@ -285,6 +313,7 @@ try {
     await expect(
       dialog.getByRole("button", { name: "Send reply", exact: true }),
     ).toBeVisible();
+    await capture('tool-activity', theme === 'dark' ? 'ym378pucpg' : 'cjGprHE6RY', '[role=dialog]');
     await capture(
       "draft",
       theme === "dark" ? "VpyKBw3wII" : "ZSbzsMIJ4h",
@@ -353,10 +382,7 @@ try {
       theme === "dark" ? "-mFeSQC-5B" : "X2_Tw5d1xp",
       "[role=dialog]",
     );
-    await dialog
-      .locator(".doop-source-history")
-      .getByRole("button", { name: "Close", exact: true })
-      .click();
+    await dialog.getByRole("button", { name: "Chat history", exact: true }).click();
     await page.unroute("**/api/agent");
     await page.route("**/api/agent", (r) =>
       r.fulfill({
@@ -370,6 +396,8 @@ try {
     await expect(
       dialog.getByRole("button", { name: "Retry response" }),
     ).toBeVisible();
+    await expect(dialog.getByRole('button', { name: 'Retry response' })).toBeInViewport();
+    await expect(dialog.locator('.doop-agent-retry p').first()).toHaveText('The connection was interrupted. Your message is saved.');
     await capture(
       "retry",
       theme === "dark" ? "oMakIN6tI8" : "hyytQwDO0u",
@@ -392,7 +420,7 @@ try {
       expect(box.y).toBeGreaterThanOrEqual(0);
       expect(
         await page.evaluate(() => document.documentElement.scrollWidth),
-      ).toBe(390);
+      ).toBeLessThanOrEqual(390);
       await page.screenshot({
         path:
           root + "/" + theme + "-mobile-" + title.replaceAll(" ", "-") + ".png",
@@ -441,6 +469,7 @@ try {
     await context.close();
   }
   if (errors.length) throw Error(errors.join("\n"));
+  await writeFile(`${root}/frame-results.json`, JSON.stringify(frameResults, null, 2));
   await writeFile(`${root}/results.json`, JSON.stringify(results, null, 2));
   console.log(
     "PASS",

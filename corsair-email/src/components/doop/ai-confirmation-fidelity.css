@@ -1,0 +1,10 @@
+html.dark .doop-ai-panel .doop-source-approval footer button[data-primary="true"],
+html.dark .doop-ai-panel .doop-agent-retry button[data-variant="default"] {
+  background: radial-gradient(65% 65% at 50% 50%, #00000008 0%, #00000000 100%), linear-gradient(180deg, #ffffff2e 0%, #00000000 100%), linear-gradient(var(--doop-neutral-base), var(--doop-neutral-base));
+  background-color: transparent;
+  background-repeat: no-repeat;
+}
+html.dark .doop-ai-panel .doop-source-approval footer button[data-primary="true"]::before,
+html.dark .doop-ai-panel .doop-agent-retry button[data-variant="default"]::before {
+  border-radius: calc(infinity * 1px);
+}

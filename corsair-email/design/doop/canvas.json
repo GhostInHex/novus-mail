@@ -1,0 +1,2806 @@
+{
+  "id": "CCwouJnWg1",
+  "name": "NovusMail · Wonder Import",
+  "pages": [
+    {
+      "id": "CCwouJnWg1:page1",
+      "name": "Page 1"
+    },
+    {
+      "id": "page-mwie8yc9",
+      "name": "Components"
+    },
+    {
+      "id": "Y8N7x3qPWe",
+      "name": "ASCII Landing"
+    },
+    {
+      "id": "ipmkANY91_",
+      "name": "ASCII Landing copy"
+    }
+  ],
+  "frames": [
+    {
+      "id": "KQ2QL9fN6G",
+      "pageId": "page-mwie8yc9",
+      "name": "Wonder Control Icon 01",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 120,
+      "y": 120,
+      "width": 640,
+      "height": 900,
+      "updatedAt": "2026-11-15T22:16:08.415Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 1371,
+      "image_url": "https://doop.design/i/KQ2QL9fN6G.png?scale=2"
+    },
+    {
+      "id": "E4uQEofvBY",
+      "pageId": "page-mwie8yc9",
+      "name": "Wonder Workspace Chrome 02",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 840,
+      "y": 120,
+      "width": 640,
+      "height": 900,
+      "updatedAt": "2026-11-15T23:30:08.224Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 7243,
+      "image_url": "https://doop.design/i/E4uQEofvBY.png?scale=2"
+    },
+    {
+      "id": "EHLIj7GCWF",
+      "pageId": "page-mwie8yc9",
+      "name": "Wonder Content Group 03",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 1560,
+      "y": 120,
+      "width": 640,
+      "height": 900,
+      "updatedAt": "2026-11-15T23:25:24.983Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 8048,
+      "image_url": "https://doop.design/i/EHLIj7GCWF.png?scale=2"
+    },
+    {
+      "id": "U9tSwmBOFw",
+      "pageId": "page-mwie8yc9",
+      "name": "Wonder Workspace Chrome 04",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 2280,
+      "y": 120,
+      "width": 640,
+      "height": 900,
+      "updatedAt": "2026-11-15T23:25:26.534Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 8386,
+      "image_url": "https://doop.design/i/U9tSwmBOFw.png?scale=2"
+    },
+    {
+      "id": "YriNRuWAiE",
+      "pageId": "page-mwie8yc9",
+      "name": "Wonder Result List 05",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 3000,
+      "y": 120,
+      "width": 640,
+      "height": 900,
+      "updatedAt": "2026-11-15T23:25:27.708Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 8382,
+      "image_url": "https://doop.design/i/YriNRuWAiE.png?scale=2"
+    },
+    {
+      "id": "mH9XSP8Vc2",
+      "pageId": "page-mwie8yc9",
+      "name": "Wonder Result List 06",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 3720,
+      "y": 120,
+      "width": 640,
+      "height": 900,
+      "updatedAt": "2026-11-15T23:25:30.154Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 8406,
+      "image_url": "https://doop.design/i/mH9XSP8Vc2.png?scale=2"
+    },
+    {
+      "id": "V8oQbRN-kS",
+      "pageId": "page-mwie8yc9",
+      "name": "Wonder Content Group 07",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 4440,
+      "y": 120,
+      "width": 640,
+      "height": 900,
+      "updatedAt": "2026-11-15T23:25:30.045Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 8606,
+      "image_url": "https://doop.design/i/V8oQbRN-kS.png?scale=2"
+    },
+    {
+      "id": "NkoO8bJPas",
+      "pageId": "page-mwie8yc9",
+      "name": "Wonder Content Group 08",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 5160,
+      "y": 120,
+      "width": 640,
+      "height": 900,
+      "updatedAt": "2026-11-15T23:25:34.594Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 8630,
+      "image_url": "https://doop.design/i/NkoO8bJPas.png?scale=2"
+    },
+    {
+      "id": "5zVyAsnSVT",
+      "pageId": "page-mwie8yc9",
+      "name": "Wonder Result List 09",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 5880,
+      "y": 120,
+      "width": 1440,
+      "height": 900,
+      "updatedAt": "2026-11-15T23:25:32.758Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 13591,
+      "image_url": "https://doop.design/i/5zVyAsnSVT.png?scale=2"
+    },
+    {
+      "id": "kBq-btjTou",
+      "pageId": "page-mwie8yc9",
+      "name": "Wonder Result List 10",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 7400,
+      "y": 120,
+      "width": 1440,
+      "height": 900,
+      "updatedAt": "2026-11-15T23:25:35.151Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 13627,
+      "image_url": "https://doop.design/i/kBq-btjTou.png?scale=2"
+    },
+    {
+      "id": "1HcV-g1M87",
+      "pageId": "page-mwie8yc9",
+      "name": "Wonder Content Group 11",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 8920,
+      "y": 120,
+      "width": 1440,
+      "height": 900,
+      "updatedAt": "2026-11-15T23:30:08.238Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 15782,
+      "image_url": "https://doop.design/i/1HcV-g1M87.png?scale=2"
+    },
+    {
+      "id": "oPuNfPv4-p",
+      "pageId": "page-mwie8yc9",
+      "name": "Wonder Content Group 12",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 10440,
+      "y": 120,
+      "width": 1440,
+      "height": 900,
+      "updatedAt": "2026-11-15T23:25:39.547Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 15782,
+      "image_url": "https://doop.design/i/oPuNfPv4-p.png?scale=2"
+    },
+    {
+      "id": "iFOD9sPBOE",
+      "pageId": "page-mwie8yc9",
+      "name": "Wonder Event List 13",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 11960,
+      "y": 120,
+      "width": 1440,
+      "height": 900,
+      "updatedAt": "2026-11-15T23:30:08.242Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 15603,
+      "image_url": "https://doop.design/i/iFOD9sPBOE.png?scale=2"
+    },
+    {
+      "id": "lN6igAHg_l",
+      "pageId": "page-mwie8yc9",
+      "name": "Wonder Event List 14",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 13480,
+      "y": 120,
+      "width": 1440,
+      "height": 900,
+      "updatedAt": "2026-11-15T23:25:44.285Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 15649,
+      "image_url": "https://doop.design/i/lN6igAHg_l.png?scale=2"
+    },
+    {
+      "id": "Y0YEjRMXbN",
+      "pageId": "page-mwie8yc9",
+      "name": "Wonder Message Reader 15",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 15000,
+      "y": 120,
+      "width": 1440,
+      "height": 900,
+      "updatedAt": "2026-11-15T23:30:08.247Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 16021,
+      "image_url": "https://doop.design/i/Y0YEjRMXbN.png?scale=2"
+    },
+    {
+      "id": "DgLN0mt_iq",
+      "pageId": "page-mwie8yc9",
+      "name": "Wonder Message Reader 16",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 16520,
+      "y": 120,
+      "width": 1440,
+      "height": 900,
+      "updatedAt": "2026-11-15T23:25:48.532Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 16022,
+      "image_url": "https://doop.design/i/DgLN0mt_iq.png?scale=2"
+    },
+    {
+      "id": "-oNU9dmO3d",
+      "pageId": "page-mwie8yc9",
+      "name": "Wonder Content Group 17",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 18040,
+      "y": 120,
+      "width": 1440,
+      "height": 900,
+      "updatedAt": "2026-11-15T23:30:08.251Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 16636,
+      "image_url": "https://doop.design/i/-oNU9dmO3d.png?scale=2"
+    },
+    {
+      "id": "kRZIhG0yNj",
+      "pageId": "page-mwie8yc9",
+      "name": "Wonder Content Group 18",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 19560,
+      "y": 120,
+      "width": 1440,
+      "height": 900,
+      "updatedAt": "2026-11-15T23:25:52.073Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 16682,
+      "image_url": "https://doop.design/i/kRZIhG0yNj.png?scale=2"
+    },
+    {
+      "id": "8DkHOg6fOw",
+      "pageId": "page-mwie8yc9",
+      "name": "Wonder Inbox Queue 19",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 21080,
+      "y": 120,
+      "width": 1440,
+      "height": 900,
+      "updatedAt": "2026-11-15T23:30:08.255Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 16773,
+      "image_url": "https://doop.design/i/8DkHOg6fOw.png?scale=2"
+    },
+    {
+      "id": "81zdy1ibrN",
+      "pageId": "page-mwie8yc9",
+      "name": "Wonder Inbox Queue 20",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 22600,
+      "y": 120,
+      "width": 1440,
+      "height": 900,
+      "updatedAt": "2026-11-15T23:25:55.325Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 16819,
+      "image_url": "https://doop.design/i/81zdy1ibrN.png?scale=2"
+    },
+    {
+      "id": "DNatiIOIJA",
+      "pageId": "page-mwie8yc9",
+      "name": "Wonder Content Group 21",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 24120,
+      "y": 120,
+      "width": 1440,
+      "height": 900,
+      "updatedAt": "2026-11-15T23:33:39.213Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 19292,
+      "image_url": "https://doop.design/i/DNatiIOIJA.png?scale=2"
+    },
+    {
+      "id": "izcknoTRCZ",
+      "pageId": "page-mwie8yc9",
+      "name": "Wonder Content Group 22",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 25640,
+      "y": 120,
+      "width": 1440,
+      "height": 900,
+      "updatedAt": "2026-11-15T23:33:40.919Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 19344,
+      "image_url": "https://doop.design/i/izcknoTRCZ.png?scale=2"
+    },
+    {
+      "id": "DDnR4XXa0W",
+      "pageId": "page-mwie8yc9",
+      "name": "Wonder Content Group 23",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 27160,
+      "y": 120,
+      "width": 1440,
+      "height": 900,
+      "updatedAt": "2026-11-15T23:33:42.930Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 19405,
+      "image_url": "https://doop.design/i/DDnR4XXa0W.png?scale=2"
+    },
+    {
+      "id": "hd5kVrGWnf",
+      "pageId": "page-mwie8yc9",
+      "name": "Wonder Content Group 24",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 28680,
+      "y": 120,
+      "width": 1440,
+      "height": 900,
+      "updatedAt": "2026-11-15T23:33:44.981Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 19457,
+      "image_url": "https://doop.design/i/hd5kVrGWnf.png?scale=2"
+    },
+    {
+      "id": "AaTdOIyfpr",
+      "pageId": "page-mwie8yc9",
+      "name": "Wonder Feature Card 25",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 30200,
+      "y": 120,
+      "width": 1440,
+      "height": 900,
+      "updatedAt": "2026-11-15T23:33:46.918Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 19976,
+      "image_url": "https://doop.design/i/AaTdOIyfpr.png?scale=2"
+    },
+    {
+      "id": "sgVslF5Ytn",
+      "pageId": "page-mwie8yc9",
+      "name": "Wonder Feature Card 26",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 31720,
+      "y": 120,
+      "width": 1440,
+      "height": 900,
+      "updatedAt": "2026-11-15T23:33:48.694Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 20033,
+      "image_url": "https://doop.design/i/sgVslF5Ytn.png?scale=2"
+    },
+    {
+      "id": "ug8bJlR2hC",
+      "pageId": "page-mwie8yc9",
+      "name": "Wonder Content Group 27",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 33240,
+      "y": 120,
+      "width": 1440,
+      "height": 900,
+      "updatedAt": "2026-11-15T23:33:50.386Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 24216,
+      "image_url": "https://doop.design/i/ug8bJlR2hC.png?scale=2"
+    },
+    {
+      "id": "RM9QhxqVMF",
+      "pageId": "page-mwie8yc9",
+      "name": "Wonder Content Group 28",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 34760,
+      "y": 120,
+      "width": 1440,
+      "height": 900,
+      "updatedAt": "2026-11-15T23:33:52.343Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 24285,
+      "image_url": "https://doop.design/i/RM9QhxqVMF.png?scale=2"
+    },
+    {
+      "id": "l5yehTWbwJ",
+      "pageId": "page-mwie8yc9",
+      "name": "Wonder Agenda Sidebar 29",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 36280,
+      "y": 120,
+      "width": 1440,
+      "height": 900,
+      "updatedAt": "2026-11-15T23:33:54.323Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 24460,
+      "image_url": "https://doop.design/i/l5yehTWbwJ.png?scale=2"
+    },
+    {
+      "id": "9M9Kqau-Kj",
+      "pageId": "page-mwie8yc9",
+      "name": "Wonder Agenda Sidebar 30",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 37800,
+      "y": 120,
+      "width": 1440,
+      "height": 900,
+      "updatedAt": "2026-11-15T23:33:56.376Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 24530,
+      "image_url": "https://doop.design/i/9M9Kqau-Kj.png?scale=2"
+    },
+    {
+      "id": "LYhg7oMwg8",
+      "pageId": "page-mwie8yc9",
+      "name": "Wonder Content Group 31",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 39320,
+      "y": 120,
+      "width": 1440,
+      "height": 900,
+      "updatedAt": "2026-11-15T23:33:58.076Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 25696,
+      "image_url": "https://doop.design/i/LYhg7oMwg8.png?scale=2"
+    },
+    {
+      "id": "TIxI33oJXt",
+      "pageId": "page-mwie8yc9",
+      "name": "Wonder Content Group 32",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 40840,
+      "y": 120,
+      "width": 1440,
+      "height": 900,
+      "updatedAt": "2026-11-15T23:33:59.906Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 25402,
+      "image_url": "https://doop.design/i/TIxI33oJXt.png?scale=2"
+    },
+    {
+      "id": "naws-4elLa",
+      "pageId": "page-mwie8yc9",
+      "name": "Wonder Workspace Sidebar 33",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 42360,
+      "y": 120,
+      "width": 1440,
+      "height": 900,
+      "updatedAt": "2026-11-15T23:34:01.813Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 26041,
+      "image_url": "https://doop.design/i/naws-4elLa.png?scale=2"
+    },
+    {
+      "id": "_OixdI-QtO",
+      "pageId": "page-mwie8yc9",
+      "name": "Wonder Workspace Sidebar 34",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 43880,
+      "y": 120,
+      "width": 1440,
+      "height": 900,
+      "updatedAt": "2026-11-15T23:34:03.919Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 25751,
+      "image_url": "https://doop.design/i/_OixdI-QtO.png?scale=2"
+    },
+    {
+      "id": "jfCTSRLNzb",
+      "pageId": "page-mwie8yc9",
+      "name": "Wonder Workspace Background 35",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 45400,
+      "y": 120,
+      "width": 1440,
+      "height": 900,
+      "updatedAt": "2026-11-15T23:34:06.077Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 80966,
+      "image_url": "https://doop.design/i/jfCTSRLNzb.png?scale=2"
+    },
+    {
+      "id": "ISz1kpo5xJ",
+      "pageId": "page-mwie8yc9",
+      "name": "Wonder Workspace Background 36",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 46920,
+      "y": 120,
+      "width": 1440,
+      "height": 900,
+      "updatedAt": "2026-11-15T23:34:08.435Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 80791,
+      "image_url": "https://doop.design/i/ISz1kpo5xJ.png?scale=2"
+    },
+    {
+      "id": "sa5ThibhQK",
+      "pageId": "CCwouJnWg1:page1",
+      "name": "AI Welcome Light",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": -720,
+      "y": 12000,
+      "width": 1440,
+      "height": 1005,
+      "updatedAt": "2026-11-15T23:34:56.833Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 111472,
+      "image_url": "https://doop.design/i/sa5ThibhQK.png?scale=2"
+    },
+    {
+      "id": "T-RWCDO3pN",
+      "pageId": "CCwouJnWg1:page1",
+      "name": "Sign In Glaze Light",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 820,
+      "y": 3300,
+      "width": 1440,
+      "height": 900,
+      "updatedAt": "2026-11-15T23:24:35.974Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 15296,
+      "image_url": "https://doop.design/i/T-RWCDO3pN.png?scale=2"
+    },
+    {
+      "id": "zR46pVQtqo",
+      "pageId": "CCwouJnWg1:page1",
+      "name": "Sign In Glaze Dark",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 820,
+      "y": 7600,
+      "width": 1440,
+      "height": 900,
+      "updatedAt": "2026-11-15T23:30:08.362Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 15355,
+      "image_url": "https://doop.design/i/zR46pVQtqo.png?scale=2"
+    },
+    {
+      "id": "r5LPleAiTI",
+      "pageId": "CCwouJnWg1:page1",
+      "name": "Connect Glaze Light",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 2360,
+      "y": 3300,
+      "width": 1440,
+      "height": 900,
+      "updatedAt": "2026-11-15T23:27:34.037Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 14225,
+      "image_url": "https://doop.design/i/r5LPleAiTI.png?scale=2"
+    },
+    {
+      "id": "lyGlR1B5Jp",
+      "pageId": "CCwouJnWg1:page1",
+      "name": "Connect Glaze Dark",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 2360,
+      "y": 7600,
+      "width": 1440,
+      "height": 900,
+      "updatedAt": "2026-11-15T23:30:08.366Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 14206,
+      "image_url": "https://doop.design/i/lyGlR1B5Jp.png?scale=2"
+    },
+    {
+      "id": "nwOnX0aVws",
+      "pageId": "CCwouJnWg1:page1",
+      "name": "Inbox Glaze Light",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 3900,
+      "y": 3300,
+      "width": 1440,
+      "height": 919,
+      "updatedAt": "2026-11-15T23:34:58.521Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 36178,
+      "image_url": "https://doop.design/i/nwOnX0aVws.png?scale=2"
+    },
+    {
+      "id": "LwTPn9MJXU",
+      "pageId": "CCwouJnWg1:page1",
+      "name": "Inbox Glaze Dark",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 3900,
+      "y": 7600,
+      "width": 1440,
+      "height": 919,
+      "updatedAt": "2026-11-15T23:35:00.371Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 36479,
+      "image_url": "https://doop.design/i/LwTPn9MJXU.png?scale=2"
+    },
+    {
+      "id": "0t83YzC7LR",
+      "pageId": "CCwouJnWg1:page1",
+      "name": "Calendar Glaze Light",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 5440,
+      "y": 3300,
+      "width": 1440,
+      "height": 900,
+      "updatedAt": "2026-11-15T23:35:02.112Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 38655,
+      "image_url": "https://doop.design/i/0t83YzC7LR.png?scale=2"
+    },
+    {
+      "id": "TvnvIbjgPo",
+      "pageId": "CCwouJnWg1:page1",
+      "name": "Calendar Glaze Dark",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 5440,
+      "y": 7600,
+      "width": 1440,
+      "height": 900,
+      "updatedAt": "2026-11-15T23:35:04.170Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 38599,
+      "image_url": "https://doop.design/i/TvnvIbjgPo.png?scale=2"
+    },
+    {
+      "id": "pFxVhCB3hp",
+      "pageId": "CCwouJnWg1:page1",
+      "name": "Compose Glaze Light",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 6980,
+      "y": 3300,
+      "width": 1440,
+      "height": 900,
+      "updatedAt": "2026-11-15T23:35:06.010Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 26344,
+      "image_url": "https://doop.design/i/pFxVhCB3hp.png?scale=2"
+    },
+    {
+      "id": "LBIBo1A_05",
+      "pageId": "CCwouJnWg1:page1",
+      "name": "Compose Glaze Dark",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 6980,
+      "y": 7600,
+      "width": 1440,
+      "height": 900,
+      "updatedAt": "2026-11-15T23:35:07.797Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 26337,
+      "image_url": "https://doop.design/i/LBIBo1A_05.png?scale=2"
+    },
+    {
+      "id": "eCb9kLXTFL",
+      "pageId": "CCwouJnWg1:page1",
+      "name": "Privacy Glaze Light",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 8520,
+      "y": 3300,
+      "width": 1440,
+      "height": 2062,
+      "updatedAt": "2026-11-15T23:24:36.033Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 17873,
+      "image_url": "https://doop.design/i/eCb9kLXTFL.png?scale=2"
+    },
+    {
+      "id": "0SudpaDmVv",
+      "pageId": "CCwouJnWg1:page1",
+      "name": "Privacy Glaze Dark",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 8520,
+      "y": 7600,
+      "width": 1440,
+      "height": 2062,
+      "updatedAt": "2026-11-15T23:30:08.399Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 17876,
+      "image_url": "https://doop.design/i/0SudpaDmVv.png?scale=2"
+    },
+    {
+      "id": "fCM2-TkoZ0",
+      "pageId": "CCwouJnWg1:page1",
+      "name": "Terms Glaze Light",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 10060,
+      "y": 3300,
+      "width": 1440,
+      "height": 2100,
+      "updatedAt": "2026-11-15T23:24:36.042Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 18820,
+      "image_url": "https://doop.design/i/fCM2-TkoZ0.png?scale=2"
+    },
+    {
+      "id": "jX9CyhpLJ6",
+      "pageId": "CCwouJnWg1:page1",
+      "name": "Terms Glaze Dark",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 10060,
+      "y": 7600,
+      "width": 1440,
+      "height": 2100,
+      "updatedAt": "2026-11-15T23:30:08.405Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 18819,
+      "image_url": "https://doop.design/i/jX9CyhpLJ6.png?scale=2"
+    },
+    {
+      "id": "0XY1pUt-1N",
+      "pageId": "CCwouJnWg1:page1",
+      "name": "AI Welcome Dark",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": -720,
+      "y": 13500,
+      "width": 1440,
+      "height": 1005,
+      "updatedAt": "2026-11-15T23:35:09.592Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 110507,
+      "image_url": "https://doop.design/i/0XY1pUt-1N.png?scale=2"
+    },
+    {
+      "id": "7UrvprmbYh",
+      "pageId": "CCwouJnWg1:page1",
+      "name": "Inbox Triage Light",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 820,
+      "y": 12000,
+      "width": 1440,
+      "height": 1005,
+      "updatedAt": "2026-11-16T09:33:05.404Z",
+      "updatedBy": "vooc@duck.com",
+      "htmlBytes": 121001,
+      "image_url": "https://doop.design/i/7UrvprmbYh.png?scale=2"
+    },
+    {
+      "id": "FTTOWatj_1",
+      "pageId": "CCwouJnWg1:page1",
+      "name": "Inbox Triage Dark",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 820,
+      "y": 13500,
+      "width": 1440,
+      "height": 1005,
+      "updatedAt": "2026-11-15T23:35:13.252Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 120017,
+      "image_url": "https://doop.design/i/FTTOWatj_1.png?scale=2"
+    },
+    {
+      "id": "cjGprHE6RY",
+      "pageId": "CCwouJnWg1:page1",
+      "name": "Agent Tool Activity Light",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 2360,
+      "y": 12000,
+      "width": 1440,
+      "height": 1005,
+      "updatedAt": "2026-11-15T23:34:09.288Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 111441,
+      "image_url": "https://doop.design/i/cjGprHE6RY.png?scale=2"
+    },
+    {
+      "id": "ym378pucpg",
+      "pageId": "CCwouJnWg1:page1",
+      "name": "Agent Tool Activity Dark",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 2360,
+      "y": 13500,
+      "width": 1440,
+      "height": 1005,
+      "updatedAt": "2026-11-15T23:34:06.895Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 110436,
+      "image_url": "https://doop.design/i/ym378pucpg.png?scale=2"
+    },
+    {
+      "id": "ZSbzsMIJ4h",
+      "pageId": "CCwouJnWg1:page1",
+      "name": "AI Reply Drafts Light",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 3900,
+      "y": 12000,
+      "width": 1440,
+      "height": 1005,
+      "updatedAt": "2026-11-15T23:35:15.089Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 116648,
+      "image_url": "https://doop.design/i/ZSbzsMIJ4h.png?scale=2"
+    },
+    {
+      "id": "VpyKBw3wII",
+      "pageId": "CCwouJnWg1:page1",
+      "name": "AI Reply Drafts Dark",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 3900,
+      "y": 13500,
+      "width": 1440,
+      "height": 1000,
+      "updatedAt": "2026-11-15T23:35:16.877Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 115678,
+      "image_url": "https://doop.design/i/VpyKBw3wII.png?scale=2"
+    },
+    {
+      "id": "SzcEnf0kqE",
+      "pageId": "CCwouJnWg1:page1",
+      "name": "AI Draft Editing Light",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 5440,
+      "y": 12000,
+      "width": 1440,
+      "height": 1000,
+      "updatedAt": "2026-11-15T23:35:19.142Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 115800,
+      "image_url": "https://doop.design/i/SzcEnf0kqE.png?scale=2"
+    },
+    {
+      "id": "4v_Ti7qdBW",
+      "pageId": "CCwouJnWg1:page1",
+      "name": "AI Draft Editing Dark",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 5440,
+      "y": 13500,
+      "width": 1440,
+      "height": 1000,
+      "updatedAt": "2026-11-15T23:35:20.831Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 114823,
+      "image_url": "https://doop.design/i/4v_Ti7qdBW.png?scale=2"
+    },
+    {
+      "id": "LUWKnWZ_6a",
+      "pageId": "CCwouJnWg1:page1",
+      "name": "AI Meeting Proposal Light",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 6980,
+      "y": 12000,
+      "width": 1440,
+      "height": 1000,
+      "updatedAt": "2026-11-15T23:35:22.801Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 117114,
+      "image_url": "https://doop.design/i/LUWKnWZ_6a.png?scale=2"
+    },
+    {
+      "id": "GIruPrcKHT",
+      "pageId": "CCwouJnWg1:page1",
+      "name": "AI Meeting Proposal Dark",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 6980,
+      "y": 13500,
+      "width": 1440,
+      "height": 1000,
+      "updatedAt": "2026-11-15T23:35:24.671Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 116149,
+      "image_url": "https://doop.design/i/GIruPrcKHT.png?scale=2"
+    },
+    {
+      "id": "4fMsvY3d68",
+      "pageId": "CCwouJnWg1:page1",
+      "name": "AI Event Editing Light",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 8520,
+      "y": 12000,
+      "width": 1440,
+      "height": 1000,
+      "updatedAt": "2026-11-15T23:35:26.574Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 119258,
+      "image_url": "https://doop.design/i/4fMsvY3d68.png?scale=2"
+    },
+    {
+      "id": "PnZr5lx_Eb",
+      "pageId": "CCwouJnWg1:page1",
+      "name": "AI Event Editing Dark",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 8520,
+      "y": 13500,
+      "width": 1440,
+      "height": 1000,
+      "updatedAt": "2026-11-15T23:35:28.415Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 118262,
+      "image_url": "https://doop.design/i/PnZr5lx_Eb.png?scale=2"
+    },
+    {
+      "id": "X2_Tw5d1xp",
+      "pageId": "CCwouJnWg1:page1",
+      "name": "AI Chat History Light",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 10060,
+      "y": 12000,
+      "width": 1440,
+      "height": 1000,
+      "updatedAt": "2026-11-15T23:35:30.140Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 119772,
+      "image_url": "https://doop.design/i/X2_Tw5d1xp.png?scale=2"
+    },
+    {
+      "id": "-mFeSQC-5B",
+      "pageId": "CCwouJnWg1:page1",
+      "name": "AI Chat History Dark",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 10060,
+      "y": 13500,
+      "width": 1440,
+      "height": 1000,
+      "updatedAt": "2026-11-15T23:35:32.044Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 118809,
+      "image_url": "https://doop.design/i/-mFeSQC-5B.png?scale=2"
+    },
+    {
+      "id": "vRcbwVedSZ",
+      "pageId": "CCwouJnWg1:page1",
+      "name": "Auto Approval Confirmation Light",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 11600,
+      "y": 12000,
+      "width": 1440,
+      "height": 1000,
+      "updatedAt": "2026-11-15T23:35:33.932Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 111572,
+      "image_url": "https://doop.design/i/vRcbwVedSZ.png?scale=2"
+    },
+    {
+      "id": "2q7WkAoRlR",
+      "pageId": "CCwouJnWg1:page1",
+      "name": "Auto Approval Confirmation Dark",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 11600,
+      "y": 13500,
+      "width": 1440,
+      "height": 1000,
+      "updatedAt": "2026-11-15T23:35:35.729Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 110620,
+      "image_url": "https://doop.design/i/2q7WkAoRlR.png?scale=2"
+    },
+    {
+      "id": "hyytQwDO0u",
+      "pageId": "CCwouJnWg1:page1",
+      "name": "AI Retry State Light",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 13140,
+      "y": 12000,
+      "width": 1440,
+      "height": 1000,
+      "updatedAt": "2026-11-15T23:35:37.630Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 113315,
+      "image_url": "https://doop.design/i/hyytQwDO0u.png?scale=2"
+    },
+    {
+      "id": "oMakIN6tI8",
+      "pageId": "CCwouJnWg1:page1",
+      "name": "AI Retry State Dark",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 13140,
+      "y": 13500,
+      "width": 1440,
+      "height": 1000,
+      "updatedAt": "2026-11-15T23:35:39.448Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 112359,
+      "image_url": "https://doop.design/i/oMakIN6tI8.png?scale=2"
+    },
+    {
+      "id": "-Kq47IpKPV",
+      "pageId": "CCwouJnWg1:page1",
+      "name": "Collapsed Workspace Sidebar Light",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 14680,
+      "y": 12000,
+      "width": 1440,
+      "height": 1000,
+      "updatedAt": "2026-11-15T23:33:56.539Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 79528,
+      "image_url": "https://doop.design/i/-Kq47IpKPV.png?scale=2"
+    },
+    {
+      "id": "GcrkggAb2V",
+      "pageId": "CCwouJnWg1:page1",
+      "name": "Collapsed Workspace Sidebar Dark",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 14680,
+      "y": 13500,
+      "width": 1440,
+      "height": 1000,
+      "updatedAt": "2026-11-15T23:33:54.448Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 78267,
+      "image_url": "https://doop.design/i/GcrkggAb2V.png?scale=2"
+    },
+    {
+      "id": "rhPj4u5YGM",
+      "pageId": "CCwouJnWg1:page1",
+      "name": "Collapsed Agenda Panel Light",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 16220,
+      "y": 12000,
+      "width": 1440,
+      "height": 1000,
+      "updatedAt": "2026-11-15T23:34:04.145Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 70635,
+      "image_url": "https://doop.design/i/rhPj4u5YGM.png?scale=2"
+    },
+    {
+      "id": "8bFi-1WqDJ",
+      "pageId": "CCwouJnWg1:page1",
+      "name": "Collapsed Agenda Panel Dark",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 16220,
+      "y": 13500,
+      "width": 1440,
+      "height": 1000,
+      "updatedAt": "2026-11-15T23:34:01.995Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 69720,
+      "image_url": "https://doop.design/i/8bFi-1WqDJ.png?scale=2"
+    },
+    {
+      "id": "CvD8KzS38m",
+      "pageId": "CCwouJnWg1:page1",
+      "name": "Expanded Month Calendar Light",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 17760,
+      "y": 12000,
+      "width": 1440,
+      "height": 1000,
+      "updatedAt": "2026-11-15T23:34:04.215Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 104303,
+      "image_url": "https://doop.design/i/CvD8KzS38m.png?scale=2"
+    },
+    {
+      "id": "qWTFqZ5lwm",
+      "pageId": "CCwouJnWg1:page1",
+      "name": "Expanded Month Calendar Dark",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 17760,
+      "y": 13500,
+      "width": 1440,
+      "height": 1000,
+      "updatedAt": "2026-11-15T23:34:02.081Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 103148,
+      "image_url": "https://doop.design/i/qWTFqZ5lwm.png?scale=2"
+    },
+    {
+      "id": "wqqrTTPdTo",
+      "pageId": "CCwouJnWg1:page1",
+      "name": "Selected Day Agenda Light",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 19300,
+      "y": 12000,
+      "width": 1440,
+      "height": 1000,
+      "updatedAt": "2026-11-15T23:35:41.268Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 104112,
+      "image_url": "https://doop.design/i/wqqrTTPdTo.png?scale=2"
+    },
+    {
+      "id": "8KlwJCCU9M",
+      "pageId": "CCwouJnWg1:page1",
+      "name": "Selected Day Agenda Dark",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 19300,
+      "y": 13500,
+      "width": 1440,
+      "height": 1000,
+      "updatedAt": "2026-11-15T23:35:43.414Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 102964,
+      "image_url": "https://doop.design/i/8KlwJCCU9M.png?scale=2"
+    },
+    {
+      "id": "X7gRb7Zpcd",
+      "pageId": "CCwouJnWg1:page1",
+      "name": "New Event Form Light",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 20840,
+      "y": 12000,
+      "width": 1440,
+      "height": 1000,
+      "updatedAt": "2026-11-15T23:35:45.306Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 106088,
+      "image_url": "https://doop.design/i/X7gRb7Zpcd.png?scale=2"
+    },
+    {
+      "id": "F5ItS-WXTF",
+      "pageId": "CCwouJnWg1:page1",
+      "name": "New Event Form Dark",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 20840,
+      "y": 13500,
+      "width": 1440,
+      "height": 1000,
+      "updatedAt": "2026-11-15T23:35:47.239Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 105068,
+      "image_url": "https://doop.design/i/F5ItS-WXTF.png?scale=2"
+    },
+    {
+      "id": "fB_ybTJvyK",
+      "pageId": "CCwouJnWg1:page1",
+      "name": "Command Console Light",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 22380,
+      "y": 12000,
+      "width": 1440,
+      "height": 1000,
+      "updatedAt": "2026-11-15T23:34:10.436Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 108024,
+      "image_url": "https://doop.design/i/fB_ybTJvyK.png?scale=2"
+    },
+    {
+      "id": "L5Eac6sbE4",
+      "pageId": "CCwouJnWg1:page1",
+      "name": "Command Console Dark",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 22380,
+      "y": 13500,
+      "width": 1440,
+      "height": 1000,
+      "updatedAt": "2026-11-15T23:34:07.876Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 107031,
+      "image_url": "https://doop.design/i/L5Eac6sbE4.png?scale=2"
+    },
+    {
+      "id": "OwcxrkwgPj",
+      "pageId": "CCwouJnWg1:page1",
+      "name": "Keyboard Shortcuts Light",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 23920,
+      "y": 12000,
+      "width": 1440,
+      "height": 1000,
+      "updatedAt": "2026-11-15T23:34:10.593Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 110086,
+      "image_url": "https://doop.design/i/OwcxrkwgPj.png?scale=2"
+    },
+    {
+      "id": "GYUpO9Oksq",
+      "pageId": "CCwouJnWg1:page1",
+      "name": "Keyboard Shortcuts Dark",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 23920,
+      "y": 13500,
+      "width": 1440,
+      "height": 1000,
+      "updatedAt": "2026-11-15T23:34:07.969Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 109026,
+      "image_url": "https://doop.design/i/GYUpO9Oksq.png?scale=2"
+    },
+    {
+      "id": "hamBycIX0J",
+      "pageId": "CCwouJnWg1:page1",
+      "name": "Action Success Feedback Light",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 25460,
+      "y": 12000,
+      "width": 1440,
+      "height": 1000,
+      "updatedAt": "2026-11-15T23:34:10.926Z",
+      "updatedBy": "Codex",
+      "htmlBytes": 99292,
+      "image_url": "https://doop.design/i/hamBycIX0J.png?scale=2"
+    },
+    {
+      "id": "fHmzhyiS-n",
+      "pageId": "CCwouJnWg1:page1",
+      "name": "Action Success Feedback Dark",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 25460,
+      "y": 13500,
+      "width": 1440,
+      "height": 1000,
+      "updatedAt": "2026-11-16T09:31:43.318Z",
+      "updatedBy": "vooc@duck.com",
+      "htmlBytes": 98309,
+      "image_url": "https://doop.design/i/fHmzhyiS-n.png?scale=2"
+    },
+    {
+      "id": "StnxuxcdNT",
+      "pageId": "CCwouJnWg1:page1",
+      "name": "NovusMail / light / ASCII source",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": -720,
+      "y": 3300,
+      "width": 1440,
+      "height": 3000,
+      "updatedAt": "2026-11-15T23:35:48.958Z",
+      "updatedBy": "Codex",
+      "images": [
+        {
+          "src": "/a/AP5OamURlj.png",
+          "description": "A minimalist abstract illustration on a warm off-white background. Layered, undulating mesh forms extend inward from the left and right edges across the upper half, resembling rolling hills made of tiny black and gray dots and crosses. Darker dots define the crests, while the marks below grow lighter and fade into the background. A wide central gap separates the two groups, and the lower half is largely empty. Faint horizontal gray lines sit near both upper corners. The monochrome palette, delicate texture, and generous negative space create a quiet, airy, technical feel. There is no text."
+        },
+        {
+          "src": "/a/Gkz-u9lV3u.png",
+          "description": "A wide, black-and-white landscape photograph shows dense rows of flowering lavender sweeping across rolling fields. Curving bands of pale blossoms and dark furrows create a rhythmic pattern in the foreground, leading toward wooded hills and layered mountain ridges. Low mist fills the distant valleys beneath a softly clouded sky. The grayscale palette emphasizes the plants’ fine texture and the mountains’ hazy silhouettes, creating a quiet, serene mood. A soft white vignette fades the edges, with a faint dotted texture visible near the upper-left corner."
+        },
+        {
+          "src": "/a/KfiwreNkWj.png",
+          "description": "A wide, panoramic black-and-white landscape image shows layers of forested mountain ridges emerging from thick bands of mist. Dark evergreen silhouettes fill the foreground and middle distance, while paler ranges recede toward a cloudy sky. Jagged, lightly snow-streaked peaks rise near the upper center. Flowing white fog winds through the valleys, creating strong depth and a quiet, atmospheric mood. Subtle dotted halftone textures overlay the upper-left and lower-right corners, giving the otherwise photographic scene a graphic treatment. There is no text."
+        },
+        {
+          "src": "/a/h6-F3IiZxy.png",
+          "description": "A monochrome landscape photograph shows a jagged, snow-streaked mountain rising left of center above layers of forested ridges. Low mist fills the valleys, separating dark bands of conifer trees and fading distant peaks into pale gray. Streaked clouds sweep across the sky, echoing the rolling terrain below. The grayscale palette and soft atmospheric depth create a quiet, dramatic mood. A white vignette softens the edges, with subtle dotted grid patterns visible in the upper-left and lower-right corners."
+        },
+        {
+          "src": "/a/FC6KWyHKyx.png",
+          "description": "A wide, panoramic black-and-white landscape photo shows layers of forested mountain ridges receding into mist. Dark evergreen silhouettes define the foreground slopes, while distant peaks fade into pale gray beneath a cloudy sky. Bright ribbons of fog pool in the valleys and weave between overlapping hills, creating depth and a quiet, atmospheric mood. Subtle dotted and grid-like textures overlay the upper-left and lower-right corners, with softly faded edges giving the image a decorative, banner-like treatment."
+        }
+      ],
+      "htmlBytes": 48332,
+      "image_url": "https://doop.design/i/StnxuxcdNT.png?scale=2"
+    },
+    {
+      "id": "tZpJbgGcF5",
+      "pageId": "CCwouJnWg1:page1",
+      "name": "NovusMail / dark / ASCII source",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": -720,
+      "y": 7600,
+      "width": 1440,
+      "height": 3000,
+      "updatedAt": "2026-11-15T23:35:50.755Z",
+      "updatedBy": "Codex",
+      "images": [
+        {
+          "src": "/a/2Ey_uV98Hx.png",
+          "description": "An abstract digital illustration on a nearly black background features luminous white and gray dots forming layered, undulating mesh waves. The waves rise into peaks near the upper left and upper right, then slope inward toward a wide, dark central gap. Bright dotted ridgelines define their contours, while finer dots and tiny cross-shaped marks descend beneath them, fading into black. Faint horizontal lines hover above the peaks. The composition is roughly symmetrical, with most detail across the upper half and broad empty space below, creating a restrained, futuristic mood. There is no text."
+        },
+        {
+          "src": "/a/GfY-HKc7h6.png",
+          "description": "A panoramic black-and-white landscape photograph shows dense rows of flowering shrubs sweeping across rolling farmland. The curved planting lines lead from the textured foreground toward layered hills and distant mountain ridges, with pale mist pooled in the valleys. A small farmhouse and tall, narrow trees sit near the right edge. Streaked clouds and a bright band along the horizon contrast with the dark fields, creating a dramatic, tranquil mood. Subtle dotted patterns overlay the upper-left and lower-right corners."
+        },
+        {
+          "src": "/a/D0WiPWQ3eO.png",
+          "description": "A panoramic black-and-white landscape image shows layers of forested mountain ridges separated by luminous bands of low fog. Dark evergreen-covered slopes fill the foreground, while sharper, lightly snow-streaked peaks rise near the upper center. Distant ridgelines fade into pale gray beneath a dramatic, cloud-streaked sky. The composition draws the eye through alternating dark hills and bright mist, creating depth and a quiet, majestic, slightly ominous mood. Subtle dotted graphic textures overlay the upper-left and lower-right corners. There is no text."
+        },
+        {
+          "src": "/a/LorFfj6nuf.png",
+          "description": "A dramatic black-and-white landscape photograph shows a jagged, snow-streaked mountain rising left of center above layers of forested ridges. Low clouds and mist thread through the valleys, separating dark silhouettes of dense conifers from distant mountains fading into pale gray. Streaky clouds sweep across the sky, with a bright glow behind the main peak contrasting against darker upper corners. Small dotted patterns overlay the top-left and bottom-right corners. The panoramic composition feels quiet, remote, and cinematic, with strong tonal contrast and atmospheric depth."
+        },
+        {
+          "src": "/a/9HATsZqQZw.png",
+          "description": "A panoramic black-and-white landscape photograph shows overlapping forested mountain ridges fading into the distance. Pale ribbons of fog fill the valleys, contrasting with dark slopes and sharply silhouetted conifers in the foreground. A dramatic, cloud-heavy sky stretches across the upper portion, with a brighter band near the distant horizon. Subtle dotted graphic overlays appear in the upper-left and lower-right corners. The wide composition, layered silhouettes, and strong grayscale contrasts create a quiet, atmospheric, slightly ominous mood."
+        }
+      ],
+      "htmlBytes": 50195,
+      "image_url": "https://doop.design/i/tZpJbgGcF5.png?scale=2"
+    },
+    {
+      "id": "eXLag7TsWm",
+      "pageId": "Y8N7x3qPWe",
+      "name": "NovusMail / light / ASCII source",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 0,
+      "y": 0,
+      "width": 1440,
+      "height": 3000,
+      "updatedAt": "2026-11-15T23:02:59.663Z",
+      "updatedBy": "Codex",
+      "images": [
+        {
+          "src": "/a/AP5OamURlj.png",
+          "description": "A minimalist abstract illustration on a warm off-white background. Layered, undulating mesh forms extend inward from the left and right edges across the upper half, resembling rolling hills made of tiny black and gray dots and crosses. Darker dots define the crests, while the marks below grow lighter and fade into the background. A wide central gap separates the two groups, and the lower half is largely empty. Faint horizontal gray lines sit near both upper corners. The monochrome palette, delicate texture, and generous negative space create a quiet, airy, technical feel. There is no text."
+        },
+        {
+          "src": "/a/Gkz-u9lV3u.png",
+          "description": "A wide, black-and-white landscape photograph shows dense rows of flowering lavender sweeping across rolling fields. Curving bands of pale blossoms and dark furrows create a rhythmic pattern in the foreground, leading toward wooded hills and layered mountain ridges. Low mist fills the distant valleys beneath a softly clouded sky. The grayscale palette emphasizes the plants’ fine texture and the mountains’ hazy silhouettes, creating a quiet, serene mood. A soft white vignette fades the edges, with a faint dotted texture visible near the upper-left corner."
+        },
+        {
+          "src": "/a/KfiwreNkWj.png",
+          "description": "A wide, panoramic black-and-white landscape image shows layers of forested mountain ridges emerging from thick bands of mist. Dark evergreen silhouettes fill the foreground and middle distance, while paler ranges recede toward a cloudy sky. Jagged, lightly snow-streaked peaks rise near the upper center. Flowing white fog winds through the valleys, creating strong depth and a quiet, atmospheric mood. Subtle dotted halftone textures overlay the upper-left and lower-right corners, giving the otherwise photographic scene a graphic treatment. There is no text."
+        },
+        {
+          "src": "/a/h6-F3IiZxy.png",
+          "description": "A monochrome landscape photograph shows a jagged, snow-streaked mountain rising left of center above layers of forested ridges. Low mist fills the valleys, separating dark bands of conifer trees and fading distant peaks into pale gray. Streaked clouds sweep across the sky, echoing the rolling terrain below. The grayscale palette and soft atmospheric depth create a quiet, dramatic mood. A white vignette softens the edges, with subtle dotted grid patterns visible in the upper-left and lower-right corners."
+        },
+        {
+          "src": "/a/FC6KWyHKyx.png",
+          "description": "A wide, panoramic black-and-white landscape photo shows layers of forested mountain ridges receding into mist. Dark evergreen silhouettes define the foreground slopes, while distant peaks fade into pale gray beneath a cloudy sky. Bright ribbons of fog pool in the valleys and weave between overlapping hills, creating depth and a quiet, atmospheric mood. Subtle dotted and grid-like textures overlay the upper-left and lower-right corners, with softly faded edges giving the image a decorative, banner-like treatment."
+        }
+      ],
+      "htmlBytes": 46330,
+      "image_url": "https://doop.design/i/eXLag7TsWm.png?scale=2"
+    },
+    {
+      "id": "9QIQzqwAWN",
+      "pageId": "Y8N7x3qPWe",
+      "name": "NovusMail / dark / ASCII source",
+      "approvalStatus": "draft",
+      "approval": null,
+      "x": 1540,
+      "y": 0,
+      "width": 1440,
+      "height": 3000,
+      "updatedAt": "2026-11-15T23:02:59.678Z",
+      "updatedBy": "Codex",
+      "images": [
+        {
+          "src": "/a/2Ey_uV98Hx.png",
+          "description": "An abstract digital illustration on a nearly black background features luminous white and gray dots forming layered, undulating mesh waves. The waves rise into peaks near the upper left and upper right, then slope inward toward a wide, dark central gap. Bright dotted ridgelines define their contours, while finer dots and tiny cross-shaped marks descend beneath them, fading into black. Faint horizontal lines hover above the peaks. The composition is roughly symmetrical, with most detail across the upper half and broad empty space below, creating a restrained, futuristic mood. There is no text."
+        },
+        {
+          "src": "/a/GfY-HKc7h6.png",
+          "description": "A panoramic black-and-white landscape photograph shows dense rows of flowering shrubs sweeping across rolling farmland. The curved planting lines lead from the textured foreground toward layered hills and distant mountain ridges, with pale mist pooled in the valleys. A small farmhouse and tall, narrow trees sit near the right edge. Streaked clouds and a bright band along the horizon contrast with the dark fields, creating a dramatic, tranquil mood. Subtle dotted patterns overlay the upper-left and lower-right corners."
+        },
+        {
+          "src": "/a/D0WiPWQ3eO.png",
+          "description": "A panoramic black-and-white landscape image shows layers of forested mountain ridges separated by luminous bands of low fog. Dark evergreen-covered slopes fill the foreground, while sharper, lightly snow-streaked peaks rise near the upper center. Distant ridgelines fade into pale gray beneath a dramatic, cloud-streaked sky. The composition draws the eye through alternating dark hills and bright mist, creating depth and a quiet, majestic, slightly ominous mood. Subtle dotted graphic textures overlay the upper-left and lower-right corners. There is no text."
+        },
+        {
+          "src": "/a/LorFfj6nuf.png",
+          "description": "A dramatic black-and-white landscape photograph shows a jagged, snow-streaked mountain rising left of center above layers of forested ridges. Low clouds and mist thread through the valleys, separating dark silhouettes of dense conifers from distant mountains fading into pale gray. Streaky clouds sweep across the sky, with a bright glow behind the main peak contrasting against darker upper corners. Small dotted patterns overlay the top-left and bottom-right corners. The panoramic composition feels quiet, remote, and cinematic, with strong tonal contrast and atmospheric depth."
+        },
+        {
+          "src": "/a/9HATsZqQZw.png",
+          "description": "A panoramic black-and-white landscape photograph shows overlapping forested mountain ridges fading into the distance. Pale ribbons of fog fill the valleys, contrasting with dark slopes and sharply silhouetted conifers in the foreground. A dramatic, cloud-heavy sky stretches across the upper portion, with a brighter band near the distant horizon. Subtle dotted graphic overlays appear in the upper-left and lower-right corners. The wide composition, layered silhouettes, and strong grayscale contrasts create a quiet, atmospheric, slightly ominous mood."
+        }
+      ],
+      "htmlBytes": 46123,
+      "image_url": "https://doop.design/i/9QIQzqwAWN.png?scale=2"
+    }
+  ],
+  "guidelines": [
+    {
+      "name": "wonder-transfer",
+      "title": "Wonder Transfer — Source Fidelity",
+      "summary": "Imported Wonder designs",
+      "bytes": 1343
+    }
+  ],
+  "references": [],
+  "components": [
+    {
+      "id": "c45fp2kdrd",
+      "name": "Wonder Agenda Sidebar 29",
+      "signature": "Wonder Agenda Sidebar 29()",
+      "description": "Exact reusable subtree imported from Wonder; preserve the source styling.",
+      "usage": "<doop-use component=\"Wonder Agenda Sidebar 29\"></doop-use>",
+      "instances": 1
+    },
+    {
+      "id": "cknj4ufrgf",
+      "name": "Wonder Agenda Sidebar 30",
+      "signature": "Wonder Agenda Sidebar 30()",
+      "description": "Exact reusable subtree imported from Wonder; preserve the source styling.",
+      "usage": "<doop-use component=\"Wonder Agenda Sidebar 30\"></doop-use>",
+      "instances": 1
+    },
+    {
+      "id": "ccw6gimu6x",
+      "name": "Wonder Content Group 03",
+      "signature": "Wonder Content Group 03()",
+      "description": "Exact reusable subtree imported from Wonder; preserve the source styling.",
+      "usage": "<doop-use component=\"Wonder Content Group 03\"></doop-use>",
+      "instances": 19
+    },
+    {
+      "id": "ccxnw3kvad",
+      "name": "Wonder Content Group 07",
+      "signature": "Wonder Content Group 07()",
+      "description": "Exact reusable subtree imported from Wonder; preserve the source styling.",
+      "usage": "<doop-use component=\"Wonder Content Group 07\"></doop-use>",
+      "instances": 0
+    },
+    {
+      "id": "chl0o9qsw2",
+      "name": "Wonder Content Group 08",
+      "signature": "Wonder Content Group 08()",
+      "description": "Exact reusable subtree imported from Wonder; preserve the source styling.",
+      "usage": "<doop-use component=\"Wonder Content Group 08\"></doop-use>",
+      "instances": 0
+    },
+    {
+      "id": "c8o15ug72y",
+      "name": "Wonder Content Group 11",
+      "signature": "Wonder Content Group 11()",
+      "description": "Exact reusable subtree imported from Wonder; preserve the source styling.",
+      "usage": "<doop-use component=\"Wonder Content Group 11\"></doop-use>",
+      "instances": 0
+    },
+    {
+      "id": "ckui1geb96",
+      "name": "Wonder Content Group 12",
+      "signature": "Wonder Content Group 12()",
+      "description": "Exact reusable subtree imported from Wonder; preserve the source styling.",
+      "usage": "<doop-use component=\"Wonder Content Group 12\"></doop-use>",
+      "instances": 0
+    },
+    {
+      "id": "can2cps6d2",
+      "name": "Wonder Content Group 17",
+      "signature": "Wonder Content Group 17()",
+      "description": "Exact reusable subtree imported from Wonder; preserve the source styling.",
+      "usage": "<doop-use component=\"Wonder Content Group 17\"></doop-use>",
+      "instances": 0
+    },
+    {
+      "id": "c9ud9hm40h",
+      "name": "Wonder Content Group 18",
+      "signature": "Wonder Content Group 18()",
+      "description": "Exact reusable subtree imported from Wonder; preserve the source styling.",
+      "usage": "<doop-use component=\"Wonder Content Group 18\"></doop-use>",
+      "instances": 0
+    },
+    {
+      "id": "cojbwoh04s",
+      "name": "Wonder Content Group 21",
+      "signature": "Wonder Content Group 21()",
+      "description": "Exact reusable subtree imported from Wonder; preserve the source styling.",
+      "usage": "<doop-use component=\"Wonder Content Group 21\"></doop-use>",
+      "instances": 0
+    },
+    {
+      "id": "cjt3b31dn4",
+      "name": "Wonder Content Group 22",
+      "signature": "Wonder Content Group 22()",
+      "description": "Exact reusable subtree imported from Wonder; preserve the source styling.",
+      "usage": "<doop-use component=\"Wonder Content Group 22\"></doop-use>",
+      "instances": 0
+    },
+    {
+      "id": "c9be5kpzhn",
+      "name": "Wonder Content Group 23",
+      "signature": "Wonder Content Group 23()",
+      "description": "Exact reusable subtree imported from Wonder; preserve the source styling.",
+      "usage": "<doop-use component=\"Wonder Content Group 23\"></doop-use>",
+      "instances": 0
+    },
+    {
+      "id": "crs9736sxh",
+      "name": "Wonder Content Group 24",
+      "signature": "Wonder Content Group 24()",
+      "description": "Exact reusable subtree imported from Wonder; preserve the source styling.",
+      "usage": "<doop-use component=\"Wonder Content Group 24\"></doop-use>",
+      "instances": 0
+    },
+    {
+      "id": "caee721u9p",
+      "name": "Wonder Content Group 27",
+      "signature": "Wonder Content Group 27()",
+      "description": "Exact reusable subtree imported from Wonder; preserve the source styling.",
+      "usage": "<doop-use component=\"Wonder Content Group 27\"></doop-use>",
+      "instances": 1
+    },
+    {
+      "id": "cv7cogox8m",
+      "name": "Wonder Content Group 28",
+      "signature": "Wonder Content Group 28()",
+      "description": "Exact reusable subtree imported from Wonder; preserve the source styling.",
+      "usage": "<doop-use component=\"Wonder Content Group 28\"></doop-use>",
+      "instances": 1
+    },
+    {
+      "id": "coaottxkme",
+      "name": "Wonder Content Group 31",
+      "signature": "Wonder Content Group 31()",
+      "description": "Exact reusable subtree imported from Wonder; preserve the source styling.",
+      "usage": "<doop-use component=\"Wonder Content Group 31\"></doop-use>",
+      "instances": 0
+    },
+    {
+      "id": "cx0nvm79ms",
+      "name": "Wonder Content Group 32",
+      "signature": "Wonder Content Group 32()",
+      "description": "Exact reusable subtree imported from Wonder; preserve the source styling.",
+      "usage": "<doop-use component=\"Wonder Content Group 32\"></doop-use>",
+      "instances": 0
+    },
+    {
+      "id": "c1gma8qz6n",
+      "name": "Wonder Control Icon 01",
+      "signature": "Wonder Control Icon 01()",
+      "description": "Exact reusable subtree imported from Wonder; preserve the source styling.",
+      "usage": "<doop-use component=\"Wonder Control Icon 01\"></doop-use>",
+      "instances": 124
+    },
+    {
+      "id": "crnq4a657i",
+      "name": "Wonder Event List 13",
+      "signature": "Wonder Event List 13()",
+      "description": "Exact reusable subtree imported from Wonder; preserve the source styling.",
+      "usage": "<doop-use component=\"Wonder Event List 13\"></doop-use>",
+      "instances": 22
+    },
+    {
+      "id": "crnrtgowdr",
+      "name": "Wonder Event List 14",
+      "signature": "Wonder Event List 14()",
+      "description": "Exact reusable subtree imported from Wonder; preserve the source styling.",
+      "usage": "<doop-use component=\"Wonder Event List 14\"></doop-use>",
+      "instances": 22
+    },
+    {
+      "id": "czv8x3h821",
+      "name": "Wonder Feature Card 25",
+      "signature": "Wonder Feature Card 25()",
+      "description": "Exact reusable subtree imported from Wonder; preserve the source styling.",
+      "usage": "<doop-use component=\"Wonder Feature Card 25\"></doop-use>",
+      "instances": 0
+    },
+    {
+      "id": "cazchtyrht",
+      "name": "Wonder Feature Card 26",
+      "signature": "Wonder Feature Card 26()",
+      "description": "Exact reusable subtree imported from Wonder; preserve the source styling.",
+      "usage": "<doop-use component=\"Wonder Feature Card 26\"></doop-use>",
+      "instances": 0
+    },
+    {
+      "id": "c9uky5xp3p",
+      "name": "Wonder Inbox Queue 19",
+      "signature": "Wonder Inbox Queue 19()",
+      "description": "Exact reusable subtree imported from Wonder; preserve the source styling.",
+      "usage": "<doop-use component=\"Wonder Inbox Queue 19\"></doop-use>",
+      "instances": 2
+    },
+    {
+      "id": "cnefo4vkqe",
+      "name": "Wonder Inbox Queue 20",
+      "signature": "Wonder Inbox Queue 20()",
+      "description": "Exact reusable subtree imported from Wonder; preserve the source styling.",
+      "usage": "<doop-use component=\"Wonder Inbox Queue 20\"></doop-use>",
+      "instances": 2
+    },
+    {
+      "id": "cvdvcporhp",
+      "name": "Wonder Message Reader 15",
+      "signature": "Wonder Message Reader 15()",
+      "description": "Exact reusable subtree imported from Wonder; preserve the source styling.",
+      "usage": "<doop-use component=\"Wonder Message Reader 15\"></doop-use>",
+      "instances": 2
+    },
+    {
+      "id": "cd59gtyynh",
+      "name": "Wonder Message Reader 16",
+      "signature": "Wonder Message Reader 16()",
+      "description": "Exact reusable subtree imported from Wonder; preserve the source styling.",
+      "usage": "<doop-use component=\"Wonder Message Reader 16\"></doop-use>",
+      "instances": 2
+    },
+    {
+      "id": "cbosibng8y",
+      "name": "Wonder Result List 05",
+      "signature": "Wonder Result List 05()",
+      "description": "Exact reusable subtree imported from Wonder; preserve the source styling.",
+      "usage": "<doop-use component=\"Wonder Result List 05\"></doop-use>",
+      "instances": 21
+    },
+    {
+      "id": "c1d9di3093",
+      "name": "Wonder Result List 06",
+      "signature": "Wonder Result List 06()",
+      "description": "Exact reusable subtree imported from Wonder; preserve the source styling.",
+      "usage": "<doop-use component=\"Wonder Result List 06\"></doop-use>",
+      "instances": 21
+    },
+    {
+      "id": "c4zji3gtyq",
+      "name": "Wonder Result List 09",
+      "signature": "Wonder Result List 09()",
+      "description": "Exact reusable subtree imported from Wonder; preserve the source styling.",
+      "usage": "<doop-use component=\"Wonder Result List 09\"></doop-use>",
+      "instances": 19
+    },
+    {
+      "id": "cpx16sx33g",
+      "name": "Wonder Result List 10",
+      "signature": "Wonder Result List 10()",
+      "description": "Exact reusable subtree imported from Wonder; preserve the source styling.",
+      "usage": "<doop-use component=\"Wonder Result List 10\"></doop-use>",
+      "instances": 19
+    },
+    {
+      "id": "cyx1l7kkbo",
+      "name": "Wonder Workspace Background 35",
+      "signature": "Wonder Workspace Background 35()",
+      "description": "Exact reusable subtree imported from Wonder; preserve the source styling.",
+      "usage": "<doop-use component=\"Wonder Workspace Background 35\"></doop-use>",
+      "instances": 14
+    },
+    {
+      "id": "cvne5e67mn",
+      "name": "Wonder Workspace Background 36",
+      "signature": "Wonder Workspace Background 36()",
+      "description": "Exact reusable subtree imported from Wonder; preserve the source styling.",
+      "usage": "<doop-use component=\"Wonder Workspace Background 36\"></doop-use>",
+      "instances": 14
+    },
+    {
+      "id": "cajyb9nr23",
+      "name": "Wonder Workspace Chrome 02",
+      "signature": "Wonder Workspace Chrome 02()",
+      "description": "Exact reusable subtree imported from Wonder; preserve the source styling.",
+      "usage": "<doop-use component=\"Wonder Workspace Chrome 02\"></doop-use>",
+      "instances": 18
+    },
+    {
+      "id": "cafu1g8y1h",
+      "name": "Wonder Workspace Chrome 04",
+      "signature": "Wonder Workspace Chrome 04()",
+      "description": "Exact reusable subtree imported from Wonder; preserve the source styling.",
+      "usage": "<doop-use component=\"Wonder Workspace Chrome 04\"></doop-use>",
+      "instances": 18
+    },
+    {
+      "id": "cea5rsie0z",
+      "name": "Wonder Workspace Sidebar 33",
+      "signature": "Wonder Workspace Sidebar 33()",
+      "description": "Exact reusable subtree imported from Wonder; preserve the source styling.",
+      "usage": "<doop-use component=\"Wonder Workspace Sidebar 33\"></doop-use>",
+      "instances": 3
+    },
+    {
+      "id": "c788i8iz08",
+      "name": "Wonder Workspace Sidebar 34",
+      "signature": "Wonder Workspace Sidebar 34()",
+      "description": "Exact reusable subtree imported from Wonder; preserve the source styling.",
+      "usage": "<doop-use component=\"Wonder Workspace Sidebar 34\"></doop-use>",
+      "instances": 3
+    }
+  ],
+  "webFonts": [
+    "Inter",
+    "Geist",
+    "Roboto",
+    "Open Sans",
+    "Lato",
+    "Manrope",
+    "DM Sans",
+    "Space Grotesk",
+    "Plus Jakarta Sans",
+    "Work Sans",
+    "Nunito",
+    "Poppins",
+    "Playfair Display",
+    "Lora",
+    "Merriweather",
+    "Source Serif 4",
+    "Fraunces",
+    "EB Garamond",
+    "JetBrains Mono",
+    "IBM Plex Mono",
+    "Geist Mono",
+    "Fira Code"
+  ],
+  "tokens": [
+    {
+      "name": "--glaze-dark-shell",
+      "type": "color",
+      "value": "#0f1012",
+      "description": "Deep grey inner UI shell."
+    },
+    {
+      "name": "--glaze-light-warning-text",
+      "type": "color",
+      "value": "#8a5a00",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--blue-mark",
+      "type": "color",
+      "value": "oklch(0.72 0.1 250)",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--ascii-light-btn-bg",
+      "type": "color",
+      "value": "#4a4844",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--ascii-dark-bg-page-alpha-20",
+      "type": "color",
+      "value": "#08080733",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--ascii-emerald-500",
+      "type": "color",
+      "value": "oklch(0.696 0.17 162.48)",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--cyan-wash",
+      "type": "color",
+      "value": "oklch(0.965 0.04 195)",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--ascii-light-text-primary",
+      "type": "color",
+      "value": "#252422",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--landing-carbon-ink",
+      "type": "color",
+      "value": "#f2f2f1",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--glaze-dark-top",
+      "type": "color",
+      "value": "#62666d",
+      "description": "Recoloured from approved ASCII source pair. Existing component geometry preserved."
+    },
+    {
+      "name": "--landing-aubergine-button-base",
+      "type": "color",
+      "value": "#cdafce",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--ascii-dark-btn-text",
+      "type": "color",
+      "value": "#080807",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--landing-carbon-page",
+      "type": "color",
+      "value": "#0d0c0b",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--glaze-modal-scrim",
+      "type": "color",
+      "value": "#0b0c0e70",
+      "description": "Recoloured from approved ASCII source pair. Existing component geometry preserved."
+    },
+    {
+      "name": "--canvas",
+      "type": "color",
+      "value": "oklch(0.991 0.002 250)",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--ink",
+      "type": "color",
+      "value": "oklch(0.2 0.024 262)",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--glaze-dark-confirm",
+      "type": "color",
+      "value": "#a1c4b3",
+      "description": "Recoloured from approved ASCII source pair. Existing component geometry preserved."
+    },
+    {
+      "name": "--landing-forest-line",
+      "type": "color",
+      "value": "#3c4842",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--ascii-dark-text-secondary",
+      "type": "color",
+      "value": "#a39c8e",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--glaze-dark-error-text",
+      "type": "color",
+      "value": "#ffc3bb",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--landing-forest-paper",
+      "type": "color",
+      "value": "#16211c",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--landing-midnight-line",
+      "type": "color",
+      "value": "#3e4552",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--ascii-light-bg-page",
+      "type": "color",
+      "value": "#f2f1ed",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--landing-forest-button-base",
+      "type": "color",
+      "value": "#a1c4b3",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--glaze-dark-line",
+      "type": "color",
+      "value": "#ededee26",
+      "description": "Recoloured from approved ASCII source pair. Existing component geometry preserved."
+    },
+    {
+      "name": "--landing-forest-muted",
+      "type": "color",
+      "value": "#abb3af",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--glaze-light-line",
+      "type": "color",
+      "value": "#2524221f",
+      "description": "Recoloured from approved ASCII source pair. Existing component geometry preserved."
+    },
+    {
+      "name": "--glaze-dark-bottom",
+      "type": "color",
+      "value": "#24262b",
+      "description": "Recoloured from approved ASCII source pair. Existing component geometry preserved."
+    },
+    {
+      "name": "--ascii-emerald-500-alpha-15",
+      "type": "color",
+      "value": "#00b98126",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--landing-forest-page",
+      "type": "color",
+      "value": "#080e0b",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--landing-midnight-paper",
+      "type": "color",
+      "value": "#171e2a",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--glaze-light-page",
+      "type": "color",
+      "value": "#f2f1ed",
+      "description": "Recoloured from approved ASCII source pair. Existing component geometry preserved."
+    },
+    {
+      "name": "--landing-carbon-paper",
+      "type": "color",
+      "value": "#201e1b",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--ascii-composer-button",
+      "type": "color",
+      "value": "#ebe4d5",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--blue-wash",
+      "type": "color",
+      "value": "oklch(0.945 0.02 250)",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--glaze-dark-paper",
+      "type": "color",
+      "value": "#141517",
+      "description": "Dark grey raised panel."
+    },
+    {
+      "name": "--landing-aubergine-ink",
+      "type": "color",
+      "value": "#f3f1f3",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--landing-midnight-button-base",
+      "type": "color",
+      "value": "#a3bce5",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--landing-carbon-muted",
+      "type": "color",
+      "value": "#b2b1af",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--glaze-light-paper",
+      "type": "color",
+      "value": "#f5f4f0",
+      "description": "Recoloured from approved ASCII source pair. Existing component geometry preserved."
+    },
+    {
+      "name": "--ascii-dark-bg-page",
+      "type": "color",
+      "value": "#080807",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--glaze-light-error-text",
+      "type": "color",
+      "value": "#b23c29",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--ascii-white-alpha-15",
+      "type": "color",
+      "value": "#ffffff26",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--ascii-dark-pill-bg",
+      "type": "color",
+      "value": "#0c0c0ad1",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--ascii-light-bg-card-elevated-alpha-92",
+      "type": "color",
+      "value": "#f5f4f0eb",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--glaze-light-warning-bg",
+      "type": "color",
+      "value": "#fbf0d9",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--ascii-composer-secondary",
+      "type": "color",
+      "value": "#b5ae9e",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--glaze-light-error-bg",
+      "type": "color",
+      "value": "#fbe9e5",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--well",
+      "type": "color",
+      "value": "oklch(0.956 0.004 255)",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--ascii-light-btn-text",
+      "type": "color",
+      "value": "#f5f4f0",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--landing-aubergine-line",
+      "type": "color",
+      "value": "#4b414c",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--ascii-dark-text-primary-alpha-10",
+      "type": "color",
+      "value": "#ebe4d51a",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--ascii-light-bg-card-elevated",
+      "type": "color",
+      "value": "#f5f4f0",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--landing-aubergine-muted",
+      "type": "color",
+      "value": "#b5afb5",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--glaze-dark-on",
+      "type": "color",
+      "value": "#0b1712",
+      "description": "Recoloured from approved ASCII source pair. Existing component geometry preserved."
+    },
+    {
+      "name": "--ascii-dark-bg-card-alpha-80",
+      "type": "color",
+      "value": "#12110fcc",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--landing-aubergine-page",
+      "type": "color",
+      "value": "#0f0a0f",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--glaze-dark-warning-bg",
+      "type": "color",
+      "value": "#463c2b",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--line",
+      "type": "color",
+      "value": "oklch(0.2 0.024 262 / 0.16)",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--glaze-light-bottom",
+      "type": "color",
+      "value": "#171717",
+      "description": "Recoloured from approved ASCII source pair. Existing component geometry preserved."
+    },
+    {
+      "name": "--ascii-light-bg-card",
+      "type": "color",
+      "value": "#eae8e3",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--glaze-light-muted",
+      "type": "color",
+      "value": "#5e5c57",
+      "description": "Recoloured from approved ASCII source pair. Existing component geometry preserved."
+    },
+    {
+      "name": "--glaze-light-button-base",
+      "type": "color",
+      "value": "#4a4844",
+      "description": "Recoloured from approved ASCII source pair. Existing component geometry preserved."
+    },
+    {
+      "name": "--ascii-composer-ink",
+      "type": "color",
+      "value": "#f5efe4",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--ascii-dark-text-primary",
+      "type": "color",
+      "value": "#ebe4d5",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--glaze-dark-warning-text",
+      "type": "color",
+      "value": "#f0cf8a",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--ascii-dark-bg-card-elevated-alpha-92",
+      "type": "color",
+      "value": "#171512eb",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--landing-midnight-ink",
+      "type": "color",
+      "value": "#f0f2f5",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--ascii-light-text-secondary",
+      "type": "color",
+      "value": "#5e5c57",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--ascii-light-border-subtle",
+      "type": "color",
+      "value": "#2524221f",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--ascii-dark-border-subtle",
+      "type": "color",
+      "value": "#ebe4d51c",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--ascii-light-text-primary-alpha-10",
+      "type": "color",
+      "value": "#2524221a",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--glaze-light-shell",
+      "type": "color",
+      "value": "#eae8e3",
+      "description": "Recoloured from approved ASCII source pair. Existing component geometry preserved."
+    },
+    {
+      "name": "--landing-carbon-line",
+      "type": "color",
+      "value": "#474541",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--landing-forest-on",
+      "type": "color",
+      "value": "#0b1712",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--landing-carbon-on",
+      "type": "color",
+      "value": "#151311",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--landing-midnight-muted",
+      "type": "color",
+      "value": "#acb1ba",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--paper",
+      "type": "color",
+      "value": "oklch(0.997 0.001 250)",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--glaze-dark-ink",
+      "type": "color",
+      "value": "#ededee",
+      "description": "Recoloured from approved ASCII source pair. Existing component geometry preserved."
+    },
+    {
+      "name": "--ascii-light-pill-bg",
+      "type": "color",
+      "value": "#f2f1edd9",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--glaze-rim",
+      "type": "color",
+      "value": "#ffffff3d",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--text-secondary",
+      "type": "color",
+      "value": "oklch(0.2 0.024 262 / 0.8)",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--glaze-light-on",
+      "type": "color",
+      "value": "#f5f4f0",
+      "description": "Recoloured from approved ASCII source pair. Existing component geometry preserved."
+    },
+    {
+      "name": "--landing-forest-ink",
+      "type": "color",
+      "value": "#eff3f1",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--landing-aubergine-on",
+      "type": "color",
+      "value": "#191019",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--ascii-light-bg-page-alpha-20",
+      "type": "color",
+      "value": "#f2f1ed33",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--glaze-dark-error-bg",
+      "type": "color",
+      "value": "#49333a",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--glaze-dark-page",
+      "type": "color",
+      "value": "#0b0c0e",
+      "description": "Deep charcoal inner UI canvas, not pure black."
+    },
+    {
+      "name": "--glaze-dark-selected",
+      "type": "color",
+      "value": "#1b1c1f",
+      "description": "Selected UI row with restrained separation."
+    },
+    {
+      "name": "--ascii-composer-button-ink",
+      "type": "color",
+      "value": "#141311",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--ascii-composer-surface-alpha-78",
+      "type": "color",
+      "value": "#1c1b18c7",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--glaze-dark-muted",
+      "type": "color",
+      "value": "#b2b3b7",
+      "description": "Recoloured from approved ASCII source pair. Existing component geometry preserved."
+    },
+    {
+      "name": "--glaze-light-top",
+      "type": "color",
+      "value": "#666666",
+      "description": "Recoloured from approved ASCII source pair. Existing component geometry preserved."
+    },
+    {
+      "name": "--ascii-light-text-muted",
+      "type": "color",
+      "value": "#7b7871",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--glaze-dark-ok",
+      "type": "color",
+      "value": "#9ad3b0",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--ascii-dark-text-muted",
+      "type": "color",
+      "value": "#787266",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--ascii-dark-text-primary-alpha-40",
+      "type": "color",
+      "value": "#ebe4d566",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--ascii-composer-surface",
+      "type": "color",
+      "value": "#1c1b18",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--landing-midnight-page",
+      "type": "color",
+      "value": "#090c12",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--landing-aubergine-paper",
+      "type": "color",
+      "value": "#231b24",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--ascii-light-bg-card-alpha-80",
+      "type": "color",
+      "value": "#eae8e3cc",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--ascii-dark-bg-card",
+      "type": "color",
+      "value": "#12110f",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--glaze-dark-button-base",
+      "type": "color",
+      "value": "#35383e",
+      "description": "Recoloured from approved ASCII source pair. Existing component geometry preserved."
+    },
+    {
+      "name": "--landing-midnight-on",
+      "type": "color",
+      "value": "#0d141f",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--ascii-dark-bg-card-elevated",
+      "type": "color",
+      "value": "#171512",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--glaze-light-confirm",
+      "type": "color",
+      "value": "#a1c4b3",
+      "description": "Recoloured from approved ASCII source pair. Existing component geometry preserved."
+    },
+    {
+      "name": "--glaze-light-ok",
+      "type": "color",
+      "value": "#1a7640",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--glaze-light-ink",
+      "type": "color",
+      "value": "#252422",
+      "description": "Recoloured from approved ASCII source pair. Existing component geometry preserved."
+    },
+    {
+      "name": "--landing-carbon-button-base",
+      "type": "color",
+      "value": "#c4b9a9",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--ascii-light-text-primary-alpha-40",
+      "type": "color",
+      "value": "#25242266",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--glaze-sheen",
+      "type": "color",
+      "value": "#ffffff47",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--glaze-light-selected",
+      "type": "color",
+      "value": "#eae8e3",
+      "description": "Recoloured from approved ASCII source pair. Existing component geometry preserved."
+    },
+    {
+      "name": "--ascii-composer-preview-ink",
+      "type": "color",
+      "value": "#e5dac3",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--ascii-dark-btn-bg",
+      "type": "color",
+      "value": "#e5dac3",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--glaze-light-switch-thumb",
+      "type": "color",
+      "value": "var(--glaze-light-button-base)"
+    },
+    {
+      "name": "--glaze-dark-switch-thumb",
+      "type": "color",
+      "value": "var(--glaze-dark-button-base)"
+    },
+    {
+      "name": "--nm-ascii-page",
+      "type": "color",
+      "value": "#f2f1ed",
+      "themes": {
+        "dark": "#000000"
+      },
+      "description": "ASCII landing only. Pure OLED black in dark mode."
+    },
+    {
+      "name": "--nm-ascii-card",
+      "type": "color",
+      "value": "#eae8e3",
+      "themes": {
+        "dark": "#121315"
+      },
+      "description": "ASCII source pair only. card role; neutral charcoal dark theme."
+    },
+    {
+      "name": "--nm-ascii-elevated",
+      "type": "color",
+      "value": "#f5f4f0",
+      "themes": {
+        "dark": "#191a1d"
+      },
+      "description": "ASCII source pair only. elevated role; neutral charcoal dark theme."
+    },
+    {
+      "name": "--nm-ascii-ink",
+      "type": "color",
+      "value": "#252422",
+      "themes": {
+        "dark": "#ededee"
+      },
+      "description": "ASCII source pair only. ink role; neutral charcoal dark theme."
+    },
+    {
+      "name": "--nm-ascii-secondary",
+      "type": "color",
+      "value": "#5e5c57",
+      "themes": {
+        "dark": "#b2b3b7"
+      },
+      "description": "ASCII source pair only. secondary role; neutral charcoal dark theme."
+    },
+    {
+      "name": "--nm-ascii-muted",
+      "type": "color",
+      "value": "#7b7871",
+      "themes": {
+        "dark": "#96979d"
+      },
+      "description": "ASCII source pair only. muted role; neutral charcoal dark theme."
+    },
+    {
+      "name": "--nm-ascii-line",
+      "type": "color",
+      "value": "#2524221f",
+      "themes": {
+        "dark": "#ededee26"
+      },
+      "description": "ASCII source pair only. line role; neutral charcoal dark theme."
+    },
+    {
+      "name": "--nm-ascii-pill",
+      "type": "color",
+      "value": "#f2f1edd9",
+      "themes": {
+        "dark": "#1b1c1fe6"
+      },
+      "description": "ASCII source pair only. pill role; neutral charcoal dark theme."
+    },
+    {
+      "name": "--nm-ascii-button",
+      "type": "color",
+      "value": "#4a4844",
+      "themes": {
+        "dark": "#d8dade"
+      },
+      "description": "ASCII source pair only. button role; neutral charcoal dark theme."
+    },
+    {
+      "name": "--nm-ascii-on-button",
+      "type": "color",
+      "value": "#f5f4f0",
+      "themes": {
+        "dark": "#17181a"
+      },
+      "description": "ASCII source pair only. on-button role; neutral charcoal dark theme."
+    },
+    {
+      "name": "--nm-ascii-composer",
+      "type": "color",
+      "value": "#242529",
+      "themes": {
+        "dark": "#242529"
+      },
+      "description": "ASCII source pair only. composer role; neutral charcoal dark theme."
+    },
+    {
+      "name": "--nm-ascii-composer-ink",
+      "type": "color",
+      "value": "#ededee",
+      "themes": {
+        "dark": "#ededee"
+      },
+      "description": "ASCII source pair only. composer-ink role; neutral charcoal dark theme."
+    },
+    {
+      "name": "--nm-ascii-composer-secondary",
+      "type": "color",
+      "value": "#b2b3b7",
+      "themes": {
+        "dark": "#b2b3b7"
+      },
+      "description": "ASCII source pair only. composer-secondary role; neutral charcoal dark theme."
+    },
+    {
+      "name": "--nm-ascii-accent",
+      "type": "color",
+      "value": "#a1c4b3",
+      "themes": {
+        "dark": "#a1c4b3"
+      },
+      "description": "ASCII source pair only. accent role; neutral charcoal dark theme."
+    },
+    {
+      "name": "--nm-ascii-on-accent",
+      "type": "color",
+      "value": "#0b1712",
+      "themes": {
+        "dark": "#0b1712"
+      },
+      "description": "ASCII source pair only. on-accent role; neutral charcoal dark theme."
+    },
+    {
+      "name": "--nm-ascii-silver",
+      "type": "color",
+      "value": "#d8dade",
+      "themes": {
+        "dark": "#d8dade"
+      },
+      "description": "ASCII source pair only. silver role; neutral charcoal dark theme."
+    },
+    {
+      "name": "--nm-ascii-on-silver",
+      "type": "color",
+      "value": "#17181a",
+      "themes": {
+        "dark": "#17181a"
+      },
+      "description": "ASCII source pair only. on-silver role; neutral charcoal dark theme."
+    },
+    {
+      "name": "--nm-ascii-sheen",
+      "type": "color",
+      "value": "#ffffff47",
+      "themes": {
+        "dark": "#ffffff47"
+      },
+      "description": "ASCII source pair only. sheen role; neutral charcoal dark theme."
+    },
+    {
+      "name": "--nm-ascii-rim",
+      "type": "color",
+      "value": "#ffffff3d",
+      "themes": {
+        "dark": "#ffffff3d"
+      },
+      "description": "ASCII source pair only. rim role; neutral charcoal dark theme."
+    },
+    {
+      "name": "--nm-ascii-shadow",
+      "type": "color",
+      "value": "#00000026",
+      "themes": {
+        "dark": "#00000040"
+      },
+      "description": "ASCII source pair only. shadow role; neutral charcoal dark theme."
+    },
+    {
+      "name": "--nm-ascii-glaze-graphite-top",
+      "type": "color",
+      "value": "#62666d",
+      "description": "Dark ASCII CTA upper graphite light."
+    },
+    {
+      "name": "--nm-ascii-glaze-graphite-base",
+      "type": "color",
+      "value": "#35383e",
+      "description": "Dark ASCII CTA body."
+    },
+    {
+      "name": "--nm-ascii-glaze-graphite-bottom",
+      "type": "color",
+      "value": "#24262b",
+      "description": "Dark ASCII CTA lower glass edge."
+    },
+    {
+      "name": "--nm-ascii-glaze-graphite-rim",
+      "type": "color",
+      "value": "#aeb4bf80",
+      "description": "Dark ASCII CTA outer rim."
+    },
+    {
+      "name": "--nm-ascii-glaze-graphite-ink",
+      "type": "color",
+      "value": "#f5f6f7",
+      "description": "High contrast text on graphite Glaze."
+    },
+    {
+      "name": "--nm-ascii-radius-panel",
+      "type": "radius",
+      "value": "16px"
+    },
+    {
+      "name": "--nm-ascii-radius-control",
+      "type": "radius",
+      "value": "999px"
+    },
+    {
+      "name": "--nm-ascii-space-1",
+      "type": "spacing",
+      "value": "4px"
+    },
+    {
+      "name": "--nm-ascii-space-2",
+      "type": "spacing",
+      "value": "8px"
+    },
+    {
+      "name": "--nm-ascii-space-3",
+      "type": "spacing",
+      "value": "12px"
+    },
+    {
+      "name": "--nm-ascii-space-4",
+      "type": "spacing",
+      "value": "16px"
+    },
+    {
+      "name": "--nm-ascii-space-5",
+      "type": "spacing",
+      "value": "20px"
+    },
+    {
+      "name": "--nm-ascii-height-control",
+      "type": "spacing",
+      "value": "36px"
+    },
+    {
+      "name": "--ascii-font-inter",
+      "type": "fontFamily",
+      "value": "Inter, system-ui, -apple-system, sans-serif",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--glaze-font",
+      "type": "fontFamily",
+      "value": "Geist, sans-serif",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--glaze-display",
+      "type": "fontFamily",
+      "value": "Instrument Serif, Georgia, serif",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--glaze-mono",
+      "type": "fontFamily",
+      "value": "Geist Mono, monospace",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--ascii-font-jetbrains-mono",
+      "type": "fontFamily",
+      "value": "JetBrains Mono, ui-monospace, SFMono-Regular, monospace",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--font-sans",
+      "type": "fontFamily",
+      "value": "system-ui, sans-serif",
+      "description": "Imported from the current Wonder file"
+    },
+    {
+      "name": "--ascii-font-instrument-serif",
+      "type": "fontFamily",
+      "value": "\"Instrument Serif\", Georgia, serif"
+    },
+    {
+      "name": "--nm-ascii-sans",
+      "type": "fontFamily",
+      "value": "Geist, sans-serif"
+    },
+    {
+      "name": "--nm-ascii-mono",
+      "type": "fontFamily",
+      "value": "Geist Mono, monospace"
+    },
+    {
+      "name": "--nm-ascii-display",
+      "type": "fontFamily",
+      "value": "\"Instrument Serif\", Georgia, serif"
+    },
+    {
+      "name": "--nm-ascii-size-body",
+      "type": "fontSize",
+      "value": "13px"
+    },
+    {
+      "name": "--nm-ascii-size-label",
+      "type": "fontSize",
+      "value": "12px"
+    }
+  ],
+  "tokenThemes": [
+    "dark"
+  ],
+  "existingStyle": {
+    "frames": 54,
+    "colours": [],
+    "fonts": []
+  },
+  "note": "Frames with `images` reference pictures people uploaded or pasted; each carries a `description` of what it shows (null while it is being written). Read them, and call get_frame_screenshot on the relevant ones before designing. A frame that is nothing but one image is a reference pasted for you: leave it as it is and deliver in a separate frame. A design that uses images is an ordinary frame. This canvas has style guides. Call get_guidelines for each relevant one BEFORE designing — every frame must follow them. Hosted fonts, which render identically for every viewer and in every export (sans: Inter, Geist, Roboto, Open Sans, Lato, Manrope, DM Sans, Space Grotesk, Plus Jakarta Sans, Work Sans, Nunito, Poppins; serif: Playfair Display, Lora, Merriweather, Source Serif 4, Fraunces, EB Garamond; mono: JetBrains Mono, IBM Plex Mono, Geist Mono, Fira Code): use one by naming it in CSS (font-family: \"Family\", sans-serif); Doop links it from Google Fonts by itself, so do not add the <link> yourself and keep the <link data-doop-webfonts> it adds. OS fonts such as Georgia, Verdana or Helvetica render differently on each machine and in exports; prefer these or the canvas's custom fonts. Design tokens (--glaze-dark-shell (color: #0f1012), --glaze-light-warning-text (color: #8a5a00), --blue-mark (color: oklch(0.72 0.1 250)), --ascii-light-btn-bg (color: #4a4844), --ascii-dark-bg-page-alpha-20 (color: #08080733), --ascii-emerald-500 (color: oklch(0.696 0.17 162.48)), --cyan-wash (color: oklch(0.965 0.04 195)), --ascii-light-text-primary (color: #252422), --landing-carbon-ink (color: #f2f2f1), --glaze-dark-top (color: #62666d), --landing-aubergine-button-base (color: #cdafce), --ascii-dark-btn-text (color: #080807), --landing-carbon-page (color: #0d0c0b), --glaze-modal-scrim (color: #0b0c0e70), --canvas (color: oklch(0.991 0.002 250)), --ink (color: oklch(0.2 0.024 262)), --glaze-dark-confirm (color: #a1c4b3), --landing-forest-line (color: #3c4842), --ascii-dark-text-secondary (color: #a39c8e), --glaze-dark-error-text (color: #ffc3bb), --landing-forest-paper (color: #16211c), --landing-midnight-line (color: #3e4552), --ascii-light-bg-page (color: #f2f1ed), --landing-forest-button-base (color: #a1c4b3), --glaze-dark-line (color: #ededee26), --landing-forest-muted (color: #abb3af), --glaze-light-line (color: #2524221f), --glaze-dark-bottom (color: #24262b), --ascii-emerald-500-alpha-15 (color: #00b98126), --landing-forest-page (color: #080e0b), --landing-midnight-paper (color: #171e2a), --glaze-light-page (color: #f2f1ed), --landing-carbon-paper (color: #201e1b), --ascii-composer-button (color: #ebe4d5), --blue-wash (color: oklch(0.945 0.02 250)), --glaze-dark-paper (color: #141517), --landing-aubergine-ink (color: #f3f1f3), --landing-midnight-button-base (color: #a3bce5), --landing-carbon-muted (color: #b2b1af), --glaze-light-paper (color: #f5f4f0), --ascii-dark-bg-page (color: #080807), --glaze-light-error-text (color: #b23c29), --ascii-white-alpha-15 (color: #ffffff26), --ascii-dark-pill-bg (color: #0c0c0ad1), --ascii-light-bg-card-elevated-alpha-92 (color: #f5f4f0eb), --glaze-light-warning-bg (color: #fbf0d9), --ascii-composer-secondary (color: #b5ae9e), --glaze-light-error-bg (color: #fbe9e5), --well (color: oklch(0.956 0.004 255)), --ascii-light-btn-text (color: #f5f4f0), --landing-aubergine-line (color: #4b414c), --ascii-dark-text-primary-alpha-10 (color: #ebe4d51a), --ascii-light-bg-card-elevated (color: #f5f4f0), --landing-aubergine-muted (color: #b5afb5), --glaze-dark-on (color: #0b1712), --ascii-dark-bg-card-alpha-80 (color: #12110fcc), --landing-aubergine-page (color: #0f0a0f), --glaze-dark-warning-bg (color: #463c2b), --line (color: oklch(0.2 0.024 262 / 0.16)), --glaze-light-bottom (color: #171717), --ascii-light-bg-card (color: #eae8e3), --glaze-light-muted (color: #5e5c57), --glaze-light-button-base (color: #4a4844), --ascii-composer-ink (color: #f5efe4), --ascii-dark-text-primary (color: #ebe4d5), --glaze-dark-warning-text (color: #f0cf8a), --ascii-dark-bg-card-elevated-alpha-92 (color: #171512eb), --landing-midnight-ink (color: #f0f2f5), --ascii-light-text-secondary (color: #5e5c57), --ascii-light-border-subtle (color: #2524221f), --ascii-dark-border-subtle (color: #ebe4d51c), --ascii-light-text-primary-alpha-10 (color: #2524221a), --glaze-light-shell (color: #eae8e3), --landing-carbon-line (color: #474541), --landing-forest-on (color: #0b1712), --landing-carbon-on (color: #151311), --landing-midnight-muted (color: #acb1ba), --paper (color: oklch(0.997 0.001 250)), --glaze-dark-ink (color: #ededee), --ascii-light-pill-bg (color: #f2f1edd9), --glaze-rim (color: #ffffff3d), --text-secondary (color: oklch(0.2 0.024 262 / 0.8)), --glaze-light-on (color: #f5f4f0), --landing-forest-ink (color: #eff3f1), --landing-aubergine-on (color: #191019), --ascii-light-bg-page-alpha-20 (color: #f2f1ed33), --glaze-dark-error-bg (color: #49333a), --glaze-dark-page (color: #0b0c0e), --glaze-dark-selected (color: #1b1c1f), --ascii-composer-button-ink (color: #141311), --ascii-composer-surface-alpha-78 (color: #1c1b18c7), --glaze-dark-muted (color: #b2b3b7), --glaze-light-top (color: #666666), --ascii-light-text-muted (color: #7b7871), --glaze-dark-ok (color: #9ad3b0), --ascii-dark-text-muted (color: #787266), --ascii-dark-text-primary-alpha-40 (color: #ebe4d566), --ascii-composer-surface (color: #1c1b18), --landing-midnight-page (color: #090c12), --landing-aubergine-paper (color: #231b24), --ascii-light-bg-card-alpha-80 (color: #eae8e3cc), --ascii-dark-bg-card (color: #12110f), --glaze-dark-button-base (color: #35383e), --landing-midnight-on (color: #0d141f), --ascii-dark-bg-card-elevated (color: #171512), --glaze-light-confirm (color: #a1c4b3), --glaze-light-ok (color: #1a7640), --glaze-light-ink (color: #252422), --landing-carbon-button-base (color: #c4b9a9), --ascii-light-text-primary-alpha-40 (color: #25242266), --glaze-sheen (color: #ffffff47), --glaze-light-selected (color: #eae8e3), --ascii-composer-preview-ink (color: #e5dac3), --ascii-dark-btn-bg (color: #e5dac3), --glaze-light-switch-thumb (color: var(--glaze-light-button-base)), --glaze-dark-switch-thumb (color: var(--glaze-dark-button-base)), --nm-ascii-page (color: #f2f1ed), --nm-ascii-card (color: #eae8e3), --nm-ascii-elevated (color: #f5f4f0), --nm-ascii-ink (color: #252422), --nm-ascii-secondary (color: #5e5c57), --nm-ascii-muted (color: #7b7871), --nm-ascii-line (color: #2524221f), --nm-ascii-pill (color: #f2f1edd9), --nm-ascii-button (color: #4a4844), --nm-ascii-on-button (color: #f5f4f0), --nm-ascii-composer (color: #242529), --nm-ascii-composer-ink (color: #ededee), --nm-ascii-composer-secondary (color: #b2b3b7), --nm-ascii-accent (color: #a1c4b3), --nm-ascii-on-accent (color: #0b1712), --nm-ascii-silver (color: #d8dade), --nm-ascii-on-silver (color: #17181a), --nm-ascii-sheen (color: #ffffff47), --nm-ascii-rim (color: #ffffff3d), --nm-ascii-shadow (color: #00000026), --nm-ascii-glaze-graphite-top (color: #62666d), --nm-ascii-glaze-graphite-base (color: #35383e), --nm-ascii-glaze-graphite-bottom (color: #24262b), --nm-ascii-glaze-graphite-rim (color: #aeb4bf80), --nm-ascii-glaze-graphite-ink (color: #f5f6f7), --nm-ascii-radius-panel (radius: 16px), --nm-ascii-radius-control (radius: 999px), --nm-ascii-space-1 (spacing: 4px), --nm-ascii-space-2 (spacing: 8px), --nm-ascii-space-3 (spacing: 12px), --nm-ascii-space-4 (spacing: 16px), --nm-ascii-space-5 (spacing: 20px), --nm-ascii-height-control (spacing: 36px), --ascii-font-inter (fontFamily: Inter, system-ui, -apple-system, sans-serif), --glaze-font (fontFamily: Geist, sans-serif), --glaze-display (fontFamily: Instrument Serif, Georgia, serif), --glaze-mono (fontFamily: Geist Mono, monospace), --ascii-font-jetbrains-mono (fontFamily: JetBrains Mono, ui-monospace, SFMono-Regular, monospace), --font-sans (fontFamily: system-ui, sans-serif), --ascii-font-instrument-serif (fontFamily: \"Instrument Serif\", Georgia, serif), --nm-ascii-sans (fontFamily: Geist, sans-serif), --nm-ascii-mono (fontFamily: Geist Mono, monospace), --nm-ascii-display (fontFamily: \"Instrument Serif\", Georgia, serif), --nm-ascii-size-body (fontSize: 13px), --nm-ascii-size-label (fontSize: 12px)): use one by writing var(--name) in CSS — background: var(--color-primary) — never the literal value, so a token change restyles every frame at once. Doop writes the values into each frame's <style data-doop-tokens> block by itself; do not define them yourself and keep that block. Themes (dark) give some tokens a different value: put data-doop-theme=\"dark\" on a frame's <html> (or on one subtree) to switch it there. Breakpoint tokens describe responsive variants, which on a canvas are separate frames. Add a value the design needs and no token holds with create_tokens, rather than writing it into a frame. This canvas already has a style: 54 frames set it. New work follows it rather than a fresh brief. Do not rewrite the existing frames to use new tokens or components (no replace_matching) unless the human asked: when you finish, offer to bring them onto the same tokens and components. This canvas has components. Anything they cover goes in through <doop-use> as shown in each entry’s usage, never redrawn by hand."
+}

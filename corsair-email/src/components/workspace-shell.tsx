@@ -32,6 +32,7 @@ import {
 } from "react";
 import { useHotkeys } from "react-hotkeys-hook";
 import { toast } from "sonner";
+import { notifySuccess } from "@/components/doop/feedback";
 type WorkspaceShellProps = {
   session: SessionUser;
   initialWorkspace: WorkspacePayload;
@@ -1015,7 +1016,7 @@ export function WorkspaceShell({
         selectThreadDetail(payload);
       }
       setComposeDraft(null);
-      toast.success(
+      notifySuccess(
         input.threadId
           ? `Reply sent to ${input.to}`
           : `Email sent to ${input.to}`,
@@ -1068,7 +1069,7 @@ export function WorkspaceShell({
           body: JSON.stringify(input),
         }),
       );
-      toast.success(input.id ? "Event updated" : "Event created", {
+      notifySuccess(input.id ? "Event updated" : "Event created", {
         description: input.summary,
       });
       setEventPreset(null);
@@ -1237,6 +1238,7 @@ export function WorkspaceShell({
         composer={
           composeOpen ? (
             <ComposeSheet
+              recipientName={selectedThread?.sender.split(/\s+/)[0]}
               open={composeOpen}
               initialDraft={composeDraft}
               onClose={() => setComposeOpen(false)}
@@ -1248,7 +1250,10 @@ export function WorkspaceShell({
         assistant={
           composeOpen ? (
             <AgentPanel
+              threadContext={selectedThread ? { threadId: selectedThread.threadId, sender: selectedThread.sender, subject: selectedThread.subject } : undefined}
+              contactNames={Object.fromEntries([...threads.map(item => [item.senderEmail, item.sender]), [session.email, "you"]])}
               embedded
+              onReviewEvent={(input) => { setEventDraft(null); setEventPreset(input); setEventOpen(true); }}
               onOpenThread={(id) => {
                 setComposeOpen(false);
                 setMobileReaderOpen(true);
@@ -1278,6 +1283,8 @@ export function WorkspaceShell({
         onRun={runCommand}
       />
       <AgentPanel
+        threadContext={selectedThread ? { threadId: selectedThread.threadId, sender: selectedThread.sender, subject: selectedThread.subject } : undefined}
+        contactNames={Object.fromEntries([...threads.map(item => [item.senderEmail, item.sender]), [session.email, "you"]])}
         open={agentOpen}
         onOpenThread={(id) => {
           setAgentOpen(false);

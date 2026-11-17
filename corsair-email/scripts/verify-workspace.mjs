@@ -1,7 +1,8 @@
+import { launchBrowser } from './browser.mjs';
 const BASE_URL = process.env.BASE_URL || "http://localhost:3100";
-import { chromium, expect } from "@playwright/test";
+import { expect } from "@playwright/test";
 import { mkdir } from "node:fs/promises";
-const browser = await chromium.launch({ channel: "chrome", headless: true });
+const browser = await launchBrowser();
 const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
 page.setDefaultTimeout(10000);
 const errors = [];
@@ -22,13 +23,13 @@ try {
   log("demo inbox and thread reading");
   await expect(
     page.getByRole("button", { name: "Collapse sidebar", exact: true }),
-  ).toHaveCount(0);
+  ).toBeVisible();
   await page
     .getByRole("button", { name: "Open month calendar", exact: true })
     .click();
   await page.getByRole("tab", { name: "Week", exact: true }).click();
   await page.getByRole("tab", { name: "Month", exact: true }).click();
-  log("fixed folder navigation and animated full calendar tabs");
+  log("folder navigation and animated full calendar tabs");
 
   await page.getByRole("button", { name: "Calendar", exact: true }).click();
   await expect(
@@ -339,9 +340,8 @@ try {
     fullPage: true,
   });
   console.log("BROWSER ERRORS", errors);
-  console.log(
-    (await page.locator("[role=dialog]").first().innerText()).slice(-2200),
-  );
+  console.log("OVERFLOW", await page.locator("body *").evaluateAll(elements => elements.filter(el => { const r=el.getBoundingClientRect(); return r.width>0 && r.left>=0 && r.right>innerWidth+1 && getComputedStyle(el).visibility!=="hidden"; }).slice(0,12).map(el=>({tag:el.tagName,class:el.className,text:el.textContent?.slice(0,80),right:el.getBoundingClientRect().right}))));
+  if (await page.locator("[role=dialog]").count()) console.log((await page.locator("[role=dialog]").first().innerText()).slice(-2200));
   throw error;
 } finally {
   await browser.close();

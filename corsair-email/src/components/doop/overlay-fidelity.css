@@ -1,0 +1,66 @@
+.doop-shortcuts-modal.doop-shortcuts-modal .doop-shortcut-row kbd {
+  display: block;
+  min-width: 0;
+  font-family: var(--font-geist-mono), monospace;
+}
+@media (min-width: 640px) {
+  .doop-event-modal[data-slot="dialog-content"],
+  .doop-command-modal[data-slot="dialog-content"],
+  .doop-shortcuts-modal[data-slot="dialog-content"] { overflow: visible; }
+}
+.doop-event-modal [data-slot="dialog-footer"] button[data-variant="default"] { overflow: clip; }
+.doop-command-modal.doop-command-modal [cmdk-item][data-selected="true"] { background: transparent; color: var(--foreground); }
+.doop-command-modal.doop-command-modal [cmdk-item]:hover,
+.doop-command-modal.doop-command-modal:has([cmdk-input]:focus-visible) [cmdk-item][data-selected="true"] { background: var(--accent); }
+.doop-command-modal.doop-command-modal [cmdk-item] > svg { color: var(--foreground); }
+.doop-command-modal.doop-command-modal [cmdk-item] > svg:last-child { width: 15px; height: 15px; }
+.doop-command-modal.doop-command-modal > footer > span { line-height: 1.53846; }
+.doop-command-modal.doop-command-modal [data-slot="command-input-wrapper"] > svg { opacity: 1; }
+.doop-command-modal.doop-command-modal .doop-command-escape { display: inline-flex; align-items: center; gap: 8px; background: transparent; padding: 8px; border-radius: 0; }
+.doop-command-modal.doop-command-modal [data-slot="dialog-title"] { gap: 12px; }
+.doop-command-modal.doop-command-modal [data-slot="dialog-title"] > svg { width: 20px; height: 20px; }
+.doop-command-modal.doop-command-modal [data-slot="command-input"] { height: 24px; padding: 0; }
+.doop-command-modal.doop-command-modal > footer > [data-slot="button"] {
+  background-image: radial-gradient(65% 65% at 50% 50%, #0000003d 0%, #00000000 100%), linear-gradient(180deg, #ffffff2e 0%, #00000000 100%), linear-gradient(var(--glaze-base), var(--glaze-base));
+  background-repeat: no-repeat;
+  box-shadow: inset 0 4px 12px #ffffff29, inset 0 1px 0 #ffffff52;
+  text-shadow: none;
+  overflow: clip;
+}
+html.dark .doop-command-modal.doop-command-modal > footer > [data-slot="button"] {
+  background-image: radial-gradient(65% 65% at 50% 50%, #00000008 0%, #00000000 100%), linear-gradient(180deg, #ffffff2e 0%, #00000000 100%), linear-gradient(var(--glaze-base), var(--glaze-base));
+}
+.doop-command-modal.doop-command-modal > footer > [data-slot="button"]::before {
+  z-index: auto;
+  left: 12px; right: 12px; top: 2px; height: 44%;
+  border: 0; border-radius: calc(infinity * 1px);
+  background: linear-gradient(#ffffff47, transparent);
+}
+.doop-command-run-label { position: relative; display: block; }
+/* Match the source's document layout without a persistent 3D compositing layer. */
+@media (min-width: 640px) {
+  .doop-event-modal.doop-event-modal[data-slot="dialog-content"],
+  .doop-command-modal.doop-command-modal[data-slot="dialog-content"],
+  .doop-shortcuts-modal.doop-shortcuts-modal[data-slot="dialog-content"] {
+    position: absolute;
+    left: max(16px, calc(50% - 380px));
+    translate: none;
+    transform: none !important;
+    filter: none !important;
+  }
+  .doop-shortcuts-modal.doop-shortcuts-modal[data-slot="dialog-content"] {
+    left: max(16px, calc(50% - 370px));
+  }
+}
+@media (min-width: 640px) {
+  .doop-command-modal.doop-command-modal [cmdk-list],
+  .doop-command-modal.doop-command-modal [cmdk-root],
+  .doop-command-modal.doop-command-modal [cmdk-group] { overflow: visible; }
+}
+@media (min-width: 640px) and (max-height: 886px) {
+  .doop-event-modal.doop-event-modal[data-slot="dialog-content"],
+  .doop-command-modal.doop-command-modal[data-slot="dialog-content"],
+  .doop-shortcuts-modal.doop-shortcuts-modal[data-slot="dialog-content"] {
+    overflow-y: auto;
+  }
+}

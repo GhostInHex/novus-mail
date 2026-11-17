@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useTheme } from "@/components/theme-provider";
 import { Button } from "@/components/ui/button";
@@ -24,6 +24,14 @@ import * as Sidebar from "@animate-ui/react/primitives/sidebar";
 import { format, isToday, isYesterday } from "date-fns";
 import {
   CalendarDays,
+  Inbox,
+  Mail,
+  Star,
+  FileText,
+  Send,
+  Pencil,
+  PanelLeftClose,
+  PanelLeftOpen,
   ChevronLeft,
   ChevronRight,
   Menu,
@@ -31,9 +39,19 @@ import {
 } from "lucide-react";
 import { useState, type ReactNode, type RefObject } from "react";
 import "./dashboard.css";
+import { WorkspaceActionLabel } from "./workspace-action-label";
 
 type MailView =
   "focus" | "unread" | "starred" | "drafts" | "sent" | "later" | "all";
+const folderIcons = {
+  focus: Inbox,
+  all: Mail,
+  starred: Star,
+  drafts: FileText,
+  sent: Send,
+  unread: Mail,
+  later: Mail,
+};
 type Folder = { id: MailView; label: string; count: number; hint: string };
 type Props = {
   mobileReaderOpen: boolean;
@@ -74,6 +92,7 @@ type Props = {
   calendarView: boolean;
   onCalendar: (value: boolean) => void;
   hasMore: boolean;
+  suggestedActionLabel?: string;
   loadingMore: boolean;
   onMoreThreads: () => void;
   composer?: ReactNode;
@@ -97,7 +116,11 @@ function Message({
   renderHtml: Props["renderHtml"];
 }) {
   return message.body?.trim() ? (
-    <div className="dashboard-message-body">{message.body}</div>
+    <div className="dashboard-message-body">
+      {message.body.split(/\n\s*\n/).map((paragraph, index) => (
+        <p key={index}>{paragraph}</p>
+      ))}
+    </div>
   ) : (
     <div className="dashboard-message-html">{renderHtml(message)}</div>
   );
@@ -105,6 +128,7 @@ function Message({
 export function DashboardView(p: Props) {
   const { resolvedTheme, setResolvedTheme } = useTheme();
   const [mobileNav, setMobileNav] = useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [selectedDay, setSelectedDay] = useState(() => new Date());
   const [calendarMode, setCalendarMode] = useState<"month" | "week" | "day">(
     "week",
@@ -120,6 +144,13 @@ export function DashboardView(p: Props) {
     .toUpperCase();
   const selected = p.thread?.messages.at(-1);
   const label = p.folders.find((f) => f.id === p.view)?.label ?? "Mail";
+  const syncLabel = p.syncing
+    ? "Syncing…"
+    : p.syncedAt
+      ? Date.now() - new Date(p.syncedAt).getTime() < 60_000
+        ? "Synced just now"
+        : "Synced " + mailTime(p.syncedAt)
+      : "Not synced yet";
   const ordered = ["focus", "all", "starred", "drafts", "sent"]
     .map((id) => p.folders.find((f) => f.id === id))
     .filter((f): f is Folder => !!f);
@@ -139,13 +170,17 @@ export function DashboardView(p: Props) {
       className="dashboard"
       data-theme-mode={resolvedTheme}
       data-compose={!!p.composer}
+      data-sidebar-collapsed={sidebarCollapsed}
     >
       <header className="dashboard-toolbar">
         <button
           type="button"
           className="dashboard-mobile-menu"
           aria-label="Open folders"
-          onClick={() => setMobileNav(!mobileNav)}
+          onClick={() => {
+            setSidebarCollapsed(false);
+            setMobileNav(!mobileNav);
+          }}
         >
           <Menu size={19} />
         </button>
@@ -161,7 +196,7 @@ export function DashboardView(p: Props) {
             onKeyDown={(e) => {
               if (e.key === "Enter") p.onSearchAll();
             }}
-            placeholder="Search mail"
+            placeholder="Search mail, people, or commands"
           />
           <button
             type="button"
@@ -178,15 +213,8 @@ export function DashboardView(p: Props) {
               className="dashboard-account"
               aria-label="Workspace menu"
             >
-              <span>
-                {p.syncing
-                  ? "Syncing…"
-                  : p.syncedAt
-                    ? "Synced " + mailTime(p.syncedAt)
-                    : "Not synced yet"}
-              </span>
-              <span className="dashboard-account-divider">/</span>
-              {initials}
+              <span>{`${syncLabel} / ${initials}`}</span>
+              <span className="dashboard-account-initials" aria-hidden="true">{initials}</span>
             </button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
@@ -223,7 +251,7 @@ export function DashboardView(p: Props) {
           </DropdownMenuContent>
         </DropdownMenu>
       </header>
-      <Sidebar.Provider open={true} className="dashboard-body">
+      <Sidebar.Provider open={!sidebarCollapsed} className="dashboard-body">
         {mobileNav && (
           <button
             className="dashboard-nav-scrim"
@@ -233,37 +261,76 @@ export function DashboardView(p: Props) {
         )}
         <Sidebar.Container
           className={cn("dashboard-sidebar", mobileNav && "is-mobile-open")}
-          style={{ width: 200 }}
+          style={{ width: sidebarCollapsed ? 88 : 200 }}
           role="navigation"
           aria-label="Workspace"
         >
-          <Button
-            className="dashboard-compose-button"
-            onClick={() => {
-              p.onCompose();
-              setMobileNav(false);
-            }}
-            aria-label="Compose"
-          >
-            Compose
-          </Button>
-          <nav aria-label="Mail folders">
-            {ordered.map((folder) => (
-              <button
-                key={folder.id}
-                type="button"
-                aria-label={
-                  folder.id === "focus" ? "Focus queue" : folder.label
-                }
-                aria-current={
-                  !p.calendarView && p.view === folder.id ? "page" : undefined
-                }
-                onClick={() => choose(folder.id)}
-              >
-                {folder.id === "focus" ? "Focus queue" : folder.label}
-                {folder.id !== "sent" && <span>{folder.count}</span>}
-              </button>
-            ))}
+          <div className="dashboard-sidebar-heading">
+            <button
+              type="button"
+              className="dashboard-sidebar-toggle"
+              aria-label={
+                sidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"
+              }
+              aria-expanded={!sidebarCollapsed}
+              aria-controls="workspace-folders"
+              onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
+            >
+              {sidebarCollapsed ? (
+                <PanelLeftOpen size={18} />
+              ) : (
+                <PanelLeftClose size={18} />
+              )}
+            </button>
+            <Button
+              className="dashboard-compose-button"
+              onClick={() => {
+                p.onCompose();
+                setMobileNav(false);
+              }}
+              aria-label="Compose"
+            >
+              <WorkspaceActionLabel>{sidebarCollapsed ? (
+                <Pencil size={18} aria-hidden="true" />
+              ) : (
+                "Compose"
+              )}</WorkspaceActionLabel>
+            </Button>
+          </div>
+          <nav id="workspace-folders" aria-label="Mail folders">
+            {ordered.map((folder) => {
+              const Icon = folderIcons[folder.id];
+              return (
+                <button
+                  key={folder.id}
+                  type="button"
+                  aria-label={
+                    folder.id === "focus" ? "Focus queue" : folder.label
+                  }
+                  aria-current={
+                    !p.calendarView && p.view === folder.id ? "page" : undefined
+                  }
+                  onClick={() => choose(folder.id)}
+                >
+                  {sidebarCollapsed ? (
+                    <>
+                      <Icon size={18} aria-hidden="true" />
+                      <span className="sr-only">
+                        {folder.id === "focus" ? "Focus queue" : folder.label}
+                      </span>
+                    </>
+                  ) : (
+                    <span>{`${folder.id === "focus" ? "Focus queue" : folder.label}${folder.id !== "sent" ? ` ${folder.count}` : ""}`}</span>
+                  )}
+                  {sidebarCollapsed && folder.id !== "sent" && (
+                    <span className="dashboard-folder-count">
+                      {" "}
+                      {folder.count}
+                    </span>
+                  )}
+                </button>
+              );
+            })}
             <button
               type="button"
               aria-label="Calendar"
@@ -274,7 +341,11 @@ export function DashboardView(p: Props) {
                 setMobileThread(false);
               }}
             >
-              Calendar
+              {sidebarCollapsed ? (
+                <CalendarDays size={18} aria-hidden="true" />
+              ) : (
+                "Calendar"
+              )}
             </button>
           </nav>
           <p className="dashboard-connections">
@@ -423,14 +494,15 @@ export function DashboardView(p: Props) {
                     <div className="dashboard-reader-empty" role="alert">
                       <h2>Couldn’t load this conversation</h2>
                       <p>Check your connection and try again.</p>
-                      <button type="button" onClick={p.onRetryThread}>Retry</button>
+                      <button type="button" onClick={p.onRetryThread}>
+                        Retry
+                      </button>
                     </div>
                   ) : p.thread ? (
                     <>
                       <div className="dashboard-reader-topline">
                         <span>
-                          Inbox /{" "}
-                          {p.thread.unread ? "Needs reply" : "Conversation"}
+                          {`Inbox / ${p.thread.unread ? "Needs reply" : "Conversation"}`}
                         </span>
                         <div>
                           <button
@@ -452,11 +524,11 @@ export function DashboardView(p: Props) {
                               )
                             }
                           >
-                            {p.thread.starred ? "Unstar" : "Star"}
+                            {` ${p.thread.starred ? "Unstar" : "Star"}`}
                           </button>
                           <DropdownMenu>
                             <DropdownMenuTrigger asChild>
-                              <button type="button">More</button>
+                              <button type="button">{" More"}</button>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent align="end">
                               <DropdownMenuItem
@@ -489,15 +561,16 @@ export function DashboardView(p: Props) {
                       </div>
                       <h2>{p.thread.subject || "(no subject)"}</h2>
                       <div className="dashboard-reader-sender">
-                        {p.thread.sender} &lt;{p.thread.senderEmail}&gt;
+                        {`${p.thread.sender} <${p.thread.senderEmail}>`}
                         <br />
-                        To {p.thread.recipients.join(", ") || "you"} ·{" "}
-                        {selected?.receivedAt
-                          ? format(
-                              new Date(selected.receivedAt),
-                              "MMM d, h:mm a",
-                            )
-                          : ""}
+                        {`To ${p.thread.recipients.join(", ") || "you"} · ${selected?.receivedAt
+                          ? isToday(new Date(selected.receivedAt))
+                            ? `Today, ${format(new Date(selected.receivedAt), "h:mm a")}`
+                            : format(
+                                new Date(selected.receivedAt),
+                                "MMM d, h:mm a",
+                              )
+                          : ""}`}
                       </div>
                       {p.thread.messages.length > 1 && (
                         <button
@@ -513,7 +586,10 @@ export function DashboardView(p: Props) {
                         </button>
                       )}
                       {earlier && (
-                        <div id="thread-earlier-messages" className="dashboard-earlier-messages">
+                        <div
+                          id="thread-earlier-messages"
+                          className="dashboard-earlier-messages"
+                        >
                           {p.thread.messages.slice(0, -1).map((message) => (
                             <article key={message.id}>
                               <p>{message.from}</p>
@@ -536,7 +612,7 @@ export function DashboardView(p: Props) {
                               : p.onReply
                           }
                         >
-                          {p.view === "drafts" ? "Edit draft" : "Reply"}
+                          <WorkspaceActionLabel>{p.view === "drafts" ? "Edit draft" : "Reply"}</WorkspaceActionLabel>
                         </Button>
                         <button type="button" onClick={p.onForward}>
                           Forward
@@ -544,14 +620,17 @@ export function DashboardView(p: Props) {
                       </div>
                       <section className="dashboard-suggestion">
                         <p>Suggested next step</p>
-                        <h3>Prepare a reply and check your calendar</h3>
+                        <h3>
+                          {p.suggestedActionLabel ??
+                            "Prepare a reply and check your calendar"}
+                        </h3>
                         <p>Review the draft before sending.</p>
                         <Button
                           className="w-full"
                           onClick={p.onAssistant}
                           aria-label="Ask assistant about this thread"
                         >
-                          Ask assistant
+                          <WorkspaceActionLabel>Ask assistant</WorkspaceActionLabel>
                         </Button>
                       </section>
                     </>
@@ -600,7 +679,6 @@ export function DashboardView(p: Props) {
                   <WorkspaceCalendarPanel
                     selectedDate={selectedDay}
                     events={p.events}
-                    onCreateEvent={p.onNewEvent}
                     onSelectEvent={p.onEvent}
                   />
                 </>
@@ -614,8 +692,7 @@ export function DashboardView(p: Props) {
           C Compose / J K Navigate / R Reply
         </button>
         <span>
-          {p.connection?.degraded ? "Connection delayed" : "Google connected"} ·
-          All changes need your review
+          {`${p.connection?.degraded ? "Connection delayed" : "Google connected"} · All changes need your review`}
         </span>
       </footer>
     </main>

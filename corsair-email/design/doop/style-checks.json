@@ -1,0 +1,298 @@
+[
+  {
+    "frame": "nwOnX0aVws",
+    "theme": "light",
+    "scenario": "inbox",
+    "target": ".dashboard-queue-card",
+    "selector": "[data-node-label=\"Framed Content\"]",
+    "expected": {
+      "border-radius": "10px",
+      "background-color": "rgb(245, 244, 240)",
+      "border-top-color": "rgba(37, 36, 34, 0.12)"
+    }
+  },
+  {
+    "frame": "nwOnX0aVws",
+    "theme": "light",
+    "scenario": "inbox",
+    "target": ".dashboard-queue-card h1",
+    "selector": "[data-node-label=\"Framed Content\"] :text-is(\"Focus queue\")",
+    "expected": {
+      "font-size": "26px",
+      "line-height": "30.875px",
+      "letter-spacing": "-0.8px",
+      "color": "rgb(37, 36, 34)"
+    }
+  },
+  {
+    "frame": "nwOnX0aVws",
+    "theme": "light",
+    "scenario": "inbox",
+    "target": ".dashboard-queue-card li button",
+    "selector": "[data-node-label=\"Inbox Message Row\"]",
+    "expected": {
+      "padding-inline": "16px",
+      "padding-block": "20px"
+    }
+  },
+  {
+    "frame": "nwOnX0aVws",
+    "theme": "light",
+    "scenario": "inbox",
+    "target": ".dashboard-mail-meta > span",
+    "selector": "[data-node-label=\"Message Sender\"]",
+    "expected": {
+      "font-size": "14px",
+      "font-weight": "500",
+      "line-height": "normal",
+      "color": "rgb(37, 36, 34)"
+    }
+  },
+  {
+    "frame": "nwOnX0aVws",
+    "theme": "light",
+    "scenario": "inbox",
+    "target": ".dashboard-mail-meta time",
+    "selector": "[data-node-label=\"Message Time\"]",
+    "expected": {
+      "font-size": "12px",
+      "line-height": "normal",
+      "color": "rgb(94, 92, 87)"
+    }
+  },
+  {
+    "frame": "nwOnX0aVws",
+    "theme": "light",
+    "scenario": "inbox",
+    "target": ".dashboard-mail-subject",
+    "selector": "[data-node-label=\"Message Subject\"]",
+    "expected": {
+      "font-size": "14px",
+      "line-height": "20px",
+      "color": "rgb(37, 36, 34)"
+    }
+  },
+  {
+    "frame": "nwOnX0aVws",
+    "theme": "light",
+    "scenario": "inbox",
+    "target": ".dashboard-reader h2",
+    "selector": "[data-node-label=\"Text Label\"]:text-is(\"Launch review, a little later?\")",
+    "expected": {
+      "font-size": "26px",
+      "line-height": "30.875px",
+      "letter-spacing": "-0.8px",
+      "color": "rgb(37, 36, 34)"
+    }
+  },
+  {
+    "frame": "nwOnX0aVws",
+    "theme": "light",
+    "scenario": "inbox",
+    "target": ".dashboard-agenda h2",
+    "selector": ":text-is(\"Today\")",
+    "expected": {
+      "font-size": "26px",
+      "line-height": "30.875px",
+      "letter-spacing": "-0.8px",
+      "color": "rgb(37, 36, 34)"
+    }
+  },
+  {
+    "frame": "r5LPleAiTI",
+    "theme": "light",
+    "scenario": "connect",
+    "target": ".doop-connect-status",
+    "selector": "[data-node-label=\"Framed Content\"]",
+    "expected": {
+      "border-radius": "10px",
+      "background-color": "rgb(245, 244, 240)",
+      "border-top-color": "rgba(37, 36, 34, 0.12)"
+    }
+  },
+  {
+    "frame": "X7gRb7Zpcd",
+    "theme": "light",
+    "scenario": "event",
+    "target": ".doop-event-modal [data-slot=\"dialog-title\"]",
+    "selector": "[data-node-label=\"Modal Backdrop\"] :text-is(\"New event\")",
+    "expected": {
+      "font-size": "23px",
+      "font-weight": "500",
+      "line-height": "29px",
+      "letter-spacing": "-0.575px",
+      "color": "rgb(37, 36, 34)"
+    }
+  },
+  {
+    "frame": "OwcxrkwgPj",
+    "theme": "light",
+    "scenario": "shortcuts",
+    "target": ".doop-shortcuts-modal .doop-shortcut-row",
+    "selector": "[data-node-label=\"Shortcut Row\"]",
+    "expected": {
+      "padding-block": "8px"
+    }
+  },
+  {
+    "frame": "OwcxrkwgPj",
+    "theme": "light",
+    "scenario": "shortcuts",
+    "target": ".doop-shortcuts-modal kbd",
+    "selector": "[data-node-label=\"Keyboard Key\"]",
+    "expected": {
+      "font-size": "12px",
+      "border-radius": "5px",
+      "background-color": "rgb(234, 232, 227)",
+      "color": "rgb(37, 36, 34)"
+    }
+  },
+  {
+    "frame": "LwTPn9MJXU",
+    "theme": "dark",
+    "scenario": "inbox",
+    "target": ".dashboard-queue-card",
+    "selector": "[data-node-label=\"Framed Content\"]",
+    "expected": {
+      "border-radius": "10px",
+      "background-color": "rgb(20, 21, 23)",
+      "border-top-color": "rgba(237, 237, 238, 0.15)"
+    }
+  },
+  {
+    "frame": "LwTPn9MJXU",
+    "theme": "dark",
+    "scenario": "inbox",
+    "target": ".dashboard-queue-card h1",
+    "selector": "[data-node-label=\"Framed Content\"] :text-is(\"Focus queue\")",
+    "expected": {
+      "font-size": "26px",
+      "line-height": "30.875px",
+      "letter-spacing": "-0.8px",
+      "color": "rgb(237, 237, 238)"
+    }
+  },
+  {
+    "frame": "LwTPn9MJXU",
+    "theme": "dark",
+    "scenario": "inbox",
+    "target": ".dashboard-queue-card li button",
+    "selector": "[data-node-label=\"Inbox Message Row\"]",
+    "expected": {
+      "padding-inline": "16px",
+      "padding-block": "20px"
+    }
+  },
+  {
+    "frame": "LwTPn9MJXU",
+    "theme": "dark",
+    "scenario": "inbox",
+    "target": ".dashboard-mail-meta > span",
+    "selector": "[data-node-label=\"Message Sender\"]",
+    "expected": {
+      "font-size": "14px",
+      "font-weight": "500",
+      "line-height": "normal",
+      "color": "rgb(237, 237, 238)"
+    }
+  },
+  {
+    "frame": "LwTPn9MJXU",
+    "theme": "dark",
+    "scenario": "inbox",
+    "target": ".dashboard-mail-meta time",
+    "selector": "[data-node-label=\"Message Time\"]",
+    "expected": {
+      "font-size": "12px",
+      "line-height": "normal",
+      "color": "rgb(178, 179, 183)"
+    }
+  },
+  {
+    "frame": "LwTPn9MJXU",
+    "theme": "dark",
+    "scenario": "inbox",
+    "target": ".dashboard-mail-subject",
+    "selector": "[data-node-label=\"Message Subject\"]",
+    "expected": {
+      "font-size": "14px",
+      "line-height": "20px",
+      "color": "rgb(237, 237, 238)"
+    }
+  },
+  {
+    "frame": "LwTPn9MJXU",
+    "theme": "dark",
+    "scenario": "inbox",
+    "target": ".dashboard-reader h2",
+    "selector": "[data-node-label=\"Text Label\"]:text-is(\"Launch review, a little later?\")",
+    "expected": {
+      "font-size": "26px",
+      "line-height": "30.875px",
+      "letter-spacing": "-0.8px",
+      "color": "rgb(237, 237, 238)"
+    }
+  },
+  {
+    "frame": "LwTPn9MJXU",
+    "theme": "dark",
+    "scenario": "inbox",
+    "target": ".dashboard-agenda h2",
+    "selector": ":text-is(\"Today\")",
+    "expected": {
+      "font-size": "26px",
+      "line-height": "30.875px",
+      "letter-spacing": "-0.8px",
+      "color": "rgb(237, 237, 238)"
+    }
+  },
+  {
+    "frame": "lyGlR1B5Jp",
+    "theme": "dark",
+    "scenario": "connect",
+    "target": ".doop-connect-status",
+    "selector": "[data-node-label=\"Framed Content\"]",
+    "expected": {
+      "border-radius": "10px",
+      "background-color": "rgb(20, 21, 23)",
+      "border-top-color": "rgba(237, 237, 238, 0.15)"
+    }
+  },
+  {
+    "frame": "F5ItS-WXTF",
+    "theme": "dark",
+    "scenario": "event",
+    "target": ".doop-event-modal [data-slot=\"dialog-title\"]",
+    "selector": "[data-node-label=\"Modal Backdrop\"] :text-is(\"New event\")",
+    "expected": {
+      "font-size": "23px",
+      "font-weight": "500",
+      "line-height": "29px",
+      "letter-spacing": "-0.575px",
+      "color": "rgb(237, 237, 238)"
+    }
+  },
+  {
+    "frame": "GYUpO9Oksq",
+    "theme": "dark",
+    "scenario": "shortcuts",
+    "target": ".doop-shortcuts-modal .doop-shortcut-row",
+    "selector": "[data-node-label=\"Shortcut Row\"]",
+    "expected": {
+      "padding-block": "8px"
+    }
+  },
+  {
+    "frame": "GYUpO9Oksq",
+    "theme": "dark",
+    "scenario": "shortcuts",
+    "target": ".doop-shortcuts-modal kbd",
+    "selector": "[data-node-label=\"Keyboard Key\"]",
+    "expected": {
+      "font-size": "12px",
+      "border-radius": "5px",
+      "background-color": "rgb(15, 16, 18)",
+      "color": "rgb(237, 237, 238)"
+    }
+  }
+]

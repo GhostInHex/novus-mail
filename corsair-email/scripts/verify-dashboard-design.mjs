@@ -1,8 +1,9 @@
+import { launchBrowser } from './browser.mjs';
 const BASE_URL = process.env.BASE_URL || "http://localhost:3100";
-import { chromium, expect } from "@playwright/test";
+import { expect } from "@playwright/test";
 import { mkdir } from "node:fs/promises";
 await mkdir("../artifacts", { recursive: true });
-const browser = await chromium.launch({ channel: "chrome", headless: true });
+const browser = await launchBrowser();
 const page = await browser.newPage({
   viewport: { width: 1440, height: 1000 },
   reducedMotion: "reduce",
@@ -42,14 +43,18 @@ try {
   );
   await expect(
     page.getByRole("button", { name: "Collapse sidebar", exact: true }),
-  ).toHaveCount(0);
+  ).toBeVisible();
   expect(
     await page
       .locator(".dashboard-sidebar")
       .evaluate((el) => el.scrollWidth <= el.clientWidth),
   ).toBe(true);
   await expect(page.locator(".dashboard-sidebar")).toHaveCSS("width", "200px");
-  console.log("PASS stable full folder navigation without a collapsed rail");
+  await page.getByRole('button', { name: 'Collapse sidebar', exact: true }).click();
+  await expect(page.locator('.dashboard-sidebar')).toHaveCSS('width', '88px');
+  await page.getByRole('button', { name: 'Expand sidebar', exact: true }).click();
+  await expect(page.locator('.dashboard-sidebar')).toHaveCSS('width', '200px');
+  console.log("PASS expanded and collapsed folder navigation");
   await page
     .getByRole("button", { name: "Open month calendar", exact: true })
     .click();
