@@ -36,6 +36,12 @@ import {
   ChevronRight,
   Menu,
   MoreHorizontal,
+  Bot,
+  Sun,
+  Moon,
+  ChevronDown,
+  Home,
+  LogOut,
 } from "lucide-react";
 import { useState, type ReactNode, type RefObject } from "react";
 import "./dashboard.css";
@@ -184,7 +190,7 @@ export function DashboardView(p: Props) {
         >
           <Menu size={19} />
         </button>
-        <a className="dashboard-brand" href="/">
+        <a className="dashboard-brand" href="/?landing=1" aria-label="NovusMail landing page">
           NovusMail
         </a>
         <div className="dashboard-search">
@@ -206,18 +212,32 @@ export function DashboardView(p: Props) {
             Ctrl K
           </button>
         </div>
+        <div className="dashboard-toolbar-actions">
+          <button type="button" className="dashboard-ai-button" onClick={p.onAssistant}>
+            <Bot size={18} aria-hidden="true" /> <span>Ask AI</span>
+          </button>
+          <button type="button" className="dashboard-theme-button"
+            aria-label={`Switch to ${resolvedTheme === "dark" ? "light" : "dark"} theme`}
+            title={`Switch to ${resolvedTheme === "dark" ? "light" : "dark"} theme`}
+            onClick={() => setResolvedTheme(resolvedTheme === "dark" ? "light" : "dark")}>
+            {resolvedTheme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+          </button>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <button
               type="button"
               className="dashboard-account"
-              aria-label="Workspace menu"
+              aria-label="Account menu"
             >
-              <span>{`${syncLabel} / ${initials}`}</span>
+              <span>{initials} · Account</span>
               <span className="dashboard-account-initials" aria-hidden="true">{initials}</span>
+              <ChevronDown size={14} aria-hidden="true" />
             </button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
+            <DropdownMenuItem asChild>
+              <a href="/?landing=1"><Home size={16} /> Landing page</a>
+            </DropdownMenuItem>
             <DropdownMenuItem
               onSelect={() =>
                 setResolvedTheme(resolvedTheme === "dark" ? "light" : "dark")
@@ -226,7 +246,7 @@ export function DashboardView(p: Props) {
               Switch to {resolvedTheme === "dark" ? "light" : "dark"} mode
             </DropdownMenuItem>
             <DropdownMenuItem disabled={p.syncing} onSelect={p.onSync}>
-              Sync now
+              Sync now · {syncLabel}
             </DropdownMenuItem>
             <DropdownMenuItem onSelect={p.onCommand}>
               Command console
@@ -244,12 +264,13 @@ export function DashboardView(p: Props) {
             <form action="/api/logout" method="post">
               <DropdownMenuItem asChild>
                 <button type="submit" className="w-full">
-                  Switch workspace
+                  <LogOut size={16} /> Log out
                 </button>
               </DropdownMenuItem>
             </form>
           </DropdownMenuContent>
         </DropdownMenu>
+        </div>
       </header>
       <Sidebar.Provider open={!sidebarCollapsed} className="dashboard-body">
         {mobileNav && (

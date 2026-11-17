@@ -10,8 +10,8 @@
   line-height: 1.53846;
 }
 .doop-ai-panel[data-slot="dialog-content"] {
-  height: auto;
-  max-height: calc(100dvh - 104px);
+  height: min(780px, calc(100dvh - 48px));
+  max-height: calc(100dvh - 48px);
 }
 .doop-ai-panel > [data-slot="dialog-header"] {
   min-height: 0;
@@ -53,7 +53,9 @@
   line-height: 18px;
 }
 .doop-ai-panel .doop-chat-scroll {
-  flex: 0 1 auto;
+  flex: 1 1 0;
+  min-height: 0;
+  overflow: hidden;
 }
 .doop-ai-panel .doop-agent-conversation-content {
   min-height: 460px;
@@ -697,7 +699,7 @@ html.dark .doop-ai-panel .doop-source-history header button { background:radial-
 .doop-ai-panel .doop-retry-content > div { display:flex; gap:12px; margin:0; }
 .doop-ai-panel .doop-agent-retry .doop-retry-content > p:not(:last-child) { color:var(--doop-error-text); }
 .doop-ai-panel .doop-agent-retry .doop-retry-content > p:last-child { font-size:13px; line-height:1.53846; color:var(--muted-foreground); }
-.doop-ai-panel[data-slot="dialog-content"] { position:absolute; left:max(16px, calc(50% - 390px)); translate:none; transform:none !important; filter:none !important; }
+.doop-ai-panel[data-slot="dialog-content"] { position:fixed; top:24px; left:max(16px, calc(50% - 390px)); translate:none; transform:none !important; filter:none !important; }
 .doop-ai-panel .doop-source-prompt > svg { color:var(--foreground); }
 .doop-ai-panel .doop-triage-intro p { font-size:16px; line-height:24px; }
 .doop-ai-panel .doop-agent-triage header p,
@@ -760,5 +762,3 @@ html.dark .doop-ai-panel { --doop-neutral-on:#f5f6f7; }
 .doop-ai-panel .doop-triage-suggestions button [data-doop-icon] > svg { display:block; }
 .doop-ai-panel .doop-triage-suggestions button { display:flex; appearance:none; align-self:flex-start; font-size:16px; line-height:normal; unicode-bidi:isolate; }
 .doop-ai-panel .doop-triage-suggestions button > span:not([data-doop-icon]) { font-size:13px; line-height:19.5px; }
-.doop-ai-panel:has(.doop-agent-triage) { overflow-y:auto; }
-.doop-ai-panel:has(.doop-agent-triage) .doop-chat-scroll > div:first-child { overflow:visible; }

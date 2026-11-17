@@ -8,5 +8,3 @@ html.dark .doop-ai-panel .doop-source-history > header button.doop-glaze {
 .doop-ai-panel .doop-source-history > header button.doop-glaze::before { border-radius: calc(infinity * 1px); }
 .doop-ai-panel .doop-source-history h4 { text-rendering: auto; }
 .doop-ai-panel .doop-source-history h4 { margin-bottom: 0; }
-.doop-ai-panel .doop-chat-scroll:has(.doop-source-history) > div:first-child { overflow: visible; }
-.doop-ai-panel[data-slot="dialog-content"]:has(.doop-source-history) { overflow-y: auto; }
