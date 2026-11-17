@@ -1,0 +1,49 @@
+/* Generated from both themes by scripts/import-doop-workspace.mjs. */
+/* nwOnX0aVws: [data-node-label="Framed Content"] */
+:where(html.light) .dashboard-queue-card { border-radius:10px;background-color:var(--card);border-top-color:var(--border) }
+/* nwOnX0aVws: [data-node-label="Framed Content"] :text-is("Focus queue") */
+:where(html.light) .dashboard-queue-card h1 { font-size:26px;line-height:1.1875;letter-spacing:-0.8px;color:var(--foreground) }
+/* nwOnX0aVws: [data-node-label="Inbox Message Row"] */
+:where(html.light) .dashboard-queue-card li button { padding-inline:calc(1rem);padding-block:calc(1.25rem) }
+/* nwOnX0aVws: [data-node-label="Message Sender"] */
+:where(html.light) .dashboard-mail-meta > span { font-size:0.875rem;font-weight:500;line-height:normal;color:var(--foreground) }
+/* nwOnX0aVws: [data-node-label="Message Time"] */
+:where(html.light) .dashboard-mail-meta time { font-size:0.75rem;line-height:normal;color:var(--muted-foreground) }
+/* nwOnX0aVws: [data-node-label="Message Subject"] */
+:where(html.light) .dashboard-mail-subject { font-size:0.875rem;line-height:1.42857;color:var(--foreground) }
+/* nwOnX0aVws: [data-node-label="Text Label"]:text-is("Launch review, a little later?") */
+:where(html.light) .dashboard-reader h2 { font-size:26px;line-height:1.1875;letter-spacing:-0.8px;color:var(--foreground) }
+/* nwOnX0aVws: :text-is("Today") */
+:where(html.light) .dashboard-agenda h2 { font-size:26px;line-height:1.1875;letter-spacing:-0.8px;color:var(--foreground) }
+/* r5LPleAiTI: [data-node-label="Framed Content"] */
+:where(html.light) .doop-connect-status { border-radius:10px;background-color:var(--card);border-top-color:var(--border) }
+/* X7gRb7Zpcd: [data-node-label="Modal Backdrop"] :text-is("New event") */
+:where(html.light) .doop-event-modal [data-slot="dialog-title"] { font-size:23px;font-weight:500;line-height:1.26087;letter-spacing:-0.575px;color:var(--foreground) }
+/* OwcxrkwgPj: [data-node-label="Shortcut Row"] */
+:where(html.light) .doop-shortcuts-modal .doop-shortcut-row { padding-block:calc(0.5rem) }
+/* OwcxrkwgPj: [data-node-label="Keyboard Key"] */
+:where(html.light) .doop-shortcuts-modal kbd { font-size:0.75rem;border-radius:5px;background-color:var(--shell);color:var(--foreground) }
+/* LwTPn9MJXU: [data-node-label="Framed Content"] */
+:where(html.dark) .dashboard-queue-card { border-radius:10px;background-color:var(--card);border-top-color:var(--border) }
+/* LwTPn9MJXU: [data-node-label="Framed Content"] :text-is("Focus queue") */
+:where(html.dark) .dashboard-queue-card h1 { font-size:26px;line-height:1.1875;letter-spacing:-0.8px;color:var(--foreground) }
+/* LwTPn9MJXU: [data-node-label="Inbox Message Row"] */
+:where(html.dark) .dashboard-queue-card li button { padding-inline:calc(1rem);padding-block:calc(1.25rem) }
+/* LwTPn9MJXU: [data-node-label="Message Sender"] */
+:where(html.dark) .dashboard-mail-meta > span { font-size:0.875rem;font-weight:500;line-height:normal;color:var(--foreground) }
+/* LwTPn9MJXU: [data-node-label="Message Time"] */
+:where(html.dark) .dashboard-mail-meta time { font-size:0.75rem;line-height:normal;color:var(--muted-foreground) }
+/* LwTPn9MJXU: [data-node-label="Message Subject"] */
+:where(html.dark) .dashboard-mail-subject { font-size:0.875rem;line-height:1.42857;color:var(--foreground) }
+/* LwTPn9MJXU: [data-node-label="Text Label"]:text-is("Launch review, a little later?") */
+:where(html.dark) .dashboard-reader h2 { font-size:26px;line-height:1.1875;letter-spacing:-0.8px;color:var(--foreground) }
+/* LwTPn9MJXU: :text-is("Today") */
+:where(html.dark) .dashboard-agenda h2 { font-size:26px;line-height:1.1875;letter-spacing:-0.8px;color:var(--foreground) }
+/* lyGlR1B5Jp: [data-node-label="Framed Content"] */
+:where(html.dark) .doop-connect-status { border-radius:10px;background-color:var(--card);border-top-color:var(--border) }
+/* F5ItS-WXTF: [data-node-label="Modal Backdrop"] :text-is("New event") */
+:where(html.dark) .doop-event-modal [data-slot="dialog-title"] { font-size:23px;font-weight:500;line-height:1.26087;letter-spacing:-0.575px;color:var(--foreground) }
+/* GYUpO9Oksq: [data-node-label="Shortcut Row"] */
+:where(html.dark) .doop-shortcuts-modal .doop-shortcut-row { padding-block:calc(0.5rem) }
+/* GYUpO9Oksq: [data-node-label="Keyboard Key"] */
+:where(html.dark) .doop-shortcuts-modal kbd { font-size:0.75rem;border-radius:5px;background-color:var(--shell);color:var(--foreground) }

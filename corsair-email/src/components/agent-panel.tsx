@@ -5,39 +5,44 @@ import {
   parseTriageSnapshot,
   type TriageSnapshot,
 } from "@/components/agent-triage-card";
+import { DoopBotIcon, DoopNewChatIcon, DoopHistoryIcon, DoopCalendarIcon as CalendarIcon, DoopClockIcon as ClockIcon, DoopUsersIcon as UsersIcon, DoopMapPinIcon as MapPinIcon, DoopWarningIcon as AlertTriangleIcon, DoopMailIcon as MailIcon } from "@/components/doop/source-icons";
 import { DoopAIWelcome } from "@/components/doop/ai-welcome";
 import AIApproval from "@/components/doop/ai-approval";
 import AIArtifact from "@/components/doop/ai-artifact";
 import AIConversation from "@/components/doop/ai-conversation";
 import { DoopAIHistory } from "@/components/doop/ai-history";
 import "@/components/doop/ai-chat.css";
+import "@/components/doop/assistant-fidelity.css";
+import "@/components/doop/ai-confirmation-fidelity.css";
 import AIMessage from "@/components/doop/ai-message";
 import AIPromptInput from "@/components/doop/ai-prompt-input";
 import { DoopAIWelcomeSuggestions } from "@/components/doop/ai-suggestions";
 import AIToolCall from "@/components/doop/ai-tool-call";
+import { DoopAIToolActivity } from "@/components/doop/ai-tool-activity";
 import { Collapsible } from "@animate-ui/react/primitives/radix-ui";
-import { format } from "date-fns";
+import { format, isToday, isTomorrow } from "date-fns";
 import {
-  BotIcon,
-  CalendarIcon,
-  Clock3Icon,
+  ArrowUpRightIcon,
+  ChevronRightIcon,
   Loader2Icon,
-  MailIcon,
-  MessageSquarePlusIcon,
   PencilIcon,
+  XIcon,
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { z } from "zod";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
+  DialogClose,
   DialogDescription,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import { DoopDateTimeInput } from "@/components/doop/date-time-input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
@@ -47,6 +52,8 @@ import {
 } from "@/lib/agent-suggestions";
 import type { AgentChatContext, ComposeInput, EventInput } from "@/lib/types";
 import { cn } from "@/lib/utils";
+
+const agentErrorSchema = z.object({ error: z.string().min(1) });
 
 type EmailProposal = {
   kind: "email";
@@ -109,11 +116,13 @@ type AgentPanelProps = {
   operator: AgentOperator;
   onClose: () => void;
   onOpenThread?: (id: string) => void;
+  threadContext?: { threadId: string; sender: string; subject: string };
+  contactNames?: Record<string, string>;
   onConfirmEmail: (input: ComposeInput) => Promise<void>;
   onConfirmEvent: (input: EventInput) => Promise<void>;
+  onReviewEvent?: (input: EventInput) => void;
 };
 
-const SUGGESTIONS = getDefaultAgentSuggestions();
 
 const CHAT_HISTORY_STORAGE_KEY = "corsair-mail-agent-chats:v2";
 const LEGACY_CHAT_HISTORY_STORAGE_KEY = "corsair-mail-agent-chats:v1";
@@ -271,7 +280,7 @@ function formatRange(start: string, end: string) {
     return `${start} - ${end}`;
   }
   const endValid = !Number.isNaN(endDate.getTime());
-  return `${format(startDate, "EEE MMM d, h:mm a")}${endValid ? ` - ${format(endDate, "h:mm a")}` : ""}`;
+  return `${isToday(startDate) ? "Today" : isTomorrow(startDate) ? "Tomorrow" : format(startDate, "EEE, MMM d")} · ${format(startDate, "h:mm")}${endValid ? `–${format(endDate, "h:mm a")}` : format(startDate, " a")}`;
 }
 
 function toEditableDateTime(value: string) {
@@ -327,9 +336,13 @@ export function AgentPanel({
   operator,
   onClose,
   onOpenThread,
+  threadContext,
+  contactNames = {},
   onConfirmEmail,
   onConfirmEvent,
+  onReviewEvent,
 }: AgentPanelProps) {
+  const SUGGESTIONS = getDefaultAgentSuggestions({ contactName: threadContext?.sender.split(/\s+/)[0] });
   const [turns, setTurns] = useState<Turn[]>([]);
   const [activeChatId, setActiveChatId] = useState(() => uid());
   const [input, setInput] = useState("");
@@ -601,8 +614,13 @@ export function AgentPanel({
       });
 
       if (!response.ok || !response.body) {
-        const detail = await response.text().catch(() => "");
-        throw new Error(detail || `Agent request failed (${response.status})`);
+        const payload: unknown = await response.json().catch(() => null);
+        const detail = agentErrorSchema.safeParse(payload);
+        throw new Error(
+          detail.success
+            ? detail.data.error
+            : "The assistant is unavailable. Please try again.",
+        );
       }
 
       const reader = response.body.getReader();
@@ -702,10 +720,16 @@ export function AgentPanel({
     }
   }
 
+  const editingProposal = turns.some(turn => turn.proposals.some(item => item.editing));
+  const editingEvent = turns.some(turn => turn.proposals.some(item => item.editing && item.proposal.kind === "event"));
+  const ownEmail = Object.entries(contactNames).find(([,name]) => name === "you")?.[0];
   const lastTurn = turns.at(-1);
+  const workingToolTurn = busy && lastTurn?.tools.length && !lastTurn.proposals.length && !lastTurn.triage ? lastTurn : null;
   const showFollowUps =
     operator.configured &&
     !busy &&
+    !error &&
+    !lastTurn?.proposals.length &&
     turns.length > 0 &&
     lastTurn?.role === "assistant";
   const groupedChats = getGroupedChats(savedChats);
@@ -713,7 +737,10 @@ export function AgentPanel({
     .reverse()
     .find((turn) => turn.role === "assistant");
   const latestUser = [...turns].reverse().find((turn) => turn.role === "user");
-  const contextualSuggestions = buildContextualSuggestions({
+  const contextualSuggestions: ReturnType<typeof buildContextualSuggestions> = latestAssistant?.triage ? [
+    { id: "draft_top_two_replies", label: "Draft the top two replies", family: "draft" },
+    { id: "schedule_open_time", label: "Find open time", family: "schedule" },
+  ] : buildContextualSuggestions({
     latestUserContent: latestUser?.content,
     latestAssistantContent: latestAssistant?.content,
     toolLabels: latestAssistant?.tools,
@@ -728,7 +755,7 @@ export function AgentPanel({
       <PanelHeader className="flex-row items-start justify-between gap-4 border-b border-border px-5 py-4 text-left">
         <div className="min-w-0 space-y-1">
           <PanelTitle className="flex items-center gap-2">
-            {!embedded && <BotIcon className="size-5" />}
+            {!embedded && <DoopBotIcon size={21} />}
             {embedded ? "Assistant" : "Ask your inbox"}
           </PanelTitle>
           {!embedded && (
@@ -749,20 +776,21 @@ export function AgentPanel({
               disabled={busy}
               onClick={startNewChat}
             >
-              <MessageSquarePlusIcon className="size-4" />
+              <DoopNewChatIcon />
             </Button>
             <Button
               type="button"
               size="icon-sm"
-              variant={historyOpen ? "secondary" : "ghost"}
+              variant="ghost"
               aria-label="Chat history"
               disabled={busy}
               title="Chat history"
               aria-pressed={historyOpen}
               onClick={() => setHistoryOpen((value) => !value)}
             >
-              <Clock3Icon className="size-4" />
+              <DoopHistoryIcon />
             </Button>
+            <DialogClose asChild><Button type="button" size="icon-sm" variant="ghost" aria-label="Close"><XIcon size={16} /></Button></DialogClose>
           </div>
         )}
         {embedded && (
@@ -787,16 +815,19 @@ export function AgentPanel({
       )}
 
       <AIConversation
-        className="min-h-0 flex-1"
-        contentKey={turns
-          .map(
-            (turn) =>
-              turn.content.length +
-              turn.tools.length +
-              turn.proposals.length +
-              (turn.triage?.threads.length ?? 0),
-          )
-          .join(":")}
+        className="doop-chat-scroll min-h-0 flex-1"
+        followKey={turns.filter((turn) => turn.role === "user").length}
+        contentKey={
+          turns
+            .map(
+              (turn) =>
+                turn.content.length +
+                turn.tools.length +
+                turn.proposals.length +
+                (turn.triage?.threads.length ?? 0),
+            )
+            .join(":") + `:${busy}:${error}`
+        }
       >
         {approvalOpen ? (
           <div className="doop-approval-content">
@@ -829,9 +860,16 @@ export function AgentPanel({
           <div className="space-y-4 px-6 py-5 doop-agent-conversation-content">
             {historyOpen && (
               <DoopAIHistory
-                groups={[{ label: "Today", chats: groupedChats.today }, { label: "Last 7 days", chats: groupedChats.last7Days }, { label: "Older", chats: groupedChats.older }]}
+                groups={[
+                  { label: "Today", chats: groupedChats.today },
+                  { label: "Last 7 days", chats: groupedChats.last7Days },
+                  { label: "Older", chats: groupedChats.older },
+                ]}
                 activeId={activeChatId}
-                onSelect={id => { const chat = savedChats.find(chat => chat.id === id); if (chat) openSavedChat(chat); }}
+                onSelect={(id) => {
+                  const chat = savedChats.find((chat) => chat.id === id);
+                  if (chat) openSavedChat(chat);
+                }}
                 onNew={startNewChat}
                 onClose={() => setHistoryOpen(false)}
               />
@@ -840,23 +878,23 @@ export function AgentPanel({
             {!historyOpen &&
               (turns.length === 0 ? (
                 <DoopAIWelcome
-                    disabled={!operator.configured}
-                    suggestions={SUGGESTIONS}
-                    onSelect={(suggestion) =>
-                      void send(suggestion.label, {
-                        suggestionIntent: [
-                          ...SUGGESTIONS,
-                          ...contextualSuggestions,
-                        ].find((item) => item.id === suggestion.id)?.id,
-                        checkpointAt:
-                          suggestion.id === "triage_changes_since_check"
-                            ? lastInboxCheckpointAt
-                            : undefined,
-                      })
-                    }
-                  />
+                  disabled={!operator.configured}
+                  suggestions={SUGGESTIONS}
+                  onSelect={(suggestion) =>
+                    void send(suggestion.label, {
+                      suggestionIntent: [
+                        ...SUGGESTIONS,
+                        ...contextualSuggestions,
+                      ].find((item) => item.id === suggestion.id)?.id,
+                      checkpointAt:
+                        suggestion.id === "triage_changes_since_check"
+                          ? lastInboxCheckpointAt
+                          : undefined,
+                    })
+                  }
+                />
               ) : (
-                turns.map((turn) => (
+                turns.filter(turn => turn.content.trim() || turn.tools.length || turn.proposals.length || turn.triage).filter(turn => !editingEvent || turn.proposals.some(item => item.editing && item.proposal.kind === "event")).map((turn) => (
                   <div
                     key={turn.id}
                     className={cn(
@@ -864,35 +902,28 @@ export function AgentPanel({
                       turn.role === "user" ? "items-end" : "items-start",
                     )}
                   >
-                    {turn.content.trim() && (
-                      <AIMessage
-                        from={turn.role}
-                        className="max-w-full"
-                      >
+                    {turn.content.trim() && !editingEvent && (!embedded || turn.role === "user") && turn !== workingToolTurn && (
+                      <AIMessage from={turn.role} className={turn.triage ? "max-w-full doop-triage-intro" : "max-w-full"}>
+                        {turn.triage && <DoopBotIcon size={16} />}
                         <p className="whitespace-pre-wrap text-sm leading-relaxed">
                           {turn.content}
                         </p>
                       </AIMessage>
                     )}
 
-                    {turn.tools.length > 0 && (
+                    {turn === workingToolTurn && <DoopAIToolActivity
+                      heading={turn.content.trim() || "Preparing your next steps"}
+                      tools={turn.tools}
+                      progressLabel={/draft|repl/i.test(latestUser?.content ?? "") ? /\b(two|2)\b/i.test(latestUser?.content ?? "") ? "Writing two reply drafts…" : "Writing your reply draft…" : "Preparing your response…"}
+                      threadContext={threadContext}
+                    />}
+                    {turn.tools.length > 0 && !editingProposal && !turn.triage && turn !== workingToolTurn && (
                       <div className="w-full space-y-2">
-                        {turn.tools.map((tool, index) => (
-                          <AIToolCall
-                            key={`${turn.id}-tool-${index}`}
-                            className="doop-agent-tool"
-                            name={tool}
-                            status={
-                              busy &&
-                              turn === turns.at(-1) &&
-                              index === turn.tools.length - 1
-                                ? "running"
-                                : "success"
-                            }
-                          />
-                        ))}
+                        {embedded ? <p className="doop-embedded-tools">{turn.tools.map((tool, index) => <span key={`${index}-${tool}`}>{tool}</span>)}</p> : <AIToolCall name={turn.tools.join(" · ")} status="success" />}
                       </div>
                     )}
+
+                    {embedded && turn.role === "assistant" && turn.content.trim() && !editingEvent && <AIMessage from="assistant"><p>{turn.content}</p></AIMessage>}
 
                     {turn.triage && (
                       <AgentTriageCard
@@ -900,22 +931,28 @@ export function AgentPanel({
                         onOpenThread={onOpenThread}
                       />
                     )}
-                    {turn.proposals.map((item, proposalIndex) => (
+                    {turn.triage && turn.tools.length > 0 && <AIToolCall name={turn.tools.at(-1) ?? ""} />}
+                    {turn.proposals.filter(item => !editingEvent || item.editing).map((item, proposalIndex) => (
                       <Collapsible.Root
                         key={item.id}
                         defaultOpen={proposalIndex === 0}
                         className="w-full"
                       >
                         {proposalIndex > 0 && (
-                          <Collapsible.Trigger className="mb-2 w-full rounded-lg border border-border px-4 py-3 text-left text-sm">
-                            {item.proposal.kind === "email"
-                              ? item.proposal.subject || "Another reply draft"
-                              : item.proposal.summary ||
-                                "Another meeting proposal"}
+                          <Collapsible.Trigger className="doop-next-proposal">
+                            <span className="doop-next-proposal-heading"><span>{item.proposal.kind === "email" ? <MailIcon size={16} /> : <CalendarIcon size={16} />}<strong>{item.proposal.kind === "email" ? "Second draft ready" : "Another event ready"}</strong></span><ChevronRightIcon size={16} /></span>
+                            <span><br />{item.proposal.kind === "email" ? `${contactNames[item.proposal.to.toLowerCase()] ?? item.proposal.to} · ${item.proposal.subject}` : item.proposal.summary}</span>
                           </Collapsible.Trigger>
                         )}
-                        <Collapsible.Content>
-                          <AIArtifact
+                        <Collapsible.Content className="doop-proposal-collapse">
+                          {embedded && item.proposal.kind === "event" && !item.editing ? (
+                            <section className="doop-embedded-event" aria-label="Meeting proposal"><div>
+                              <p>Meeting proposal</p>
+                              <h3>{item.proposal.summary}</h3>
+                              <p>{formatRange(item.proposal.start, item.proposal.end)}<br />{(item.proposal.attendees ?? "").split(",").map(email => contactNames[email.trim().toLowerCase()] ?? email.trim()).filter(name => name && name !== "you").join(", ")}</p>
+                              <Button type="button" onClick={() => { if (item.proposal.kind === "event") { if (onReviewEvent) onReviewEvent(item.proposal); else setProposalEditing(turn.id, item.id, true); } }}><span>Review event</span></Button>
+                            </div></section>
+                          ) : <AIArtifact
                             title={
                               item.proposal.kind === "email"
                                 ? "Reply draft"
@@ -924,15 +961,28 @@ export function AgentPanel({
                             showHeader={false}
                             className="doop-agent-proposal w-full bg-card"
                             preview={
-                              <div className="doop-proposal-body" onMouseDownCapture={event=>{const button=event.target instanceof Element ? event.target.closest("button") : null;if(button){event.preventDefault();button.focus({preventScroll:true});}}}>
+                              <div
+                                className="doop-proposal-body"
+                                data-proposal-kind={item.proposal.kind}
+                                onMouseDownCapture={(event) => {
+                                  const button =
+                                    event.target instanceof Element
+                                      ? event.target.closest("button")
+                                      : null;
+                                  if (button) {
+                                    event.preventDefault();
+                                    button.focus({ preventScroll: true });
+                                  }
+                                }}
+                              >
                                 <div className="doop-proposal-heading">
                                   {item.proposal.kind === "email" ? (
-                                    <MailIcon className="size-3.5" />
+                                    <MailIcon className="size-4" />
                                   ) : (
-                                    <CalendarIcon className="size-3.5" />
+                                    <CalendarIcon className="size-4" />
                                   )}
                                   {item.proposal.kind === "email"
-                                    ? "Draft email"
+                                    ? item.editing ? "Edit draft" : "Draft email"
                                     : "Proposed event"}
                                   <span>
                                     {item.status === "done"
@@ -1010,7 +1060,7 @@ export function AgentPanel({
                                         </Label>
                                         <Textarea
                                           id={`proposal-body-${item.id}`}
-                                          rows={8}
+                                          rows={6}
                                           value={item.proposal.body}
                                           onChange={(event) =>
                                             updateProposal(
@@ -1077,9 +1127,9 @@ export function AgentPanel({
                                         >
                                           Start
                                         </Label>
-                                        <Input
+                                        <DoopDateTimeInput
                                           id={`proposal-start-${item.id}`}
-                                          type="datetime-local"
+
                                           value={toEditableDateTime(
                                             item.proposal.start,
                                           )}
@@ -1108,9 +1158,9 @@ export function AgentPanel({
                                         >
                                           End
                                         </Label>
-                                        <Input
+                                        <DoopDateTimeInput
                                           id={`proposal-end-${item.id}`}
-                                          type="datetime-local"
+
                                           value={toEditableDateTime(
                                             item.proposal.end,
                                           )}
@@ -1141,7 +1191,7 @@ export function AgentPanel({
                                       </Label>
                                       <Input
                                         id={`proposal-attendees-${item.id}`}
-                                        value={item.proposal.attendees ?? ""}
+                                        value={(item.proposal.attendees ?? "").split(",").map(value => value.trim().toLowerCase() === ownEmail ? "you" : value.trim()).join(", ")}
                                         onChange={(event) =>
                                           updateProposal(
                                             turn.id,
@@ -1151,7 +1201,7 @@ export function AgentPanel({
                                                 ? {
                                                     ...proposal,
                                                     attendees:
-                                                      event.target.value,
+                                                      event.target.value.split(",").map(value => value.trim().toLowerCase() === "you" && ownEmail ? ownEmail : value.trim()).join(", "),
                                                   }
                                                 : proposal,
                                           )
@@ -1193,7 +1243,7 @@ export function AgentPanel({
                                       </Label>
                                       <Textarea
                                         id={`proposal-description-${item.id}`}
-                                        rows={6}
+                                        rows={4}
                                         value={item.proposal.description ?? ""}
                                         onChange={(event) =>
                                           updateProposal(
@@ -1217,19 +1267,19 @@ export function AgentPanel({
                                     <strong className="block text-sm">
                                       {item.proposal.summary}
                                     </strong>
-                                    <p className="text-xs text-primary">
+                                    <p className="doop-event-detail text-xs text-primary"><ClockIcon size={16} />
                                       {formatRange(
                                         item.proposal.start,
                                         item.proposal.end,
                                       )}
                                     </p>
                                     {item.proposal.attendees && (
-                                      <p className="text-xs text-muted-foreground">
-                                        With {item.proposal.attendees}
+                                      <p className="doop-event-detail text-xs text-muted-foreground"><UsersIcon size={16} />
+                                        {item.proposal.attendees.split(",").map(value => contactNames[value.trim().toLowerCase()] ?? value.trim()).join(" and ")}
                                       </p>
                                     )}
                                     {item.proposal.location && (
-                                      <p>{item.proposal.location}</p>
+                                      <p className="doop-event-detail"><MapPinIcon size={16} />{item.proposal.location}</p>
                                     )}
                                     {item.proposal.description && (
                                       <p className="text-muted-foreground">
@@ -1275,7 +1325,7 @@ export function AgentPanel({
                                           void confirmProposal(turn.id, item.id)
                                         }
                                       >
-                                        {item.status === "confirming" ? (
+                                        <span className="doop-accent-label">{item.status === "confirming" ? (
                                           <>
                                             <Loader2Icon className="size-4 animate-spin" />
                                             Working...
@@ -1284,7 +1334,7 @@ export function AgentPanel({
                                           "Send reply"
                                         ) : (
                                           "Create event"
-                                        )}
+                                        )}</span>
                                       </Button>
                                       <Button
                                         type="button"
@@ -1315,6 +1365,7 @@ export function AgentPanel({
                                           )
                                         }
                                       >
+                                        <XIcon className="size-4" />
                                         Dismiss
                                       </Button>
                                     </>
@@ -1322,16 +1373,20 @@ export function AgentPanel({
                                 </div>
                               </div>
                             }
-                          />
+                          />}
                         </Collapsible.Content>
                       </Collapsible.Root>
                     ))}
+                    {!busy && turn.proposals.length > 0 && !turn.proposals.some(item => item.editing) && (
+                      <p className="doop-proposal-note">{turn.proposals.some(item => item.status === "done") ? "" : embedded ? "Nothing has been sent or created." : turn.proposals[0].proposal.kind === "email" ? "Review each draft before sending." : "No event has been created yet."}</p>
+                    )}
                   </div>
                 ))
               ))}
 
             {showFollowUps && !historyOpen && (
               <DoopAIWelcomeSuggestions
+                className={latestAssistant?.triage ? "doop-triage-suggestions" : undefined}
                 suggestions={contextualSuggestions}
                 onSelect={(suggestion) =>
                   void send(suggestion.label, {
@@ -1348,15 +1403,18 @@ export function AgentPanel({
               />
             )}
 
-            {busy && (
+            {busy && !workingToolTurn && (
               <div className="motion-enter-soft flex items-center gap-2 text-sm text-muted-foreground">
-                <Loader2Icon size={16} className="animate-spin motion-reduce:animate-none" />
+                <Loader2Icon
+                  size={16}
+                  className="animate-spin motion-reduce:animate-none"
+                />
                 Thinking...
               </div>
             )}
             {error && (
-              <section className="doop-agent-retry" role="alert">
-                <h3>The assistant could not finish</h3>
+              <section className="doop-agent-retry" role="alert"><div className="doop-retry-content">
+                <h3><AlertTriangleIcon size={16} />The assistant could not finish</h3>
                 <p>{error}</p>
                 <div>
                   <Button
@@ -1369,7 +1427,7 @@ export function AgentPanel({
                       if (previous) void send(previous.content);
                     }}
                   >
-                    Try again
+                    <span className="doop-accent-label">Try again</span>
                   </Button>
                   <Button
                     variant="ghost"
@@ -1382,12 +1440,15 @@ export function AgentPanel({
                       composerRef.current?.querySelector("textarea")?.focus();
                     }}
                   >
-                    Edit message
+                    <PencilIcon size={16} />Edit message
                   </Button>
                 </div>
-                <p>Your message is saved.</p>
-              </section>
+                <p>No email was sent and no calendar event was created.</p>
+              </div></section>
             )}
+            {error && threadContext && <button type="button" className="doop-retry-context" onClick={() => onOpenThread?.(threadContext.threadId)}>
+              <MailIcon size={16} aria-hidden="true" /><span className="doop-source-result-details"><strong>{threadContext.sender}</strong><small>{threadContext.subject} · context preserved</small></span><ArrowUpRightIcon size={15} />
+            </button>}
           </div>
         )}
       </AIConversation>
@@ -1400,7 +1461,7 @@ export function AgentPanel({
           disabled={!operator.configured}
           placeholder={
             operator.configured
-              ? "Message the agent..."
+              ? embedded ? "Ask about your inbox or calendar…" : "Message the agent…"
               : "Your assistant is not available yet"
           }
           onSubmit={(value) => void send(value)}
@@ -1417,7 +1478,7 @@ export function AgentPanel({
     );
   return (
     <Dialog open={open} onOpenChange={(value) => !value && onClose()}>
-      <DialogContent className="doop-modal doop-ai-panel">
+      <DialogContent showCloseButton={false} className="doop-modal doop-ai-panel">
         {content}
       </DialogContent>
     </Dialog>

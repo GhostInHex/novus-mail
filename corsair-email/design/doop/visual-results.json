@@ -1,0 +1,5558 @@
+[
+  {
+    "capturedAt": "2026-11-17T14:32:30.211Z",
+    "frame": "KQ2QL9fN6G",
+    "name": "Wonder Control Icon 01",
+    "theme": "light",
+    "scenario": "inbox",
+    "scope": "historical-component",
+    "sourceUpdatedAt": "2026-11-15T22:16:08.415Z",
+    "sourceSha256": "42a6b850efe4b4a08a7176e3fd9c5342ee0caa031a18772dd9de0da7a82c2aa3",
+    "errors": [],
+    "referenceOrigin": "official-doop-render",
+    "native": "comparisons/KQ2QL9fN6G-native.png",
+    "referenceSha256": "4e059f8c3d3420ab69e706a63b9af7ee4e25e44cfac8482dd079992be022d530",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 640,
+        "height": 900
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "comparedPixels": 1440000,
+      "differentPixels": 1440000,
+      "mismatchRatio": 1,
+      "meanAbsoluteChannelDelta": 64.07315671296297,
+      "maxChannelDelta": 244,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/KQ2QL9fN6G-full-diff.png",
+    "referenceBox": {
+      "x": 24,
+      "y": 24,
+      "width": 16,
+      "height": 16
+    },
+    "nativeBox": {
+      "x": 1017.78125,
+      "y": 108,
+      "width": 47.65625,
+      "height": 22
+    },
+    "region": {
+      "referenceSize": {
+        "width": 16,
+        "height": 16
+      },
+      "nativeSize": {
+        "width": 49,
+        "height": 22
+      },
+      "comparedPixels": 1078,
+      "differentPixels": 1078,
+      "mismatchRatio": 1,
+      "meanAbsoluteChannelDelta": 95.25664811379097,
+      "maxChannelDelta": 242,
+      "exactMatch": false
+    },
+    "regionDiff": "comparisons/KQ2QL9fN6G-region-diff.png",
+    "referenceRegion": "comparisons/KQ2QL9fN6G-reference-region.png",
+    "nativeRegion": "comparisons/KQ2QL9fN6G-native-region.png",
+    "status": "approved-layout-replacement"
+  },
+  {
+    "capturedAt": "2026-11-17T14:32:31.664Z",
+    "frame": "E4uQEofvBY",
+    "name": "Wonder Workspace Chrome 02",
+    "theme": "light",
+    "scenario": "inbox",
+    "scope": "historical-component",
+    "sourceUpdatedAt": "2026-11-15T23:30:08.224Z",
+    "sourceSha256": "fa93a0a4f592b3659a33a68de8b725fcda261d4e03c6bba061446482e8999e76",
+    "errors": [],
+    "referenceOrigin": "official-doop-render",
+    "native": "comparisons/E4uQEofvBY-native.png",
+    "referenceSha256": "abeb480274f6add827d6540ae888907985ee4fb0ddf23325888f321122b9bedc",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 640,
+        "height": 900
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "comparedPixels": 1440000,
+      "differentPixels": 1440000,
+      "mismatchRatio": 1,
+      "meanAbsoluteChannelDelta": 66.45920925925925,
+      "maxChannelDelta": 245,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/E4uQEofvBY-full-diff.png",
+    "referenceBox": {
+      "x": 24,
+      "y": 24,
+      "width": 592,
+      "height": 182
+    },
+    "nativeBox": {
+      "x": 0,
+      "y": 0,
+      "width": 1440,
+      "height": 80
+    },
+    "region": {
+      "referenceSize": {
+        "width": 592,
+        "height": 182
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 80
+      },
+      "comparedPixels": 262080,
+      "differentPixels": 175584,
+      "mismatchRatio": 0.6699633699633699,
+      "meanAbsoluteChannelDelta": 55.80491198616198,
+      "maxChannelDelta": 255,
+      "exactMatch": false
+    },
+    "regionDiff": "comparisons/E4uQEofvBY-region-diff.png",
+    "referenceRegion": "comparisons/E4uQEofvBY-reference-region.png",
+    "nativeRegion": "comparisons/E4uQEofvBY-native-region.png",
+    "status": "approved-layout-replacement"
+  },
+  {
+    "capturedAt": "2026-11-17T14:32:33.197Z",
+    "frame": "EHLIj7GCWF",
+    "name": "Wonder Content Group 03",
+    "theme": "light",
+    "scenario": "inbox",
+    "scope": "historical-component",
+    "sourceUpdatedAt": "2026-11-15T23:25:24.983Z",
+    "sourceSha256": "3bf9d4d69f238cdbca801c9d7fc9599991a5531d47db4a504f221f14d09ea061",
+    "errors": [],
+    "referenceOrigin": "official-doop-render",
+    "native": "comparisons/EHLIj7GCWF-native.png",
+    "referenceSha256": "d4ab26be25af4a248c0466d5827d5cfca603e2fca7386c2132daf0a6af69d4f2",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 640,
+        "height": 900
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "comparedPixels": 1440000,
+      "differentPixels": 1433794,
+      "mismatchRatio": 0.9956902777777777,
+      "meanAbsoluteChannelDelta": 64.13176435185186,
+      "maxChannelDelta": 244,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/EHLIj7GCWF-full-diff.png",
+    "referenceBox": {
+      "x": 24,
+      "y": 24,
+      "width": 592,
+      "height": 129
+    },
+    "nativeBox": {
+      "x": 0,
+      "y": 0,
+      "width": 1440,
+      "height": 80
+    },
+    "region": {
+      "referenceSize": {
+        "width": 592,
+        "height": 129
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 80
+      },
+      "comparedPixels": 185760,
+      "differentPixels": 144182,
+      "mismatchRatio": 0.7761735572782085,
+      "meanAbsoluteChannelDelta": 52.404312015503876,
+      "maxChannelDelta": 255,
+      "exactMatch": false
+    },
+    "regionDiff": "comparisons/EHLIj7GCWF-region-diff.png",
+    "referenceRegion": "comparisons/EHLIj7GCWF-reference-region.png",
+    "nativeRegion": "comparisons/EHLIj7GCWF-native-region.png",
+    "status": "approved-layout-replacement"
+  },
+  {
+    "capturedAt": "2026-11-17T14:32:34.383Z",
+    "frame": "U9tSwmBOFw",
+    "name": "Wonder Workspace Chrome 04",
+    "theme": "dark",
+    "scenario": "inbox",
+    "scope": "historical-component",
+    "sourceUpdatedAt": "2026-11-15T23:25:26.534Z",
+    "sourceSha256": "d3345b4796d59d47f0093125ede7489ca9648d1f42873638231b06b8928edcb3",
+    "errors": [],
+    "referenceOrigin": "official-doop-render",
+    "native": "comparisons/U9tSwmBOFw-native.png",
+    "referenceSha256": "786cc257c531a39f755102b2df926c74035bc740e1ed67ce74ed3cedd2111a97",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 640,
+        "height": 900
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "comparedPixels": 1440000,
+      "differentPixels": 1440000,
+      "mismatchRatio": 1,
+      "meanAbsoluteChannelDelta": 190.73201134259259,
+      "maxChannelDelta": 246,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/U9tSwmBOFw-full-diff.png",
+    "referenceBox": {
+      "x": 24,
+      "y": 24,
+      "width": 592,
+      "height": 182
+    },
+    "nativeBox": {
+      "x": 0,
+      "y": 0,
+      "width": 1440,
+      "height": 80
+    },
+    "region": {
+      "referenceSize": {
+        "width": 592,
+        "height": 182
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 80
+      },
+      "comparedPixels": 262080,
+      "differentPixels": 175584,
+      "mismatchRatio": 0.6699633699633699,
+      "meanAbsoluteChannelDelta": 105.15680962555963,
+      "maxChannelDelta": 255,
+      "exactMatch": false
+    },
+    "regionDiff": "comparisons/U9tSwmBOFw-region-diff.png",
+    "referenceRegion": "comparisons/U9tSwmBOFw-reference-region.png",
+    "nativeRegion": "comparisons/U9tSwmBOFw-native-region.png",
+    "status": "approved-layout-replacement"
+  },
+  {
+    "capturedAt": "2026-11-17T14:32:35.602Z",
+    "frame": "YriNRuWAiE",
+    "name": "Wonder Result List 05",
+    "theme": "light",
+    "scenario": "inbox",
+    "scope": "historical-component",
+    "sourceUpdatedAt": "2026-11-15T23:25:27.708Z",
+    "sourceSha256": "86ea8fdf94def3cc5905f6ac505079474525b463c5c586cc65878321ef143dd4",
+    "errors": [],
+    "referenceOrigin": "official-doop-render",
+    "native": "comparisons/YriNRuWAiE-native.png",
+    "referenceSha256": "06484a9c354a8851cf07bcd965087e5f204b790a6bbf2816008715e90c50dc12",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 640,
+        "height": 900
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "comparedPixels": 1440000,
+      "differentPixels": 1440000,
+      "mismatchRatio": 1,
+      "meanAbsoluteChannelDelta": 64.09716851851852,
+      "maxChannelDelta": 245,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/YriNRuWAiE-full-diff.png",
+    "referenceBox": {
+      "x": 24,
+      "y": 24,
+      "width": 592,
+      "height": 221.5
+    },
+    "nativeBox": {
+      "x": 20,
+      "y": 140,
+      "width": 159,
+      "height": 316
+    },
+    "region": {
+      "referenceSize": {
+        "width": 592,
+        "height": 222
+      },
+      "nativeSize": {
+        "width": 159,
+        "height": 316
+      },
+      "comparedPixels": 187072,
+      "differentPixels": 146370,
+      "mismatchRatio": 0.7824260177899418,
+      "meanAbsoluteChannelDelta": 55.39605428213023,
+      "maxChannelDelta": 255,
+      "exactMatch": false
+    },
+    "regionDiff": "comparisons/YriNRuWAiE-region-diff.png",
+    "referenceRegion": "comparisons/YriNRuWAiE-reference-region.png",
+    "nativeRegion": "comparisons/YriNRuWAiE-native-region.png",
+    "status": "approved-layout-replacement"
+  },
+  {
+    "capturedAt": "2026-11-17T14:32:36.783Z",
+    "frame": "mH9XSP8Vc2",
+    "name": "Wonder Result List 06",
+    "theme": "dark",
+    "scenario": "inbox",
+    "scope": "historical-component",
+    "sourceUpdatedAt": "2026-11-15T23:25:30.154Z",
+    "sourceSha256": "52f32658086dcbe06a4c772a368f9aaa23f5a46a51a3299558172deec20bb7a7",
+    "errors": [],
+    "referenceOrigin": "official-doop-render",
+    "native": "comparisons/mH9XSP8Vc2-native.png",
+    "referenceSha256": "35f266dbcb82d7a9f74941493a2c58b60e1508f1a3f3259a868cba421ea3ee34",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 640,
+        "height": 900
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "comparedPixels": 1440000,
+      "differentPixels": 1440000,
+      "mismatchRatio": 1,
+      "meanAbsoluteChannelDelta": 190.95547916666666,
+      "maxChannelDelta": 246,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/mH9XSP8Vc2-full-diff.png",
+    "referenceBox": {
+      "x": 24,
+      "y": 24,
+      "width": 592,
+      "height": 221.5
+    },
+    "nativeBox": {
+      "x": 20,
+      "y": 140,
+      "width": 159,
+      "height": 316
+    },
+    "region": {
+      "referenceSize": {
+        "width": 592,
+        "height": 222
+      },
+      "nativeSize": {
+        "width": 159,
+        "height": 316
+      },
+      "comparedPixels": 187072,
+      "differentPixels": 146370,
+      "mismatchRatio": 0.7824260177899418,
+      "meanAbsoluteChannelDelta": 99.77515608963394,
+      "maxChannelDelta": 255,
+      "exactMatch": false
+    },
+    "regionDiff": "comparisons/mH9XSP8Vc2-region-diff.png",
+    "referenceRegion": "comparisons/mH9XSP8Vc2-reference-region.png",
+    "nativeRegion": "comparisons/mH9XSP8Vc2-native-region.png",
+    "status": "approved-layout-replacement"
+  },
+  {
+    "capturedAt": "2026-11-17T14:32:37.958Z",
+    "frame": "V8oQbRN-kS",
+    "name": "Wonder Content Group 07",
+    "theme": "light",
+    "scenario": "inbox",
+    "scope": "historical-component",
+    "sourceUpdatedAt": "2026-11-15T23:25:30.045Z",
+    "sourceSha256": "996b33e9797849724e331e4fa8982b3cde5c06c31364ef040194320b08f884ae",
+    "errors": [],
+    "referenceOrigin": "official-doop-render",
+    "native": "comparisons/V8oQbRN-kS-native.png",
+    "referenceSha256": "cb40833cb427b11117494b8a3a2fcf9b02fe4f6909b2beb2165142612bc0438b",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 640,
+        "height": 900
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "comparedPixels": 1440000,
+      "differentPixels": 1440000,
+      "mismatchRatio": 1,
+      "meanAbsoluteChannelDelta": 64.1057625,
+      "maxChannelDelta": 244,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/V8oQbRN-kS-full-diff.png",
+    "referenceBox": {
+      "x": 24,
+      "y": 48,
+      "width": 592,
+      "height": 221.5
+    },
+    "nativeBox": {
+      "x": 0,
+      "y": 80,
+      "width": 1440,
+      "height": 783.875
+    },
+    "region": {
+      "referenceSize": {
+        "width": 592,
+        "height": 222
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 784
+      },
+      "comparedPixels": 1128960,
+      "differentPixels": 1128960,
+      "mismatchRatio": 1,
+      "meanAbsoluteChannelDelta": 85.35663029100529,
+      "maxChannelDelta": 245,
+      "exactMatch": false
+    },
+    "regionDiff": "comparisons/V8oQbRN-kS-region-diff.png",
+    "referenceRegion": "comparisons/V8oQbRN-kS-reference-region.png",
+    "nativeRegion": "comparisons/V8oQbRN-kS-native-region.png",
+    "status": "approved-layout-replacement"
+  },
+  {
+    "capturedAt": "2026-11-17T14:32:39.191Z",
+    "frame": "NkoO8bJPas",
+    "name": "Wonder Content Group 08",
+    "theme": "dark",
+    "scenario": "inbox",
+    "scope": "historical-component",
+    "sourceUpdatedAt": "2026-11-15T23:25:34.594Z",
+    "sourceSha256": "e7af9834cdcb2fcac993bf05093de5375da4772ae252e36d2aa4f3691d90f4c3",
+    "errors": [],
+    "referenceOrigin": "official-doop-render",
+    "native": "comparisons/NkoO8bJPas-native.png",
+    "referenceSha256": "bbfa1994c75ae481a41ecc9d748d8b28b010faf367b26eecb8acb4a5dc75c249",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 640,
+        "height": 900
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "comparedPixels": 1440000,
+      "differentPixels": 1440000,
+      "mismatchRatio": 1,
+      "meanAbsoluteChannelDelta": 190.9320372685185,
+      "maxChannelDelta": 246,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/NkoO8bJPas-full-diff.png",
+    "referenceBox": {
+      "x": 24,
+      "y": 48,
+      "width": 592,
+      "height": 221.5
+    },
+    "nativeBox": {
+      "x": 0,
+      "y": 80,
+      "width": 1440,
+      "height": 783.875
+    },
+    "region": {
+      "referenceSize": {
+        "width": 592,
+        "height": 222
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 784
+      },
+      "comparedPixels": 1128960,
+      "differentPixels": 1128960,
+      "mismatchRatio": 1,
+      "meanAbsoluteChannelDelta": 169.79589740410051,
+      "maxChannelDelta": 246,
+      "exactMatch": false
+    },
+    "regionDiff": "comparisons/NkoO8bJPas-region-diff.png",
+    "referenceRegion": "comparisons/NkoO8bJPas-reference-region.png",
+    "nativeRegion": "comparisons/NkoO8bJPas-native-region.png",
+    "status": "approved-layout-replacement"
+  },
+  {
+    "capturedAt": "2026-11-17T14:32:40.439Z",
+    "frame": "5zVyAsnSVT",
+    "name": "Wonder Result List 09",
+    "theme": "light",
+    "scenario": "inbox",
+    "scope": "historical-component",
+    "sourceUpdatedAt": "2026-11-15T23:25:32.758Z",
+    "sourceSha256": "143c90128fd6aedcfcac8a8c5afdca35b4bf6d4827fbbf343ab759e00c567dce",
+    "errors": [],
+    "referenceOrigin": "official-doop-render",
+    "native": "comparisons/5zVyAsnSVT-native.png",
+    "referenceSha256": "7df2dd01a3a731fd2211b66304032281e1a47958c4b6946264e2879241a31549",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 900
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "comparedPixels": 1440000,
+      "differentPixels": 1440000,
+      "mismatchRatio": 1,
+      "meanAbsoluteChannelDelta": 29.544026851851854,
+      "maxChannelDelta": 245,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/5zVyAsnSVT-full-diff.png",
+    "referenceBox": {
+      "x": 24,
+      "y": 24,
+      "width": 1392,
+      "height": 374.5
+    },
+    "nativeBox": {
+      "x": 216,
+      "y": 96,
+      "width": 328,
+      "height": 594.78125
+    },
+    "region": {
+      "referenceSize": {
+        "width": 1392,
+        "height": 375
+      },
+      "nativeSize": {
+        "width": 328,
+        "height": 595
+      },
+      "comparedPixels": 828240,
+      "differentPixels": 594160,
+      "mismatchRatio": 0.7173766058147397,
+      "meanAbsoluteChannelDelta": 52.21490590489069,
+      "maxChannelDelta": 255,
+      "exactMatch": false
+    },
+    "regionDiff": "comparisons/5zVyAsnSVT-region-diff.png",
+    "referenceRegion": "comparisons/5zVyAsnSVT-reference-region.png",
+    "nativeRegion": "comparisons/5zVyAsnSVT-native-region.png",
+    "status": "approved-layout-replacement"
+  },
+  {
+    "capturedAt": "2026-11-17T14:32:41.629Z",
+    "frame": "kBq-btjTou",
+    "name": "Wonder Result List 10",
+    "theme": "dark",
+    "scenario": "inbox",
+    "scope": "historical-component",
+    "sourceUpdatedAt": "2026-11-15T23:25:35.151Z",
+    "sourceSha256": "ca46c2937557111d634e4132ca84e2dc8b40f5ab72e7d9a6300108547b7cc894",
+    "errors": [],
+    "referenceOrigin": "official-doop-render",
+    "native": "comparisons/kBq-btjTou-native.png",
+    "referenceSha256": "83863fc85f7f55c1b16821281de32e9c8b611b369d35938430b82ab444cf7c74",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 900
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "comparedPixels": 1440000,
+      "differentPixels": 1440000,
+      "mismatchRatio": 1,
+      "meanAbsoluteChannelDelta": 225.89473263888888,
+      "maxChannelDelta": 245,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/kBq-btjTou-full-diff.png",
+    "referenceBox": {
+      "x": 24,
+      "y": 24,
+      "width": 1392,
+      "height": 374.5
+    },
+    "nativeBox": {
+      "x": 216,
+      "y": 96,
+      "width": 328,
+      "height": 594.78125
+    },
+    "region": {
+      "referenceSize": {
+        "width": 1392,
+        "height": 375
+      },
+      "nativeSize": {
+        "width": 328,
+        "height": 595
+      },
+      "comparedPixels": 828240,
+      "differentPixels": 594160,
+      "mismatchRatio": 0.7173766058147397,
+      "meanAbsoluteChannelDelta": 87.54266557197592,
+      "maxChannelDelta": 255,
+      "exactMatch": false
+    },
+    "regionDiff": "comparisons/kBq-btjTou-region-diff.png",
+    "referenceRegion": "comparisons/kBq-btjTou-reference-region.png",
+    "nativeRegion": "comparisons/kBq-btjTou-native-region.png",
+    "status": "approved-layout-replacement"
+  },
+  {
+    "capturedAt": "2026-11-17T14:32:42.850Z",
+    "frame": "1HcV-g1M87",
+    "name": "Wonder Content Group 11",
+    "theme": "light",
+    "scenario": "inbox",
+    "scope": "historical-component",
+    "sourceUpdatedAt": "2026-11-15T23:30:08.238Z",
+    "sourceSha256": "46b585a00d0d11ec1c5f7155e49ebb01d809cca5896213ae3f7ea6642e7ec682",
+    "errors": [],
+    "referenceOrigin": "official-doop-render",
+    "native": "comparisons/1HcV-g1M87-native.png",
+    "referenceSha256": "cf3a7aba35d1073f725b3cac520544e33220aa22a7bd67c9c1b13aa633d17e4e",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 900
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "comparedPixels": 1440000,
+      "differentPixels": 1440000,
+      "mismatchRatio": 1,
+      "meanAbsoluteChannelDelta": 69.5449388888889,
+      "maxChannelDelta": 242,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/1HcV-g1M87-full-diff.png",
+    "referenceBox": {
+      "x": 24,
+      "y": 24,
+      "width": 1392,
+      "height": 492.96875
+    },
+    "nativeBox": {
+      "x": 560,
+      "y": 80,
+      "width": 600,
+      "height": 783.875
+    },
+    "region": {
+      "referenceSize": {
+        "width": 1392,
+        "height": 493
+      },
+      "nativeSize": {
+        "width": 600,
+        "height": 784
+      },
+      "comparedPixels": 1091328,
+      "differentPixels": 860856,
+      "mismatchRatio": 0.7888150950035187,
+      "meanAbsoluteChannelDelta": 86.76803612968176,
+      "maxChannelDelta": 255,
+      "exactMatch": false
+    },
+    "regionDiff": "comparisons/1HcV-g1M87-region-diff.png",
+    "referenceRegion": "comparisons/1HcV-g1M87-reference-region.png",
+    "nativeRegion": "comparisons/1HcV-g1M87-native-region.png",
+    "status": "approved-layout-replacement"
+  },
+  {
+    "capturedAt": "2026-11-17T14:32:44.006Z",
+    "frame": "oPuNfPv4-p",
+    "name": "Wonder Content Group 12",
+    "theme": "dark",
+    "scenario": "inbox",
+    "scope": "historical-component",
+    "sourceUpdatedAt": "2026-11-15T23:25:39.547Z",
+    "sourceSha256": "cd93099054c856d1703d4fd04020ee7609ed1b77547c92dcc638f303f767bfa2",
+    "errors": [],
+    "referenceOrigin": "official-doop-render",
+    "native": "comparisons/oPuNfPv4-p-native.png",
+    "referenceSha256": "d448b7d0dde44bacb1ca4b5c76530595d3e5d40029e816980eaf7af08a0b2299",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 900
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "comparedPixels": 1440000,
+      "differentPixels": 1440000,
+      "mismatchRatio": 1,
+      "meanAbsoluteChannelDelta": 222.58578726851852,
+      "maxChannelDelta": 245,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/oPuNfPv4-p-full-diff.png",
+    "referenceBox": {
+      "x": 24,
+      "y": 24,
+      "width": 1392,
+      "height": 492.96875
+    },
+    "nativeBox": {
+      "x": 560,
+      "y": 80,
+      "width": 600,
+      "height": 783.875
+    },
+    "region": {
+      "referenceSize": {
+        "width": 1392,
+        "height": 493
+      },
+      "nativeSize": {
+        "width": 600,
+        "height": 784
+      },
+      "comparedPixels": 1091328,
+      "differentPixels": 860856,
+      "mismatchRatio": 0.7888150950035187,
+      "meanAbsoluteChannelDelta": 118.0304738813629,
+      "maxChannelDelta": 255,
+      "exactMatch": false
+    },
+    "regionDiff": "comparisons/oPuNfPv4-p-region-diff.png",
+    "referenceRegion": "comparisons/oPuNfPv4-p-reference-region.png",
+    "nativeRegion": "comparisons/oPuNfPv4-p-native-region.png",
+    "status": "approved-layout-replacement"
+  },
+  {
+    "capturedAt": "2026-11-17T14:32:45.211Z",
+    "frame": "iFOD9sPBOE",
+    "name": "Wonder Event List 13",
+    "theme": "light",
+    "scenario": "inbox",
+    "scope": "historical-component",
+    "sourceUpdatedAt": "2026-11-15T23:30:08.242Z",
+    "sourceSha256": "2a2c95c813f10d220fbb5c778a8ea62b48fd57997ee689b267af933078bd8ae3",
+    "errors": [],
+    "referenceOrigin": "official-doop-render",
+    "native": "comparisons/iFOD9sPBOE-native.png",
+    "referenceSha256": "0670ae018dd31d0c10e936d4195f255dfb0cd7fc92da0e502d6ffd5e4fcd0914",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 900
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "comparedPixels": 1440000,
+      "differentPixels": 1440000,
+      "mismatchRatio": 1,
+      "meanAbsoluteChannelDelta": 93.7360599537037,
+      "maxChannelDelta": 242,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/iFOD9sPBOE-full-diff.png",
+    "referenceBox": {
+      "x": 24,
+      "y": 24,
+      "width": 1392,
+      "height": 378
+    },
+    "nativeBox": {
+      "x": 1180,
+      "y": 192.875,
+      "width": 240,
+      "height": 164
+    },
+    "region": {
+      "referenceSize": {
+        "width": 1392,
+        "height": 378
+      },
+      "nativeSize": {
+        "width": 240,
+        "height": 165
+      },
+      "comparedPixels": 526176,
+      "differentPixels": 526176,
+      "mismatchRatio": 1,
+      "meanAbsoluteChannelDelta": 159.73532556913784,
+      "maxChannelDelta": 255,
+      "exactMatch": false
+    },
+    "regionDiff": "comparisons/iFOD9sPBOE-region-diff.png",
+    "referenceRegion": "comparisons/iFOD9sPBOE-reference-region.png",
+    "nativeRegion": "comparisons/iFOD9sPBOE-native-region.png",
+    "status": "approved-layout-replacement"
+  },
+  {
+    "capturedAt": "2026-11-17T14:32:46.499Z",
+    "frame": "lN6igAHg_l",
+    "name": "Wonder Event List 14",
+    "theme": "dark",
+    "scenario": "inbox",
+    "scope": "historical-component",
+    "sourceUpdatedAt": "2026-11-15T23:25:44.285Z",
+    "sourceSha256": "68853dfaeb7b6e63faa2e3b5aaef946142626776f1e8974b6b9ccecab2ad11d8",
+    "errors": [],
+    "referenceOrigin": "official-doop-render",
+    "native": "comparisons/lN6igAHg_l-native.png",
+    "referenceSha256": "54e8bc589ff00cbb3871583d335a22e770012c75d6b7e21cb6aca6f4c239a30b",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 900
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "comparedPixels": 1440000,
+      "differentPixels": 1440000,
+      "mismatchRatio": 1,
+      "meanAbsoluteChannelDelta": 221.68008032407408,
+      "maxChannelDelta": 245,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/lN6igAHg_l-full-diff.png",
+    "referenceBox": {
+      "x": 24,
+      "y": 24,
+      "width": 1392,
+      "height": 378
+    },
+    "nativeBox": {
+      "x": 1180,
+      "y": 192.875,
+      "width": 240,
+      "height": 164
+    },
+    "region": {
+      "referenceSize": {
+        "width": 1392,
+        "height": 378
+      },
+      "nativeSize": {
+        "width": 240,
+        "height": 165
+      },
+      "comparedPixels": 526176,
+      "differentPixels": 526176,
+      "mismatchRatio": 1,
+      "meanAbsoluteChannelDelta": 98.53160286038639,
+      "maxChannelDelta": 255,
+      "exactMatch": false
+    },
+    "regionDiff": "comparisons/lN6igAHg_l-region-diff.png",
+    "referenceRegion": "comparisons/lN6igAHg_l-reference-region.png",
+    "nativeRegion": "comparisons/lN6igAHg_l-native-region.png",
+    "status": "approved-layout-replacement"
+  },
+  {
+    "capturedAt": "2026-11-17T14:32:48.410Z",
+    "frame": "Y0YEjRMXbN",
+    "name": "Wonder Message Reader 15",
+    "theme": "light",
+    "scenario": "inbox",
+    "scope": "historical-component",
+    "sourceUpdatedAt": "2026-11-15T23:30:08.247Z",
+    "sourceSha256": "dc18f6cd14eb34e4d044ce3932e14c6021e9fc10f4217ea1b69f4ee4f0719f35",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/Y0YEjRMXbN-native.png",
+    "referenceSha256": "4e0cad7dd30ab834a1a1193d469d16ed7d61a01842e1eb436bd6219ae7cb1b96",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 900
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "comparedPixels": 1440000,
+      "differentPixels": 1440000,
+      "mismatchRatio": 1,
+      "meanAbsoluteChannelDelta": 68.52555069444445,
+      "maxChannelDelta": 242,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/Y0YEjRMXbN-full-diff.png",
+    "referenceBox": {
+      "x": 24,
+      "y": 24,
+      "width": 1392,
+      "height": 540.96875
+    },
+    "nativeBox": {
+      "x": 560,
+      "y": 80,
+      "width": 600,
+      "height": 783.875
+    },
+    "region": {
+      "referenceSize": {
+        "width": 1392,
+        "height": 541
+      },
+      "nativeSize": {
+        "width": 600,
+        "height": 784
+      },
+      "comparedPixels": 1091328,
+      "differentPixels": 898872,
+      "mismatchRatio": 0.8236497185080929,
+      "meanAbsoluteChannelDelta": 86.77835536154117,
+      "maxChannelDelta": 255,
+      "exactMatch": false
+    },
+    "regionDiff": "comparisons/Y0YEjRMXbN-region-diff.png",
+    "referenceRegion": "comparisons/Y0YEjRMXbN-reference-region.png",
+    "nativeRegion": "comparisons/Y0YEjRMXbN-native-region.png",
+    "status": "approved-layout-replacement"
+  },
+  {
+    "capturedAt": "2026-11-17T14:32:49.695Z",
+    "frame": "DgLN0mt_iq",
+    "name": "Wonder Message Reader 16",
+    "theme": "dark",
+    "scenario": "inbox",
+    "scope": "historical-component",
+    "sourceUpdatedAt": "2026-11-15T23:25:48.532Z",
+    "sourceSha256": "226091b732feffbe0ff825ca7048a3ab166ece539d0f1f14d4e24fe6cf3b9351",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/DgLN0mt_iq-native.png",
+    "referenceSha256": "42e6fa2f6ff548891d36c71d7781e8c37992a9158b4ee2b6e2d9c1a5fa186022",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 900
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "comparedPixels": 1440000,
+      "differentPixels": 1440000,
+      "mismatchRatio": 1,
+      "meanAbsoluteChannelDelta": 222.76960231481482,
+      "maxChannelDelta": 245,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/DgLN0mt_iq-full-diff.png",
+    "referenceBox": {
+      "x": 24,
+      "y": 24,
+      "width": 1392,
+      "height": 540.96875
+    },
+    "nativeBox": {
+      "x": 560,
+      "y": 80,
+      "width": 600,
+      "height": 783.875
+    },
+    "region": {
+      "referenceSize": {
+        "width": 1392,
+        "height": 541
+      },
+      "nativeSize": {
+        "width": 600,
+        "height": 784
+      },
+      "comparedPixels": 1091328,
+      "differentPixels": 898872,
+      "mismatchRatio": 0.8236497185080929,
+      "meanAbsoluteChannelDelta": 123.12236651125967,
+      "maxChannelDelta": 255,
+      "exactMatch": false
+    },
+    "regionDiff": "comparisons/DgLN0mt_iq-region-diff.png",
+    "referenceRegion": "comparisons/DgLN0mt_iq-reference-region.png",
+    "nativeRegion": "comparisons/DgLN0mt_iq-native-region.png",
+    "status": "approved-layout-replacement"
+  },
+  {
+    "capturedAt": "2026-11-17T14:32:50.838Z",
+    "frame": "-oNU9dmO3d",
+    "name": "Wonder Content Group 17",
+    "theme": "light",
+    "scenario": "inbox",
+    "scope": "historical-component",
+    "sourceUpdatedAt": "2026-11-15T23:30:08.251Z",
+    "sourceSha256": "e4ff032093af56d155dc201a7c48764e093ea5d0153827a4a67ebad5f006b62e",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/-oNU9dmO3d-native.png",
+    "referenceSha256": "d99e1153732bd09b6003d80100634e9ee8e7a1657ecb796f5425ff5f57d7040c",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 900
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "comparedPixels": 1440000,
+      "differentPixels": 1440000,
+      "mismatchRatio": 1,
+      "meanAbsoluteChannelDelta": 29.775092592592593,
+      "maxChannelDelta": 245,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/-oNU9dmO3d-full-diff.png",
+    "referenceBox": {
+      "x": 24,
+      "y": 24,
+      "width": 1392,
+      "height": 507.984375
+    },
+    "nativeBox": {
+      "x": 217,
+      "y": 97,
+      "width": 326,
+      "height": 70.875
+    },
+    "region": {
+      "referenceSize": {
+        "width": 1392,
+        "height": 508
+      },
+      "nativeSize": {
+        "width": 326,
+        "height": 71
+      },
+      "comparedPixels": 707136,
+      "differentPixels": 707136,
+      "mismatchRatio": 1,
+      "meanAbsoluteChannelDelta": 83.37696190454642,
+      "maxChannelDelta": 255,
+      "exactMatch": false
+    },
+    "regionDiff": "comparisons/-oNU9dmO3d-region-diff.png",
+    "referenceRegion": "comparisons/-oNU9dmO3d-reference-region.png",
+    "nativeRegion": "comparisons/-oNU9dmO3d-native-region.png",
+    "status": "approved-layout-replacement"
+  },
+  {
+    "capturedAt": "2026-11-17T14:32:52.075Z",
+    "frame": "kRZIhG0yNj",
+    "name": "Wonder Content Group 18",
+    "theme": "dark",
+    "scenario": "inbox",
+    "scope": "historical-component",
+    "sourceUpdatedAt": "2026-11-15T23:25:52.073Z",
+    "sourceSha256": "67fa0879df06e4822ca953032eb8ead569bd3b1c9376663c1ee391f83ec47329",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/kRZIhG0yNj-native.png",
+    "referenceSha256": "d0dff251adc89047c42d1859033c8aaa76a3dff8edc04572ad3caa5385c2c410",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 900
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "comparedPixels": 1440000,
+      "differentPixels": 1440000,
+      "mismatchRatio": 1,
+      "meanAbsoluteChannelDelta": 225.70696597222224,
+      "maxChannelDelta": 245,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/kRZIhG0yNj-full-diff.png",
+    "referenceBox": {
+      "x": 24,
+      "y": 24,
+      "width": 1392,
+      "height": 507.984375
+    },
+    "nativeBox": {
+      "x": 217,
+      "y": 97,
+      "width": 326,
+      "height": 70.875
+    },
+    "region": {
+      "referenceSize": {
+        "width": 1392,
+        "height": 508
+      },
+      "nativeSize": {
+        "width": 326,
+        "height": 71
+      },
+      "comparedPixels": 707136,
+      "differentPixels": 707136,
+      "mismatchRatio": 1,
+      "meanAbsoluteChannelDelta": 89.73542336033427,
+      "maxChannelDelta": 255,
+      "exactMatch": false
+    },
+    "regionDiff": "comparisons/kRZIhG0yNj-region-diff.png",
+    "referenceRegion": "comparisons/kRZIhG0yNj-reference-region.png",
+    "nativeRegion": "comparisons/kRZIhG0yNj-native-region.png",
+    "status": "approved-layout-replacement"
+  },
+  {
+    "capturedAt": "2026-11-17T14:32:53.361Z",
+    "frame": "8DkHOg6fOw",
+    "name": "Wonder Inbox Queue 19",
+    "theme": "light",
+    "scenario": "inbox",
+    "scope": "historical-component",
+    "sourceUpdatedAt": "2026-11-15T23:30:08.255Z",
+    "sourceSha256": "2831069a93278114b86102dbdc34c120d85f9dfcf301566ef138871bb5be1a00",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/8DkHOg6fOw-native.png",
+    "referenceSha256": "250eb2e60eae5e97c08254172322348d02ac2e0eebaa237233b4dc7ec5306864",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 900
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "comparedPixels": 1440000,
+      "differentPixels": 1440000,
+      "mismatchRatio": 1,
+      "meanAbsoluteChannelDelta": 29.70979212962963,
+      "maxChannelDelta": 245,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/8DkHOg6fOw-full-diff.png",
+    "referenceBox": {
+      "x": 24,
+      "y": 24,
+      "width": 342,
+      "height": 539.984375
+    },
+    "nativeBox": {
+      "x": 200,
+      "y": 80,
+      "width": 360,
+      "height": 783.875
+    },
+    "region": {
+      "referenceSize": {
+        "width": 342,
+        "height": 540
+      },
+      "nativeSize": {
+        "width": 360,
+        "height": 784
+      },
+      "comparedPixels": 282240,
+      "differentPixels": 282240,
+      "mismatchRatio": 1,
+      "meanAbsoluteChannelDelta": 46.14922406462585,
+      "maxChannelDelta": 245,
+      "exactMatch": false
+    },
+    "regionDiff": "comparisons/8DkHOg6fOw-region-diff.png",
+    "referenceRegion": "comparisons/8DkHOg6fOw-reference-region.png",
+    "nativeRegion": "comparisons/8DkHOg6fOw-native-region.png",
+    "status": "approved-layout-replacement"
+  },
+  {
+    "capturedAt": "2026-11-17T14:32:54.622Z",
+    "frame": "81zdy1ibrN",
+    "name": "Wonder Inbox Queue 20",
+    "theme": "dark",
+    "scenario": "inbox",
+    "scope": "historical-component",
+    "sourceUpdatedAt": "2026-11-15T23:25:55.325Z",
+    "sourceSha256": "666f8c564a2b30a355fe10bc36029ba24622647db880778cbec9def44e871cef",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/81zdy1ibrN-native.png",
+    "referenceSha256": "21f5fcd1404ce3ecdfeb2d5b422948d425613c3a774fe4722bf302b64e39394d",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 900
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "comparedPixels": 1440000,
+      "differentPixels": 1440000,
+      "mismatchRatio": 1,
+      "meanAbsoluteChannelDelta": 225.67763032407407,
+      "maxChannelDelta": 245,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/81zdy1ibrN-full-diff.png",
+    "referenceBox": {
+      "x": 24,
+      "y": 24,
+      "width": 342,
+      "height": 539.984375
+    },
+    "nativeBox": {
+      "x": 200,
+      "y": 80,
+      "width": 360,
+      "height": 783.875
+    },
+    "region": {
+      "referenceSize": {
+        "width": 342,
+        "height": 540
+      },
+      "nativeSize": {
+        "width": 360,
+        "height": 784
+      },
+      "comparedPixels": 282240,
+      "differentPixels": 282240,
+      "mismatchRatio": 1,
+      "meanAbsoluteChannelDelta": 201.72564484126985,
+      "maxChannelDelta": 244,
+      "exactMatch": false
+    },
+    "regionDiff": "comparisons/81zdy1ibrN-region-diff.png",
+    "referenceRegion": "comparisons/81zdy1ibrN-reference-region.png",
+    "nativeRegion": "comparisons/81zdy1ibrN-native-region.png",
+    "status": "approved-layout-replacement"
+  },
+  {
+    "capturedAt": "2026-11-17T14:32:55.805Z",
+    "frame": "DNatiIOIJA",
+    "name": "Wonder Content Group 21",
+    "theme": "light",
+    "scenario": "selected-day",
+    "scope": "historical-component",
+    "sourceUpdatedAt": "2026-11-15T23:33:39.213Z",
+    "sourceSha256": "48aad49f1ca90b1cc3666e43c08c665476c1609ba892e57c10ad17438526624c",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/DNatiIOIJA-native.png",
+    "referenceSha256": "a6daa01898f67b82bb6bfc546b1c0e1a8c7859159a3c8a37653238ee510b59b8",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 900
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "comparedPixels": 1440000,
+      "differentPixels": 1440000,
+      "mismatchRatio": 1,
+      "meanAbsoluteChannelDelta": 91.46208912037036,
+      "maxChannelDelta": 244,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/DNatiIOIJA-full-diff.png",
+    "referenceBox": {
+      "x": 24,
+      "y": 24,
+      "width": 1392,
+      "height": 508.984375
+    },
+    "nativeBox": {
+      "x": 232,
+      "y": 210,
+      "width": 538.09375,
+      "height": 630
+    },
+    "region": {
+      "referenceSize": {
+        "width": 1392,
+        "height": 509
+      },
+      "nativeSize": {
+        "width": 539,
+        "height": 630
+      },
+      "comparedPixels": 876960,
+      "differentPixels": 773747,
+      "mismatchRatio": 0.8823059204524721,
+      "meanAbsoluteChannelDelta": 124.35739258347017,
+      "maxChannelDelta": 255,
+      "exactMatch": false
+    },
+    "regionDiff": "comparisons/DNatiIOIJA-region-diff.png",
+    "referenceRegion": "comparisons/DNatiIOIJA-reference-region.png",
+    "nativeRegion": "comparisons/DNatiIOIJA-native-region.png",
+    "status": "approved-layout-replacement"
+  },
+  {
+    "capturedAt": "2026-11-17T14:32:57.128Z",
+    "frame": "izcknoTRCZ",
+    "name": "Wonder Content Group 22",
+    "theme": "dark",
+    "scenario": "selected-day",
+    "scope": "historical-component",
+    "sourceUpdatedAt": "2026-11-15T23:33:40.919Z",
+    "sourceSha256": "bdf06d400a804dd14ec0e4ebb83fc74ee6840290a575cc8fdb3f5ae04eaed075",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/izcknoTRCZ-native.png",
+    "referenceSha256": "7b3fd53bd6f0ce1dc0b1236ddadc27bbab971c8366508459668eedcb6f5a324d",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 900
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "comparedPixels": 1440000,
+      "differentPixels": 1440000,
+      "mismatchRatio": 1,
+      "meanAbsoluteChannelDelta": 223.4248074074074,
+      "maxChannelDelta": 247,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/izcknoTRCZ-full-diff.png",
+    "referenceBox": {
+      "x": 24,
+      "y": 24,
+      "width": 1392,
+      "height": 508.984375
+    },
+    "nativeBox": {
+      "x": 232,
+      "y": 210,
+      "width": 538.09375,
+      "height": 630
+    },
+    "region": {
+      "referenceSize": {
+        "width": 1392,
+        "height": 509
+      },
+      "nativeSize": {
+        "width": 539,
+        "height": 630
+      },
+      "comparedPixels": 876960,
+      "differentPixels": 773747,
+      "mismatchRatio": 0.8823059204524721,
+      "meanAbsoluteChannelDelta": 124.45899546919662,
+      "maxChannelDelta": 255,
+      "exactMatch": false
+    },
+    "regionDiff": "comparisons/izcknoTRCZ-region-diff.png",
+    "referenceRegion": "comparisons/izcknoTRCZ-reference-region.png",
+    "nativeRegion": "comparisons/izcknoTRCZ-native-region.png",
+    "status": "approved-layout-replacement"
+  },
+  {
+    "capturedAt": "2026-11-17T14:32:58.482Z",
+    "frame": "DDnR4XXa0W",
+    "name": "Wonder Content Group 23",
+    "theme": "light",
+    "scenario": "selected-day",
+    "scope": "historical-component",
+    "sourceUpdatedAt": "2026-11-15T23:33:42.930Z",
+    "sourceSha256": "a160825c932ab15afbdef9419282bac5a2a439eb8c58630426efb1dac812ffc4",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/DDnR4XXa0W-native.png",
+    "referenceSha256": "2133c282a3862635882ef761298f79841191ecbcbe3f3f29e1e1ba72f8b0b8f1",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 900
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "comparedPixels": 1440000,
+      "differentPixels": 1440000,
+      "mismatchRatio": 1,
+      "meanAbsoluteChannelDelta": 90.40839490740741,
+      "maxChannelDelta": 244,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/DDnR4XXa0W-full-diff.png",
+    "referenceBox": {
+      "x": 24,
+      "y": 24,
+      "width": 1392,
+      "height": 540.984375
+    },
+    "nativeBox": {
+      "x": 232,
+      "y": 352.6875,
+      "width": 538.09375,
+      "height": 412.5
+    },
+    "region": {
+      "referenceSize": {
+        "width": 1392,
+        "height": 541
+      },
+      "nativeSize": {
+        "width": 539,
+        "height": 414
+      },
+      "comparedPixels": 753072,
+      "differentPixels": 753072,
+      "mismatchRatio": 1,
+      "meanAbsoluteChannelDelta": 134.70857589535484,
+      "maxChannelDelta": 255,
+      "exactMatch": false
+    },
+    "regionDiff": "comparisons/DDnR4XXa0W-region-diff.png",
+    "referenceRegion": "comparisons/DDnR4XXa0W-reference-region.png",
+    "nativeRegion": "comparisons/DDnR4XXa0W-native-region.png",
+    "status": "approved-layout-replacement"
+  },
+  {
+    "capturedAt": "2026-11-17T14:32:59.867Z",
+    "frame": "hd5kVrGWnf",
+    "name": "Wonder Content Group 24",
+    "theme": "dark",
+    "scenario": "selected-day",
+    "scope": "historical-component",
+    "sourceUpdatedAt": "2026-11-15T23:33:44.981Z",
+    "sourceSha256": "faeb8ce04f1311e7fd60dc736991d8b838c240433d39424bb0529e1a05864fa1",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/hd5kVrGWnf-native.png",
+    "referenceSha256": "fa03eda9b9abe4d1e3fdc5bf71ed8de7bc2e79f363262d3ec8f601d0b17df497",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 900
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "comparedPixels": 1440000,
+      "differentPixels": 1440000,
+      "mismatchRatio": 1,
+      "meanAbsoluteChannelDelta": 223.49158194444445,
+      "maxChannelDelta": 247,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/hd5kVrGWnf-full-diff.png",
+    "referenceBox": {
+      "x": 24,
+      "y": 24,
+      "width": 1392,
+      "height": 540.984375
+    },
+    "nativeBox": {
+      "x": 232,
+      "y": 352.6875,
+      "width": 538.09375,
+      "height": 412.5
+    },
+    "region": {
+      "referenceSize": {
+        "width": 1392,
+        "height": 541
+      },
+      "nativeSize": {
+        "width": 539,
+        "height": 414
+      },
+      "comparedPixels": 753072,
+      "differentPixels": 753072,
+      "mismatchRatio": 1,
+      "meanAbsoluteChannelDelta": 127.19138232023853,
+      "maxChannelDelta": 255,
+      "exactMatch": false
+    },
+    "regionDiff": "comparisons/hd5kVrGWnf-region-diff.png",
+    "referenceRegion": "comparisons/hd5kVrGWnf-reference-region.png",
+    "nativeRegion": "comparisons/hd5kVrGWnf-native-region.png",
+    "status": "approved-layout-replacement"
+  },
+  {
+    "capturedAt": "2026-11-17T14:33:01.209Z",
+    "frame": "AaTdOIyfpr",
+    "name": "Wonder Feature Card 25",
+    "theme": "light",
+    "scenario": "inbox",
+    "scope": "historical-component",
+    "sourceUpdatedAt": "2026-11-15T23:33:46.918Z",
+    "sourceSha256": "b50cba203b996e5805d7c79b358cd63d294171786171e2d742b219a294f22b16",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/AaTdOIyfpr-native.png",
+    "referenceSha256": "ac52b8cba61f4dc641e362b843005c2aaeadd05dbabb6853111e2cddd1c94493",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 900
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "comparedPixels": 1440000,
+      "differentPixels": 1440000,
+      "mismatchRatio": 1,
+      "meanAbsoluteChannelDelta": 127.97333032407407,
+      "maxChannelDelta": 242,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/AaTdOIyfpr-full-diff.png",
+    "referenceBox": {
+      "x": 24,
+      "y": 24,
+      "width": 1392,
+      "height": 540.984375
+    },
+    "nativeBox": {
+      "x": 1180,
+      "y": 376.875,
+      "width": 240,
+      "height": 232
+    },
+    "region": {
+      "referenceSize": {
+        "width": 1392,
+        "height": 541
+      },
+      "nativeSize": {
+        "width": 240,
+        "height": 233
+      },
+      "comparedPixels": 753072,
+      "differentPixels": 753072,
+      "mismatchRatio": 1,
+      "meanAbsoluteChannelDelta": 163.10631652750334,
+      "maxChannelDelta": 255,
+      "exactMatch": false
+    },
+    "regionDiff": "comparisons/AaTdOIyfpr-region-diff.png",
+    "referenceRegion": "comparisons/AaTdOIyfpr-reference-region.png",
+    "nativeRegion": "comparisons/AaTdOIyfpr-native-region.png",
+    "status": "approved-layout-replacement"
+  },
+  {
+    "capturedAt": "2026-11-17T14:33:02.401Z",
+    "frame": "sgVslF5Ytn",
+    "name": "Wonder Feature Card 26",
+    "theme": "dark",
+    "scenario": "inbox",
+    "scope": "historical-component",
+    "sourceUpdatedAt": "2026-11-15T23:33:48.694Z",
+    "sourceSha256": "01165bf6afee771de1dc1bb897a0299f0d605e40005579f8b7575558cc770ff6",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/sgVslF5Ytn-native.png",
+    "referenceSha256": "b8c387744b0dcec71945ca697185e00c3da6cb3a2aa4833606c363ddea0477b5",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 900
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "comparedPixels": 1440000,
+      "differentPixels": 1440000,
+      "mismatchRatio": 1,
+      "meanAbsoluteChannelDelta": 219.09655925925927,
+      "maxChannelDelta": 245,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/sgVslF5Ytn-full-diff.png",
+    "referenceBox": {
+      "x": 24,
+      "y": 24,
+      "width": 1392,
+      "height": 540.984375
+    },
+    "nativeBox": {
+      "x": 1180,
+      "y": 376.875,
+      "width": 240,
+      "height": 232
+    },
+    "region": {
+      "referenceSize": {
+        "width": 1392,
+        "height": 541
+      },
+      "nativeSize": {
+        "width": 240,
+        "height": 233
+      },
+      "comparedPixels": 753072,
+      "differentPixels": 753072,
+      "mismatchRatio": 1,
+      "meanAbsoluteChannelDelta": 97.2786440074787,
+      "maxChannelDelta": 255,
+      "exactMatch": false
+    },
+    "regionDiff": "comparisons/sgVslF5Ytn-region-diff.png",
+    "referenceRegion": "comparisons/sgVslF5Ytn-reference-region.png",
+    "nativeRegion": "comparisons/sgVslF5Ytn-native-region.png",
+    "status": "approved-layout-replacement"
+  },
+  {
+    "capturedAt": "2026-11-17T14:33:03.581Z",
+    "frame": "ug8bJlR2hC",
+    "name": "Wonder Content Group 27",
+    "theme": "light",
+    "scenario": "inbox",
+    "scope": "historical-component",
+    "sourceUpdatedAt": "2026-11-15T23:33:50.386Z",
+    "sourceSha256": "12d92a021d1d1bf4930c4bef6a4bff5b6ac7436cba0cfa7d5edf4ebf75d59255",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/ug8bJlR2hC-native.png",
+    "referenceSha256": "5146f1aadbabe9e13388ecd0fb26a36af6139590d104c3388cc631ad0f39e049",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 900
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "comparedPixels": 1440000,
+      "differentPixels": 1440000,
+      "mismatchRatio": 1,
+      "meanAbsoluteChannelDelta": 140.90579768518518,
+      "maxChannelDelta": 242,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/ug8bJlR2hC-full-diff.png",
+    "referenceBox": {
+      "x": 24,
+      "y": 24,
+      "width": 1392,
+      "height": 735.953125
+    },
+    "nativeBox": {
+      "x": 1180,
+      "y": 150.875,
+      "width": 240,
+      "height": 458
+    },
+    "region": {
+      "referenceSize": {
+        "width": 1392,
+        "height": 736
+      },
+      "nativeSize": {
+        "width": 240,
+        "height": 459
+      },
+      "comparedPixels": 1024512,
+      "differentPixels": 1024512,
+      "mismatchRatio": 1,
+      "meanAbsoluteChannelDelta": 151.11929517012328,
+      "maxChannelDelta": 255,
+      "exactMatch": false
+    },
+    "regionDiff": "comparisons/ug8bJlR2hC-region-diff.png",
+    "referenceRegion": "comparisons/ug8bJlR2hC-reference-region.png",
+    "nativeRegion": "comparisons/ug8bJlR2hC-native-region.png",
+    "status": "approved-layout-replacement"
+  },
+  {
+    "capturedAt": "2026-11-17T14:33:04.746Z",
+    "frame": "RM9QhxqVMF",
+    "name": "Wonder Content Group 28",
+    "theme": "dark",
+    "scenario": "inbox",
+    "scope": "historical-component",
+    "sourceUpdatedAt": "2026-11-15T23:33:52.343Z",
+    "sourceSha256": "d99ca5d8ee45aed1733a93405bc8fc248e841aa1bc3ae5d0c015e6454031033f",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/RM9QhxqVMF-native.png",
+    "referenceSha256": "b5de7b5e2cc7734ec3224b17b27c46a4ac687121a801b4927c332138e0b5d665",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 900
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "comparedPixels": 1440000,
+      "differentPixels": 1440000,
+      "mismatchRatio": 1,
+      "meanAbsoluteChannelDelta": 217.94342199074075,
+      "maxChannelDelta": 245,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/RM9QhxqVMF-full-diff.png",
+    "referenceBox": {
+      "x": 24,
+      "y": 24,
+      "width": 1392,
+      "height": 735.953125
+    },
+    "nativeBox": {
+      "x": 1180,
+      "y": 150.875,
+      "width": 240,
+      "height": 458
+    },
+    "region": {
+      "referenceSize": {
+        "width": 1392,
+        "height": 736
+      },
+      "nativeSize": {
+        "width": 240,
+        "height": 459
+      },
+      "comparedPixels": 1024512,
+      "differentPixels": 1024512,
+      "mismatchRatio": 1,
+      "meanAbsoluteChannelDelta": 101.10929008152173,
+      "maxChannelDelta": 255,
+      "exactMatch": false
+    },
+    "regionDiff": "comparisons/RM9QhxqVMF-region-diff.png",
+    "referenceRegion": "comparisons/RM9QhxqVMF-reference-region.png",
+    "nativeRegion": "comparisons/RM9QhxqVMF-native-region.png",
+    "status": "approved-layout-replacement"
+  },
+  {
+    "capturedAt": "2026-11-17T14:33:06.024Z",
+    "frame": "l5yehTWbwJ",
+    "name": "Wonder Agenda Sidebar 29",
+    "theme": "light",
+    "scenario": "inbox",
+    "scope": "historical-component",
+    "sourceUpdatedAt": "2026-11-15T23:33:54.323Z",
+    "sourceSha256": "24ac9a12e31f8cdeb4b47a213bd0ddb3348b7093af1de5b7839bdc1bbf9bd790",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/l5yehTWbwJ-native.png",
+    "referenceSha256": "9a40b417cd4786359c67abaf64eeff46e0435dd7166c63c9c77aef3b910beee9",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 900
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "comparedPixels": 1440000,
+      "differentPixels": 1440000,
+      "mismatchRatio": 1,
+      "meanAbsoluteChannelDelta": 58.40985,
+      "maxChannelDelta": 242,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/l5yehTWbwJ-full-diff.png",
+    "referenceBox": {
+      "x": 24,
+      "y": 24,
+      "width": 410,
+      "height": 775.953125
+    },
+    "nativeBox": {
+      "x": 1160,
+      "y": 80,
+      "width": 280,
+      "height": 783.875
+    },
+    "region": {
+      "referenceSize": {
+        "width": 410,
+        "height": 776
+      },
+      "nativeSize": {
+        "width": 280,
+        "height": 784
+      },
+      "comparedPixels": 321440,
+      "differentPixels": 320400,
+      "mismatchRatio": 0.9967645594823296,
+      "meanAbsoluteChannelDelta": 144.3055012858802,
+      "maxChannelDelta": 255,
+      "exactMatch": false
+    },
+    "regionDiff": "comparisons/l5yehTWbwJ-region-diff.png",
+    "referenceRegion": "comparisons/l5yehTWbwJ-reference-region.png",
+    "nativeRegion": "comparisons/l5yehTWbwJ-native-region.png",
+    "status": "approved-layout-replacement"
+  },
+  {
+    "capturedAt": "2026-11-17T14:33:07.245Z",
+    "frame": "9M9Kqau-Kj",
+    "name": "Wonder Agenda Sidebar 30",
+    "theme": "dark",
+    "scenario": "inbox",
+    "scope": "historical-component",
+    "sourceUpdatedAt": "2026-11-15T23:33:56.376Z",
+    "sourceSha256": "9e0bba7dea5df70953720e9d158ecf1d0d1ded8970b6e89bcbf6a1ad127feb9f",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/9M9Kqau-Kj-native.png",
+    "referenceSha256": "da4c35229b6e95aa748ca5365a18812a41287cef290bce7b9c5147f7d3c4689a",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 900
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "comparedPixels": 1440000,
+      "differentPixels": 1440000,
+      "mismatchRatio": 1,
+      "meanAbsoluteChannelDelta": 223.17969837962963,
+      "maxChannelDelta": 245,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/9M9Kqau-Kj-full-diff.png",
+    "referenceBox": {
+      "x": 24,
+      "y": 24,
+      "width": 410,
+      "height": 775.953125
+    },
+    "nativeBox": {
+      "x": 1160,
+      "y": 80,
+      "width": 280,
+      "height": 783.875
+    },
+    "region": {
+      "referenceSize": {
+        "width": 410,
+        "height": 776
+      },
+      "nativeSize": {
+        "width": 280,
+        "height": 784
+      },
+      "comparedPixels": 321440,
+      "differentPixels": 320400,
+      "mismatchRatio": 0.9967645594823296,
+      "meanAbsoluteChannelDelta": 174.2950431392069,
+      "maxChannelDelta": 255,
+      "exactMatch": false
+    },
+    "regionDiff": "comparisons/9M9Kqau-Kj-region-diff.png",
+    "referenceRegion": "comparisons/9M9Kqau-Kj-reference-region.png",
+    "nativeRegion": "comparisons/9M9Kqau-Kj-native-region.png",
+    "status": "approved-layout-replacement"
+  },
+  {
+    "capturedAt": "2026-11-17T14:33:08.386Z",
+    "frame": "LYhg7oMwg8",
+    "name": "Wonder Content Group 31",
+    "theme": "light",
+    "scenario": "inbox",
+    "scope": "historical-component",
+    "sourceUpdatedAt": "2026-11-15T23:33:58.076Z",
+    "sourceSha256": "6d38d1c257d6a2d1e18ea31ef6f865aa3dd4c77c4c8e7410e66a77b81d06dfe5",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/LYhg7oMwg8-native.png",
+    "referenceSha256": "c78efba778e3921b7f13fe960b74ee3f519a05a46469e4141f6cd689bab4a93a",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 900
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "comparedPixels": 1440000,
+      "differentPixels": 1440000,
+      "mismatchRatio": 1,
+      "meanAbsoluteChannelDelta": 30.902742361111113,
+      "maxChannelDelta": 242,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/LYhg7oMwg8-full-diff.png",
+    "referenceBox": {
+      "x": 24,
+      "y": 24,
+      "width": 1392,
+      "height": 779.984375
+    },
+    "nativeBox": {
+      "x": 0,
+      "y": 80,
+      "width": 200,
+      "height": 783.875
+    },
+    "region": {
+      "referenceSize": {
+        "width": 1392,
+        "height": 780
+      },
+      "nativeSize": {
+        "width": 200,
+        "height": 784
+      },
+      "comparedPixels": 1091328,
+      "differentPixels": 1086560,
+      "mismatchRatio": 0.9956310110250997,
+      "meanAbsoluteChannelDelta": 77.40267515051998,
+      "maxChannelDelta": 255,
+      "exactMatch": false
+    },
+    "regionDiff": "comparisons/LYhg7oMwg8-region-diff.png",
+    "referenceRegion": "comparisons/LYhg7oMwg8-reference-region.png",
+    "nativeRegion": "comparisons/LYhg7oMwg8-native-region.png",
+    "status": "approved-layout-replacement"
+  },
+  {
+    "capturedAt": "2026-11-17T14:33:09.605Z",
+    "frame": "TIxI33oJXt",
+    "name": "Wonder Content Group 32",
+    "theme": "dark",
+    "scenario": "inbox",
+    "scope": "historical-component",
+    "sourceUpdatedAt": "2026-11-15T23:33:59.906Z",
+    "sourceSha256": "795374ef623f7524155e8d086e75ccb1cfa5b15f4293fe9a82290a8d15f93402",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/TIxI33oJXt-native.png",
+    "referenceSha256": "c6c4d2d73bbe9bea8c8b6dc9475cc472880165a9e60d46befefff94591a69ff9",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 900
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "comparedPixels": 1440000,
+      "differentPixels": 1440000,
+      "mismatchRatio": 1,
+      "meanAbsoluteChannelDelta": 224.82213587962963,
+      "maxChannelDelta": 245,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/TIxI33oJXt-full-diff.png",
+    "referenceBox": {
+      "x": 24,
+      "y": 24,
+      "width": 1392,
+      "height": 779.984375
+    },
+    "nativeBox": {
+      "x": 0,
+      "y": 80,
+      "width": 200,
+      "height": 783.875
+    },
+    "region": {
+      "referenceSize": {
+        "width": 1392,
+        "height": 780
+      },
+      "nativeSize": {
+        "width": 200,
+        "height": 784
+      },
+      "comparedPixels": 1091328,
+      "differentPixels": 1086560,
+      "mismatchRatio": 0.9956310110250997,
+      "meanAbsoluteChannelDelta": 104.37212888028775,
+      "maxChannelDelta": 255,
+      "exactMatch": false
+    },
+    "regionDiff": "comparisons/TIxI33oJXt-region-diff.png",
+    "referenceRegion": "comparisons/TIxI33oJXt-reference-region.png",
+    "nativeRegion": "comparisons/TIxI33oJXt-native-region.png",
+    "status": "approved-layout-replacement"
+  },
+  {
+    "capturedAt": "2026-11-17T14:33:10.819Z",
+    "frame": "naws-4elLa",
+    "name": "Wonder Workspace Sidebar 33",
+    "theme": "light",
+    "scenario": "inbox",
+    "scope": "historical-component",
+    "sourceUpdatedAt": "2026-11-15T23:34:01.813Z",
+    "sourceSha256": "dbc14a44c8e18a42bcddd55c84a069e5a5e46f45fc89f2a4b1fe44c1ed2b7ea7",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/naws-4elLa-native.png",
+    "referenceSha256": "bd24731490c0141df26ce5967c13594d6c1771c9a92455adad2cf80dd7029844",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 900
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "comparedPixels": 1440000,
+      "differentPixels": 1440000,
+      "mismatchRatio": 1,
+      "meanAbsoluteChannelDelta": 58.20894074074074,
+      "maxChannelDelta": 245,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/naws-4elLa-full-diff.png",
+    "referenceBox": {
+      "x": 24,
+      "y": 24,
+      "width": 272,
+      "height": 811.984375
+    },
+    "nativeBox": {
+      "x": 0,
+      "y": 80,
+      "width": 200,
+      "height": 783.875
+    },
+    "region": {
+      "referenceSize": {
+        "width": 272,
+        "height": 812
+      },
+      "nativeSize": {
+        "width": 200,
+        "height": 784
+      },
+      "comparedPixels": 220864,
+      "differentPixels": 220864,
+      "mismatchRatio": 1,
+      "meanAbsoluteChannelDelta": 194.97556414807303,
+      "maxChannelDelta": 255,
+      "exactMatch": false
+    },
+    "regionDiff": "comparisons/naws-4elLa-region-diff.png",
+    "referenceRegion": "comparisons/naws-4elLa-reference-region.png",
+    "nativeRegion": "comparisons/naws-4elLa-native-region.png",
+    "status": "approved-layout-replacement"
+  },
+  {
+    "capturedAt": "2026-11-17T14:33:12.085Z",
+    "frame": "_OixdI-QtO",
+    "name": "Wonder Workspace Sidebar 34",
+    "theme": "dark",
+    "scenario": "inbox",
+    "scope": "historical-component",
+    "sourceUpdatedAt": "2026-11-15T23:34:03.919Z",
+    "sourceSha256": "60c140cd046a1bad7faceeff68a329df25f84a673d8f8515f440b1c60c7c8052",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/_OixdI-QtO-native.png",
+    "referenceSha256": "eb1a80db0d021daa87919ca37284f31284fd7a05deda723a87db88f5fe3a9ef5",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 900
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "comparedPixels": 1440000,
+      "differentPixels": 1440000,
+      "mismatchRatio": 1,
+      "meanAbsoluteChannelDelta": 221.37719583333333,
+      "maxChannelDelta": 245,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/_OixdI-QtO-full-diff.png",
+    "referenceBox": {
+      "x": 24,
+      "y": 24,
+      "width": 272,
+      "height": 811.984375
+    },
+    "nativeBox": {
+      "x": 0,
+      "y": 80,
+      "width": 200,
+      "height": 783.875
+    },
+    "region": {
+      "referenceSize": {
+        "width": 272,
+        "height": 812
+      },
+      "nativeSize": {
+        "width": 200,
+        "height": 784
+      },
+      "comparedPixels": 220864,
+      "differentPixels": 220864,
+      "mismatchRatio": 1,
+      "meanAbsoluteChannelDelta": 170.5343937143823,
+      "maxChannelDelta": 255,
+      "exactMatch": false
+    },
+    "regionDiff": "comparisons/_OixdI-QtO-region-diff.png",
+    "referenceRegion": "comparisons/_OixdI-QtO-reference-region.png",
+    "nativeRegion": "comparisons/_OixdI-QtO-native-region.png",
+    "status": "approved-layout-replacement"
+  },
+  {
+    "capturedAt": "2026-11-17T14:33:13.342Z",
+    "frame": "jfCTSRLNzb",
+    "name": "Wonder Workspace Background 35",
+    "theme": "light",
+    "scenario": "inbox",
+    "scope": "historical-component",
+    "sourceUpdatedAt": "2026-11-15T23:34:06.077Z",
+    "sourceSha256": "7a22e634f2157819f2c0c13a2fa2b21b49c995387fe48ba6df521220fd5fd6a2",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/jfCTSRLNzb-native.png",
+    "referenceSha256": "8785390546d489436daa987d6916db1fd637301c37856da3d4f9dde87a70b768",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 900
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "comparedPixels": 1440000,
+      "differentPixels": 1440000,
+      "mismatchRatio": 1,
+      "meanAbsoluteChannelDelta": 101.92327361111111,
+      "maxChannelDelta": 245,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/jfCTSRLNzb-full-diff.png",
+    "referenceBox": {
+      "x": 24,
+      "y": 24,
+      "width": 1377,
+      "height": 880
+    },
+    "nativeBox": {
+      "x": 0,
+      "y": 0,
+      "width": 1440,
+      "height": 918.875
+    },
+    "region": {
+      "referenceSize": {
+        "width": 1377,
+        "height": 876
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 919
+      },
+      "comparedPixels": 1323360,
+      "differentPixels": 1323360,
+      "mismatchRatio": 1,
+      "meanAbsoluteChannelDelta": 107.83208952968202,
+      "maxChannelDelta": 245,
+      "exactMatch": false
+    },
+    "regionDiff": "comparisons/jfCTSRLNzb-region-diff.png",
+    "referenceRegion": "comparisons/jfCTSRLNzb-reference-region.png",
+    "nativeRegion": "comparisons/jfCTSRLNzb-native-region.png",
+    "status": "approved-layout-replacement"
+  },
+  {
+    "capturedAt": "2026-11-17T14:33:14.646Z",
+    "frame": "ISz1kpo5xJ",
+    "name": "Wonder Workspace Background 36",
+    "theme": "dark",
+    "scenario": "inbox",
+    "scope": "historical-component",
+    "sourceUpdatedAt": "2026-11-15T23:34:08.435Z",
+    "sourceSha256": "c67bca45b89216066e62b6491270d6ebf0c42a82eee8d031a8db822451156a96",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/ISz1kpo5xJ-native.png",
+    "referenceSha256": "c6ae84497572f938c852fab86fac302d80cd2b85fb5cc37f500a53419f7d428c",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 900
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "comparedPixels": 1440000,
+      "differentPixels": 1440000,
+      "mismatchRatio": 1,
+      "meanAbsoluteChannelDelta": 214.54121689814815,
+      "maxChannelDelta": 245,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/ISz1kpo5xJ-full-diff.png",
+    "referenceBox": {
+      "x": 24,
+      "y": 24,
+      "width": 1377,
+      "height": 880
+    },
+    "nativeBox": {
+      "x": 0,
+      "y": 0,
+      "width": 1440,
+      "height": 918.875
+    },
+    "region": {
+      "referenceSize": {
+        "width": 1377,
+        "height": 876
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 919
+      },
+      "comparedPixels": 1323360,
+      "differentPixels": 1323360,
+      "mismatchRatio": 1,
+      "meanAbsoluteChannelDelta": 214.6663691915528,
+      "maxChannelDelta": 245,
+      "exactMatch": false
+    },
+    "regionDiff": "comparisons/ISz1kpo5xJ-region-diff.png",
+    "referenceRegion": "comparisons/ISz1kpo5xJ-reference-region.png",
+    "nativeRegion": "comparisons/ISz1kpo5xJ-native-region.png",
+    "status": "approved-layout-replacement"
+  },
+  {
+    "capturedAt": "2026-11-17T14:33:16.181Z",
+    "frame": "sa5ThibhQK",
+    "name": "AI Welcome Light",
+    "theme": "light",
+    "scenario": "assistant-welcome",
+    "scope": "overlay-foreground",
+    "sourceUpdatedAt": "2026-11-15T23:34:56.833Z",
+    "sourceSha256": "f77a01420178706fc28d3502153f85dad08aaee699b3e7c0b29944488bd310f5",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/sa5ThibhQK-native.png",
+    "referenceSha256": "75902afe0cd2208fc89590360758fc8ab1f902c70f36af797655d6fa30a32cfa",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 1005
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1005
+      },
+      "comparedPixels": 1447200,
+      "differentPixels": 646700,
+      "mismatchRatio": 0.4468629076838032,
+      "meanAbsoluteChannelDelta": 16.23169108162889,
+      "maxChannelDelta": 220,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/sa5ThibhQK-full-diff.png",
+    "referenceBox": {
+      "x": 330,
+      "y": 104,
+      "width": 780,
+      "height": 716.96875
+    },
+    "nativeBox": {
+      "x": 330,
+      "y": 104,
+      "width": 780,
+      "height": 716.96875
+    },
+    "region": {
+      "referenceSize": {
+        "width": 780,
+        "height": 717
+      },
+      "nativeSize": {
+        "width": 780,
+        "height": 717
+      },
+      "comparedPixels": 559132,
+      "differentPixels": 160,
+      "mismatchRatio": 0.0002861578303513303,
+      "meanAbsoluteChannelDelta": 0.0007875301956127235,
+      "maxChannelDelta": 36,
+      "exactMatch": false
+    },
+    "regionDiff": "comparisons/sa5ThibhQK-region-diff.png",
+    "referenceRegion": "comparisons/sa5ThibhQK-reference-region.png",
+    "nativeRegion": "comparisons/sa5ThibhQK-native-region.png",
+    "isolatedForeground": {
+      "referenceSize": {
+        "width": 780,
+        "height": 717
+      },
+      "nativeSize": {
+        "width": 780,
+        "height": 717
+      },
+      "comparedPixels": 559260,
+      "differentPixels": 0,
+      "mismatchRatio": 0,
+      "meanAbsoluteChannelDelta": 0,
+      "maxChannelDelta": 0,
+      "exactMatch": true,
+      "placementMatches": true,
+      "reference": "comparisons/sa5ThibhQK-isolated-reference.png",
+      "native": "comparisons/sa5ThibhQK-isolated-native.png",
+      "diff": "comparisons/sa5ThibhQK-isolated-diff.png",
+      "method": "Entire foreground borderbox on a shared neutral backdrop; only body visibility/background changes, target visibility restored. Original foreground styles/content/geometry unchanged. Full-document capture avoids viewport scrollbars occluding the foreground; authored viewport dimensions remain unchanged. No pixel masks or tolerance."
+    },
+    "status": "exact"
+  },
+  {
+    "capturedAt": "2026-11-17T14:33:18.247Z",
+    "frame": "T-RWCDO3pN",
+    "name": "Sign In Glaze Light",
+    "theme": "light",
+    "scenario": "sign-in",
+    "scope": "full-frame",
+    "sourceUpdatedAt": "2026-11-15T23:24:35.974Z",
+    "sourceSha256": "c32afb73f58f50e237f001f38506206ac2f9660a6579fc6f68c957e732424dd6",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/T-RWCDO3pN-native.png",
+    "referenceSha256": "4b6f86b8cdfe3adeb42be74328680ffc623781c59108266494934d3f9189e895",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 900
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 900
+      },
+      "comparedPixels": 1296000,
+      "differentPixels": 0,
+      "mismatchRatio": 0,
+      "meanAbsoluteChannelDelta": 0,
+      "maxChannelDelta": 0,
+      "exactMatch": true
+    },
+    "fullDiff": "comparisons/T-RWCDO3pN-full-diff.png",
+    "status": "exact"
+  },
+  {
+    "capturedAt": "2026-11-17T14:33:20.562Z",
+    "frame": "zR46pVQtqo",
+    "name": "Sign In Glaze Dark",
+    "theme": "dark",
+    "scenario": "sign-in",
+    "scope": "full-frame",
+    "sourceUpdatedAt": "2026-11-15T23:30:08.362Z",
+    "sourceSha256": "6f9c996e323bde7476ca232b9524f85ec1811b426a626eb30ca57f782cee7799",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/zR46pVQtqo-native.png",
+    "referenceSha256": "122d40a8f98259da2a2c6e8fc262f12c15a653e8a376c6df360b30a8371093da",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 900
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 900
+      },
+      "comparedPixels": 1296000,
+      "differentPixels": 0,
+      "mismatchRatio": 0,
+      "meanAbsoluteChannelDelta": 0,
+      "maxChannelDelta": 0,
+      "exactMatch": true
+    },
+    "fullDiff": "comparisons/zR46pVQtqo-full-diff.png",
+    "status": "exact"
+  },
+  {
+    "capturedAt": "2026-11-17T14:33:22.245Z",
+    "frame": "r5LPleAiTI",
+    "name": "Connect Glaze Light",
+    "theme": "light",
+    "scenario": "connect",
+    "scope": "full-frame",
+    "sourceUpdatedAt": "2026-11-15T23:27:34.037Z",
+    "sourceSha256": "5c6ca15fe342190933b20b21ec4940c76e2fe4834692cde5aae3d20b475f2e30",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/r5LPleAiTI-native.png",
+    "referenceSha256": "b7af3273c279e20b8bbf5da7ace3e5d1c91eb9fb215704665988f2593353a7d6",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 900
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 900
+      },
+      "comparedPixels": 1296000,
+      "differentPixels": 0,
+      "mismatchRatio": 0,
+      "meanAbsoluteChannelDelta": 0,
+      "maxChannelDelta": 0,
+      "exactMatch": true
+    },
+    "fullDiff": "comparisons/r5LPleAiTI-full-diff.png",
+    "status": "exact"
+  },
+  {
+    "capturedAt": "2026-11-17T14:33:23.990Z",
+    "frame": "lyGlR1B5Jp",
+    "name": "Connect Glaze Dark",
+    "theme": "dark",
+    "scenario": "connect",
+    "scope": "full-frame",
+    "sourceUpdatedAt": "2026-11-15T23:30:08.366Z",
+    "sourceSha256": "c1a98ca8004142b2c1fe0c13720ea15a96f1e062e6f7cf3bbaf292319e2ff53e",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/lyGlR1B5Jp-native.png",
+    "referenceSha256": "9c2ae060270ad461afdb93a0edf08de7bd21209e45a67b76cc9e3b798b6e4299",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 900
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 900
+      },
+      "comparedPixels": 1296000,
+      "differentPixels": 0,
+      "mismatchRatio": 0,
+      "meanAbsoluteChannelDelta": 0,
+      "maxChannelDelta": 0,
+      "exactMatch": true
+    },
+    "fullDiff": "comparisons/lyGlR1B5Jp-full-diff.png",
+    "status": "exact"
+  },
+  {
+    "capturedAt": "2026-11-17T14:33:25.576Z",
+    "frame": "nwOnX0aVws",
+    "name": "Inbox Glaze Light",
+    "theme": "light",
+    "scenario": "inbox",
+    "scope": "full-frame",
+    "sourceUpdatedAt": "2026-11-15T23:34:58.521Z",
+    "sourceSha256": "c6420e2487553bbdf6723ef5ecc072ffba49c32926127962abba1aa950c33f94",
+    "errors": [],
+    "referenceOrigin": "official-doop-render",
+    "native": "comparisons/nwOnX0aVws-native.png",
+    "referenceSha256": "e344c28fa6c0ad2297eac6d417b77c95fca402aaea0ed5965720ec2a11fcc524",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 919
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 919
+      },
+      "comparedPixels": 1323360,
+      "differentPixels": 0,
+      "mismatchRatio": 0,
+      "meanAbsoluteChannelDelta": 0,
+      "maxChannelDelta": 0,
+      "exactMatch": true
+    },
+    "fullDiff": "comparisons/nwOnX0aVws-full-diff.png",
+    "status": "exact"
+  },
+  {
+    "capturedAt": "2026-11-17T14:33:26.950Z",
+    "frame": "LwTPn9MJXU",
+    "name": "Inbox Glaze Dark",
+    "theme": "dark",
+    "scenario": "inbox",
+    "scope": "full-frame",
+    "sourceUpdatedAt": "2026-11-15T23:35:00.371Z",
+    "sourceSha256": "7bcb2c02af1d8d80d38ab9f40161d1bcf10680c3e0b95048409f9b223f44d715",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/LwTPn9MJXU-native.png",
+    "referenceSha256": "204518504eca84913fdc2bb28b1fa82548b3561152db5dc48dfed6f9fa17f748",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 919
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 919
+      },
+      "comparedPixels": 1323360,
+      "differentPixels": 0,
+      "mismatchRatio": 0,
+      "meanAbsoluteChannelDelta": 0,
+      "maxChannelDelta": 0,
+      "exactMatch": true
+    },
+    "fullDiff": "comparisons/LwTPn9MJXU-full-diff.png",
+    "status": "exact"
+  },
+  {
+    "capturedAt": "2026-11-17T14:33:28.519Z",
+    "frame": "0t83YzC7LR",
+    "name": "Calendar Glaze Light",
+    "theme": "light",
+    "scenario": "week",
+    "scope": "full-frame",
+    "sourceUpdatedAt": "2026-11-15T23:35:02.112Z",
+    "sourceSha256": "bf48d5b7eafa1f1022d61bbbd943fd17e0f78a1a389771196929a6cad8258dfe",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/0t83YzC7LR-native.png",
+    "referenceSha256": "3d9e5762a1ffd5714fb54b306f6c5d0930aed3a6b835e4c7c5d65d2107a2cd31",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 900
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 900
+      },
+      "comparedPixels": 1296000,
+      "differentPixels": 0,
+      "mismatchRatio": 0,
+      "meanAbsoluteChannelDelta": 0,
+      "maxChannelDelta": 0,
+      "exactMatch": true
+    },
+    "fullDiff": "comparisons/0t83YzC7LR-full-diff.png",
+    "status": "exact"
+  },
+  {
+    "capturedAt": "2026-11-17T14:33:30.413Z",
+    "frame": "TvnvIbjgPo",
+    "name": "Calendar Glaze Dark",
+    "theme": "dark",
+    "scenario": "week",
+    "scope": "full-frame",
+    "sourceUpdatedAt": "2026-11-15T23:35:04.170Z",
+    "sourceSha256": "0aeb95a6526f54eb70bf59f199167777610f535b5fc05a8677d20edd51036fb1",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/TvnvIbjgPo-native.png",
+    "referenceSha256": "d82dc67e6f2c9ebcbee65e239c9130b0a9365ae4be1576b6fdee6bcd06f191f7",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 900
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 900
+      },
+      "comparedPixels": 1296000,
+      "differentPixels": 0,
+      "mismatchRatio": 0,
+      "meanAbsoluteChannelDelta": 0,
+      "maxChannelDelta": 0,
+      "exactMatch": true
+    },
+    "fullDiff": "comparisons/TvnvIbjgPo-full-diff.png",
+    "status": "exact"
+  },
+  {
+    "capturedAt": "2026-11-17T14:33:32.110Z",
+    "frame": "pFxVhCB3hp",
+    "name": "Compose Glaze Light",
+    "theme": "light",
+    "scenario": "compose",
+    "scope": "full-frame",
+    "sourceUpdatedAt": "2026-11-15T23:35:06.010Z",
+    "sourceSha256": "c386a615fb52add59d12a9aca919d48942c3b86f7140ba9a105794408c5467c2",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/pFxVhCB3hp-native.png",
+    "referenceSha256": "1da95001a6fa169b025e510fa1418f5fde508683e537d884008b11439e991fb2",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 900
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 900
+      },
+      "comparedPixels": 1296000,
+      "differentPixels": 0,
+      "mismatchRatio": 0,
+      "meanAbsoluteChannelDelta": 0,
+      "maxChannelDelta": 0,
+      "exactMatch": true
+    },
+    "fullDiff": "comparisons/pFxVhCB3hp-full-diff.png",
+    "status": "exact"
+  },
+  {
+    "capturedAt": "2026-11-17T14:33:33.625Z",
+    "frame": "LBIBo1A_05",
+    "name": "Compose Glaze Dark",
+    "theme": "dark",
+    "scenario": "compose",
+    "scope": "full-frame",
+    "sourceUpdatedAt": "2026-11-15T23:35:07.797Z",
+    "sourceSha256": "0d6d527df07eb9865a6cd32902e542f3d209850590bcda9df53d4c9c83ea3dc4",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/LBIBo1A_05-native.png",
+    "referenceSha256": "701d9417b609f81e06edd09997847fd7ad5cdd51cd7d896d3d4013c156cd8cf1",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 900
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 900
+      },
+      "comparedPixels": 1296000,
+      "differentPixels": 0,
+      "mismatchRatio": 0,
+      "meanAbsoluteChannelDelta": 0,
+      "maxChannelDelta": 0,
+      "exactMatch": true
+    },
+    "fullDiff": "comparisons/LBIBo1A_05-full-diff.png",
+    "status": "exact"
+  },
+  {
+    "capturedAt": "2026-11-17T14:33:35.299Z",
+    "frame": "eCb9kLXTFL",
+    "name": "Privacy Glaze Light",
+    "theme": "light",
+    "scenario": "privacy",
+    "scope": "full-frame",
+    "sourceUpdatedAt": "2026-11-15T23:24:36.033Z",
+    "sourceSha256": "6d1a711846a25263e00b7608bbb111a417d0f0324dc8e22fcfa147aa3336ce82",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/eCb9kLXTFL-native.png",
+    "referenceSha256": "a675f40a8ca12fc084ae7366ead90a3ae3c53ae338b331109c5e16f67724916d",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 2062
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 2062
+      },
+      "comparedPixels": 2969280,
+      "differentPixels": 0,
+      "mismatchRatio": 0,
+      "meanAbsoluteChannelDelta": 0,
+      "maxChannelDelta": 0,
+      "exactMatch": true
+    },
+    "fullDiff": "comparisons/eCb9kLXTFL-full-diff.png",
+    "status": "exact"
+  },
+  {
+    "capturedAt": "2026-11-17T14:33:36.783Z",
+    "frame": "0SudpaDmVv",
+    "name": "Privacy Glaze Dark",
+    "theme": "dark",
+    "scenario": "privacy",
+    "scope": "full-frame",
+    "sourceUpdatedAt": "2026-11-15T23:30:08.399Z",
+    "sourceSha256": "4ac45c98bfa9c8eb9fd7b67de7724ecd953adbe2d5bb22f7262d31c03a14b213",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/0SudpaDmVv-native.png",
+    "referenceSha256": "317778fd7b5e0deb119ff86727704a59f8ced71e8831e3eb36e5ee35a0d6697c",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 2062
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 2062
+      },
+      "comparedPixels": 2969280,
+      "differentPixels": 0,
+      "mismatchRatio": 0,
+      "meanAbsoluteChannelDelta": 0,
+      "maxChannelDelta": 0,
+      "exactMatch": true
+    },
+    "fullDiff": "comparisons/0SudpaDmVv-full-diff.png",
+    "status": "exact"
+  },
+  {
+    "capturedAt": "2026-11-17T14:33:38.075Z",
+    "frame": "fCM2-TkoZ0",
+    "name": "Terms Glaze Light",
+    "theme": "light",
+    "scenario": "terms",
+    "scope": "full-frame",
+    "sourceUpdatedAt": "2026-11-15T23:24:36.042Z",
+    "sourceSha256": "8dd663d3b5f8795d1dcde4c25a369b1bb88899d5c0020d40c127acdfd6786651",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/fCM2-TkoZ0-native.png",
+    "referenceSha256": "3e0cb9117af14d321a7e0b431b790bae3fce4b0eda01e543e60f8e7ff6832d09",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 2100
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 2100
+      },
+      "comparedPixels": 3024000,
+      "differentPixels": 0,
+      "mismatchRatio": 0,
+      "meanAbsoluteChannelDelta": 0,
+      "maxChannelDelta": 0,
+      "exactMatch": true
+    },
+    "fullDiff": "comparisons/fCM2-TkoZ0-full-diff.png",
+    "status": "exact"
+  },
+  {
+    "capturedAt": "2026-11-17T14:33:39.504Z",
+    "frame": "jX9CyhpLJ6",
+    "name": "Terms Glaze Dark",
+    "theme": "dark",
+    "scenario": "terms",
+    "scope": "full-frame",
+    "sourceUpdatedAt": "2026-11-15T23:30:08.405Z",
+    "sourceSha256": "b2441e0d87cb9457cf920ac4ed4ab3a5c8e1b7bf45d1c663c9c2382584e95262",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/jX9CyhpLJ6-native.png",
+    "referenceSha256": "06a8fddedd8aa33deed0c90d47e81bbf772b030df32d64773c28aae4ca1bc61d",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 2100
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 2100
+      },
+      "comparedPixels": 3024000,
+      "differentPixels": 0,
+      "mismatchRatio": 0,
+      "meanAbsoluteChannelDelta": 0,
+      "maxChannelDelta": 0,
+      "exactMatch": true
+    },
+    "fullDiff": "comparisons/jX9CyhpLJ6-full-diff.png",
+    "status": "exact"
+  },
+  {
+    "capturedAt": "2026-11-17T14:33:40.914Z",
+    "frame": "0XY1pUt-1N",
+    "name": "AI Welcome Dark",
+    "theme": "dark",
+    "scenario": "assistant-welcome",
+    "scope": "overlay-foreground",
+    "sourceUpdatedAt": "2026-11-15T23:35:09.592Z",
+    "sourceSha256": "b1d4b83553ae2ced1467c17008eee08b03eee4bbd937039ca3b3caa67dbb8220",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/0XY1pUt-1N-native.png",
+    "referenceSha256": "f2291d200ac26af00426b46115fc3c02da81977ad75d04fc0c44142d36d6222e",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 1005
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1005
+      },
+      "comparedPixels": 1447200,
+      "differentPixels": 655090,
+      "mismatchRatio": 0.4526603095632946,
+      "meanAbsoluteChannelDelta": 4.886745900128985,
+      "maxChannelDelta": 226,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/0XY1pUt-1N-full-diff.png",
+    "referenceBox": {
+      "x": 330,
+      "y": 104,
+      "width": 780,
+      "height": 716.96875
+    },
+    "nativeBox": {
+      "x": 330,
+      "y": 104,
+      "width": 780,
+      "height": 716.96875
+    },
+    "region": {
+      "referenceSize": {
+        "width": 780,
+        "height": 717
+      },
+      "nativeSize": {
+        "width": 780,
+        "height": 717
+      },
+      "comparedPixels": 559132,
+      "differentPixels": 166,
+      "mismatchRatio": 0.00029688874898950516,
+      "meanAbsoluteChannelDelta": 0.0008554926803211644,
+      "maxChannelDelta": 38,
+      "exactMatch": false
+    },
+    "regionDiff": "comparisons/0XY1pUt-1N-region-diff.png",
+    "referenceRegion": "comparisons/0XY1pUt-1N-reference-region.png",
+    "nativeRegion": "comparisons/0XY1pUt-1N-native-region.png",
+    "isolatedForeground": {
+      "referenceSize": {
+        "width": 780,
+        "height": 717
+      },
+      "nativeSize": {
+        "width": 780,
+        "height": 717
+      },
+      "comparedPixels": 559260,
+      "differentPixels": 0,
+      "mismatchRatio": 0,
+      "meanAbsoluteChannelDelta": 0,
+      "maxChannelDelta": 0,
+      "exactMatch": true,
+      "placementMatches": true,
+      "reference": "comparisons/0XY1pUt-1N-isolated-reference.png",
+      "native": "comparisons/0XY1pUt-1N-isolated-native.png",
+      "diff": "comparisons/0XY1pUt-1N-isolated-diff.png",
+      "method": "Entire foreground borderbox on a shared neutral backdrop; only body visibility/background changes, target visibility restored. Original foreground styles/content/geometry unchanged. Full-document capture avoids viewport scrollbars occluding the foreground; authored viewport dimensions remain unchanged. No pixel masks or tolerance."
+    },
+    "status": "exact"
+  },
+  {
+    "capturedAt": "2026-11-17T14:38:13.964Z",
+    "frame": "7UrvprmbYh",
+    "name": "Inbox Triage Light",
+    "theme": "light",
+    "scenario": "triage",
+    "scope": "overlay-foreground",
+    "sourceUpdatedAt": "2026-11-16T09:33:05.404Z",
+    "sourceSha256": "8db7e1aad53c790611ce7d161fba60ff4971c0d5b964ac0c6d490ee382b8df8c",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/7UrvprmbYh-native.png",
+    "referenceSha256": "aec0c8e920aeb5ba9b3b473054c4931424e5c058b3083457aa3d0638bdc4598a",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 1005
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1005
+      },
+      "comparedPixels": 1447200,
+      "differentPixels": 637221,
+      "mismatchRatio": 0.4403130182421227,
+      "meanAbsoluteChannelDelta": 16.187008936797493,
+      "maxChannelDelta": 220,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/7UrvprmbYh-full-diff.png",
+    "referenceBox": {
+      "x": 330,
+      "y": 104,
+      "width": 780,
+      "height": 819.484375
+    },
+    "nativeBox": {
+      "x": 330,
+      "y": 104,
+      "width": 780,
+      "height": 819.484375
+    },
+    "region": {
+      "referenceSize": {
+        "width": 780,
+        "height": 820
+      },
+      "nativeSize": {
+        "width": 780,
+        "height": 820
+      },
+      "comparedPixels": 639472,
+      "differentPixels": 474,
+      "mismatchRatio": 0.0007412365201291065,
+      "meanAbsoluteChannelDelta": 0.000885626475175353,
+      "maxChannelDelta": 36,
+      "exactMatch": false
+    },
+    "regionDiff": "comparisons/7UrvprmbYh-region-diff.png",
+    "referenceRegion": "comparisons/7UrvprmbYh-reference-region.png",
+    "nativeRegion": "comparisons/7UrvprmbYh-native-region.png",
+    "isolatedForeground": {
+      "referenceSize": {
+        "width": 780,
+        "height": 820
+      },
+      "nativeSize": {
+        "width": 780,
+        "height": 820
+      },
+      "comparedPixels": 639600,
+      "differentPixels": 0,
+      "mismatchRatio": 0,
+      "meanAbsoluteChannelDelta": 0,
+      "maxChannelDelta": 0,
+      "exactMatch": true,
+      "placementMatches": true,
+      "reference": "comparisons/7UrvprmbYh-isolated-reference.png",
+      "native": "comparisons/7UrvprmbYh-isolated-native.png",
+      "diff": "comparisons/7UrvprmbYh-isolated-diff.png",
+      "method": "Entire foreground borderbox on a shared neutral backdrop; only body visibility/background changes, target visibility restored. Original foreground styles/content/geometry unchanged. Full-document capture avoids viewport scrollbars occluding the foreground; authored viewport dimensions remain unchanged. No pixel masks or tolerance."
+    },
+    "status": "exact"
+  },
+  {
+    "capturedAt": "2026-11-17T14:38:16.215Z",
+    "frame": "FTTOWatj_1",
+    "name": "Inbox Triage Dark",
+    "theme": "dark",
+    "scenario": "triage",
+    "scope": "overlay-foreground",
+    "sourceUpdatedAt": "2026-11-15T23:35:13.252Z",
+    "sourceSha256": "fc8889ed0aeadfa9aa39ede7061f38ff381805718cc357615173a2239bbac1b3",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/FTTOWatj_1-native.png",
+    "referenceSha256": "1db81308fbba080b0f015a9cfe5166276f55954763fa101f92d29d821763655f",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 1005
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1005
+      },
+      "comparedPixels": 1447200,
+      "differentPixels": 645657,
+      "mismatchRatio": 0.4461422056384743,
+      "meanAbsoluteChannelDelta": 4.817814400221117,
+      "maxChannelDelta": 226,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/FTTOWatj_1-full-diff.png",
+    "referenceBox": {
+      "x": 330,
+      "y": 104,
+      "width": 780,
+      "height": 819.484375
+    },
+    "nativeBox": {
+      "x": 330,
+      "y": 104,
+      "width": 780,
+      "height": 819.484375
+    },
+    "region": {
+      "referenceSize": {
+        "width": 780,
+        "height": 820
+      },
+      "nativeSize": {
+        "width": 780,
+        "height": 820
+      },
+      "comparedPixels": 639472,
+      "differentPixels": 527,
+      "mismatchRatio": 0.0008241173968524032,
+      "meanAbsoluteChannelDelta": 0.0010524307553731829,
+      "maxChannelDelta": 38,
+      "exactMatch": false
+    },
+    "regionDiff": "comparisons/FTTOWatj_1-region-diff.png",
+    "referenceRegion": "comparisons/FTTOWatj_1-reference-region.png",
+    "nativeRegion": "comparisons/FTTOWatj_1-native-region.png",
+    "isolatedForeground": {
+      "referenceSize": {
+        "width": 780,
+        "height": 820
+      },
+      "nativeSize": {
+        "width": 780,
+        "height": 820
+      },
+      "comparedPixels": 639600,
+      "differentPixels": 0,
+      "mismatchRatio": 0,
+      "meanAbsoluteChannelDelta": 0,
+      "maxChannelDelta": 0,
+      "exactMatch": true,
+      "placementMatches": true,
+      "reference": "comparisons/FTTOWatj_1-isolated-reference.png",
+      "native": "comparisons/FTTOWatj_1-isolated-native.png",
+      "diff": "comparisons/FTTOWatj_1-isolated-diff.png",
+      "method": "Entire foreground borderbox on a shared neutral backdrop; only body visibility/background changes, target visibility restored. Original foreground styles/content/geometry unchanged. Full-document capture avoids viewport scrollbars occluding the foreground; authored viewport dimensions remain unchanged. No pixel masks or tolerance."
+    },
+    "status": "exact"
+  },
+  {
+    "capturedAt": "2026-11-17T14:33:46.611Z",
+    "frame": "cjGprHE6RY",
+    "name": "Agent Tool Activity Light",
+    "theme": "light",
+    "scenario": "tool-activity",
+    "scope": "overlay-foreground",
+    "sourceUpdatedAt": "2026-11-15T23:34:09.288Z",
+    "sourceSha256": "78c7d23c51a49d4cec5ba1b22f7d7d8daebffd1011028ee6389a4cfe78c17d80",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/cjGprHE6RY-native.png",
+    "referenceSha256": "6504af43da1036a168aa374ac7a73aa8c714545b30806c4b2b83e5c6a1fffbdf",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 1005
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1005
+      },
+      "comparedPixels": 1447200,
+      "differentPixels": 655552,
+      "mismatchRatio": 0.45297954671088997,
+      "meanAbsoluteChannelDelta": 16.64850377740925,
+      "maxChannelDelta": 220,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/cjGprHE6RY-full-diff.png",
+    "referenceBox": {
+      "x": 330,
+      "y": 104,
+      "width": 780,
+      "height": 699.984375
+    },
+    "nativeBox": {
+      "x": 330,
+      "y": 104,
+      "width": 780,
+      "height": 699.984375
+    },
+    "region": {
+      "referenceSize": {
+        "width": 780,
+        "height": 700
+      },
+      "nativeSize": {
+        "width": 780,
+        "height": 700
+      },
+      "comparedPixels": 545872,
+      "differentPixels": 121,
+      "mismatchRatio": 0.00022166368672509306,
+      "meanAbsoluteChannelDelta": 0.001196861779562486,
+      "maxChannelDelta": 36,
+      "exactMatch": false
+    },
+    "regionDiff": "comparisons/cjGprHE6RY-region-diff.png",
+    "referenceRegion": "comparisons/cjGprHE6RY-reference-region.png",
+    "nativeRegion": "comparisons/cjGprHE6RY-native-region.png",
+    "isolatedForeground": {
+      "referenceSize": {
+        "width": 780,
+        "height": 700
+      },
+      "nativeSize": {
+        "width": 780,
+        "height": 700
+      },
+      "comparedPixels": 546000,
+      "differentPixels": 0,
+      "mismatchRatio": 0,
+      "meanAbsoluteChannelDelta": 0,
+      "maxChannelDelta": 0,
+      "exactMatch": true,
+      "placementMatches": true,
+      "reference": "comparisons/cjGprHE6RY-isolated-reference.png",
+      "native": "comparisons/cjGprHE6RY-isolated-native.png",
+      "diff": "comparisons/cjGprHE6RY-isolated-diff.png",
+      "method": "Entire foreground borderbox on a shared neutral backdrop; only body visibility/background changes, target visibility restored. Original foreground styles/content/geometry unchanged. Full-document capture avoids viewport scrollbars occluding the foreground; authored viewport dimensions remain unchanged. No pixel masks or tolerance."
+    },
+    "status": "exact"
+  },
+  {
+    "capturedAt": "2026-11-17T14:33:48.723Z",
+    "frame": "ym378pucpg",
+    "name": "Agent Tool Activity Dark",
+    "theme": "dark",
+    "scenario": "tool-activity",
+    "scope": "overlay-foreground",
+    "sourceUpdatedAt": "2026-11-15T23:34:06.895Z",
+    "sourceSha256": "8b56a6f5a5d2dd243ac40f2c8d8960d9e77ddf38d58b348e5661cc92d040f8d3",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/ym378pucpg-native.png",
+    "referenceSha256": "41600642122617a3d87edef5f0547ade8908360bec584269476a7a84840d7003",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 1005
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1005
+      },
+      "comparedPixels": 1447200,
+      "differentPixels": 663928,
+      "mismatchRatio": 0.458767274737424,
+      "meanAbsoluteChannelDelta": 4.990053897180763,
+      "maxChannelDelta": 226,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/ym378pucpg-full-diff.png",
+    "referenceBox": {
+      "x": 330,
+      "y": 104,
+      "width": 780,
+      "height": 699.984375
+    },
+    "nativeBox": {
+      "x": 330,
+      "y": 104,
+      "width": 780,
+      "height": 699.984375
+    },
+    "region": {
+      "referenceSize": {
+        "width": 780,
+        "height": 700
+      },
+      "nativeSize": {
+        "width": 780,
+        "height": 700
+      },
+      "comparedPixels": 545872,
+      "differentPixels": 114,
+      "mismatchRatio": 0.00020884016765835214,
+      "meanAbsoluteChannelDelta": 0.0007968901134331858,
+      "maxChannelDelta": 38,
+      "exactMatch": false
+    },
+    "regionDiff": "comparisons/ym378pucpg-region-diff.png",
+    "referenceRegion": "comparisons/ym378pucpg-reference-region.png",
+    "nativeRegion": "comparisons/ym378pucpg-native-region.png",
+    "isolatedForeground": {
+      "referenceSize": {
+        "width": 780,
+        "height": 700
+      },
+      "nativeSize": {
+        "width": 780,
+        "height": 700
+      },
+      "comparedPixels": 546000,
+      "differentPixels": 0,
+      "mismatchRatio": 0,
+      "meanAbsoluteChannelDelta": 0,
+      "maxChannelDelta": 0,
+      "exactMatch": true,
+      "placementMatches": true,
+      "reference": "comparisons/ym378pucpg-isolated-reference.png",
+      "native": "comparisons/ym378pucpg-isolated-native.png",
+      "diff": "comparisons/ym378pucpg-isolated-diff.png",
+      "method": "Entire foreground borderbox on a shared neutral backdrop; only body visibility/background changes, target visibility restored. Original foreground styles/content/geometry unchanged. Full-document capture avoids viewport scrollbars occluding the foreground; authored viewport dimensions remain unchanged. No pixel masks or tolerance."
+    },
+    "status": "exact"
+  },
+  {
+    "capturedAt": "2026-11-17T14:33:50.679Z",
+    "frame": "ZSbzsMIJ4h",
+    "name": "AI Reply Drafts Light",
+    "theme": "light",
+    "scenario": "draft",
+    "scope": "overlay-foreground",
+    "sourceUpdatedAt": "2026-11-15T23:35:15.089Z",
+    "sourceSha256": "9d1f6f6dc2a4eff91d277d4eac8bea8fbf611d5fc5685d8eb88c0570144dd75f",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/ZSbzsMIJ4h-native.png",
+    "referenceSha256": "439cc782c421bf38091608be865b43ec5d550d4a54543b45cf25da8bb90d7d07",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 1005
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1005
+      },
+      "comparedPixels": 1447200,
+      "differentPixels": 614846,
+      "mismatchRatio": 0.4248521282476506,
+      "meanAbsoluteChannelDelta": 14.649552699465636,
+      "maxChannelDelta": 220,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/ZSbzsMIJ4h-full-diff.png",
+    "referenceBox": {
+      "x": 330,
+      "y": 104,
+      "width": 780,
+      "height": 885.421875
+    },
+    "nativeBox": {
+      "x": 330,
+      "y": 104,
+      "width": 780,
+      "height": 885.421875
+    },
+    "region": {
+      "referenceSize": {
+        "width": 780,
+        "height": 886
+      },
+      "nativeSize": {
+        "width": 780,
+        "height": 886
+      },
+      "comparedPixels": 690952,
+      "differentPixels": 1507,
+      "mismatchRatio": 0.0021810487559193693,
+      "meanAbsoluteChannelDelta": 0.11312073776470724,
+      "maxChannelDelta": 101,
+      "exactMatch": false
+    },
+    "regionDiff": "comparisons/ZSbzsMIJ4h-region-diff.png",
+    "referenceRegion": "comparisons/ZSbzsMIJ4h-reference-region.png",
+    "nativeRegion": "comparisons/ZSbzsMIJ4h-native-region.png",
+    "isolatedForeground": {
+      "referenceSize": {
+        "width": 780,
+        "height": 886
+      },
+      "nativeSize": {
+        "width": 780,
+        "height": 886
+      },
+      "comparedPixels": 691080,
+      "differentPixels": 0,
+      "mismatchRatio": 0,
+      "meanAbsoluteChannelDelta": 0,
+      "maxChannelDelta": 0,
+      "exactMatch": true,
+      "placementMatches": true,
+      "reference": "comparisons/ZSbzsMIJ4h-isolated-reference.png",
+      "native": "comparisons/ZSbzsMIJ4h-isolated-native.png",
+      "diff": "comparisons/ZSbzsMIJ4h-isolated-diff.png",
+      "method": "Entire foreground borderbox on a shared neutral backdrop; only body visibility/background changes, target visibility restored. Original foreground styles/content/geometry unchanged. Full-document capture avoids viewport scrollbars occluding the foreground; authored viewport dimensions remain unchanged. No pixel masks or tolerance."
+    },
+    "status": "exact"
+  },
+  {
+    "capturedAt": "2026-11-17T14:33:52.617Z",
+    "frame": "VpyKBw3wII",
+    "name": "AI Reply Drafts Dark",
+    "theme": "dark",
+    "scenario": "draft",
+    "scope": "overlay-foreground",
+    "sourceUpdatedAt": "2026-11-15T23:35:16.877Z",
+    "sourceSha256": "8d48df741f002bac0634b8731b26d5703112fc5adb0cf5e31d33ed045e8a867b",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/VpyKBw3wII-native.png",
+    "referenceSha256": "60e067583e13a932c341dec1a5a24b7ec02a25fea96c820965d972aff1deaedf",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "comparedPixels": 1440000,
+      "differentPixels": 632295,
+      "mismatchRatio": 0.43909375,
+      "meanAbsoluteChannelDelta": 9.14520138888889,
+      "maxChannelDelta": 241,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/VpyKBw3wII-full-diff.png",
+    "referenceBox": {
+      "x": 330,
+      "y": 104,
+      "width": 780,
+      "height": 885.421875
+    },
+    "nativeBox": {
+      "x": 330,
+      "y": 104,
+      "width": 780,
+      "height": 885.421875
+    },
+    "region": {
+      "referenceSize": {
+        "width": 780,
+        "height": 886
+      },
+      "nativeSize": {
+        "width": 780,
+        "height": 886
+      },
+      "comparedPixels": 690952,
+      "differentPixels": 4590,
+      "mismatchRatio": 0.006643008486841344,
+      "meanAbsoluteChannelDelta": 1.010407379962718,
+      "maxChannelDelta": 237,
+      "exactMatch": false
+    },
+    "regionDiff": "comparisons/VpyKBw3wII-region-diff.png",
+    "referenceRegion": "comparisons/VpyKBw3wII-reference-region.png",
+    "nativeRegion": "comparisons/VpyKBw3wII-native-region.png",
+    "isolatedForeground": {
+      "referenceSize": {
+        "width": 780,
+        "height": 886
+      },
+      "nativeSize": {
+        "width": 780,
+        "height": 886
+      },
+      "comparedPixels": 691080,
+      "differentPixels": 0,
+      "mismatchRatio": 0,
+      "meanAbsoluteChannelDelta": 0,
+      "maxChannelDelta": 0,
+      "exactMatch": true,
+      "placementMatches": true,
+      "reference": "comparisons/VpyKBw3wII-isolated-reference.png",
+      "native": "comparisons/VpyKBw3wII-isolated-native.png",
+      "diff": "comparisons/VpyKBw3wII-isolated-diff.png",
+      "method": "Entire foreground borderbox on a shared neutral backdrop; only body visibility/background changes, target visibility restored. Original foreground styles/content/geometry unchanged. Full-document capture avoids viewport scrollbars occluding the foreground; authored viewport dimensions remain unchanged. No pixel masks or tolerance."
+    },
+    "status": "exact"
+  },
+  {
+    "capturedAt": "2026-11-17T14:33:54.673Z",
+    "frame": "SzcEnf0kqE",
+    "name": "AI Draft Editing Light",
+    "theme": "light",
+    "scenario": "draft-edit",
+    "scope": "overlay-foreground",
+    "sourceUpdatedAt": "2026-11-15T23:35:19.142Z",
+    "sourceSha256": "8a1e11f3d1a99c4795d900e68d1cefd85f81fc35401e3b0d1a8b34c9e7c6eb94",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/SzcEnf0kqE-native.png",
+    "referenceSha256": "02ea2e2d005fff3dbbee0d6e2816cdb71ed001d2e29ca3b93a7321331a505190",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "comparedPixels": 1440000,
+      "differentPixels": 634591,
+      "mismatchRatio": 0.44068819444444446,
+      "meanAbsoluteChannelDelta": 14.832721064814814,
+      "maxChannelDelta": 220,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/SzcEnf0kqE-full-diff.png",
+    "referenceBox": {
+      "x": 330,
+      "y": 104,
+      "width": 780,
+      "height": 867.4375
+    },
+    "nativeBox": {
+      "x": 330,
+      "y": 104,
+      "width": 780,
+      "height": 867.4375
+    },
+    "region": {
+      "referenceSize": {
+        "width": 780,
+        "height": 868
+      },
+      "nativeSize": {
+        "width": 780,
+        "height": 868
+      },
+      "comparedPixels": 676912,
+      "differentPixels": 1227,
+      "mismatchRatio": 0.0018126432977994184,
+      "meanAbsoluteChannelDelta": 0.11549654903443875,
+      "maxChannelDelta": 101,
+      "exactMatch": false
+    },
+    "regionDiff": "comparisons/SzcEnf0kqE-region-diff.png",
+    "referenceRegion": "comparisons/SzcEnf0kqE-reference-region.png",
+    "nativeRegion": "comparisons/SzcEnf0kqE-native-region.png",
+    "isolatedForeground": {
+      "referenceSize": {
+        "width": 780,
+        "height": 868
+      },
+      "nativeSize": {
+        "width": 780,
+        "height": 868
+      },
+      "comparedPixels": 677040,
+      "differentPixels": 0,
+      "mismatchRatio": 0,
+      "meanAbsoluteChannelDelta": 0,
+      "maxChannelDelta": 0,
+      "exactMatch": true,
+      "placementMatches": true,
+      "reference": "comparisons/SzcEnf0kqE-isolated-reference.png",
+      "native": "comparisons/SzcEnf0kqE-isolated-native.png",
+      "diff": "comparisons/SzcEnf0kqE-isolated-diff.png",
+      "method": "Entire foreground borderbox on a shared neutral backdrop; only body visibility/background changes, target visibility restored. Original foreground styles/content/geometry unchanged. Full-document capture avoids viewport scrollbars occluding the foreground; authored viewport dimensions remain unchanged. No pixel masks or tolerance."
+    },
+    "status": "exact"
+  },
+  {
+    "capturedAt": "2026-11-17T14:33:57.023Z",
+    "frame": "4v_Ti7qdBW",
+    "name": "AI Draft Editing Dark",
+    "theme": "dark",
+    "scenario": "draft-edit",
+    "scope": "overlay-foreground",
+    "sourceUpdatedAt": "2026-11-15T23:35:20.831Z",
+    "sourceSha256": "6dc7dad324102a6ecda1faba6800365c2e2f832752f627f5649ef62583a68f0b",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/4v_Ti7qdBW-native.png",
+    "referenceSha256": "b3cad261edc11a33f77e4c6898ce60049cc4dfdbfd5c4b7b881f7ddccae1b8ea",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "comparedPixels": 1440000,
+      "differentPixels": 642940,
+      "mismatchRatio": 0.4464861111111111,
+      "meanAbsoluteChannelDelta": 9.196695138888888,
+      "maxChannelDelta": 241,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/4v_Ti7qdBW-full-diff.png",
+    "referenceBox": {
+      "x": 330,
+      "y": 104,
+      "width": 780,
+      "height": 867.4375
+    },
+    "nativeBox": {
+      "x": 330,
+      "y": 104,
+      "width": 780,
+      "height": 867.4375
+    },
+    "region": {
+      "referenceSize": {
+        "width": 780,
+        "height": 868
+      },
+      "nativeSize": {
+        "width": 780,
+        "height": 868
+      },
+      "comparedPixels": 676912,
+      "differentPixels": 1195,
+      "mismatchRatio": 0.0017653697969603139,
+      "meanAbsoluteChannelDelta": 0.0013014985699765997,
+      "maxChannelDelta": 38,
+      "exactMatch": false
+    },
+    "regionDiff": "comparisons/4v_Ti7qdBW-region-diff.png",
+    "referenceRegion": "comparisons/4v_Ti7qdBW-reference-region.png",
+    "nativeRegion": "comparisons/4v_Ti7qdBW-native-region.png",
+    "isolatedForeground": {
+      "referenceSize": {
+        "width": 780,
+        "height": 868
+      },
+      "nativeSize": {
+        "width": 780,
+        "height": 868
+      },
+      "comparedPixels": 677040,
+      "differentPixels": 0,
+      "mismatchRatio": 0,
+      "meanAbsoluteChannelDelta": 0,
+      "maxChannelDelta": 0,
+      "exactMatch": true,
+      "placementMatches": true,
+      "reference": "comparisons/4v_Ti7qdBW-isolated-reference.png",
+      "native": "comparisons/4v_Ti7qdBW-isolated-native.png",
+      "diff": "comparisons/4v_Ti7qdBW-isolated-diff.png",
+      "method": "Entire foreground borderbox on a shared neutral backdrop; only body visibility/background changes, target visibility restored. Original foreground styles/content/geometry unchanged. Full-document capture avoids viewport scrollbars occluding the foreground; authored viewport dimensions remain unchanged. No pixel masks or tolerance."
+    },
+    "status": "exact"
+  },
+  {
+    "capturedAt": "2026-11-17T14:34:00.217Z",
+    "frame": "LUWKnWZ_6a",
+    "name": "AI Meeting Proposal Light",
+    "theme": "light",
+    "scenario": "event-proposal",
+    "scope": "overlay-foreground",
+    "sourceUpdatedAt": "2026-11-15T23:35:22.801Z",
+    "sourceSha256": "8501a1638742d2f78ca59d3e65cd31a63cfdc1fa7e8724f7a9ff3c2b87c7be9b",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/LUWKnWZ_6a-native.png",
+    "referenceSha256": "2c2d988d6de6c08e88387c87b7091551f20a59c0e9fb2100d54e15db3901c497",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "comparedPixels": 1440000,
+      "differentPixels": 646530,
+      "mismatchRatio": 0.44897916666666665,
+      "meanAbsoluteChannelDelta": 15.43007986111111,
+      "maxChannelDelta": 220,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/LUWKnWZ_6a-full-diff.png",
+    "referenceBox": {
+      "x": 330,
+      "y": 104,
+      "width": 780,
+      "height": 730.453125
+    },
+    "nativeBox": {
+      "x": 330,
+      "y": 104,
+      "width": 780,
+      "height": 730.453125
+    },
+    "region": {
+      "referenceSize": {
+        "width": 780,
+        "height": 731
+      },
+      "nativeSize": {
+        "width": 780,
+        "height": 731
+      },
+      "comparedPixels": 570052,
+      "differentPixels": 1320,
+      "mismatchRatio": 0.002315578227951134,
+      "meanAbsoluteChannelDelta": 0.00609067242988359,
+      "maxChannelDelta": 36,
+      "exactMatch": false
+    },
+    "regionDiff": "comparisons/LUWKnWZ_6a-region-diff.png",
+    "referenceRegion": "comparisons/LUWKnWZ_6a-reference-region.png",
+    "nativeRegion": "comparisons/LUWKnWZ_6a-native-region.png",
+    "isolatedForeground": {
+      "referenceSize": {
+        "width": 780,
+        "height": 731
+      },
+      "nativeSize": {
+        "width": 780,
+        "height": 731
+      },
+      "comparedPixels": 570180,
+      "differentPixels": 0,
+      "mismatchRatio": 0,
+      "meanAbsoluteChannelDelta": 0,
+      "maxChannelDelta": 0,
+      "exactMatch": true,
+      "placementMatches": true,
+      "reference": "comparisons/LUWKnWZ_6a-isolated-reference.png",
+      "native": "comparisons/LUWKnWZ_6a-isolated-native.png",
+      "diff": "comparisons/LUWKnWZ_6a-isolated-diff.png",
+      "method": "Entire foreground borderbox on a shared neutral backdrop; only body visibility/background changes, target visibility restored. Original foreground styles/content/geometry unchanged. Full-document capture avoids viewport scrollbars occluding the foreground; authored viewport dimensions remain unchanged. No pixel masks or tolerance."
+    },
+    "status": "exact"
+  },
+  {
+    "capturedAt": "2026-11-17T14:34:02.479Z",
+    "frame": "GIruPrcKHT",
+    "name": "AI Meeting Proposal Dark",
+    "theme": "dark",
+    "scenario": "event-proposal",
+    "scope": "overlay-foreground",
+    "sourceUpdatedAt": "2026-11-15T23:35:24.671Z",
+    "sourceSha256": "dc852f6490f9cada37e17081ff1693a0d1a8da0d2ef796465649cb0fd0b878c3",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/GIruPrcKHT-native.png",
+    "referenceSha256": "d1ee1ca2648861d71bea7791e37acd5050f9242fec280b0084a2086d1b726064",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "comparedPixels": 1440000,
+      "differentPixels": 654922,
+      "mismatchRatio": 0.45480694444444447,
+      "meanAbsoluteChannelDelta": 9.246039120370371,
+      "maxChannelDelta": 241,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/GIruPrcKHT-full-diff.png",
+    "referenceBox": {
+      "x": 330,
+      "y": 104,
+      "width": 780,
+      "height": 730.453125
+    },
+    "nativeBox": {
+      "x": 330,
+      "y": 104,
+      "width": 780,
+      "height": 730.453125
+    },
+    "region": {
+      "referenceSize": {
+        "width": 780,
+        "height": 731
+      },
+      "nativeSize": {
+        "width": 780,
+        "height": 731
+      },
+      "comparedPixels": 570052,
+      "differentPixels": 1329,
+      "mismatchRatio": 0.0023313662613235284,
+      "meanAbsoluteChannelDelta": 0.009549421222391408,
+      "maxChannelDelta": 38,
+      "exactMatch": false
+    },
+    "regionDiff": "comparisons/GIruPrcKHT-region-diff.png",
+    "referenceRegion": "comparisons/GIruPrcKHT-reference-region.png",
+    "nativeRegion": "comparisons/GIruPrcKHT-native-region.png",
+    "isolatedForeground": {
+      "referenceSize": {
+        "width": 780,
+        "height": 731
+      },
+      "nativeSize": {
+        "width": 780,
+        "height": 731
+      },
+      "comparedPixels": 570180,
+      "differentPixels": 0,
+      "mismatchRatio": 0,
+      "meanAbsoluteChannelDelta": 0,
+      "maxChannelDelta": 0,
+      "exactMatch": true,
+      "placementMatches": true,
+      "reference": "comparisons/GIruPrcKHT-isolated-reference.png",
+      "native": "comparisons/GIruPrcKHT-isolated-native.png",
+      "diff": "comparisons/GIruPrcKHT-isolated-diff.png",
+      "method": "Entire foreground borderbox on a shared neutral backdrop; only body visibility/background changes, target visibility restored. Original foreground styles/content/geometry unchanged. Full-document capture avoids viewport scrollbars occluding the foreground; authored viewport dimensions remain unchanged. No pixel masks or tolerance."
+    },
+    "status": "exact"
+  },
+  {
+    "capturedAt": "2026-11-17T14:34:04.344Z",
+    "frame": "4fMsvY3d68",
+    "name": "AI Event Editing Light",
+    "theme": "light",
+    "scenario": "event-edit",
+    "scope": "overlay-foreground",
+    "sourceUpdatedAt": "2026-11-15T23:35:26.574Z",
+    "sourceSha256": "78a0fc38603088fe44551b9769a53047a931a24f32ae52d6d3a482a2f02969c7",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/4fMsvY3d68-native.png",
+    "referenceSha256": "38af55216ab71996c9457b4ea7d7379e57dc6e3c38d76c6fc63bcb5f9f5865e1",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "comparedPixels": 1440000,
+      "differentPixels": 633700,
+      "mismatchRatio": 0.44006944444444446,
+      "meanAbsoluteChannelDelta": 14.778574768518519,
+      "maxChannelDelta": 220,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/4fMsvY3d68-full-diff.png",
+    "referenceBox": {
+      "x": 330,
+      "y": 104,
+      "width": 780,
+      "height": 868.40625
+    },
+    "nativeBox": {
+      "x": 330,
+      "y": 104,
+      "width": 780,
+      "height": 868.40625
+    },
+    "region": {
+      "referenceSize": {
+        "width": 780,
+        "height": 869
+      },
+      "nativeSize": {
+        "width": 780,
+        "height": 869
+      },
+      "comparedPixels": 677692,
+      "differentPixels": 1116,
+      "mismatchRatio": 0.001646765787407849,
+      "meanAbsoluteChannelDelta": 0.11540690067661022,
+      "maxChannelDelta": 101,
+      "exactMatch": false
+    },
+    "regionDiff": "comparisons/4fMsvY3d68-region-diff.png",
+    "referenceRegion": "comparisons/4fMsvY3d68-reference-region.png",
+    "nativeRegion": "comparisons/4fMsvY3d68-native-region.png",
+    "isolatedForeground": {
+      "referenceSize": {
+        "width": 780,
+        "height": 869
+      },
+      "nativeSize": {
+        "width": 780,
+        "height": 869
+      },
+      "comparedPixels": 677820,
+      "differentPixels": 0,
+      "mismatchRatio": 0,
+      "meanAbsoluteChannelDelta": 0,
+      "maxChannelDelta": 0,
+      "exactMatch": true,
+      "placementMatches": true,
+      "reference": "comparisons/4fMsvY3d68-isolated-reference.png",
+      "native": "comparisons/4fMsvY3d68-isolated-native.png",
+      "diff": "comparisons/4fMsvY3d68-isolated-diff.png",
+      "method": "Entire foreground borderbox on a shared neutral backdrop; only body visibility/background changes, target visibility restored. Original foreground styles/content/geometry unchanged. Full-document capture avoids viewport scrollbars occluding the foreground; authored viewport dimensions remain unchanged. No pixel masks or tolerance."
+    },
+    "status": "exact"
+  },
+  {
+    "capturedAt": "2026-11-17T14:34:06.354Z",
+    "frame": "PnZr5lx_Eb",
+    "name": "AI Event Editing Dark",
+    "theme": "dark",
+    "scenario": "event-edit",
+    "scope": "overlay-foreground",
+    "sourceUpdatedAt": "2026-11-15T23:35:28.415Z",
+    "sourceSha256": "d9fcf33fb6cd395db55e69005829d47bacbcda48157ec64ed377918bf9712ee6",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/PnZr5lx_Eb-native.png",
+    "referenceSha256": "4e8163a762026a228991369e23ff02a7a7ac816cd03a1e3606fc04c0e45fdf00",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "comparedPixels": 1440000,
+      "differentPixels": 642074,
+      "mismatchRatio": 0.4458847222222222,
+      "meanAbsoluteChannelDelta": 9.19639236111111,
+      "maxChannelDelta": 241,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/PnZr5lx_Eb-full-diff.png",
+    "referenceBox": {
+      "x": 330,
+      "y": 104,
+      "width": 780,
+      "height": 868.40625
+    },
+    "nativeBox": {
+      "x": 330,
+      "y": 104,
+      "width": 780,
+      "height": 868.40625
+    },
+    "region": {
+      "referenceSize": {
+        "width": 780,
+        "height": 869
+      },
+      "nativeSize": {
+        "width": 780,
+        "height": 869
+      },
+      "comparedPixels": 677692,
+      "differentPixels": 1109,
+      "mismatchRatio": 0.0016364366113219575,
+      "meanAbsoluteChannelDelta": 0.0014239507032693319,
+      "maxChannelDelta": 39,
+      "exactMatch": false
+    },
+    "regionDiff": "comparisons/PnZr5lx_Eb-region-diff.png",
+    "referenceRegion": "comparisons/PnZr5lx_Eb-reference-region.png",
+    "nativeRegion": "comparisons/PnZr5lx_Eb-native-region.png",
+    "isolatedForeground": {
+      "referenceSize": {
+        "width": 780,
+        "height": 869
+      },
+      "nativeSize": {
+        "width": 780,
+        "height": 869
+      },
+      "comparedPixels": 677820,
+      "differentPixels": 0,
+      "mismatchRatio": 0,
+      "meanAbsoluteChannelDelta": 0,
+      "maxChannelDelta": 0,
+      "exactMatch": true,
+      "placementMatches": true,
+      "reference": "comparisons/PnZr5lx_Eb-isolated-reference.png",
+      "native": "comparisons/PnZr5lx_Eb-isolated-native.png",
+      "diff": "comparisons/PnZr5lx_Eb-isolated-diff.png",
+      "method": "Entire foreground borderbox on a shared neutral backdrop; only body visibility/background changes, target visibility restored. Original foreground styles/content/geometry unchanged. Full-document capture avoids viewport scrollbars occluding the foreground; authored viewport dimensions remain unchanged. No pixel masks or tolerance."
+    },
+    "status": "exact"
+  },
+  {
+    "capturedAt": "2026-11-17T14:37:10.189Z",
+    "frame": "X2_Tw5d1xp",
+    "name": "AI Chat History Light",
+    "theme": "light",
+    "scenario": "history",
+    "scope": "overlay-foreground",
+    "sourceUpdatedAt": "2026-11-15T23:35:30.140Z",
+    "sourceSha256": "32af9783147fd266d26c71c38f8edfa3c3098deb73d905972616961059f8b90e",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/X2_Tw5d1xp-native.png",
+    "referenceSha256": "8fbb08c161cd556ba80dc29031ea15725979fb7f46c9ddd1e907b9728bad0628",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "comparedPixels": 1440000,
+      "differentPixels": 626390,
+      "mismatchRatio": 0.43499305555555556,
+      "meanAbsoluteChannelDelta": 14.239600925925926,
+      "maxChannelDelta": 220,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/X2_Tw5d1xp-full-diff.png",
+    "referenceBox": {
+      "x": 330,
+      "y": 104,
+      "width": 780,
+      "height": 878.46875
+    },
+    "nativeBox": {
+      "x": 330,
+      "y": 104,
+      "width": 780,
+      "height": 878.46875
+    },
+    "region": {
+      "referenceSize": {
+        "width": 780,
+        "height": 879
+      },
+      "nativeSize": {
+        "width": 780,
+        "height": 879
+      },
+      "comparedPixels": 685492,
+      "differentPixels": 1606,
+      "mismatchRatio": 0.002342842804875914,
+      "meanAbsoluteChannelDelta": 0.11231592296725078,
+      "maxChannelDelta": 101,
+      "exactMatch": false
+    },
+    "regionDiff": "comparisons/X2_Tw5d1xp-region-diff.png",
+    "referenceRegion": "comparisons/X2_Tw5d1xp-reference-region.png",
+    "nativeRegion": "comparisons/X2_Tw5d1xp-native-region.png",
+    "isolatedForeground": {
+      "referenceSize": {
+        "width": 780,
+        "height": 879
+      },
+      "nativeSize": {
+        "width": 780,
+        "height": 879
+      },
+      "comparedPixels": 685620,
+      "differentPixels": 0,
+      "mismatchRatio": 0,
+      "meanAbsoluteChannelDelta": 0,
+      "maxChannelDelta": 0,
+      "exactMatch": true,
+      "placementMatches": true,
+      "reference": "comparisons/X2_Tw5d1xp-isolated-reference.png",
+      "native": "comparisons/X2_Tw5d1xp-isolated-native.png",
+      "diff": "comparisons/X2_Tw5d1xp-isolated-diff.png",
+      "method": "Entire foreground borderbox on a shared neutral backdrop; only body visibility/background changes, target visibility restored. Original foreground styles/content/geometry unchanged. Full-document capture avoids viewport scrollbars occluding the foreground; authored viewport dimensions remain unchanged. No pixel masks or tolerance."
+    },
+    "status": "exact"
+  },
+  {
+    "capturedAt": "2026-11-17T14:37:12.382Z",
+    "frame": "-mFeSQC-5B",
+    "name": "AI Chat History Dark",
+    "theme": "dark",
+    "scenario": "history",
+    "scope": "overlay-foreground",
+    "sourceUpdatedAt": "2026-11-15T23:35:32.044Z",
+    "sourceSha256": "dae717fed0712fa4dd5aa1e6070b1f3c0d14d0d23ac0dd6e396badfc1ff74881",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/-mFeSQC-5B-native.png",
+    "referenceSha256": "0b12354420278fd6122f1650f4f815ed08ee675cb217805b4edbfc1862a09e5f",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "comparedPixels": 1440000,
+      "differentPixels": 634789,
+      "mismatchRatio": 0.44082569444444447,
+      "meanAbsoluteChannelDelta": 9.189003703703703,
+      "maxChannelDelta": 241,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/-mFeSQC-5B-full-diff.png",
+    "referenceBox": {
+      "x": 330,
+      "y": 104,
+      "width": 780,
+      "height": 878.46875
+    },
+    "nativeBox": {
+      "x": 330,
+      "y": 104,
+      "width": 780,
+      "height": 878.46875
+    },
+    "region": {
+      "referenceSize": {
+        "width": 780,
+        "height": 879
+      },
+      "nativeSize": {
+        "width": 780,
+        "height": 879
+      },
+      "comparedPixels": 685492,
+      "differentPixels": 1624,
+      "mismatchRatio": 0.002369101317010264,
+      "meanAbsoluteChannelDelta": 0.004449845269285904,
+      "maxChannelDelta": 169,
+      "exactMatch": false
+    },
+    "regionDiff": "comparisons/-mFeSQC-5B-region-diff.png",
+    "referenceRegion": "comparisons/-mFeSQC-5B-reference-region.png",
+    "nativeRegion": "comparisons/-mFeSQC-5B-native-region.png",
+    "isolatedForeground": {
+      "referenceSize": {
+        "width": 780,
+        "height": 879
+      },
+      "nativeSize": {
+        "width": 780,
+        "height": 879
+      },
+      "comparedPixels": 685620,
+      "differentPixels": 0,
+      "mismatchRatio": 0,
+      "meanAbsoluteChannelDelta": 0,
+      "maxChannelDelta": 0,
+      "exactMatch": true,
+      "placementMatches": true,
+      "reference": "comparisons/-mFeSQC-5B-isolated-reference.png",
+      "native": "comparisons/-mFeSQC-5B-isolated-native.png",
+      "diff": "comparisons/-mFeSQC-5B-isolated-diff.png",
+      "method": "Entire foreground borderbox on a shared neutral backdrop; only body visibility/background changes, target visibility restored. Original foreground styles/content/geometry unchanged. Full-document capture avoids viewport scrollbars occluding the foreground; authored viewport dimensions remain unchanged. No pixel masks or tolerance."
+    },
+    "status": "exact"
+  },
+  {
+    "capturedAt": "2026-11-17T14:34:12.340Z",
+    "frame": "vRcbwVedSZ",
+    "name": "Auto Approval Confirmation Light",
+    "theme": "light",
+    "scenario": "approval",
+    "scope": "overlay-foreground",
+    "sourceUpdatedAt": "2026-11-15T23:35:33.932Z",
+    "sourceSha256": "6910feff618ec3ec761a9a1575405e3d6a8bbe0dbdbb0ba96004879f52e54b0d",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/vRcbwVedSZ-native.png",
+    "referenceSha256": "0f3839aa2b71e7e214c41ce56ca0463279a0de71b64c9fc66ca3bebb80747995",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "comparedPixels": 1440000,
+      "differentPixels": 663180,
+      "mismatchRatio": 0.4605416666666667,
+      "meanAbsoluteChannelDelta": 15.80981412037037,
+      "maxChannelDelta": 220,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/vRcbwVedSZ-full-diff.png",
+    "referenceBox": {
+      "x": 330,
+      "y": 104,
+      "width": 780,
+      "height": 701.984375
+    },
+    "nativeBox": {
+      "x": 330,
+      "y": 104,
+      "width": 780,
+      "height": 701.984375
+    },
+    "region": {
+      "referenceSize": {
+        "width": 780,
+        "height": 702
+      },
+      "nativeSize": {
+        "width": 780,
+        "height": 702
+      },
+      "comparedPixels": 547432,
+      "differentPixels": 2810,
+      "mismatchRatio": 0.005133057621768548,
+      "meanAbsoluteChannelDelta": 0.0038433997281854186,
+      "maxChannelDelta": 36,
+      "exactMatch": false
+    },
+    "regionDiff": "comparisons/vRcbwVedSZ-region-diff.png",
+    "referenceRegion": "comparisons/vRcbwVedSZ-reference-region.png",
+    "nativeRegion": "comparisons/vRcbwVedSZ-native-region.png",
+    "isolatedForeground": {
+      "referenceSize": {
+        "width": 780,
+        "height": 702
+      },
+      "nativeSize": {
+        "width": 780,
+        "height": 702
+      },
+      "comparedPixels": 547560,
+      "differentPixels": 0,
+      "mismatchRatio": 0,
+      "meanAbsoluteChannelDelta": 0,
+      "maxChannelDelta": 0,
+      "exactMatch": true,
+      "placementMatches": true,
+      "reference": "comparisons/vRcbwVedSZ-isolated-reference.png",
+      "native": "comparisons/vRcbwVedSZ-isolated-native.png",
+      "diff": "comparisons/vRcbwVedSZ-isolated-diff.png",
+      "method": "Entire foreground borderbox on a shared neutral backdrop; only body visibility/background changes, target visibility restored. Original foreground styles/content/geometry unchanged. Full-document capture avoids viewport scrollbars occluding the foreground; authored viewport dimensions remain unchanged. No pixel masks or tolerance."
+    },
+    "status": "exact"
+  },
+  {
+    "capturedAt": "2026-11-17T14:34:14.349Z",
+    "frame": "2q7WkAoRlR",
+    "name": "Auto Approval Confirmation Dark",
+    "theme": "dark",
+    "scenario": "approval",
+    "scope": "overlay-foreground",
+    "sourceUpdatedAt": "2026-11-15T23:35:35.729Z",
+    "sourceSha256": "bca8583ece1c5a078d84f021d59bafddfd148cff4cef4b65ece77d3532215c26",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/2q7WkAoRlR-native.png",
+    "referenceSha256": "44bef8b71c0ad9353b4ff79e0025e39fac278f63c78b07b3acfdb7f69c925357",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "comparedPixels": 1440000,
+      "differentPixels": 671271,
+      "mismatchRatio": 0.4661604166666667,
+      "meanAbsoluteChannelDelta": 9.378939583333333,
+      "maxChannelDelta": 241,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/2q7WkAoRlR-full-diff.png",
+    "referenceBox": {
+      "x": 330,
+      "y": 104,
+      "width": 780,
+      "height": 701.984375
+    },
+    "nativeBox": {
+      "x": 330,
+      "y": 104,
+      "width": 780,
+      "height": 701.984375
+    },
+    "region": {
+      "referenceSize": {
+        "width": 780,
+        "height": 702
+      },
+      "nativeSize": {
+        "width": 780,
+        "height": 702
+      },
+      "comparedPixels": 547432,
+      "differentPixels": 2518,
+      "mismatchRatio": 0.004599658039720002,
+      "meanAbsoluteChannelDelta": 0.0038494887645101734,
+      "maxChannelDelta": 38,
+      "exactMatch": false
+    },
+    "regionDiff": "comparisons/2q7WkAoRlR-region-diff.png",
+    "referenceRegion": "comparisons/2q7WkAoRlR-reference-region.png",
+    "nativeRegion": "comparisons/2q7WkAoRlR-native-region.png",
+    "isolatedForeground": {
+      "referenceSize": {
+        "width": 780,
+        "height": 702
+      },
+      "nativeSize": {
+        "width": 780,
+        "height": 702
+      },
+      "comparedPixels": 547560,
+      "differentPixels": 0,
+      "mismatchRatio": 0,
+      "meanAbsoluteChannelDelta": 0,
+      "maxChannelDelta": 0,
+      "exactMatch": true,
+      "placementMatches": true,
+      "reference": "comparisons/2q7WkAoRlR-isolated-reference.png",
+      "native": "comparisons/2q7WkAoRlR-isolated-native.png",
+      "diff": "comparisons/2q7WkAoRlR-isolated-diff.png",
+      "method": "Entire foreground borderbox on a shared neutral backdrop; only body visibility/background changes, target visibility restored. Original foreground styles/content/geometry unchanged. Full-document capture avoids viewport scrollbars occluding the foreground; authored viewport dimensions remain unchanged. No pixel masks or tolerance."
+    },
+    "status": "exact"
+  },
+  {
+    "capturedAt": "2026-11-17T14:34:16.390Z",
+    "frame": "hyytQwDO0u",
+    "name": "AI Retry State Light",
+    "theme": "light",
+    "scenario": "retry",
+    "scope": "overlay-foreground",
+    "sourceUpdatedAt": "2026-11-15T23:35:37.630Z",
+    "sourceSha256": "bb082d97a20c4a66df9e57f31c7870a8b1276afc594139c96ece918b17c6e966",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/hyytQwDO0u-native.png",
+    "referenceSha256": "f71a2eed63c5c25aa0500caa02dbe246113142d91a1d326151fb53e428ddaac3",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "comparedPixels": 1440000,
+      "differentPixels": 661232,
+      "mismatchRatio": 0.45918888888888887,
+      "meanAbsoluteChannelDelta": 15.809028703703703,
+      "maxChannelDelta": 220,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/hyytQwDO0u-full-diff.png",
+    "referenceBox": {
+      "x": 330,
+      "y": 104,
+      "width": 780,
+      "height": 701.984375
+    },
+    "nativeBox": {
+      "x": 330,
+      "y": 104,
+      "width": 780,
+      "height": 701.984375
+    },
+    "region": {
+      "referenceSize": {
+        "width": 780,
+        "height": 702
+      },
+      "nativeSize": {
+        "width": 780,
+        "height": 702
+      },
+      "comparedPixels": 547432,
+      "differentPixels": 862,
+      "mismatchRatio": 0.0015746247935816686,
+      "meanAbsoluteChannelDelta": 0.0017773897031960134,
+      "maxChannelDelta": 36,
+      "exactMatch": false
+    },
+    "regionDiff": "comparisons/hyytQwDO0u-region-diff.png",
+    "referenceRegion": "comparisons/hyytQwDO0u-reference-region.png",
+    "nativeRegion": "comparisons/hyytQwDO0u-native-region.png",
+    "isolatedForeground": {
+      "referenceSize": {
+        "width": 780,
+        "height": 702
+      },
+      "nativeSize": {
+        "width": 780,
+        "height": 702
+      },
+      "comparedPixels": 547560,
+      "differentPixels": 0,
+      "mismatchRatio": 0,
+      "meanAbsoluteChannelDelta": 0,
+      "maxChannelDelta": 0,
+      "exactMatch": true,
+      "placementMatches": true,
+      "reference": "comparisons/hyytQwDO0u-isolated-reference.png",
+      "native": "comparisons/hyytQwDO0u-isolated-native.png",
+      "diff": "comparisons/hyytQwDO0u-isolated-diff.png",
+      "method": "Entire foreground borderbox on a shared neutral backdrop; only body visibility/background changes, target visibility restored. Original foreground styles/content/geometry unchanged. Full-document capture avoids viewport scrollbars occluding the foreground; authored viewport dimensions remain unchanged. No pixel masks or tolerance."
+    },
+    "status": "exact"
+  },
+  {
+    "capturedAt": "2026-11-17T14:34:19.663Z",
+    "frame": "oMakIN6tI8",
+    "name": "AI Retry State Dark",
+    "theme": "dark",
+    "scenario": "retry",
+    "scope": "overlay-foreground",
+    "sourceUpdatedAt": "2026-11-15T23:35:39.448Z",
+    "sourceSha256": "d19e629b5f0b49e01f56f1a36b17e8136268881871dbe22a46098e0ca5fcddf4",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/oMakIN6tI8-native.png",
+    "referenceSha256": "a007b0eb561dde4e61352f884061b4a1057bbff82cc5938f74859173be834755",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "comparedPixels": 1440000,
+      "differentPixels": 669727,
+      "mismatchRatio": 0.46508819444444444,
+      "meanAbsoluteChannelDelta": 9.378127546296296,
+      "maxChannelDelta": 241,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/oMakIN6tI8-full-diff.png",
+    "referenceBox": {
+      "x": 330,
+      "y": 104,
+      "width": 780,
+      "height": 701.984375
+    },
+    "nativeBox": {
+      "x": 330,
+      "y": 104,
+      "width": 780,
+      "height": 701.984375
+    },
+    "region": {
+      "referenceSize": {
+        "width": 780,
+        "height": 702
+      },
+      "nativeSize": {
+        "width": 780,
+        "height": 702
+      },
+      "comparedPixels": 547432,
+      "differentPixels": 974,
+      "mismatchRatio": 0.00177921641409344,
+      "meanAbsoluteChannelDelta": 0.0017134548217860848,
+      "maxChannelDelta": 38,
+      "exactMatch": false
+    },
+    "regionDiff": "comparisons/oMakIN6tI8-region-diff.png",
+    "referenceRegion": "comparisons/oMakIN6tI8-reference-region.png",
+    "nativeRegion": "comparisons/oMakIN6tI8-native-region.png",
+    "isolatedForeground": {
+      "referenceSize": {
+        "width": 780,
+        "height": 702
+      },
+      "nativeSize": {
+        "width": 780,
+        "height": 702
+      },
+      "comparedPixels": 547560,
+      "differentPixels": 0,
+      "mismatchRatio": 0,
+      "meanAbsoluteChannelDelta": 0,
+      "maxChannelDelta": 0,
+      "exactMatch": true,
+      "placementMatches": true,
+      "reference": "comparisons/oMakIN6tI8-isolated-reference.png",
+      "native": "comparisons/oMakIN6tI8-isolated-native.png",
+      "diff": "comparisons/oMakIN6tI8-isolated-diff.png",
+      "method": "Entire foreground borderbox on a shared neutral backdrop; only body visibility/background changes, target visibility restored. Original foreground styles/content/geometry unchanged. Full-document capture avoids viewport scrollbars occluding the foreground; authored viewport dimensions remain unchanged. No pixel masks or tolerance."
+    },
+    "status": "exact"
+  },
+  {
+    "capturedAt": "2026-11-17T14:34:22.440Z",
+    "frame": "-Kq47IpKPV",
+    "name": "Collapsed Workspace Sidebar Light",
+    "theme": "light",
+    "scenario": "collapsed-sidebar",
+    "scope": "canonical-layout-replacement",
+    "sourceUpdatedAt": "2026-11-15T23:33:56.539Z",
+    "sourceSha256": "1c0c5317b9b37ec262db9124f02c0d28599766d66c70e0ee3c35126fee9098ec",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/-Kq47IpKPV-native.png",
+    "referenceSha256": "25e6f4c9a5ae7768ddad744aad3772b45a2e94c6da88fe7099866351126123b4",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "comparedPixels": 1440000,
+      "differentPixels": 840012,
+      "mismatchRatio": 0.5833416666666666,
+      "meanAbsoluteChannelDelta": 13.891415509259259,
+      "maxChannelDelta": 234,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/-Kq47IpKPV-full-diff.png",
+    "status": "approved-layout-replacement"
+  },
+  {
+    "capturedAt": "2026-11-17T14:34:24.135Z",
+    "frame": "GcrkggAb2V",
+    "name": "Collapsed Workspace Sidebar Dark",
+    "theme": "dark",
+    "scenario": "collapsed-sidebar",
+    "scope": "canonical-layout-replacement",
+    "sourceUpdatedAt": "2026-11-15T23:33:54.448Z",
+    "sourceSha256": "d31aef4c2688e67af5c64fd3d91d24defc23cf748d6da012e6282e02883da2d0",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/GcrkggAb2V-native.png",
+    "referenceSha256": "d457f7c953d3e895e0abce36013ce2f3763abbf862e060b5550b026095dcdbda",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "comparedPixels": 1440000,
+      "differentPixels": 841218,
+      "mismatchRatio": 0.5841791666666667,
+      "meanAbsoluteChannelDelta": 17.994700694444443,
+      "maxChannelDelta": 241,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/GcrkggAb2V-full-diff.png",
+    "status": "approved-layout-replacement"
+  },
+  {
+    "capturedAt": "2026-11-17T14:34:25.745Z",
+    "frame": "rhPj4u5YGM",
+    "name": "Collapsed Agenda Panel Light",
+    "theme": "light",
+    "scenario": "collapsed-agenda",
+    "scope": "canonical-layout-replacement",
+    "sourceUpdatedAt": "2026-11-15T23:34:04.145Z",
+    "sourceSha256": "115af9e3ea31cf96f1a799df64b41b3e216748520f14a6dd64c9819aca760b5f",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/rhPj4u5YGM-native.png",
+    "referenceSha256": "e970877cb378f31e8ceee53e37add56b2993615caeaf2f04718d10d30290e8d2",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "comparedPixels": 1440000,
+      "differentPixels": 820238,
+      "mismatchRatio": 0.5696097222222222,
+      "meanAbsoluteChannelDelta": 13.528400925925926,
+      "maxChannelDelta": 232,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/rhPj4u5YGM-full-diff.png",
+    "status": "approved-layout-replacement"
+  },
+  {
+    "capturedAt": "2026-11-17T14:34:27.282Z",
+    "frame": "8bFi-1WqDJ",
+    "name": "Collapsed Agenda Panel Dark",
+    "theme": "dark",
+    "scenario": "collapsed-agenda",
+    "scope": "canonical-layout-replacement",
+    "sourceUpdatedAt": "2026-11-15T23:34:01.995Z",
+    "sourceSha256": "bb76548e7910492b4381ab0603d01df2c8ed195006a75852e3d6ed0d437b20cf",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/8bFi-1WqDJ-native.png",
+    "referenceSha256": "4ffbbf88fc5d22258037dfbb385ebf48f114ac1b50bdfeaf277d9ec2117cdc2b",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "comparedPixels": 1440000,
+      "differentPixels": 828416,
+      "mismatchRatio": 0.5752888888888888,
+      "meanAbsoluteChannelDelta": 16.97842800925926,
+      "maxChannelDelta": 241,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/8bFi-1WqDJ-full-diff.png",
+    "status": "approved-layout-replacement"
+  },
+  {
+    "capturedAt": "2026-11-17T14:34:28.803Z",
+    "frame": "CvD8KzS38m",
+    "name": "Expanded Month Calendar Light",
+    "theme": "light",
+    "scenario": "month",
+    "scope": "canonical-layout-replacement",
+    "sourceUpdatedAt": "2026-11-15T23:34:04.215Z",
+    "sourceSha256": "58341ae37c16709090bdf7c5de23f0c0f97c4d3cc559845861dbc6e7f688d347",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/CvD8KzS38m-native.png",
+    "referenceSha256": "6d5c9dc99b9cc851dd1531f8761f0dc90274b7cc1304a6d87d1379ca06ef1ec1",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "comparedPixels": 1440000,
+      "differentPixels": 742076,
+      "mismatchRatio": 0.5153305555555555,
+      "meanAbsoluteChannelDelta": 10.605052314814815,
+      "maxChannelDelta": 235,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/CvD8KzS38m-full-diff.png",
+    "status": "approved-layout-replacement"
+  },
+  {
+    "capturedAt": "2026-11-17T14:34:30.484Z",
+    "frame": "qWTFqZ5lwm",
+    "name": "Expanded Month Calendar Dark",
+    "theme": "dark",
+    "scenario": "month",
+    "scope": "canonical-layout-replacement",
+    "sourceUpdatedAt": "2026-11-15T23:34:02.081Z",
+    "sourceSha256": "c7ad0cc85fe540f4784dce66a9b9246c3e6711cf5309a33b20c45062fe4dbedb",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/qWTFqZ5lwm-native.png",
+    "referenceSha256": "fe8424cd276ea47236a9df9e310c79eac86d0dc6c369f14068f97664addad8b1",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "comparedPixels": 1440000,
+      "differentPixels": 746768,
+      "mismatchRatio": 0.5185888888888889,
+      "meanAbsoluteChannelDelta": 14.68139699074074,
+      "maxChannelDelta": 241,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/qWTFqZ5lwm-full-diff.png",
+    "status": "approved-layout-replacement"
+  },
+  {
+    "capturedAt": "2026-11-17T14:34:32.071Z",
+    "frame": "wqqrTTPdTo",
+    "name": "Selected Day Agenda Light",
+    "theme": "light",
+    "scenario": "selected-day",
+    "scope": "canonical-layout-replacement",
+    "sourceUpdatedAt": "2026-11-15T23:35:41.268Z",
+    "sourceSha256": "4613d862c8f3300182ecd2ce73602cf30b66ef11c9b7ad9a00858bba341b59c6",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/wqqrTTPdTo-native.png",
+    "referenceSha256": "7fc12ad278ab49a9c27ac303dafc5434503e4a9d38976c165155a92e8e22c55f",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "comparedPixels": 1440000,
+      "differentPixels": 747985,
+      "mismatchRatio": 0.5194340277777778,
+      "meanAbsoluteChannelDelta": 10.334459490740741,
+      "maxChannelDelta": 232,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/wqqrTTPdTo-full-diff.png",
+    "status": "approved-layout-replacement"
+  },
+  {
+    "capturedAt": "2026-11-17T14:34:33.738Z",
+    "frame": "8KlwJCCU9M",
+    "name": "Selected Day Agenda Dark",
+    "theme": "dark",
+    "scenario": "selected-day",
+    "scope": "canonical-layout-replacement",
+    "sourceUpdatedAt": "2026-11-15T23:35:43.414Z",
+    "sourceSha256": "5c9f3fbf36b070c661d74773a8ac0ec6e620ae7c5423646a24713193acd132e2",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/8KlwJCCU9M-native.png",
+    "referenceSha256": "528806984cf95555d60578c21520e5ed424721b708bcac15b6646ec7f6bc1b57",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "comparedPixels": 1440000,
+      "differentPixels": 752643,
+      "mismatchRatio": 0.52266875,
+      "meanAbsoluteChannelDelta": 14.861816898148149,
+      "maxChannelDelta": 241,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/8KlwJCCU9M-full-diff.png",
+    "status": "approved-layout-replacement"
+  },
+  {
+    "capturedAt": "2026-11-17T14:34:35.367Z",
+    "frame": "X7gRb7Zpcd",
+    "name": "New Event Form Light",
+    "theme": "light",
+    "scenario": "event",
+    "scope": "overlay-foreground",
+    "sourceUpdatedAt": "2026-11-15T23:35:45.306Z",
+    "sourceSha256": "0f0d52cefecd3dd8de9181fbcebc1e8eca5fdd1de5163a415ccf8b6c83746539",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/X7gRb7Zpcd-native.png",
+    "referenceSha256": "657bd647fb6b2f6aa6d6ae18b0884ceed027bcc9b29f045555ac000fd8dfa4ae",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "comparedPixels": 1440000,
+      "differentPixels": 657517,
+      "mismatchRatio": 0.4566090277777778,
+      "meanAbsoluteChannelDelta": 15.525912037037036,
+      "maxChannelDelta": 220,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/X7gRb7Zpcd-full-diff.png",
+    "referenceBox": {
+      "x": 340,
+      "y": 104,
+      "width": 760,
+      "height": 758.40625
+    },
+    "nativeBox": {
+      "x": 340,
+      "y": 104,
+      "width": 760,
+      "height": 758.40625
+    },
+    "region": {
+      "referenceSize": {
+        "width": 760,
+        "height": 759
+      },
+      "nativeSize": {
+        "width": 760,
+        "height": 759
+      },
+      "comparedPixels": 576712,
+      "differentPixels": 326,
+      "mismatchRatio": 0.0005652734813910582,
+      "meanAbsoluteChannelDelta": 0.0003566193640268742,
+      "maxChannelDelta": 15,
+      "exactMatch": false
+    },
+    "regionDiff": "comparisons/X7gRb7Zpcd-region-diff.png",
+    "referenceRegion": "comparisons/X7gRb7Zpcd-reference-region.png",
+    "nativeRegion": "comparisons/X7gRb7Zpcd-native-region.png",
+    "isolatedForeground": {
+      "referenceSize": {
+        "width": 760,
+        "height": 759
+      },
+      "nativeSize": {
+        "width": 760,
+        "height": 759
+      },
+      "comparedPixels": 576840,
+      "differentPixels": 0,
+      "mismatchRatio": 0,
+      "meanAbsoluteChannelDelta": 0,
+      "maxChannelDelta": 0,
+      "exactMatch": true,
+      "placementMatches": true,
+      "reference": "comparisons/X7gRb7Zpcd-isolated-reference.png",
+      "native": "comparisons/X7gRb7Zpcd-isolated-native.png",
+      "diff": "comparisons/X7gRb7Zpcd-isolated-diff.png",
+      "method": "Entire foreground borderbox on a shared neutral backdrop; only body visibility/background changes, target visibility restored. Original foreground styles/content/geometry unchanged. Full-document capture avoids viewport scrollbars occluding the foreground; authored viewport dimensions remain unchanged. No pixel masks or tolerance."
+    },
+    "status": "exact"
+  },
+  {
+    "capturedAt": "2026-11-17T14:34:37.254Z",
+    "frame": "F5ItS-WXTF",
+    "name": "New Event Form Dark",
+    "theme": "dark",
+    "scenario": "event",
+    "scope": "overlay-foreground",
+    "sourceUpdatedAt": "2026-11-15T23:35:47.239Z",
+    "sourceSha256": "2204c8f11ecab12347affcaec3bb8cd33701fab19045347330e2140b97f09f56",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/F5ItS-WXTF-native.png",
+    "referenceSha256": "1f6d6fc3ae2d411be02328f726191efe470ba86442bcc4b6baf65ece88bc95dc",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "comparedPixels": 1440000,
+      "differentPixels": 665909,
+      "mismatchRatio": 0.46243680555555555,
+      "meanAbsoluteChannelDelta": 9.356131018518518,
+      "maxChannelDelta": 241,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/F5ItS-WXTF-full-diff.png",
+    "referenceBox": {
+      "x": 340,
+      "y": 104,
+      "width": 760,
+      "height": 758.40625
+    },
+    "nativeBox": {
+      "x": 340,
+      "y": 104,
+      "width": 760,
+      "height": 758.40625
+    },
+    "region": {
+      "referenceSize": {
+        "width": 760,
+        "height": 759
+      },
+      "nativeSize": {
+        "width": 760,
+        "height": 759
+      },
+      "comparedPixels": 576712,
+      "differentPixels": 329,
+      "mismatchRatio": 0.0005704753845940434,
+      "meanAbsoluteChannelDelta": 0.00043927182602986124,
+      "maxChannelDelta": 19,
+      "exactMatch": false
+    },
+    "regionDiff": "comparisons/F5ItS-WXTF-region-diff.png",
+    "referenceRegion": "comparisons/F5ItS-WXTF-reference-region.png",
+    "nativeRegion": "comparisons/F5ItS-WXTF-native-region.png",
+    "isolatedForeground": {
+      "referenceSize": {
+        "width": 760,
+        "height": 759
+      },
+      "nativeSize": {
+        "width": 760,
+        "height": 759
+      },
+      "comparedPixels": 576840,
+      "differentPixels": 0,
+      "mismatchRatio": 0,
+      "meanAbsoluteChannelDelta": 0,
+      "maxChannelDelta": 0,
+      "exactMatch": true,
+      "placementMatches": true,
+      "reference": "comparisons/F5ItS-WXTF-isolated-reference.png",
+      "native": "comparisons/F5ItS-WXTF-isolated-native.png",
+      "diff": "comparisons/F5ItS-WXTF-isolated-diff.png",
+      "method": "Entire foreground borderbox on a shared neutral backdrop; only body visibility/background changes, target visibility restored. Original foreground styles/content/geometry unchanged. Full-document capture avoids viewport scrollbars occluding the foreground; authored viewport dimensions remain unchanged. No pixel masks or tolerance."
+    },
+    "status": "exact"
+  },
+  {
+    "capturedAt": "2026-11-17T14:34:39.137Z",
+    "frame": "fB_ybTJvyK",
+    "name": "Command Console Light",
+    "theme": "light",
+    "scenario": "command",
+    "scope": "overlay-foreground",
+    "sourceUpdatedAt": "2026-11-15T23:34:10.436Z",
+    "sourceSha256": "741b5510868b6d0e0f9355d598c0cded4f98f89c2b81529f706586d4feefa12a",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/fB_ybTJvyK-native.png",
+    "referenceSha256": "0666ac9cc1889c4a496def365d4de3e1f6aeddc0e7d93cea036fd6011432b6d5",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "comparedPixels": 1440000,
+      "differentPixels": 721836,
+      "mismatchRatio": 0.501275,
+      "meanAbsoluteChannelDelta": 16.715115277777777,
+      "maxChannelDelta": 220,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/fB_ybTJvyK-full-diff.png",
+    "referenceBox": {
+      "x": 340,
+      "y": 104,
+      "width": 760,
+      "height": 608.453125
+    },
+    "nativeBox": {
+      "x": 340,
+      "y": 104,
+      "width": 760,
+      "height": 608.453125
+    },
+    "region": {
+      "referenceSize": {
+        "width": 760,
+        "height": 609
+      },
+      "nativeSize": {
+        "width": 760,
+        "height": 609
+      },
+      "comparedPixels": 462712,
+      "differentPixels": 1268,
+      "mismatchRatio": 0.002740365497328792,
+      "meanAbsoluteChannelDelta": 0.007908447010955699,
+      "maxChannelDelta": 116,
+      "exactMatch": false
+    },
+    "regionDiff": "comparisons/fB_ybTJvyK-region-diff.png",
+    "referenceRegion": "comparisons/fB_ybTJvyK-reference-region.png",
+    "nativeRegion": "comparisons/fB_ybTJvyK-native-region.png",
+    "isolatedForeground": {
+      "referenceSize": {
+        "width": 760,
+        "height": 609
+      },
+      "nativeSize": {
+        "width": 760,
+        "height": 609
+      },
+      "comparedPixels": 462840,
+      "differentPixels": 0,
+      "mismatchRatio": 0,
+      "meanAbsoluteChannelDelta": 0,
+      "maxChannelDelta": 0,
+      "exactMatch": true,
+      "placementMatches": true,
+      "reference": "comparisons/fB_ybTJvyK-isolated-reference.png",
+      "native": "comparisons/fB_ybTJvyK-isolated-native.png",
+      "diff": "comparisons/fB_ybTJvyK-isolated-diff.png",
+      "method": "Entire foreground borderbox on a shared neutral backdrop; only body visibility/background changes, target visibility restored. Original foreground styles/content/geometry unchanged. Full-document capture avoids viewport scrollbars occluding the foreground; authored viewport dimensions remain unchanged. No pixel masks or tolerance."
+    },
+    "status": "exact"
+  },
+  {
+    "capturedAt": "2026-11-17T14:34:42.114Z",
+    "frame": "L5Eac6sbE4",
+    "name": "Command Console Dark",
+    "theme": "dark",
+    "scenario": "command",
+    "scope": "overlay-foreground",
+    "sourceUpdatedAt": "2026-11-15T23:34:07.876Z",
+    "sourceSha256": "5867b5cd1eb73492944ad299eb8d607f5ca1ee7be2af15835980dfbe41e3c997",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/L5Eac6sbE4-native.png",
+    "referenceSha256": "d79294f18d13066297826badf0a1f9c05d720872f84e82e6fada9f3cdc10dd11",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "comparedPixels": 1440000,
+      "differentPixels": 730181,
+      "mismatchRatio": 0.5070701388888889,
+      "meanAbsoluteChannelDelta": 10.15163263888889,
+      "maxChannelDelta": 241,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/L5Eac6sbE4-full-diff.png",
+    "referenceBox": {
+      "x": 340,
+      "y": 104,
+      "width": 760,
+      "height": 608.453125
+    },
+    "nativeBox": {
+      "x": 340,
+      "y": 104,
+      "width": 760,
+      "height": 608.453125
+    },
+    "region": {
+      "referenceSize": {
+        "width": 760,
+        "height": 609
+      },
+      "nativeSize": {
+        "width": 760,
+        "height": 609
+      },
+      "comparedPixels": 462712,
+      "differentPixels": 1224,
+      "mismatchRatio": 0.002645273950102872,
+      "meanAbsoluteChannelDelta": 0.012493012212059914,
+      "maxChannelDelta": 127,
+      "exactMatch": false
+    },
+    "regionDiff": "comparisons/L5Eac6sbE4-region-diff.png",
+    "referenceRegion": "comparisons/L5Eac6sbE4-reference-region.png",
+    "nativeRegion": "comparisons/L5Eac6sbE4-native-region.png",
+    "isolatedForeground": {
+      "referenceSize": {
+        "width": 760,
+        "height": 609
+      },
+      "nativeSize": {
+        "width": 760,
+        "height": 609
+      },
+      "comparedPixels": 462840,
+      "differentPixels": 0,
+      "mismatchRatio": 0,
+      "meanAbsoluteChannelDelta": 0,
+      "maxChannelDelta": 0,
+      "exactMatch": true,
+      "placementMatches": true,
+      "reference": "comparisons/L5Eac6sbE4-isolated-reference.png",
+      "native": "comparisons/L5Eac6sbE4-isolated-native.png",
+      "diff": "comparisons/L5Eac6sbE4-isolated-diff.png",
+      "method": "Entire foreground borderbox on a shared neutral backdrop; only body visibility/background changes, target visibility restored. Original foreground styles/content/geometry unchanged. Full-document capture avoids viewport scrollbars occluding the foreground; authored viewport dimensions remain unchanged. No pixel masks or tolerance."
+    },
+    "status": "exact"
+  },
+  {
+    "capturedAt": "2026-11-17T14:34:44.376Z",
+    "frame": "OwcxrkwgPj",
+    "name": "Keyboard Shortcuts Light",
+    "theme": "light",
+    "scenario": "shortcuts",
+    "scope": "overlay-foreground",
+    "sourceUpdatedAt": "2026-11-15T23:34:10.593Z",
+    "sourceSha256": "53f1508063381885cb881d96d823a984d6ee285551356a78a3c42d37aaaa17bf",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/OwcxrkwgPj-native.png",
+    "referenceSha256": "ebee7d7df24a9d52d4a2b873e9c39e2bccb12df2a0bd5b6623c47e5804a3c46b",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "comparedPixels": 1440000,
+      "differentPixels": 795131,
+      "mismatchRatio": 0.5521743055555556,
+      "meanAbsoluteChannelDelta": 17.130099305555557,
+      "maxChannelDelta": 220,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/OwcxrkwgPj-full-diff.png",
+    "referenceBox": {
+      "x": 350,
+      "y": 104,
+      "width": 740,
+      "height": 496.984375
+    },
+    "nativeBox": {
+      "x": 350,
+      "y": 104,
+      "width": 740,
+      "height": 496.984375
+    },
+    "region": {
+      "referenceSize": {
+        "width": 740,
+        "height": 497
+      },
+      "nativeSize": {
+        "width": 740,
+        "height": 497
+      },
+      "comparedPixels": 367652,
+      "differentPixels": 40,
+      "mismatchRatio": 0.00010879853774765267,
+      "meanAbsoluteChannelDelta": 0.00010970519222888311,
+      "maxChannelDelta": 7,
+      "exactMatch": false
+    },
+    "regionDiff": "comparisons/OwcxrkwgPj-region-diff.png",
+    "referenceRegion": "comparisons/OwcxrkwgPj-reference-region.png",
+    "nativeRegion": "comparisons/OwcxrkwgPj-native-region.png",
+    "isolatedForeground": {
+      "referenceSize": {
+        "width": 740,
+        "height": 497
+      },
+      "nativeSize": {
+        "width": 740,
+        "height": 497
+      },
+      "comparedPixels": 367780,
+      "differentPixels": 0,
+      "mismatchRatio": 0,
+      "meanAbsoluteChannelDelta": 0,
+      "maxChannelDelta": 0,
+      "exactMatch": true,
+      "placementMatches": true,
+      "reference": "comparisons/OwcxrkwgPj-isolated-reference.png",
+      "native": "comparisons/OwcxrkwgPj-isolated-native.png",
+      "diff": "comparisons/OwcxrkwgPj-isolated-diff.png",
+      "method": "Entire foreground borderbox on a shared neutral backdrop; only body visibility/background changes, target visibility restored. Original foreground styles/content/geometry unchanged. Full-document capture avoids viewport scrollbars occluding the foreground; authored viewport dimensions remain unchanged. No pixel masks or tolerance."
+    },
+    "status": "exact"
+  },
+  {
+    "capturedAt": "2026-11-17T14:34:46.268Z",
+    "frame": "GYUpO9Oksq",
+    "name": "Keyboard Shortcuts Dark",
+    "theme": "dark",
+    "scenario": "shortcuts",
+    "scope": "overlay-foreground",
+    "sourceUpdatedAt": "2026-11-15T23:34:07.969Z",
+    "sourceSha256": "a9700931ccf711722b7dec101f2ddfe2421e1e6e0bb39b0e2a270c00905f6f74",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/GYUpO9Oksq-native.png",
+    "referenceSha256": "7e75f270b5d1467a3d30860fceea4aa43a4ee8ca7a89d2843d50ae17f90b26ea",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "comparedPixels": 1440000,
+      "differentPixels": 803527,
+      "mismatchRatio": 0.5580048611111111,
+      "meanAbsoluteChannelDelta": 10.766540277777779,
+      "maxChannelDelta": 241,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/GYUpO9Oksq-full-diff.png",
+    "referenceBox": {
+      "x": 350,
+      "y": 104,
+      "width": 740,
+      "height": 496.984375
+    },
+    "nativeBox": {
+      "x": 350,
+      "y": 104,
+      "width": 740,
+      "height": 496.984375
+    },
+    "region": {
+      "referenceSize": {
+        "width": 740,
+        "height": 497
+      },
+      "nativeSize": {
+        "width": 740,
+        "height": 497
+      },
+      "comparedPixels": 367652,
+      "differentPixels": 42,
+      "mismatchRatio": 0.00011423846463503531,
+      "meanAbsoluteChannelDelta": 0.0001278382818534919,
+      "maxChannelDelta": 7,
+      "exactMatch": false
+    },
+    "regionDiff": "comparisons/GYUpO9Oksq-region-diff.png",
+    "referenceRegion": "comparisons/GYUpO9Oksq-reference-region.png",
+    "nativeRegion": "comparisons/GYUpO9Oksq-native-region.png",
+    "isolatedForeground": {
+      "referenceSize": {
+        "width": 740,
+        "height": 497
+      },
+      "nativeSize": {
+        "width": 740,
+        "height": 497
+      },
+      "comparedPixels": 367780,
+      "differentPixels": 0,
+      "mismatchRatio": 0,
+      "meanAbsoluteChannelDelta": 0,
+      "maxChannelDelta": 0,
+      "exactMatch": true,
+      "placementMatches": true,
+      "reference": "comparisons/GYUpO9Oksq-isolated-reference.png",
+      "native": "comparisons/GYUpO9Oksq-isolated-native.png",
+      "diff": "comparisons/GYUpO9Oksq-isolated-diff.png",
+      "method": "Entire foreground borderbox on a shared neutral backdrop; only body visibility/background changes, target visibility restored. Original foreground styles/content/geometry unchanged. Full-document capture avoids viewport scrollbars occluding the foreground; authored viewport dimensions remain unchanged. No pixel masks or tolerance."
+    },
+    "status": "exact"
+  },
+  {
+    "capturedAt": "2026-11-17T14:34:48.098Z",
+    "frame": "hamBycIX0J",
+    "name": "Action Success Feedback Light",
+    "theme": "light",
+    "scenario": "success",
+    "scope": "feedback-foreground",
+    "sourceUpdatedAt": "2026-11-15T23:34:10.926Z",
+    "sourceSha256": "53cb0d38e519c4ec9976d6ba514079b57c0446cad444a7e0b9c618118a2e8435",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/hamBycIX0J-native.png",
+    "referenceSha256": "8b72165d2b76599e71b8f65d12ca7000bdb2482b8b2dee662bc020ebe79988a9",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "comparedPixels": 1440000,
+      "differentPixels": 834294,
+      "mismatchRatio": 0.5793708333333333,
+      "meanAbsoluteChannelDelta": 14.605828009259259,
+      "maxChannelDelta": 234,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/hamBycIX0J-full-diff.png",
+    "referenceBox": {
+      "x": 1046,
+      "y": 644.5625,
+      "width": 370,
+      "height": 291.4375
+    },
+    "nativeBox": {
+      "x": 1046,
+      "y": 644.5625,
+      "width": 370,
+      "height": 291.4375
+    },
+    "region": {
+      "referenceSize": {
+        "width": 370,
+        "height": 292
+      },
+      "nativeSize": {
+        "width": 370,
+        "height": 292
+      },
+      "comparedPixels": 108040,
+      "differentPixels": 4718,
+      "mismatchRatio": 0.04366901147723066,
+      "meanAbsoluteChannelDelta": 1.2193847957546589,
+      "maxChannelDelta": 188,
+      "exactMatch": false
+    },
+    "regionDiff": "comparisons/hamBycIX0J-region-diff.png",
+    "referenceRegion": "comparisons/hamBycIX0J-reference-region.png",
+    "nativeRegion": "comparisons/hamBycIX0J-native-region.png",
+    "feedbackCards": [
+      {
+        "title": "Reply sent to Ari",
+        "referenceBox": {
+          "x": 1046,
+          "y": 644.5625,
+          "width": 370,
+          "height": 161.46875
+        },
+        "nativeBox": {
+          "x": 1046,
+          "y": 644.5625,
+          "width": 370,
+          "height": 161.46875
+        },
+        "placementMatches": true,
+        "referenceSize": {
+          "width": 370,
+          "height": 163
+        },
+        "nativeSize": {
+          "width": 370,
+          "height": 163
+        },
+        "comparedPixels": 60310,
+        "differentPixels": 0,
+        "mismatchRatio": 0,
+        "meanAbsoluteChannelDelta": 0,
+        "maxChannelDelta": 0,
+        "exactMatch": true,
+        "reference": "comparisons/hamBycIX0J-card-0-reference.png",
+        "native": "comparisons/hamBycIX0J-card-0-native.png",
+        "diff": "comparisons/hamBycIX0J-card-0-diff.png"
+      },
+      {
+        "title": "Event created",
+        "referenceBox": {
+          "x": 1046,
+          "y": 818.03125,
+          "width": 370,
+          "height": 117.96875
+        },
+        "nativeBox": {
+          "x": 1046,
+          "y": 818.03125,
+          "width": 370,
+          "height": 117.96875
+        },
+        "placementMatches": true,
+        "referenceSize": {
+          "width": 370,
+          "height": 118
+        },
+        "nativeSize": {
+          "width": 370,
+          "height": 118
+        },
+        "comparedPixels": 43660,
+        "differentPixels": 0,
+        "mismatchRatio": 0,
+        "meanAbsoluteChannelDelta": 0,
+        "maxChannelDelta": 0,
+        "exactMatch": true,
+        "reference": "comparisons/hamBycIX0J-card-1-reference.png",
+        "native": "comparisons/hamBycIX0J-card-1-native.png",
+        "diff": "comparisons/hamBycIX0J-card-1-diff.png"
+      }
+    ],
+    "foreground": {
+      "comparedPixels": 103970,
+      "differentPixels": 0,
+      "exactMatch": true
+    },
+    "status": "exact"
+  },
+  {
+    "capturedAt": "2026-11-17T14:34:50.066Z",
+    "frame": "fHmzhyiS-n",
+    "name": "Action Success Feedback Dark",
+    "theme": "dark",
+    "scenario": "success",
+    "scope": "feedback-foreground",
+    "sourceUpdatedAt": "2026-11-16T09:31:43.318Z",
+    "sourceSha256": "9779762c3f55ddf1f9ee00d618c8755ea63186c61de239589a66a45a31485a38",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/fHmzhyiS-n-native.png",
+    "referenceSha256": "09ad5dbde0b8c7c9e8f15bcc0cd63134344c9e33d2e45f07d0ac46a546afe030",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 1000
+      },
+      "comparedPixels": 1440000,
+      "differentPixels": 842617,
+      "mismatchRatio": 0.5851506944444445,
+      "meanAbsoluteChannelDelta": 18.12989398148148,
+      "maxChannelDelta": 241,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/fHmzhyiS-n-full-diff.png",
+    "referenceBox": {
+      "x": 1046,
+      "y": 644.5625,
+      "width": 370,
+      "height": 291.4375
+    },
+    "nativeBox": {
+      "x": 1046,
+      "y": 644.5625,
+      "width": 370,
+      "height": 291.4375
+    },
+    "region": {
+      "referenceSize": {
+        "width": 370,
+        "height": 292
+      },
+      "nativeSize": {
+        "width": 370,
+        "height": 292
+      },
+      "comparedPixels": 108040,
+      "differentPixels": 4732,
+      "mismatchRatio": 0.043798593113661605,
+      "meanAbsoluteChannelDelta": 0.6442737257805751,
+      "maxChannelDelta": 164,
+      "exactMatch": false
+    },
+    "regionDiff": "comparisons/fHmzhyiS-n-region-diff.png",
+    "referenceRegion": "comparisons/fHmzhyiS-n-reference-region.png",
+    "nativeRegion": "comparisons/fHmzhyiS-n-native-region.png",
+    "feedbackCards": [
+      {
+        "title": "Reply sent to Ari",
+        "referenceBox": {
+          "x": 1046,
+          "y": 644.5625,
+          "width": 370,
+          "height": 161.46875
+        },
+        "nativeBox": {
+          "x": 1046,
+          "y": 644.5625,
+          "width": 370,
+          "height": 161.46875
+        },
+        "placementMatches": true,
+        "referenceSize": {
+          "width": 370,
+          "height": 163
+        },
+        "nativeSize": {
+          "width": 370,
+          "height": 163
+        },
+        "comparedPixels": 60310,
+        "differentPixels": 0,
+        "mismatchRatio": 0,
+        "meanAbsoluteChannelDelta": 0,
+        "maxChannelDelta": 0,
+        "exactMatch": true,
+        "reference": "comparisons/fHmzhyiS-n-card-0-reference.png",
+        "native": "comparisons/fHmzhyiS-n-card-0-native.png",
+        "diff": "comparisons/fHmzhyiS-n-card-0-diff.png"
+      },
+      {
+        "title": "Event created",
+        "referenceBox": {
+          "x": 1046,
+          "y": 818.03125,
+          "width": 370,
+          "height": 117.96875
+        },
+        "nativeBox": {
+          "x": 1046,
+          "y": 818.03125,
+          "width": 370,
+          "height": 117.96875
+        },
+        "placementMatches": true,
+        "referenceSize": {
+          "width": 370,
+          "height": 118
+        },
+        "nativeSize": {
+          "width": 370,
+          "height": 118
+        },
+        "comparedPixels": 43660,
+        "differentPixels": 0,
+        "mismatchRatio": 0,
+        "meanAbsoluteChannelDelta": 0,
+        "maxChannelDelta": 0,
+        "exactMatch": true,
+        "reference": "comparisons/fHmzhyiS-n-card-1-reference.png",
+        "native": "comparisons/fHmzhyiS-n-card-1-native.png",
+        "diff": "comparisons/fHmzhyiS-n-card-1-diff.png"
+      }
+    ],
+    "foreground": {
+      "comparedPixels": 103970,
+      "differentPixels": 0,
+      "exactMatch": true
+    },
+    "status": "exact"
+  },
+  {
+    "capturedAt": "2026-11-17T14:34:52.075Z",
+    "frame": "StnxuxcdNT",
+    "name": "NovusMail / light / ASCII source",
+    "theme": "light",
+    "scenario": "landing",
+    "scope": "full-frame",
+    "sourceUpdatedAt": "2026-11-15T23:35:48.958Z",
+    "sourceSha256": "68821caea73409381cb66960c6d94758913d430509e85036d2a95b432ed72b01",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/StnxuxcdNT-native.png",
+    "referenceSha256": "2bdc0135247418ab18d25b3c1f5f0b3c1cff382b22c5eba59715fd6f7137343c",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 3000
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 3000
+      },
+      "comparedPixels": 4320000,
+      "differentPixels": 0,
+      "mismatchRatio": 0,
+      "meanAbsoluteChannelDelta": 0,
+      "maxChannelDelta": 0,
+      "exactMatch": true
+    },
+    "fullDiff": "comparisons/StnxuxcdNT-full-diff.png",
+    "status": "exact"
+  },
+  {
+    "capturedAt": "2026-11-17T14:34:54.781Z",
+    "frame": "tZpJbgGcF5",
+    "name": "NovusMail / dark / ASCII source",
+    "theme": "dark",
+    "scenario": "landing",
+    "scope": "full-frame",
+    "sourceUpdatedAt": "2026-11-15T23:35:50.755Z",
+    "sourceSha256": "4e3551340a2b93faf5ec24905c961d7aa54e470a31655a279d0fc99148aabc3f",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/tZpJbgGcF5-native.png",
+    "referenceSha256": "18f28a2bc4082bb135d878c6c7f7e1075ba849065d42c922e7ae5047841b8ce3",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 3000
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 3000
+      },
+      "comparedPixels": 4320000,
+      "differentPixels": 0,
+      "mismatchRatio": 0,
+      "meanAbsoluteChannelDelta": 0,
+      "maxChannelDelta": 0,
+      "exactMatch": true
+    },
+    "fullDiff": "comparisons/tZpJbgGcF5-full-diff.png",
+    "status": "exact"
+  },
+  {
+    "capturedAt": "2026-11-17T14:34:57.104Z",
+    "frame": "eXLag7TsWm",
+    "name": "NovusMail / light / ASCII source",
+    "theme": "light",
+    "scenario": "landing",
+    "scope": "historical-landing",
+    "sourceUpdatedAt": "2026-11-15T23:02:59.663Z",
+    "sourceSha256": "2f13fdbb0c6e4fb105bac3df97c5fecb685da95d0e08fc63fc2b7bb3bab78013",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/eXLag7TsWm-native.png",
+    "referenceSha256": "252d812202788d54e4b049dc82dd2ac0d1276b245cbdd093a1a66beaef5b08f1",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 3000
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 3000
+      },
+      "comparedPixels": 4320000,
+      "differentPixels": 1483571,
+      "mismatchRatio": 0.34341921296296296,
+      "meanAbsoluteChannelDelta": 5.161267669753086,
+      "maxChannelDelta": 234,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/eXLag7TsWm-full-diff.png",
+    "status": "approved-layout-replacement"
+  },
+  {
+    "capturedAt": "2026-11-17T14:34:59.531Z",
+    "frame": "9QIQzqwAWN",
+    "name": "NovusMail / dark / ASCII source",
+    "theme": "dark",
+    "scenario": "landing",
+    "scope": "historical-landing",
+    "sourceUpdatedAt": "2026-11-15T23:02:59.678Z",
+    "sourceSha256": "4f657113d02fa366e8558a17321d3af62b78368df16d05b8dcc5732db3472632",
+    "errors": [],
+    "referenceOrigin": "pinned-source-html-render",
+    "native": "comparisons/9QIQzqwAWN-native.png",
+    "referenceSha256": "1a83738c8f87a1aeccc2b3eadb8404b7d7bd3161c01216b07cc96976845f238f",
+    "fullFrame": {
+      "referenceSize": {
+        "width": 1440,
+        "height": 3000
+      },
+      "nativeSize": {
+        "width": 1440,
+        "height": 3000
+      },
+      "comparedPixels": 4320000,
+      "differentPixels": 4295586,
+      "mismatchRatio": 0.9943486111111111,
+      "meanAbsoluteChannelDelta": 9.130297222222222,
+      "maxChannelDelta": 240,
+      "exactMatch": false
+    },
+    "fullDiff": "comparisons/9QIQzqwAWN-full-diff.png",
+    "status": "approved-layout-replacement"
+  }
+]

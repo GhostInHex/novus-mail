@@ -1,15 +1,17 @@
-import { chromium, expect } from "@playwright/test";
+import { launchBrowser } from './browser.mjs';
+import { expect } from "@playwright/test";
 
 const baseURL = process.env.BASE_URL || "http://localhost:3100";
-const browser = await chromium.launch({ channel: "chrome", headless: true });
+const browser = await launchBrowser();
 try {
   for (const width of [1280, 390]) {
     const page = await browser.newPage({ viewport: { width, height: 844 } });
+    page.on("pageerror", error => console.error("BROWSER ERROR", error.message));
     await page.goto(baseURL + "/start");
     await page.getByRole("button", { name: "Open demo workspace", exact: true }).click();
     await page.waitForURL("**/dashboard");
     const search = page.getByRole("textbox", { name: "Search mail", exact: true });
-    await expect(search).toHaveAttribute("placeholder", "Search mail");
+    await expect(search).toHaveAttribute("placeholder", "Search mail, people, or commands");
     expect(await search.evaluate(el => getComputedStyle(el, "::placeholder").color)).not.toBe("rgba(0, 0, 0, 0)");
     if (width < 768) await page.getByRole("button", { name: "Open folders", exact: true }).click();
     const compose = page.getByRole("button", { name: "Compose", exact: true });

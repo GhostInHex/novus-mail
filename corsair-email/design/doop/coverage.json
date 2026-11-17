@@ -1,0 +1,902 @@
+[
+  {
+    "frame": "KQ2QL9fN6G",
+    "name": "Wonder Control Icon 01",
+    "theme": "light",
+    "kind": "component",
+    "scenario": "inbox",
+    "implementation": "src/components/dashboard/dashboard-view.tsx",
+    "selector": ".dashboard-reader-topline button",
+    "adaptation": "Legacy component reference implemented through shared workspace components; newer Glaze workspace chrome is used consistently."
+  },
+  {
+    "frame": "E4uQEofvBY",
+    "name": "Wonder Workspace Chrome 02",
+    "theme": "light",
+    "kind": "component",
+    "scenario": "inbox",
+    "implementation": "src/components/dashboard/dashboard-view.tsx",
+    "selector": ".dashboard-toolbar",
+    "adaptation": "Legacy component reference implemented through shared workspace components; newer Glaze workspace chrome is used consistently."
+  },
+  {
+    "frame": "EHLIj7GCWF",
+    "name": "Wonder Content Group 03",
+    "theme": "light",
+    "kind": "component",
+    "scenario": "inbox",
+    "implementation": "src/components/dashboard/dashboard-view.tsx",
+    "selector": ".dashboard-toolbar",
+    "adaptation": "Legacy component reference implemented through shared workspace components; newer Glaze workspace chrome is used consistently."
+  },
+  {
+    "frame": "U9tSwmBOFw",
+    "name": "Wonder Workspace Chrome 04",
+    "theme": "dark",
+    "kind": "component",
+    "scenario": "inbox",
+    "implementation": "src/components/dashboard/dashboard-view.tsx",
+    "selector": ".dashboard-toolbar",
+    "adaptation": "Legacy component reference implemented through shared workspace components; newer Glaze workspace chrome is used consistently."
+  },
+  {
+    "frame": "YriNRuWAiE",
+    "name": "Wonder Result List 05",
+    "theme": "light",
+    "kind": "component",
+    "scenario": "inbox",
+    "implementation": "src/components/dashboard/dashboard-view.tsx",
+    "selector": ".dashboard-sidebar nav",
+    "adaptation": "Legacy component reference implemented through shared workspace components; newer Glaze workspace chrome is used consistently."
+  },
+  {
+    "frame": "mH9XSP8Vc2",
+    "name": "Wonder Result List 06",
+    "theme": "dark",
+    "kind": "component",
+    "scenario": "inbox",
+    "implementation": "src/components/dashboard/dashboard-view.tsx",
+    "selector": ".dashboard-sidebar nav",
+    "adaptation": "Legacy component reference implemented through shared workspace components; newer Glaze workspace chrome is used consistently."
+  },
+  {
+    "frame": "V8oQbRN-kS",
+    "name": "Wonder Content Group 07",
+    "theme": "light",
+    "kind": "component",
+    "scenario": "inbox",
+    "implementation": "src/components/dashboard/dashboard-view.tsx",
+    "selector": ".dashboard-body",
+    "adaptation": "Legacy component reference implemented through shared workspace components; newer Glaze workspace chrome is used consistently."
+  },
+  {
+    "frame": "NkoO8bJPas",
+    "name": "Wonder Content Group 08",
+    "theme": "dark",
+    "kind": "component",
+    "scenario": "inbox",
+    "implementation": "src/components/dashboard/dashboard-view.tsx",
+    "selector": ".dashboard-body",
+    "adaptation": "Legacy component reference implemented through shared workspace components; newer Glaze workspace chrome is used consistently."
+  },
+  {
+    "frame": "5zVyAsnSVT",
+    "name": "Wonder Result List 09",
+    "theme": "light",
+    "kind": "component",
+    "scenario": "inbox",
+    "implementation": "src/components/dashboard/dashboard-view.tsx",
+    "selector": ".dashboard-queue-card",
+    "adaptation": "Legacy component reference implemented through shared workspace components; newer Glaze workspace chrome is used consistently."
+  },
+  {
+    "frame": "kBq-btjTou",
+    "name": "Wonder Result List 10",
+    "theme": "dark",
+    "kind": "component",
+    "scenario": "inbox",
+    "implementation": "src/components/dashboard/dashboard-view.tsx",
+    "selector": ".dashboard-queue-card",
+    "adaptation": "Legacy component reference implemented through shared workspace components; newer Glaze workspace chrome is used consistently."
+  },
+  {
+    "frame": "1HcV-g1M87",
+    "name": "Wonder Content Group 11",
+    "theme": "light",
+    "kind": "component",
+    "scenario": "inbox",
+    "implementation": "src/components/dashboard/dashboard-view.tsx",
+    "selector": ".dashboard-reader",
+    "adaptation": "Legacy component reference implemented through shared workspace components; newer Glaze workspace chrome is used consistently."
+  },
+  {
+    "frame": "oPuNfPv4-p",
+    "name": "Wonder Content Group 12",
+    "theme": "dark",
+    "kind": "component",
+    "scenario": "inbox",
+    "implementation": "src/components/dashboard/dashboard-view.tsx",
+    "selector": ".dashboard-reader",
+    "adaptation": "Legacy component reference implemented through shared workspace components; newer Glaze workspace chrome is used consistently."
+  },
+  {
+    "frame": "iFOD9sPBOE",
+    "name": "Wonder Event List 13",
+    "theme": "light",
+    "kind": "component",
+    "scenario": "inbox",
+    "implementation": "src/components/dashboard/dashboard-view.tsx",
+    "selector": ".dashboard-agenda-list",
+    "adaptation": "Legacy component reference implemented through shared workspace components; newer Glaze workspace chrome is used consistently."
+  },
+  {
+    "frame": "lN6igAHg_l",
+    "name": "Wonder Event List 14",
+    "theme": "dark",
+    "kind": "component",
+    "scenario": "inbox",
+    "implementation": "src/components/dashboard/dashboard-view.tsx",
+    "selector": ".dashboard-agenda-list",
+    "adaptation": "Legacy component reference implemented through shared workspace components; newer Glaze workspace chrome is used consistently."
+  },
+  {
+    "frame": "Y0YEjRMXbN",
+    "name": "Wonder Message Reader 15",
+    "theme": "light",
+    "kind": "component",
+    "scenario": "inbox",
+    "implementation": "src/components/dashboard/dashboard-view.tsx",
+    "selector": ".dashboard-reader",
+    "adaptation": "Legacy component reference implemented through shared workspace components; newer Glaze workspace chrome is used consistently."
+  },
+  {
+    "frame": "DgLN0mt_iq",
+    "name": "Wonder Message Reader 16",
+    "theme": "dark",
+    "kind": "component",
+    "scenario": "inbox",
+    "implementation": "src/components/dashboard/dashboard-view.tsx",
+    "selector": ".dashboard-reader",
+    "adaptation": "Legacy component reference implemented through shared workspace components; newer Glaze workspace chrome is used consistently."
+  },
+  {
+    "frame": "-oNU9dmO3d",
+    "name": "Wonder Content Group 17",
+    "theme": "light",
+    "kind": "component",
+    "scenario": "inbox",
+    "implementation": "src/components/dashboard/dashboard-view.tsx",
+    "selector": ".dashboard-queue-card > header",
+    "adaptation": "Legacy component reference implemented through shared workspace components; newer Glaze workspace chrome is used consistently."
+  },
+  {
+    "frame": "kRZIhG0yNj",
+    "name": "Wonder Content Group 18",
+    "theme": "dark",
+    "kind": "component",
+    "scenario": "inbox",
+    "implementation": "src/components/dashboard/dashboard-view.tsx",
+    "selector": ".dashboard-queue-card > header",
+    "adaptation": "Legacy component reference implemented through shared workspace components; newer Glaze workspace chrome is used consistently."
+  },
+  {
+    "frame": "8DkHOg6fOw",
+    "name": "Wonder Inbox Queue 19",
+    "theme": "light",
+    "kind": "component",
+    "scenario": "inbox",
+    "implementation": "src/components/dashboard/dashboard-view.tsx",
+    "selector": ".dashboard-queue",
+    "adaptation": "Legacy component reference implemented through shared workspace components; newer Glaze workspace chrome is used consistently."
+  },
+  {
+    "frame": "81zdy1ibrN",
+    "name": "Wonder Inbox Queue 20",
+    "theme": "dark",
+    "kind": "component",
+    "scenario": "inbox",
+    "implementation": "src/components/dashboard/dashboard-view.tsx",
+    "selector": ".dashboard-queue",
+    "adaptation": "Legacy component reference implemented through shared workspace components; newer Glaze workspace chrome is used consistently."
+  },
+  {
+    "frame": "DNatiIOIJA",
+    "name": "Wonder Content Group 21",
+    "theme": "light",
+    "kind": "component",
+    "scenario": "selected-day",
+    "implementation": "src/components/dashboard/dashboard-view.tsx",
+    "selector": ".dashboard-selected-day",
+    "adaptation": "Legacy component reference implemented through shared workspace components; newer Glaze workspace chrome is used consistently."
+  },
+  {
+    "frame": "izcknoTRCZ",
+    "name": "Wonder Content Group 22",
+    "theme": "dark",
+    "kind": "component",
+    "scenario": "selected-day",
+    "implementation": "src/components/dashboard/dashboard-view.tsx",
+    "selector": ".dashboard-selected-day",
+    "adaptation": "Legacy component reference implemented through shared workspace components; newer Glaze workspace chrome is used consistently."
+  },
+  {
+    "frame": "DDnR4XXa0W",
+    "name": "Wonder Content Group 23",
+    "theme": "light",
+    "kind": "component",
+    "scenario": "selected-day",
+    "implementation": "src/components/dashboard/dashboard-view.tsx",
+    "selector": ".dashboard-selected-events",
+    "adaptation": "Legacy component reference implemented through shared workspace components; newer Glaze workspace chrome is used consistently."
+  },
+  {
+    "frame": "hd5kVrGWnf",
+    "name": "Wonder Content Group 24",
+    "theme": "dark",
+    "kind": "component",
+    "scenario": "selected-day",
+    "implementation": "src/components/dashboard/dashboard-view.tsx",
+    "selector": ".dashboard-selected-events",
+    "adaptation": "Legacy component reference implemented through shared workspace components; newer Glaze workspace chrome is used consistently."
+  },
+  {
+    "frame": "AaTdOIyfpr",
+    "name": "Wonder Feature Card 25",
+    "theme": "light",
+    "kind": "component",
+    "scenario": "inbox",
+    "implementation": "src/components/dashboard/dashboard-view.tsx",
+    "selector": ".dashboard-next-event",
+    "adaptation": "Legacy component reference implemented through shared workspace components; newer Glaze workspace chrome is used consistently."
+  },
+  {
+    "frame": "sgVslF5Ytn",
+    "name": "Wonder Feature Card 26",
+    "theme": "dark",
+    "kind": "component",
+    "scenario": "inbox",
+    "implementation": "src/components/dashboard/dashboard-view.tsx",
+    "selector": ".dashboard-next-event",
+    "adaptation": "Legacy component reference implemented through shared workspace components; newer Glaze workspace chrome is used consistently."
+  },
+  {
+    "frame": "ug8bJlR2hC",
+    "name": "Wonder Content Group 27",
+    "theme": "light",
+    "kind": "component",
+    "scenario": "inbox",
+    "implementation": "src/components/dashboard/dashboard-view.tsx",
+    "selector": ".dashboard-calendar-panel",
+    "adaptation": "Legacy component reference implemented through shared workspace components; newer Glaze workspace chrome is used consistently."
+  },
+  {
+    "frame": "RM9QhxqVMF",
+    "name": "Wonder Content Group 28",
+    "theme": "dark",
+    "kind": "component",
+    "scenario": "inbox",
+    "implementation": "src/components/dashboard/dashboard-view.tsx",
+    "selector": ".dashboard-calendar-panel",
+    "adaptation": "Legacy component reference implemented through shared workspace components; newer Glaze workspace chrome is used consistently."
+  },
+  {
+    "frame": "l5yehTWbwJ",
+    "name": "Wonder Agenda Sidebar 29",
+    "theme": "light",
+    "kind": "component",
+    "scenario": "inbox",
+    "implementation": "src/components/dashboard/dashboard-view.tsx",
+    "selector": ".dashboard-agenda",
+    "adaptation": "Legacy component reference implemented through shared workspace components; newer Glaze workspace chrome is used consistently."
+  },
+  {
+    "frame": "9M9Kqau-Kj",
+    "name": "Wonder Agenda Sidebar 30",
+    "theme": "dark",
+    "kind": "component",
+    "scenario": "inbox",
+    "implementation": "src/components/dashboard/dashboard-view.tsx",
+    "selector": ".dashboard-agenda",
+    "adaptation": "Legacy component reference implemented through shared workspace components; newer Glaze workspace chrome is used consistently."
+  },
+  {
+    "frame": "LYhg7oMwg8",
+    "name": "Wonder Content Group 31",
+    "theme": "light",
+    "kind": "component",
+    "scenario": "inbox",
+    "implementation": "src/components/dashboard/dashboard-view.tsx",
+    "selector": ".dashboard-sidebar",
+    "adaptation": "Legacy component reference implemented through shared workspace components; newer Glaze workspace chrome is used consistently."
+  },
+  {
+    "frame": "TIxI33oJXt",
+    "name": "Wonder Content Group 32",
+    "theme": "dark",
+    "kind": "component",
+    "scenario": "inbox",
+    "implementation": "src/components/dashboard/dashboard-view.tsx",
+    "selector": ".dashboard-sidebar",
+    "adaptation": "Legacy component reference implemented through shared workspace components; newer Glaze workspace chrome is used consistently."
+  },
+  {
+    "frame": "naws-4elLa",
+    "name": "Wonder Workspace Sidebar 33",
+    "theme": "light",
+    "kind": "component",
+    "scenario": "inbox",
+    "implementation": "src/components/dashboard/dashboard-view.tsx",
+    "selector": ".dashboard-sidebar",
+    "adaptation": "Legacy component reference implemented through shared workspace components; newer Glaze workspace chrome is used consistently."
+  },
+  {
+    "frame": "_OixdI-QtO",
+    "name": "Wonder Workspace Sidebar 34",
+    "theme": "dark",
+    "kind": "component",
+    "scenario": "inbox",
+    "implementation": "src/components/dashboard/dashboard-view.tsx",
+    "selector": ".dashboard-sidebar",
+    "adaptation": "Legacy component reference implemented through shared workspace components; newer Glaze workspace chrome is used consistently."
+  },
+  {
+    "frame": "jfCTSRLNzb",
+    "name": "Wonder Workspace Background 35",
+    "theme": "light",
+    "kind": "component",
+    "scenario": "inbox",
+    "implementation": "src/components/dashboard/dashboard-view.tsx",
+    "selector": ".dashboard",
+    "adaptation": "Legacy component reference implemented through shared workspace components; newer Glaze workspace chrome is used consistently."
+  },
+  {
+    "frame": "ISz1kpo5xJ",
+    "name": "Wonder Workspace Background 36",
+    "theme": "dark",
+    "kind": "component",
+    "scenario": "inbox",
+    "implementation": "src/components/dashboard/dashboard-view.tsx",
+    "selector": ".dashboard",
+    "adaptation": "Legacy component reference implemented through shared workspace components; newer Glaze workspace chrome is used consistently."
+  },
+  {
+    "frame": "sa5ThibhQK",
+    "name": "AI Welcome Light",
+    "theme": "light",
+    "kind": "screen",
+    "scenario": "assistant-welcome",
+    "implementation": "src/components/doop/ai-welcome.tsx",
+    "selector": ".doop-source-welcome",
+    "adaptation": "Live data, semantic controls, and responsive layout replace static sample content."
+  },
+  {
+    "frame": "T-RWCDO3pN",
+    "name": "Sign In Glaze Light",
+    "theme": "light",
+    "kind": "screen",
+    "scenario": "sign-in",
+    "implementation": "src/components/auth-landing.tsx",
+    "selector": ".doop-access",
+    "adaptation": "Live data, semantic controls, and responsive layout replace static sample content."
+  },
+  {
+    "frame": "zR46pVQtqo",
+    "name": "Sign In Glaze Dark",
+    "theme": "dark",
+    "kind": "screen",
+    "scenario": "sign-in",
+    "implementation": "src/components/auth-landing.tsx",
+    "selector": ".doop-access",
+    "adaptation": "Live data, semantic controls, and responsive layout replace static sample content."
+  },
+  {
+    "frame": "r5LPleAiTI",
+    "name": "Connect Glaze Light",
+    "theme": "light",
+    "kind": "screen",
+    "scenario": "connect",
+    "implementation": "src/components/connect-state.tsx",
+    "selector": ".doop-connect-panel",
+    "adaptation": "Live data, semantic controls, and responsive layout replace static sample content."
+  },
+  {
+    "frame": "lyGlR1B5Jp",
+    "name": "Connect Glaze Dark",
+    "theme": "dark",
+    "kind": "screen",
+    "scenario": "connect",
+    "implementation": "src/components/connect-state.tsx",
+    "selector": ".doop-connect-panel",
+    "adaptation": "Live data, semantic controls, and responsive layout replace static sample content."
+  },
+  {
+    "frame": "nwOnX0aVws",
+    "name": "Inbox Glaze Light",
+    "theme": "light",
+    "kind": "screen",
+    "scenario": "inbox",
+    "implementation": "src/components/dashboard/dashboard-view.tsx",
+    "selector": ".dashboard-reader",
+    "adaptation": "Live data, semantic controls, and responsive layout replace static sample content."
+  },
+  {
+    "frame": "LwTPn9MJXU",
+    "name": "Inbox Glaze Dark",
+    "theme": "dark",
+    "kind": "screen",
+    "scenario": "inbox",
+    "implementation": "src/components/dashboard/dashboard-view.tsx",
+    "selector": ".dashboard-reader",
+    "adaptation": "Live data, semantic controls, and responsive layout replace static sample content."
+  },
+  {
+    "frame": "0t83YzC7LR",
+    "name": "Calendar Glaze Light",
+    "theme": "light",
+    "kind": "screen",
+    "scenario": "week",
+    "implementation": "src/components/workspace-week-view.tsx",
+    "selector": ".dashboard-week-view",
+    "adaptation": "Live data, semantic controls, and responsive layout replace static sample content."
+  },
+  {
+    "frame": "TvnvIbjgPo",
+    "name": "Calendar Glaze Dark",
+    "theme": "dark",
+    "kind": "screen",
+    "scenario": "week",
+    "implementation": "src/components/workspace-week-view.tsx",
+    "selector": ".dashboard-week-view",
+    "adaptation": "Live data, semantic controls, and responsive layout replace static sample content."
+  },
+  {
+    "frame": "pFxVhCB3hp",
+    "name": "Compose Glaze Light",
+    "theme": "light",
+    "kind": "screen",
+    "scenario": "compose",
+    "implementation": "src/components/compose-sheet.tsx",
+    "selector": ".dashboard-composer",
+    "adaptation": "Live data, semantic controls, and responsive layout replace static sample content."
+  },
+  {
+    "frame": "LBIBo1A_05",
+    "name": "Compose Glaze Dark",
+    "theme": "dark",
+    "kind": "screen",
+    "scenario": "compose",
+    "implementation": "src/components/compose-sheet.tsx",
+    "selector": ".dashboard-composer",
+    "adaptation": "Live data, semantic controls, and responsive layout replace static sample content."
+  },
+  {
+    "frame": "eCb9kLXTFL",
+    "name": "Privacy Glaze Light",
+    "theme": "light",
+    "kind": "screen",
+    "scenario": "privacy",
+    "implementation": "src/app/privacy/page.tsx",
+    "selector": ".doop-legal",
+    "adaptation": "Live data, semantic controls, and responsive layout replace static sample content."
+  },
+  {
+    "frame": "0SudpaDmVv",
+    "name": "Privacy Glaze Dark",
+    "theme": "dark",
+    "kind": "screen",
+    "scenario": "privacy",
+    "implementation": "src/app/privacy/page.tsx",
+    "selector": ".doop-legal",
+    "adaptation": "Live data, semantic controls, and responsive layout replace static sample content."
+  },
+  {
+    "frame": "fCM2-TkoZ0",
+    "name": "Terms Glaze Light",
+    "theme": "light",
+    "kind": "screen",
+    "scenario": "terms",
+    "implementation": "src/app/terms/page.tsx",
+    "selector": ".doop-legal",
+    "adaptation": "Live data, semantic controls, and responsive layout replace static sample content."
+  },
+  {
+    "frame": "jX9CyhpLJ6",
+    "name": "Terms Glaze Dark",
+    "theme": "dark",
+    "kind": "screen",
+    "scenario": "terms",
+    "implementation": "src/app/terms/page.tsx",
+    "selector": ".doop-legal",
+    "adaptation": "Live data, semantic controls, and responsive layout replace static sample content."
+  },
+  {
+    "frame": "0XY1pUt-1N",
+    "name": "AI Welcome Dark",
+    "theme": "dark",
+    "kind": "screen",
+    "scenario": "assistant-welcome",
+    "implementation": "src/components/doop/ai-welcome.tsx",
+    "selector": ".doop-source-welcome",
+    "adaptation": "Live data, semantic controls, and responsive layout replace static sample content."
+  },
+  {
+    "frame": "7UrvprmbYh",
+    "name": "Inbox Triage Light",
+    "theme": "light",
+    "kind": "screen",
+    "scenario": "triage",
+    "implementation": "src/components/agent-triage-card.tsx",
+    "selector": ".doop-agent-triage",
+    "adaptation": "Live data, semantic controls, and responsive layout replace static sample content."
+  },
+  {
+    "frame": "FTTOWatj_1",
+    "name": "Inbox Triage Dark",
+    "theme": "dark",
+    "kind": "screen",
+    "scenario": "triage",
+    "implementation": "src/components/agent-triage-card.tsx",
+    "selector": ".doop-agent-triage",
+    "adaptation": "Live data, semantic controls, and responsive layout replace static sample content."
+  },
+  {
+    "frame": "cjGprHE6RY",
+    "name": "Agent Tool Activity Light",
+    "theme": "light",
+    "kind": "screen",
+    "scenario": "tool-activity",
+    "implementation": "src/components/doop/ai-tool-activity.tsx",
+    "selector": ":is(.doop-tool-activity, .doop-source-tool)",
+    "adaptation": "Live data, semantic controls, and responsive layout replace static sample content."
+  },
+  {
+    "frame": "ym378pucpg",
+    "name": "Agent Tool Activity Dark",
+    "theme": "dark",
+    "kind": "screen",
+    "scenario": "tool-activity",
+    "implementation": "src/components/doop/ai-tool-activity.tsx",
+    "selector": ":is(.doop-tool-activity, .doop-source-tool)",
+    "adaptation": "Live data, semantic controls, and responsive layout replace static sample content."
+  },
+  {
+    "frame": "ZSbzsMIJ4h",
+    "name": "AI Reply Drafts Light",
+    "theme": "light",
+    "kind": "screen",
+    "scenario": "draft",
+    "implementation": "src/components/doop/ai-artifact.tsx",
+    "selector": ".doop-source-artifact",
+    "adaptation": "Live data, semantic controls, and responsive layout replace static sample content."
+  },
+  {
+    "frame": "VpyKBw3wII",
+    "name": "AI Reply Drafts Dark",
+    "theme": "dark",
+    "kind": "screen",
+    "scenario": "draft",
+    "implementation": "src/components/doop/ai-artifact.tsx",
+    "selector": ".doop-source-artifact",
+    "adaptation": "Live data, semantic controls, and responsive layout replace static sample content."
+  },
+  {
+    "frame": "SzcEnf0kqE",
+    "name": "AI Draft Editing Light",
+    "theme": "light",
+    "kind": "screen",
+    "scenario": "draft-edit",
+    "implementation": "src/components/doop/ai-artifact.tsx",
+    "selector": ".doop-proposal-body input",
+    "adaptation": "Live data, semantic controls, and responsive layout replace static sample content."
+  },
+  {
+    "frame": "4v_Ti7qdBW",
+    "name": "AI Draft Editing Dark",
+    "theme": "dark",
+    "kind": "screen",
+    "scenario": "draft-edit",
+    "implementation": "src/components/doop/ai-artifact.tsx",
+    "selector": ".doop-proposal-body input",
+    "adaptation": "Live data, semantic controls, and responsive layout replace static sample content."
+  },
+  {
+    "frame": "LUWKnWZ_6a",
+    "name": "AI Meeting Proposal Light",
+    "theme": "light",
+    "kind": "screen",
+    "scenario": "event-proposal",
+    "implementation": "src/components/doop/ai-artifact.tsx",
+    "selector": ".doop-source-artifact",
+    "adaptation": "Live data, semantic controls, and responsive layout replace static sample content."
+  },
+  {
+    "frame": "GIruPrcKHT",
+    "name": "AI Meeting Proposal Dark",
+    "theme": "dark",
+    "kind": "screen",
+    "scenario": "event-proposal",
+    "implementation": "src/components/doop/ai-artifact.tsx",
+    "selector": ".doop-source-artifact",
+    "adaptation": "Live data, semantic controls, and responsive layout replace static sample content."
+  },
+  {
+    "frame": "4fMsvY3d68",
+    "name": "AI Event Editing Light",
+    "theme": "light",
+    "kind": "screen",
+    "scenario": "event-edit",
+    "implementation": "src/components/doop/ai-artifact.tsx",
+    "selector": ".doop-proposal-body input",
+    "adaptation": "Live data, semantic controls, and responsive layout replace static sample content."
+  },
+  {
+    "frame": "PnZr5lx_Eb",
+    "name": "AI Event Editing Dark",
+    "theme": "dark",
+    "kind": "screen",
+    "scenario": "event-edit",
+    "implementation": "src/components/doop/ai-artifact.tsx",
+    "selector": ".doop-proposal-body input",
+    "adaptation": "Live data, semantic controls, and responsive layout replace static sample content."
+  },
+  {
+    "frame": "X2_Tw5d1xp",
+    "name": "AI Chat History Light",
+    "theme": "light",
+    "kind": "screen",
+    "scenario": "history",
+    "implementation": "src/components/doop/ai-history.tsx",
+    "selector": ".doop-source-history",
+    "adaptation": "Live data, semantic controls, and responsive layout replace static sample content."
+  },
+  {
+    "frame": "-mFeSQC-5B",
+    "name": "AI Chat History Dark",
+    "theme": "dark",
+    "kind": "screen",
+    "scenario": "history",
+    "implementation": "src/components/doop/ai-history.tsx",
+    "selector": ".doop-source-history",
+    "adaptation": "Live data, semantic controls, and responsive layout replace static sample content."
+  },
+  {
+    "frame": "vRcbwVedSZ",
+    "name": "Auto Approval Confirmation Light",
+    "theme": "light",
+    "kind": "screen",
+    "scenario": "approval",
+    "implementation": "src/components/doop/ai-approval.tsx",
+    "selector": ".doop-source-approval",
+    "adaptation": "Live data, semantic controls, and responsive layout replace static sample content."
+  },
+  {
+    "frame": "2q7WkAoRlR",
+    "name": "Auto Approval Confirmation Dark",
+    "theme": "dark",
+    "kind": "screen",
+    "scenario": "approval",
+    "implementation": "src/components/doop/ai-approval.tsx",
+    "selector": ".doop-source-approval",
+    "adaptation": "Live data, semantic controls, and responsive layout replace static sample content."
+  },
+  {
+    "frame": "hyytQwDO0u",
+    "name": "AI Retry State Light",
+    "theme": "light",
+    "kind": "screen",
+    "scenario": "retry",
+    "implementation": "src/components/agent-panel.tsx",
+    "selector": ".doop-agent-retry",
+    "adaptation": "Live data, semantic controls, and responsive layout replace static sample content."
+  },
+  {
+    "frame": "oMakIN6tI8",
+    "name": "AI Retry State Dark",
+    "theme": "dark",
+    "kind": "screen",
+    "scenario": "retry",
+    "implementation": "src/components/agent-panel.tsx",
+    "selector": ".doop-agent-retry",
+    "adaptation": "Live data, semantic controls, and responsive layout replace static sample content."
+  },
+  {
+    "frame": "-Kq47IpKPV",
+    "name": "Collapsed Workspace Sidebar Light",
+    "theme": "light",
+    "kind": "screen",
+    "scenario": "collapsed-sidebar",
+    "implementation": "src/components/dashboard/dashboard-view.tsx",
+    "selector": ".dashboard-sidebar",
+    "adaptation": "Live data, semantic controls, and responsive layout replace static sample content."
+  },
+  {
+    "frame": "GcrkggAb2V",
+    "name": "Collapsed Workspace Sidebar Dark",
+    "theme": "dark",
+    "kind": "screen",
+    "scenario": "collapsed-sidebar",
+    "implementation": "src/components/dashboard/dashboard-view.tsx",
+    "selector": ".dashboard-sidebar",
+    "adaptation": "Live data, semantic controls, and responsive layout replace static sample content."
+  },
+  {
+    "frame": "rhPj4u5YGM",
+    "name": "Collapsed Agenda Panel Light",
+    "theme": "light",
+    "kind": "screen",
+    "scenario": "collapsed-agenda",
+    "implementation": "src/components/dashboard/dashboard-view.tsx",
+    "selector": ".dashboard-expand-agenda",
+    "adaptation": "Live data, semantic controls, and responsive layout replace static sample content."
+  },
+  {
+    "frame": "8bFi-1WqDJ",
+    "name": "Collapsed Agenda Panel Dark",
+    "theme": "dark",
+    "kind": "screen",
+    "scenario": "collapsed-agenda",
+    "implementation": "src/components/dashboard/dashboard-view.tsx",
+    "selector": ".dashboard-expand-agenda",
+    "adaptation": "Live data, semantic controls, and responsive layout replace static sample content."
+  },
+  {
+    "frame": "CvD8KzS38m",
+    "name": "Expanded Month Calendar Light",
+    "theme": "light",
+    "kind": "screen",
+    "scenario": "month",
+    "implementation": "src/components/workspace-week-view.tsx",
+    "selector": ".dashboard-calendar-dates",
+    "adaptation": "Live data, semantic controls, and responsive layout replace static sample content."
+  },
+  {
+    "frame": "qWTFqZ5lwm",
+    "name": "Expanded Month Calendar Dark",
+    "theme": "dark",
+    "kind": "screen",
+    "scenario": "month",
+    "implementation": "src/components/workspace-week-view.tsx",
+    "selector": ".dashboard-calendar-dates",
+    "adaptation": "Live data, semantic controls, and responsive layout replace static sample content."
+  },
+  {
+    "frame": "wqqrTTPdTo",
+    "name": "Selected Day Agenda Light",
+    "theme": "light",
+    "kind": "screen",
+    "scenario": "selected-day",
+    "implementation": "src/components/workspace-week-view.tsx",
+    "selector": ".dashboard-selected-day",
+    "adaptation": "Live data, semantic controls, and responsive layout replace static sample content."
+  },
+  {
+    "frame": "8KlwJCCU9M",
+    "name": "Selected Day Agenda Dark",
+    "theme": "dark",
+    "kind": "screen",
+    "scenario": "selected-day",
+    "implementation": "src/components/workspace-week-view.tsx",
+    "selector": ".dashboard-selected-day",
+    "adaptation": "Live data, semantic controls, and responsive layout replace static sample content."
+  },
+  {
+    "frame": "X7gRb7Zpcd",
+    "name": "New Event Form Light",
+    "theme": "light",
+    "kind": "screen",
+    "scenario": "event",
+    "implementation": "src/components/event-sheet.tsx",
+    "selector": ".doop-event-modal",
+    "adaptation": "Live data, semantic controls, and responsive layout replace static sample content."
+  },
+  {
+    "frame": "F5ItS-WXTF",
+    "name": "New Event Form Dark",
+    "theme": "dark",
+    "kind": "screen",
+    "scenario": "event",
+    "implementation": "src/components/event-sheet.tsx",
+    "selector": ".doop-event-modal",
+    "adaptation": "Live data, semantic controls, and responsive layout replace static sample content."
+  },
+  {
+    "frame": "fB_ybTJvyK",
+    "name": "Command Console Light",
+    "theme": "light",
+    "kind": "screen",
+    "scenario": "command",
+    "implementation": "src/components/command-palette.tsx",
+    "selector": ".doop-command-modal",
+    "adaptation": "Live data, semantic controls, and responsive layout replace static sample content."
+  },
+  {
+    "frame": "L5Eac6sbE4",
+    "name": "Command Console Dark",
+    "theme": "dark",
+    "kind": "screen",
+    "scenario": "command",
+    "implementation": "src/components/command-palette.tsx",
+    "selector": ".doop-command-modal",
+    "adaptation": "Live data, semantic controls, and responsive layout replace static sample content."
+  },
+  {
+    "frame": "OwcxrkwgPj",
+    "name": "Keyboard Shortcuts Light",
+    "theme": "light",
+    "kind": "screen",
+    "scenario": "shortcuts",
+    "implementation": "src/components/keyboard-shortcuts.tsx",
+    "selector": ".doop-shortcuts-modal",
+    "adaptation": "Live data, semantic controls, and responsive layout replace static sample content."
+  },
+  {
+    "frame": "GYUpO9Oksq",
+    "name": "Keyboard Shortcuts Dark",
+    "theme": "dark",
+    "kind": "screen",
+    "scenario": "shortcuts",
+    "implementation": "src/components/keyboard-shortcuts.tsx",
+    "selector": ".doop-shortcuts-modal",
+    "adaptation": "Live data, semantic controls, and responsive layout replace static sample content."
+  },
+  {
+    "frame": "hamBycIX0J",
+    "name": "Action Success Feedback Light",
+    "theme": "light",
+    "kind": "screen",
+    "scenario": "success",
+    "implementation": "src/components/theme-provider.tsx",
+    "selector": "[data-sonner-toast]",
+    "adaptation": "Live data, semantic controls, and responsive layout replace static sample content."
+  },
+  {
+    "frame": "fHmzhyiS-n",
+    "name": "Action Success Feedback Dark",
+    "theme": "dark",
+    "kind": "screen",
+    "scenario": "success",
+    "implementation": "src/components/theme-provider.tsx",
+    "selector": "[data-sonner-toast]",
+    "adaptation": "Live data, semantic controls, and responsive layout replace static sample content."
+  },
+  {
+    "frame": "StnxuxcdNT",
+    "name": "NovusMail / light / ASCII source",
+    "theme": "light",
+    "kind": "screen",
+    "scenario": "landing",
+    "implementation": "src/components/landing/landing-page.tsx",
+    "selector": ".landing-page",
+    "adaptation": "Live data, semantic controls, and responsive layout replace static sample content."
+  },
+  {
+    "frame": "tZpJbgGcF5",
+    "name": "NovusMail / dark / ASCII source",
+    "theme": "dark",
+    "kind": "screen",
+    "scenario": "landing",
+    "implementation": "src/components/landing/landing-page.tsx",
+    "selector": ".landing-page",
+    "adaptation": "Live data, semantic controls, and responsive layout replace static sample content."
+  },
+  {
+    "frame": "eXLag7TsWm",
+    "name": "NovusMail / light / ASCII source",
+    "theme": "light",
+    "kind": "screen",
+    "scenario": "landing",
+    "implementation": "src/components/landing/landing-page.tsx",
+    "selector": ".landing-page",
+    "adaptation": "Live data, semantic controls, and responsive layout replace static sample content."
+  },
+  {
+    "frame": "9QIQzqwAWN",
+    "name": "NovusMail / dark / ASCII source",
+    "theme": "dark",
+    "kind": "screen",
+    "scenario": "landing",
+    "implementation": "src/components/landing/landing-page.tsx",
+    "selector": ".landing-page",
+    "adaptation": "Live data, semantic controls, and responsive layout replace static sample content."
+  }
+]

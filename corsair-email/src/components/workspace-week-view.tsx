@@ -14,9 +14,9 @@ import {
 } from "date-fns";
 import { Tabs } from "@animate-ui/react/primitives/radix-ui";
 import { useReducedMotion } from "motion/react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { WorkspaceActionLabel } from "@/components/dashboard/workspace-action-label";
 import type { AgendaEvent, EventInput } from "@/lib/types";
 
 const HOURS = [9, 10, 12, 15];
@@ -62,7 +62,7 @@ export function WorkspaceWeekView({
             ? format(month, "MMMM yyyy")
             : `${format(week, "MMMM d")}–${format(addDays(week, 4), isSameMonth(week, addDays(week, 4)) ? "d" : "MMM d")}`}
         </h1>
-        <Button onClick={() => onCreateEvent()}>New event</Button>
+        <Button onClick={() => onCreateEvent()}><WorkspaceActionLabel>New event</WorkspaceActionLabel></Button>
       </header>
       <Tabs.Root
         value={view === "day" ? "month" : view}
@@ -90,7 +90,7 @@ export function WorkspaceWeekView({
                 : setWeek(addWeeks(week, -1))
             }
           >
-            <ChevronLeft size={16} />
+            <span aria-hidden="true">‹</span>
           </button>
           <button
             type="button"
@@ -101,11 +101,15 @@ export function WorkspaceWeekView({
                 : setWeek(addWeeks(week, 1))
             }
           >
-            <ChevronRight size={16} />
+            <span aria-hidden="true">›</span>
           </button>
           <Tabs.List aria-label="Calendar view">
-            <Tabs.Trigger value="month">Month</Tabs.Trigger>
-            <Tabs.Trigger value="week">Week</Tabs.Trigger>
+            <Tabs.Trigger value="month" data-view="month">
+              Month
+            </Tabs.Trigger>
+            <Tabs.Trigger value="week" data-view="week" aria-label="Week">
+              Week view
+            </Tabs.Trigger>
           </Tabs.List>
         </div>
         <Tabs.Content
@@ -151,9 +155,7 @@ export function WorkspaceWeekView({
                               >
                                 <span>{event.summary}</span>
                                 <time>
-                                  {format(new Date(event.start!), "HH:mm")}
-                                  {event.end &&
-                                    ` – ${format(new Date(event.end), "HH:mm")}`}
+                                  {`${format(new Date(event.start!), "HH:mm")}${event.end ? ` – ${format(new Date(event.end), "HH:mm")}` : ""}`}
                                 </time>
                               </button>
                             ))
@@ -164,7 +166,14 @@ export function WorkspaceWeekView({
                               aria-label={`New event ${format(day, "EEEE, MMMM d")} at ${hour}:00`}
                               onClick={() => create(day, hour)}
                             >
-                              <time>{String(hour).padStart(2, "0")}:00</time>
+                              {hour === 15 ? (
+                                <>
+                                  <span>Open afternoon</span>
+                                  <time>Room for your work</time>
+                                </>
+                              ) : (
+                                <time>{`${String(hour).padStart(2, "0")}:00`}</time>
+                              )}
                             </button>
                           )}
                         </div>

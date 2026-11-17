@@ -35,6 +35,7 @@ export type AIConversationProps = {
    * Used to decide when to follow the bottom.
    */
   contentKey?: string | number;
+  followKey: number;
   autoScrollBehavior?: ScrollBehavior;
 };
 
@@ -50,6 +51,7 @@ const AIConversation = ({
   children,
   className,
   contentKey,
+  followKey,
   autoScrollBehavior = "instant",
 }: AIConversationProps) => {
   const shouldReduceMotion = useReducedMotion();
@@ -81,6 +83,10 @@ const AIConversation = ({
     }
     setIsPinned(true);
   }, []);
+
+  useLayoutEffect(() => {
+    scrollToBottom("instant");
+  }, [followKey, scrollToBottom]);
 
   // Layout effect, so the jump happens in the same frame the content grew and
   // the reader never sees a flash of the pre-scroll position.

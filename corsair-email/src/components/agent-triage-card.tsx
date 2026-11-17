@@ -1,6 +1,7 @@
-﻿"use client";
+"use client";
 import { z } from "zod";
-import { MessageSquare, ArrowUpRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
+import { DoopMailIcon as Mail } from "@/components/doop/source-icons";
 import AIArtifact from "@/components/doop/ai-artifact";
 const snapshotSchema = z.object({
   total: z.number().nonnegative(),
@@ -43,15 +44,15 @@ export function AgentTriageCard({
       preview={
         <>
           <header>
-            <h3>
+            <h3><span>
               {result.threads.length === result.total
                 ? result.total
                 : `${result.threads.length} of ${result.total}`}{" "}
               {result.total === 1 ? "thread" : "threads"}
-            </h3>
-            <p>
-              {high} high priority / {result.threads.length - high} normal
-            </p>
+            </span></h3>
+            <p><span>
+              {`${high} high priority · ${result.threads.length - high} normal`}
+            </span></p>
           </header>
           <div className="doop-source-results">
             {[...groups].map(([sender, threads]) => (
@@ -61,18 +62,18 @@ export function AgentTriageCard({
                 disabled={!onOpenThread}
                 onClick={() => onOpenThread?.(threads[0].threadId)}
               >
-                <MessageSquare size={16} aria-hidden="true" />
+                <Mail size={16} aria-hidden="true" />
                 <span className="doop-source-result-details"><strong>
                   {sender}
                   {threads.length > 1
-                    ? ` / ${threads.length} threads`
+                    ? ` · ${threads.length} threads`
                     : threads[0].priorityBand === "high"
-                      ? " / High priority"
+                      ? " · High priority"
                       : ""}
                 </strong>
                 <small>
                   {threads.length > 1
-                    ? threads.map((t) => t.subject).join(", ")
+                    ? threads[0].summaryReason || [...new Set(threads.map((t) => t.subject))].join(", ")
                     : threads[0].summaryReason || threads[0].subject}
                 </small></span>
                 <ArrowUpRight size={15} aria-hidden="true" />

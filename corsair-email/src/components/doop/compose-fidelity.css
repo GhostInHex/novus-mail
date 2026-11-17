@@ -1,0 +1,53 @@
+.dashboard-compose-field label,
+.dashboard-compose-cc button { color: var(--foreground); }
+.dashboard-composer > header + .dashboard-compose-field { background: var(--accent); }
+.dashboard-compose-body textarea { padding: 32px; resize: none; }
+.dashboard-compose-secondary { gap: 3.5px; line-height: 22px; }
+.dashboard-composer > footer [data-slot="button"][data-variant="default"] {
+  height: 36px;
+  padding: 8px 20px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: normal;
+}
+.dashboard-composer > footer [data-slot="button"] > span { position: relative; display: block; }
+.dashboard-embedded-assistant .doop-agent-composer .doop-source-prompt > button { display: none; }
+.dashboard-composer > header button { line-height: 22px; }
+.dashboard-embedded-assistant .doop-agent-composer .doop-source-prompt textarea { display: block; }
+.dashboard-embedded-assistant .doop-source-prompt textarea::placeholder { color: var(--muted-foreground); opacity: 1; }
+.dashboard-composer > footer [data-slot="button"][data-variant="default"] {
+  min-height: 0;
+  isolation: isolate;
+  overflow: clip;
+  background: linear-gradient(180deg,var(--glaze-sheen),transparent 55%),linear-gradient(180deg,var(--sage),color-mix(in srgb,var(--sage) 82%,var(--on-sage)));
+  box-shadow: inset 0 1px 0 var(--glaze-sheen),inset 0 -2px 3px #00000040,0 2px 4px #00000040;
+}
+.doop-embedded-event [data-slot="button"] { min-height: 0; background-repeat: no-repeat; isolation: auto; }
+.doop-embedded-event { overflow: visible; }
+.dashboard-compose-field label { white-space: pre; }
+.dashboard-compose-cc { display: block; font-size: 14px; line-height: 21px; }
+.dashboard-composer > footer [data-slot="button"][data-variant="default"]::before,
+.doop-embedded-event [data-slot="button"]::before {
+  z-index: auto;
+  left: 12px;
+  right: 12px;
+  top: 2px;
+  height: 44%;
+  border: 0;
+  border-radius: calc(infinity * 1px);
+  background: linear-gradient(rgba(255,255,255,.28) 0%,rgba(0,0,0,0) 100%);
+}
+.dashboard-embedded-assistant .doop-proposal-collapse[data-state="open"] {
+  filter: none !important;
+  mask-image: none !important;
+  overflow: visible !important;
+}
+.dashboard-compose-field { position: relative; display: block; gap: 0; font-size: 14px; line-height: 21px; }
+.dashboard-compose-field-display { display: block; }
+.dashboard-compose-field-editor { position: absolute; inset: 16px 20px; display: flex; opacity: 0; }
+.dashboard-compose-field:focus-within .dashboard-compose-field-editor { opacity: 1; }
+.dashboard-compose-field:focus-within .dashboard-compose-field-display { visibility: hidden; }
+.dashboard-compose-cc { position: relative; }
+.dashboard-compose-cc-controls { position: absolute; inset: 16px 20px; opacity: 0; }
+.dashboard-compose-cc:focus-within .dashboard-compose-cc-controls { opacity: 1; }
+.dashboard-compose-cc:focus-within .dashboard-compose-cc-display { visibility: hidden; }

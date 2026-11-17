@@ -1,4 +1,4 @@
-﻿import { SiteHeader, SiteFooter } from "@/components/site-chrome";
+import { SiteHeader, SiteFooter } from "@/components/site-chrome";
 import { Button } from "@/components/ui/button";
 import { ROUTES } from "@/lib/routes";
 import type { ConnectionStatus, SessionUser } from "@/lib/types";
@@ -29,47 +29,52 @@ export function ConnectState({ status, connectionError }: ConnectStateProps) {
           className="doop-access doop-connect-panel"
           aria-labelledby="connect-title"
         >
-          <p>Set up your workspace</p>
-          <h1 id="connect-title">Connect your everyday tools</h1>
-          <p>Bring your conversations and commitments into one place.</p>
-          {connectionError && (
-            <p role="alert" className="doop-connect-error">
-              {CONNECTION_ERROR_COPY[connectionError] ??
-                CONNECTION_ERROR_COPY.oauth_failed}
+          <div className="doop-access-content">
+            <p>Set up your workspace</p>
+            <h1 id="connect-title">Connect your everyday tools</h1>
+            <p>Bring your conversations and commitments into one place.</p>
+            {connectionError && (
+              <p role="alert" className="doop-connect-error">
+                {CONNECTION_ERROR_COPY[connectionError] ??
+                  CONNECTION_ERROR_COPY.oauth_failed}
+              </p>
+            )}
+            {status.degraded && (
+              <p role="status" className="doop-connect-error">
+                Your connection is taking longer than usual. Recheck to
+                continue.
+              </p>
+            )}
+            <div className="doop-connect-status">
+              {[
+                { label: "Gmail", status: status.gmail },
+                { label: "Google Calendar", status: status.calendar },
+              ].map(({ label, status }) => (
+                <div key={label}>
+                  <span>
+                    {`${label} / ${status.authorized ? status.healthy === false ? "Connection delayed" : "Connected" : "Ready to connect"}`}
+                  </span>
+                </div>
+              ))}
+            </div>
+            <Button
+              asChild
+              className="doop-public-primary doop-connect-primary"
+            >
+              <a href={action}>
+                <span>
+                  {status.gmail.authorized && status.calendar.authorized
+                    ? "Recheck connection"
+                    : status.gmail.authorized
+                      ? "Connect Google Calendar"
+                      : "Connect Google account"}
+                </span>
+              </a>
+            </Button>
+            <p className="doop-connect-review">
+              You review replies and new events before they are sent or created.
             </p>
-          )}
-          {status.degraded && (
-            <p role="status" className="doop-connect-error">
-              Your connection is taking longer than usual. Recheck to continue.
-            </p>
-          )}
-          <div className="doop-connect-status">
-            {[
-              { label: "Gmail", status: status.gmail },
-              { label: "Google Calendar", status: status.calendar },
-            ].map(({ label, status }) => (
-              <div key={label}>
-                {label} /{" "}
-                {status.authorized
-                  ? status.healthy === false
-                    ? "Connection delayed"
-                    : "Connected"
-                  : "Ready to connect"}
-              </div>
-            ))}
           </div>
-          <Button asChild className="doop-connect-primary">
-            <a href={action}>
-              {status.gmail.authorized && status.calendar.authorized
-                ? "Recheck connection"
-                : status.gmail.authorized
-                  ? "Connect Google Calendar"
-                  : "Connect Google account"}
-            </a>
-          </Button>
-          <p className="doop-connect-review">
-            You review replies and new events before they are sent or created.
-          </p>
         </section>
       </section>
       <SiteFooter />

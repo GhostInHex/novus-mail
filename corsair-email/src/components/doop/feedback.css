@@ -1,0 +1,58 @@
+[data-sonner-toaster].doop-feedback-stack {
+  position: absolute;
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 12px;
+}
+[data-sonner-toaster].doop-feedback-stack [data-sonner-toast] {
+  position: relative;
+  top: auto;
+  bottom: auto;
+  height: auto;
+  transform: none;
+}
+[data-sonner-toast][data-styled="false"].doop-toast {
+  width: var(--width);
+  background: transparent;
+  border: 0;
+  padding: 0;
+  box-shadow: none;
+}
+.doop-feedback-card {
+  display: block;
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--card);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: normal;
+}
+.doop-feedback-content { display: block; padding: 20px; }
+.doop-feedback-heading { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+.doop-feedback-heading > div { display: flex; align-items: center; gap: 12px; }
+.doop-feedback-heading strong { display: block; width: fit-content; font-size: 14px; line-height: 1.5; font-weight: 500; }
+.doop-feedback-card svg { display: block; flex-shrink: 0; }
+.doop-feedback-card button { display: inline-flex; align-items: center; padding: 8px; gap: 8px; background: transparent; border: 0; color: inherit; cursor: pointer; }
+.doop-feedback-heading button { align-self: flex-start; }
+.doop-feedback-heading button > span { display: block; font-size: 13px; line-height: inherit; }
+.doop-feedback-description { display: inline; color: var(--muted-foreground); font-size: 13px; line-height: 1.53846; }
+.doop-feedback-action { display: block; margin-top: 8px; }
+.doop-feedback-action span { display: block; width: fit-content; font-size: 13px; line-height: 1.5; }
+.doop-feedback-card button:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+
+.doop-feedback-heading > div { min-width: 0; }
+.doop-feedback-heading > button { flex-shrink: 0; }
+.doop-feedback-heading strong { overflow-wrap: anywhere; }
+@media (max-width: 600px) {
+  [data-sonner-toaster].doop-feedback-stack {
+    width: calc(100vw - 32px);
+    left: 16px;
+    right: 16px;
+  }
+  [data-sonner-toaster].doop-feedback-stack [data-sonner-toast] {
+    width: 100%;
+  }
+}

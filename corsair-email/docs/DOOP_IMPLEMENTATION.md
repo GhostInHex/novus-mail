@@ -1,4 +1,6 @@
-﻿# Doop Next.js implementation
+> Historical implementation notes. Current pixel-comparison evidence is in [DOOP_VISUAL_VERIFICATION.md](DOOP_VISUAL_VERIFICATION.md); [DOOP_VERIFICATION.md](DOOP_VERIFICATION.md) records earlier functional checks. In particular, the collapsed workspace sidebar is now restored.
+
+# Doop Next.js implementation
 
 The implementation lives in `corsair-email` on branch `feat/doop-nextjs-implementation`, based on the freshly fetched `origin/master` commit `4e4a1902`.
 

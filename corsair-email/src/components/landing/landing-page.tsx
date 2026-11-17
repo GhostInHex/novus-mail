@@ -2,11 +2,7 @@
 
 import React, { useLayoutEffect, useRef, useState } from "react";
 import {
-  Mail,
-  Sparkles,
-  Layers,
   ChevronRight,
-  ArrowUpRight,
   Check,
 } from "lucide-react";
 import { AsciiMountainsHero } from "@/components/landing/ascii-mountains";
@@ -15,6 +11,12 @@ import { AsciiDissolveImage } from "@/components/landing/ascii-dissolve-image";
 import { useTheme } from "@/components/theme-provider";
 import { ROUTES } from "@/lib/routes";
 import "./landing-page.css";
+
+function LandingFeatureIcon({ number }: { number: string }) {
+  return <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="h-4 w-4 text-[var(--text-secondary)]">
+    {number === "01" ? <><rect width="20" height="16" x="2" y="4" rx="2" /><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /></> : number === "02" ? <><path d="M9.937 15.5a2 2 0 0 0-1.437-1.438l-6.135-1.582a.5.5 0 0 1 0-.96L8.5 9.937A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .96 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.582a.5.5 0 0 1 0 .96L15.5 14.063a2 2 0 0 0-1.438 1.437l-1.582 6.135a.5.5 0 0 1-.96 0z" /><path d="M20 3v4m2-2h-4M4 17v2m1-1H3" /></> : <><path d="m12.83 2.18 8.55 4.86a1.1 1.1 0 0 1 0 1.92l-8.55 4.86a1.69 1.69 0 0 1-1.66 0L2.62 8.96a1.1 1.1 0 0 1 0-1.92l8.55-4.86a1.69 1.69 0 0 1 1.66 0Z" /><path d="m2 12 9.17 5.18a1.69 1.69 0 0 0 1.66 0L22 12M2 17l9.17 5.18a1.69 1.69 0 0 0 1.66 0L22 17" /></>}
+  </svg>;
+}
 
 const PILL_MODES = [
   {
@@ -76,7 +78,8 @@ export function LandingPage() {
   useLayoutEffect(() => {
     const content = previewRef.current;
     if (!content) return;
-    const measure = () => setPreviewHeight(content.getBoundingClientRect().height);
+    const measure = () =>
+      setPreviewHeight(content.getBoundingClientRect().height);
     measure();
     const observer = new ResizeObserver(measure);
     observer.observe(content);
@@ -144,7 +147,7 @@ export function LandingPage() {
           >
             Sign in
           </a>
-          <a href={ROUTES.start} className="nm-glaze" data-size="small">
+          <a href={ROUTES.start} className="nm-glaze" data-tone="silver" data-size="small">
             Get started
           </a>
         </div>
@@ -154,6 +157,14 @@ export function LandingPage() {
       <main id="main-content">
         <section className="relative overflow-hidden pt-6 pb-6">
           <AsciiMountainsHero theme={theme} cellSize={6} centerGap={0.28} />
+          <img
+            className="landing-hero-poster"
+            src={`${imgDir}/doop-hero.png`}
+            alt=""
+            aria-hidden="true"
+            width={1440}
+            height={873}
+          />
 
           <div className="pointer-events-none relative z-10 mx-auto flex max-w-3xl flex-col items-center px-6 pt-3 pb-7 text-center">
             <div className="mb-5 inline-block rounded-full border border-[var(--border-subtle)] bg-[var(--pill-bg)] px-3.5 py-1 text-[11px] text-[var(--text-secondary)] shadow-2xs backdrop-blur-md">
@@ -218,6 +229,7 @@ export function LandingPage() {
             <div className="group relative h-[300px] overflow-hidden rounded-[22px] sm:h-[350px]">
               <AsciiDissolveImage
                 src={`${imgDir}/lavender.webp`}
+                reducedMotionSrc={`${imgDir}/doop-lavender.png`}
                 alt="Monochrome lavender fields with mountain horizon"
                 theme={theme}
                 variant="card"
@@ -228,7 +240,7 @@ export function LandingPage() {
                   <div className="mb-5 flex items-center justify-between text-xs font-normal tracking-tight text-[var(--nm-ascii-composer-ink)]">
                     <span>{activeMode.prompt}</span>
                     {isDark ? (
-                      <ArrowUpRight className="h-3.5 w-3.5 composer-secondary" />
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="h-3.5 w-3.5 composer-secondary"><path d="M7 7h10v10M7 17 17 7" /></svg>
                     ) : (
                       <ChevronRight className="h-3.5 w-3.5 composer-secondary" />
                     )}
@@ -243,7 +255,10 @@ export function LandingPage() {
                     style={{ height: showReplyPreview ? previewHeight : 0 }}
                   >
                     <div ref={previewRef} className="pb-4">
-                      <div className="landing-preview rounded-lg px-3 py-2 text-[11px] leading-relaxed" role="status">
+                      <div
+                        className="landing-preview rounded-lg px-3 py-2 text-[11px] leading-relaxed"
+                        role="status"
+                      >
                         {activeMode.preview}
                       </div>
                     </div>
@@ -312,6 +327,7 @@ export function LandingPage() {
         <section className="group relative my-6 h-[380px] w-full overflow-hidden sm:h-[430px]">
           <AsciiDissolveImage
             src={`${imgDir}/misty-ridge.webp`}
+            reducedMotionSrc={`${imgDir}/doop-misty-ridge.png`}
             alt="Misty monochrome mountain valleys"
             theme={theme}
             variant="fullbleed"
@@ -358,7 +374,6 @@ export function LandingPage() {
             {[
               {
                 num: "01",
-                icon: Mail,
                 title: "Read with context",
                 body: isDark
                   ? "Priority threads, unread messages, and drafts in one focused inbox."
@@ -366,7 +381,6 @@ export function LandingPage() {
               },
               {
                 num: "02",
-                icon: Sparkles,
                 title: isDark
                   ? "Draft with an assistant"
                   : "Draft with intention",
@@ -376,14 +390,12 @@ export function LandingPage() {
               },
               {
                 num: "03",
-                icon: Layers,
                 title: "Make time together",
                 body: isDark
                   ? "Check your agenda and review a proposed meeting beside the thread."
                   : "Turn long email threads into plans and next steps without the back and forth.",
               },
             ].map((card) => {
-              const Icon = card.icon;
               return (
                 <div
                   key={card.num}
@@ -391,7 +403,7 @@ export function LandingPage() {
                 >
                   <div className="mb-4 flex items-center justify-between text-[11px] font-mono-ascii text-[var(--text-muted)]">
                     <span>{isDark ? card.num : ""}</span>
-                    <Icon className="h-4 w-4 text-[var(--text-secondary)]" />
+                    <LandingFeatureIcon number={card.num} />
                   </div>
                   <h3 className="font-serif-display text-2xl text-[var(--text-primary)]">
                     {card.title}
@@ -427,6 +439,7 @@ export function LandingPage() {
               <div className="group relative h-[290px] overflow-hidden rounded-[22px] sm:h-[320px]">
                 <AsciiDissolveImage
                   src={`${imgDir}/alpine-peak.webp`}
+                  reducedMotionSrc={`${imgDir}/doop-alpine-peak.png`}
                   alt="Alpine mountain peak above misty pine forest"
                   theme={theme}
                   variant="card"
@@ -449,8 +462,18 @@ export function LandingPage() {
                       </span>
                     </div>
                     <div className="landing-proposal-title mt-3 font-serif-display text-xl text-[var(--text-primary)]">
-                      <span aria-hidden={proposalConfirmed} className={proposalConfirmed ? "invisible" : undefined}>Launch review</span>
-                      <span aria-hidden={!proposalConfirmed} className={!proposalConfirmed ? "invisible" : undefined}>Proposal ready for review</span>
+                      <span
+                        aria-hidden={proposalConfirmed}
+                        className={proposalConfirmed ? "invisible" : undefined}
+                      >
+                        Launch review
+                      </span>
+                      <span
+                        aria-hidden={!proposalConfirmed}
+                        className={!proposalConfirmed ? "invisible" : undefined}
+                      >
+                        Proposal ready for review
+                      </span>
                     </div>
                     <div className="mt-0.5 text-[11px] text-[var(--text-secondary)]">
                       Today · 3:00–3:30 PM · Ari Morgan
@@ -468,7 +491,10 @@ export function LandingPage() {
                       data-size="small"
                       aria-pressed={proposalConfirmed}
                     >
-                      <Check className="landing-proposal-check h-3.5 w-3.5" aria-hidden="true" />
+                      <Check
+                        className="landing-proposal-check h-3.5 w-3.5"
+                        aria-hidden="true"
+                      />
                       {proposalConfirmed
                         ? "Proposal ready to send"
                         : isDark
@@ -487,6 +513,7 @@ export function LandingPage() {
           <div className="group relative h-[240px] overflow-hidden rounded-[22px] sm:h-[260px]">
             <AsciiDissolveImage
               src={`${imgDir}/panorama.webp`}
+              reducedMotionSrc={`${imgDir}/doop-panorama.png`}
               alt="Panoramic misty mountain ridges"
               theme={theme}
               variant="banner"

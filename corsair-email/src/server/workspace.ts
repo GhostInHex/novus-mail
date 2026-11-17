@@ -554,7 +554,9 @@ async function upsertProfile(session: SessionUser) {
 }
 
 function demoBaseNow() {
-  return new Date("2026-06-17T09:30:00.000Z");
+  const day = new Date();
+  day.setUTCHours(9, 30, 0, 0);
+  return day;
 }
 
 function makeDemoDate(offsetMinutes: number) {

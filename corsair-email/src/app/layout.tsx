@@ -7,6 +7,8 @@ import { DEFAULT_DARK_THEME } from "@/lib/theme-presets";
 
 import "@/app/globals.css";
 import "@/app/doop-theme.css";
+import "@/app/doop-source.css";
+import "@/app/doop-public-fidelity.css";
 
 const geistSans = Geist({
   subsets: ["latin"],

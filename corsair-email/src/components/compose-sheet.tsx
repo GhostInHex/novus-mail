@@ -1,4 +1,6 @@
-﻿"use client";
+"use client";
+import "@/components/doop/assistant-fidelity.css";
+import "@/components/doop/compose-fidelity.css";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { DiscardChangesDialog } from "@/components/discard-changes-dialog";
@@ -7,6 +9,7 @@ import type { ComposeInput } from "@/lib/types";
 type Props = {
   open: boolean;
   initialDraft?: Partial<ComposeInput> | null;
+  recipientName?: string;
   onClose: () => void;
   onSend: (input: ComposeInput) => Promise<void>;
   onDraft: (input: ComposeInput) => Promise<void>;
@@ -15,6 +18,7 @@ const EMPTY: ComposeInput = { to: "", cc: "", bcc: "", subject: "", body: "" };
 export function ComposeSheet({
   open,
   initialDraft,
+  recipientName,
   onClose,
   onSend,
   onDraft,
@@ -90,21 +94,24 @@ export function ComposeSheet({
   function field(name: "to" | "cc" | "bcc" | "subject", label: string) {
     return (
       <div className="dashboard-compose-field">
-        <label htmlFor={"compose-" + name}>{label} /</label>
-        <input
-          id={"compose-" + name}
-          ref={(node) => {
-            if (node && focusRecipient.current === name) {
-              node.focus();
-              focusRecipient.current = null;
-            }
-          }}
-          aria-label={label}
-          value={draft[name] ?? ""}
-          onChange={(e) => setDraft((d) => ({ ...d, [name]: e.target.value }))}
-          autoComplete="off"
-          disabled={pending}
-        />
+        <span className="dashboard-compose-field-display" aria-hidden="true">{`${label} / ${draft[name] ?? ""}`}</span>
+        <div className="dashboard-compose-field-editor">
+          <label htmlFor={"compose-" + name}>{label}{" / "}</label>
+          <input
+            id={"compose-" + name}
+            ref={(node) => {
+              if (node && focusRecipient.current === name) {
+                node.focus();
+                focusRecipient.current = null;
+              }
+            }}
+            aria-label={label}
+            value={draft[name] ?? ""}
+            onChange={(e) => setDraft((d) => ({ ...d, [name]: e.target.value }))}
+            autoComplete="off"
+            disabled={pending}
+          />
+        </div>
       </div>
     );
   }
@@ -128,7 +135,7 @@ export function ComposeSheet({
       <header>
         <h2>
           {isReply
-            ? "Reply to " + (draft.to.split("@")[0] || "conversation")
+            ? "Reply to " + (recipientName || draft.to.split("@")[0] || "conversation")
             : "New message"}
         </h2>
         <button type="button" disabled={pending} onClick={requestClose}>
@@ -137,30 +144,33 @@ export function ComposeSheet({
       </header>
       {field("to", "To")}
       <div className="dashboard-compose-cc">
-        <button
-          type="button"
-          aria-expanded={ccOpen}
-          aria-controls="compose-cc"
-          disabled={pending}
-          onClick={() => {
-            focusRecipient.current = ccOpen ? null : "cc";
-            setCcOpen(!ccOpen);
-          }}
-        >
-          Cc
-        </button>
-        <button
-          type="button"
-          aria-expanded={bccOpen}
-          aria-controls="compose-bcc"
-          disabled={pending}
-          onClick={() => {
-            focusRecipient.current = bccOpen ? null : "bcc";
-            setBccOpen(!bccOpen);
-          }}
-        >
-          Bcc
-        </button>
+        <span className="dashboard-compose-cc-display" aria-hidden="true">Cc Bcc</span>
+        <div className="dashboard-compose-cc-controls">
+          <button
+            type="button"
+            aria-expanded={ccOpen}
+            aria-controls="compose-cc"
+            disabled={pending}
+            onClick={() => {
+              focusRecipient.current = ccOpen ? null : "cc";
+              setCcOpen(!ccOpen);
+            }}
+          >
+            Cc
+          </button>{" "}
+          <button
+            type="button"
+            aria-expanded={bccOpen}
+            aria-controls="compose-bcc"
+            disabled={pending}
+            onClick={() => {
+              focusRecipient.current = bccOpen ? null : "bcc";
+              setBccOpen(!bccOpen);
+            }}
+          >
+            Bcc
+          </button>
+        </div>
       </div>
       {ccOpen && field("cc", "Cc")}
       {bccOpen && field("bcc", "Bcc")}
@@ -189,7 +199,7 @@ export function ComposeSheet({
           aria-busy={pending}
           onClick={() => void submit("send")}
         >
-          {pending ? "Saving…" : isReply ? "Send reply" : "Send"}
+          <span>{pending ? "Saving…" : isReply ? "Send reply" : "Send"}</span>
         </Button>
         <div className="dashboard-compose-secondary">
           <button

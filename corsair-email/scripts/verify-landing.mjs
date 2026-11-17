@@ -1,10 +1,13 @@
+import { checkFrameCoverage } from './doop-coverage.mjs';
+import { writeFile } from 'node:fs/promises';
+import { launchBrowser } from './browser.mjs';
 const BASE_URL = process.env.BASE_URL || "http://localhost:3100";
-import { chromium } from "@playwright/test";
 import { mkdir } from "node:fs/promises";
-const browser = await chromium.launch({ channel: "chrome", headless: true });
+const browser = await launchBrowser();
 const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
 page.setDefaultTimeout(10000);
 const errors = [];
+const frameResults = [];
 page.on("pageerror", (e) => errors.push(e.message));
 await mkdir("../artifacts", { recursive: true });
 try {
@@ -22,7 +25,7 @@ try {
     for (const width of [1440, 390]) {
       await page.setViewportSize({ width, height: 1000 });
       for (const img of await page.locator("main img").all()) {
-        await img.scrollIntoViewIfNeeded();
+        if (await img.isVisible()) await img.scrollIntoViewIfNeeded();
         await img.evaluate((el) => el.decode());
       }
       await page.evaluate(() => window.scrollTo(0, 0));
@@ -30,6 +33,7 @@ try {
         path: `../artifacts/landing-${mode}-${width}.png`,
         fullPage: true,
       });
+      if (width === 1440) frameResults.push(...await checkFrameCoverage(page, {scenario: 'landing', theme: mode, screenshot: `../landing-${mode}-${width}.png`}));
       const metrics = await page.evaluate(() => ({
         width: innerWidth,
         scroll: document.documentElement.scrollWidth,
@@ -54,9 +58,10 @@ try {
   await page.locator(".landing-page[data-theme-mode=light]").waitFor();
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.reload();
-  await page.locator("canvas").first().waitFor();
+  await page.locator(".landing-hero-poster").waitFor({ state: "visible" });
   await page.getByRole("link", { name: "Get started", exact: true }).click();
   await page.waitForURL("**/start");
+  await writeFile("../artifacts/doop-audit/landing-frame-results.json", JSON.stringify(frameResults, null, 2));
   console.log("Sign-in navigation passed");
   if (errors.length) throw new Error(errors.join("\n"));
 } finally {

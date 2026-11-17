@@ -51,6 +51,6 @@
 }
 
 .doop-agent-triage .doop-source-results { display: flex; flex-direction: column; gap: 8px; padding: 0 20px 20px; }
-.doop-agent-triage .doop-source-results button { display: flex; align-items: center; border: 1px solid var(--border); border-radius: 8px; padding: 12px; gap: 12px; width: 100%; text-align: left; }
+.doop-agent-triage .doop-source-results button { display: flex; flex-direction: row; align-items: center; border: 1px solid var(--border); border-radius: 8px; padding: 12px; gap: 12px; width: 100%; text-align: left; }
 .doop-agent-triage .doop-source-results svg { flex-shrink: 0; }
 .doop-agent-triage .doop-source-results button > span:last-child { color: inherit; font-size: inherit; }
