@@ -56,6 +56,8 @@ export function AsciiMountainsHero({
     const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     let reducedMotion = motionQuery.matches;
     const mouse = { x: -9999, y: -9999 };
+    const pointer = { x: -9999, y: -9999, active: false };
+    let interaction = 0;
 
     const resize = () => {
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -69,18 +71,24 @@ export function AsciiMountainsHero({
     resize();
     window.addEventListener("resize", resize);
 
-    const onMove = (e: MouseEvent) => {
+    const onMove = (e: PointerEvent) => {
       const rect = canvas.getBoundingClientRect();
-      mouse.x = e.clientX - rect.left;
-      mouse.y = e.clientY - rect.top;
+      pointer.x = e.clientX - rect.left;
+      pointer.y = e.clientY - rect.top;
+      pointer.active = pointer.x >= 0 && pointer.x <= rect.width && pointer.y >= 0 && pointer.y <= rect.height;
+      if (mouse.x === -9999) {
+        mouse.x = pointer.x;
+        mouse.y = pointer.y;
+      }
     };
-    const onLeave = () => {
-      mouse.x = -9999;
-      mouse.y = -9999;
+    const onLeave = () => { pointer.active = false; };
+    const onPointerOut = (event: PointerEvent) => {
+      if (!event.relatedTarget) onLeave();
     };
 
-    canvas.addEventListener("mousemove", onMove);
-    canvas.addEventListener("mouseleave", onLeave);
+    window.addEventListener("pointermove", onMove, { passive: true });
+    window.addEventListener("pointerout", onPointerOut);
+    window.addEventListener("blur", onLeave);
 
     const render = (time: number) => {
       animId = 0;
@@ -89,7 +97,12 @@ export function AsciiMountainsHero({
         animId = requestAnimationFrame(render);
         return;
       }
+      const delta = Math.min((time - lastFrame) / 1000, 0.1);
       lastFrame = time;
+      const follow = 1 - Math.exp(-12 * delta);
+      mouse.x += (pointer.x - mouse.x) * follow;
+      mouse.y += (pointer.y - mouse.y) * follow;
+      interaction += ((pointer.active && !reducedMotion ? 1 : 0) - interaction) * follow;
       const w = canvas.clientWidth;
       const h = canvas.clientHeight;
       if (!w || !h) {
@@ -176,7 +189,8 @@ export function AsciiMountainsHero({
       }
 
       if (reducedMotion) time = 0;
-      const t = time * 0.0002;
+      const t = time * 0.001;
+      const motion = reducedMotion ? 0 : 1;
       const cols = Math.floor(w / cell);
       const rows = Math.floor(h / cell);
       const halfGap = centerGap * 0.5;
@@ -186,7 +200,7 @@ export function AsciiMountainsHero({
       ctx.textBaseline = "middle";
 
       // Shimmer wave travelling slowly across the mountain peaks
-      const shimmerPhase = (time * 0.00018) % 1;
+      const shimmerPhase = (time * 0.0001) % 1;
 
       for (let c = 0; c < cols; c++) {
         const px = c * cell + cell / 2;
@@ -258,6 +272,11 @@ export function AsciiMountainsHero({
           }
         }
 
+        // Independent ridge phases keep the terrain breathing without moving the copy.
+        for (let k = 0; k < ridges.length; k++) {
+          ridges[k].y += Math.sin(t * 0.85 + u * 9 + k * 1.7) * (isMobile ? 5 : 8) * motion;
+        }
+
         // Structured vertical matrix column modulation (creates the vertical dot-stream look)
         const colPattern =
           0.72 + 0.28 * Math.cos(c * 1.57 + Math.sin(c * 0.35) * 2.0);
@@ -303,22 +322,28 @@ export function AsciiMountainsHero({
             }
           }
 
-          luma *= sideMask * bottomMask;
+          const breathe = reducedMotion ? 1 : 0.86 + 0.14 * Math.sin(t * 1.1 + u * 12 + ny * 5);
+          luma *= sideMask * bottomMask * breathe;
 
           if (luma > 0.05) {
             const dx = px - mouse.x;
             const dy = py - mouse.y;
             const d = Math.hypot(dx, dy);
-            const push = d < 85 ? (1 - d / 85) * 11 : 0;
-            const ox = d > 0 ? (dx / d) * push : 0;
-            const oy = d > 0 ? (dy / d) * push : 0;
-            const mouseBoost = d < 85 ? (1 - d / 85) * 0.35 : 0;
+            const reach = isMobile ? 110 : 170;
+            const influence = Math.max(0, 1 - d / reach) * interaction;
+            const push = influence * influence * 38;
+            const hoverWave = Math.sin(d * 0.045 - t * 5) * influence * 9;
+            const driftX = Math.sin(t * 0.65 + ny * 5 + u * 7) * 2.5 * motion;
+            const driftY = Math.sin(t * 1.05 + u * 12 + ny * 3) * 3.5 * motion;
+            const ox = driftX + (d > 0 ? (dx / d) * (push + hoverWave) : 0);
+            const oy = driftY + (d > 0 ? (dy / d) * (push + hoverWave) : 0);
+            const mouseBoost = influence * 0.5;
 
             if (isCrest) {
               // Specular shining ridge line: bright glowing dot + halo
               const crestAlpha = Math.min(
                 1,
-                luma * 1.15 + colShine + mouseBoost,
+                luma * 0.9 + colShine + mouseBoost,
               );
               if (isDark) {
                 ctx.fillStyle = `rgba(255, 255, 255, ${(crestAlpha * 0.28).toFixed(3)})`;
@@ -334,7 +359,7 @@ export function AsciiMountainsHero({
               // Dense dot & ASCII glyph matrix inside the mountain slope
               const baseAlpha = isDark
                 ? Math.min(0.95, luma * 0.92 + colShine + mouseBoost)
-                : Math.min(0.95, Math.pow(luma, 0.82) * 0.92 + mouseBoost);
+                : Math.min(0.95, Math.pow(luma, 0.82) * 0.92 + colShine * 0.65 + mouseBoost);
               ctx.fillStyle = `rgba(${inkRgb}, ${baseAlpha.toFixed(3)})`;
 
               if (isNearCrest || (c + r) % 2 === 0) {
@@ -390,8 +415,9 @@ export function AsciiMountainsHero({
       motionQuery.removeEventListener("change", onMotionChange);
       document.removeEventListener("visibilitychange", restart);
       window.removeEventListener("resize", resize);
-      canvas.removeEventListener("mousemove", onMove);
-      canvas.removeEventListener("mouseleave", onLeave);
+      window.removeEventListener("pointermove", onMove);
+      window.removeEventListener("pointerout", onPointerOut);
+      window.removeEventListener("blur", onLeave);
     };
   }, [theme, cellSize, centerGap]);
 
