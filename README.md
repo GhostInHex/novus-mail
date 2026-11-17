@@ -60,6 +60,8 @@ Schedule a meeting directly from the workspace without losing the email thread o
 
 The Doop frontend includes coordinated light and dark themes across the inbox, calendar, composer, and assistant.
 
+**UI development:** Read [DESIGN.md](./DESIGN.md) for the shared tokens, component rules, surface differences, and verification workflow before building new UI.
+
 Frontend implementation and verification details: [Doop implementation](./corsair-email/docs/DOOP_IMPLEMENTATION.md) and [design audit](./corsair-email/docs/DOOP_AUDIT.md).
 
 ## Built for a real integration, not a mockup

@@ -25,6 +25,7 @@
     "import:doop": "node scripts/import-doop-workspace.mjs && node scripts/import-doop-welcome.mjs && node scripts/import-doop-chat.mjs",
     "verify:doop": "node scripts/verify-doop.mjs",
     "verify:visual": "node scripts/compare-doop-visual.mjs",
+    "verify:buttons": "node scripts/audit-glaze-buttons.mjs",
     "report:visual": "node scripts/write-doop-visual-report.mjs"
   },
   "keywords": [

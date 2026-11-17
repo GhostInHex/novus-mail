@@ -356,7 +356,7 @@
   background: #0003;
   color: var(--nm-ascii-composer-ink);
 }
-.landing-page [data-tone="sage"]:hover {
+.landing-page .nm-control[data-tone="sage"]:hover {
   background: var(--nm-ascii-accent);
   color: var(--nm-ascii-on-accent);
   filter: brightness(1.05);
