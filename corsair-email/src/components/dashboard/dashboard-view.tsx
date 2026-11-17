@@ -1,5 +1,6 @@
 "use client";
 
+import { EmailMessage } from "@/components/email-message";
 import { useTheme } from "@/components/theme-provider";
 import { Button } from "@/components/ui/button";
 import {
@@ -113,23 +114,6 @@ function mailTime(value: string | null) {
     : isYesterday(d)
       ? "Yesterday"
       : format(d, "MMM d");
-}
-function Message({
-  message,
-  renderHtml,
-}: {
-  message: ThreadDetail["messages"][number];
-  renderHtml: Props["renderHtml"];
-}) {
-  return message.body?.trim() ? (
-    <div className="dashboard-message-body">
-      {message.body.split(/\n\s*\n/).map((paragraph, index) => (
-        <p key={index}>{paragraph}</p>
-      ))}
-    </div>
-  ) : (
-    <div className="dashboard-message-html">{renderHtml(message)}</div>
-  );
 }
 export function DashboardView(p: Props) {
   const { resolvedTheme, setResolvedTheme } = useTheme();
@@ -614,7 +598,7 @@ export function DashboardView(p: Props) {
                           {p.thread.messages.slice(0, -1).map((message) => (
                             <article key={message.id}>
                               <p>{message.from}</p>
-                              <Message
+                              <EmailMessage
                                 message={message}
                                 renderHtml={p.renderHtml}
                               />
@@ -623,7 +607,7 @@ export function DashboardView(p: Props) {
                         </div>
                       )}
                       {selected && (
-                        <Message message={selected} renderHtml={p.renderHtml} />
+                        <EmailMessage message={selected} renderHtml={p.renderHtml} />
                       )}
                       <div className="dashboard-reply-actions">
                         <Button

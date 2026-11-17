@@ -334,7 +334,7 @@ export function WorkspaceShell({
   );
   const [search, setSearch] = useState(initialWorkspace.search);
   const [view, setView] = useState<WorkspaceView>("focus");
-  const threadSort: ThreadSortMode = "priority";
+  const threadSort: ThreadSortMode = "newest";
 
   const [composeOpen, setComposeOpen] = useState(false);
   const [composeDraft, setComposeDraft] =
@@ -530,8 +530,8 @@ export function WorkspaceShell({
     if (query) {
       params.set("search", query);
     }
-    if (typeof options.limit === "number") {
-      params.set("limit", String(options.limit));
+    if (!query || typeof options.limit === "number") {
+      params.set("limit", String(options.limit ?? Math.max(threads.length, initialWorkspace.threadsPage.limit)));
     }
     if (typeof options.offset === "number") {
       params.set("offset", String(options.offset));

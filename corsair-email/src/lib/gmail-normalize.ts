@@ -69,7 +69,8 @@ function messageToDetail(message: any): ThreadDetail["messages"][number] {
 }
 
 export function normalizeThread(thread: any): ThreadDetail {
-  const messages = (thread?.messages ?? []).map(messageToDetail);
+  const messages: ThreadDetail["messages"] = (thread?.messages ?? []).map(messageToDetail);
+  messages.sort((a, b) => (a.receivedAt ?? "").localeCompare(b.receivedAt ?? "") || a.id.localeCompare(b.id));
   const latestMessage = messages.at(-1) ?? null;
   const sourceLabels: string[] =
     thread?.messages?.flatMap?.((message: any) => (message?.labelIds ?? []) as string[]) ?? [];

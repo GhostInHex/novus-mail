@@ -9,6 +9,7 @@ import { setupCorsair } from "corsair/setup";
 import { parseCommand } from "@/lib/command-parser";
 import { env } from "@/lib/env";
 import { log } from "@/server/log";
+import { collectGmailThreadIds } from "@/lib/gmail-pagination";
 import { normalizeThread } from "@/lib/gmail-normalize";
 import { buildMimeMessage } from "@/lib/mime";
 import { classifyPriority } from "@/lib/priority";
@@ -93,7 +94,6 @@ type ThreadSummaryRow = Pick<
   | "priorityReason"
 >;
 
-const GMAIL_PAGE_SIZE = 50;
 const GMAIL_SYNC_THREAD_LIMIT = 500;
 const GMAIL_SEARCH_THREAD_LIMIT = 100;
 const GMAIL_DETAIL_CONCURRENCY = 8;
@@ -135,12 +135,7 @@ function getDemoMemoryWorkspace(tenantId: string) {
 }
 
 function sortDemoThreads(threads: ThreadDetail[]) {
-  return [...threads].sort((left, right) => {
-    if (right.priorityScore !== left.priorityScore) {
-      return right.priorityScore - left.priorityScore;
-    }
-    return (right.receivedAt ?? "").localeCompare(left.receivedAt ?? "");
-  });
+  return [...threads].sort((left, right) => (right.receivedAt ?? "").localeCompare(left.receivedAt ?? "") || left.threadId.localeCompare(right.threadId));
 }
 
 function sortDemoEvents(events: AgendaEvent[]) {
@@ -936,7 +931,7 @@ async function readThreadSummariesPage(
   tenantId: string,
   options: { limit?: number; offset?: number } = {},
 ) {
-  const limit = Math.max(1, Math.min(options.limit ?? INITIAL_WORKSPACE_THREAD_PAGE_SIZE, GMAIL_SYNC_THREAD_LIMIT));
+  const limit = Math.max(1, options.limit ?? INITIAL_WORKSPACE_THREAD_PAGE_SIZE);
   const offset = Math.max(0, options.offset ?? 0);
 
   if (isDemoTenant(tenantId)) {
@@ -997,7 +992,7 @@ async function readThreadSummariesPage(
       })
       .from(schema.emailThreadCache)
       .where(eq(schema.emailThreadCache.tenantId, tenantId))
-      .orderBy(desc(schema.emailThreadCache.priorityScore), desc(schema.emailThreadCache.receivedAt))
+      .orderBy(sql`${schema.emailThreadCache.receivedAt} DESC NULLS LAST`, schema.emailThreadCache.threadId)
       .limit(limit)
       .offset(offset);
 
@@ -1092,13 +1087,10 @@ async function repairThreadBodies(tenantId: string, threads: ThreadSummary[]) {
 }
 
 async function isBackgroundInboxSyncing(tenantId: string) {
-  const syncedAt = await readSyncState(tenantId, "inbox");
-  if (!syncedAt) {
-    return false;
-  }
-
-  const cachedThreads = await countCachedThreads(tenantId);
-  return cachedThreads < BACKGROUND_SYNC_TARGET;
+  if (isDemoTenant(tenantId)) return false;
+  const db = await drizzleDb();
+  const cursor = await db.query.inboxSyncCursor.findFirst({ where: eq(schema.inboxSyncCursor.tenantId, tenantId) });
+  return cursor ? Boolean(cursor.nextPageToken) : Boolean(await readSyncState(tenantId, "inbox"));
 }
 
 /**
@@ -1571,29 +1563,19 @@ async function fetchGmailThreadIds(
   tenant: Awaited<ReturnType<typeof tenantClient>>,
   query: string,
   limit: number,
+  startPageToken?: string,
 ) {
-  const ids: string[] = [];
-  let pageToken: string | undefined;
-
-  do {
-    const response = await tenant.gmail.api.threads.list({
+  return collectGmailThreadIds({
+    limit,
+    startPageToken,
+    listPage: ({ maxResults, pageToken }) => tenant.gmail.api.threads.list({
       userId: "me",
       q: query || undefined,
-      maxResults: Math.min(GMAIL_PAGE_SIZE, limit - ids.length),
+      maxResults,
       pageToken,
       includeSpamTrash: false,
-    });
-
-    for (const thread of response.threads ?? []) {
-      if (thread.id) {
-        ids.push(thread.id);
-      }
-    }
-
-    pageToken = response.nextPageToken;
-  } while (pageToken && ids.length < limit);
-
-  return ids;
+    }),
+  });
 }
 
 async function mapConcurrent<T, R>(
@@ -1628,7 +1610,7 @@ export async function refreshInbox(
 
   const tenant = await tenantClient(tenantId);
   const limit = options.limit ?? (query ? GMAIL_SEARCH_THREAD_LIMIT : GMAIL_SYNC_THREAD_LIMIT);
-  const threadIds = await fetchGmailThreadIds(tenant, query, limit);
+  const { ids: threadIds, nextPageToken } = await fetchGmailThreadIds(tenant, query, limit);
 
   const details = await mapConcurrent(threadIds, GMAIL_DETAIL_CONCURRENCY, async (id) => {
     const fullThread = await tenant.gmail.api.threads.get({
@@ -1641,18 +1623,17 @@ export async function refreshInbox(
     return writeThreadSummary(tenantId, normalizeThread(fullThread));
   });
 
+  if (!query) {
+    const db = await drizzleDb();
+    // A recent-mail refresh must not reset an older-mail backfill cursor.
+    await db.insert(schema.inboxSyncCursor).values({ tenantId, nextPageToken }).onConflictDoNothing();
+  }
   await writeSyncState(tenantId, "inbox");
   if (options.publish !== false) {
     publishRefresh(tenantId);
   }
 
-  return details.sort((left, right) => {
-    if (right.priorityScore !== left.priorityScore) {
-      return right.priorityScore - left.priorityScore;
-    }
-
-    return (right.receivedAt ?? "").localeCompare(left.receivedAt ?? "");
-  });
+  return details.sort((left, right) => (right.receivedAt ?? "").localeCompare(left.receivedAt ?? "") || left.threadId.localeCompare(right.threadId));
 }
 
 export async function refreshCalendar(tenantId: string) {
@@ -1719,22 +1700,31 @@ export async function expandInboxCache(tenantId: string, options: { target?: num
     };
   }
 
-  const target = Math.max(
-    INITIAL_WORKSPACE_THREAD_PAGE_SIZE,
-    Math.min(options.target ?? BACKGROUND_SYNC_TARGET, GMAIL_SYNC_THREAD_LIMIT),
-  );
-  const cachedThreads = await countCachedThreads(tenantId);
-
-  if (cachedThreads >= target) {
-    return { cachedThreads, target };
-  }
-
-  const nextLimit = Math.min(target, Math.max(cachedThreads + BACKGROUND_SYNC_BATCH_SIZE, INITIAL_WORKSPACE_THREAD_PAGE_SIZE));
-  await refreshInbox(tenantId, "", { limit: nextLimit, publish: true });
-  return {
-    cachedThreads: await countCachedThreads(tenantId),
-    target,
-  };
+  const db = await drizzleDb();
+  // Serialize continuation per tenant, including across server instances.
+  await db.transaction(async (tx) => {
+    await tx.execute(sql`SELECT pg_advisory_xact_lock(hashtext(${tenantId}))`);
+    const cursor = await tx.query.inboxSyncCursor.findFirst({ where: eq(schema.inboxSyncCursor.tenantId, tenantId) });
+    if (cursor && !cursor.nextPageToken) return;
+    const tenant = await tenantClient(tenantId);
+    const cached = cursor ? [] : await tx.select({ threadId: schema.emailThreadCache.threadId })
+      .from(schema.emailThreadCache).where(eq(schema.emailThreadCache.tenantId, tenantId));
+    const knownIds = new Set(cached.map(thread => thread.threadId));
+    // Existing accounts may have a cache created before continuation was saved.
+    const { ids, nextPageToken } = await fetchGmailThreadIds(
+      tenant, "", BACKGROUND_SYNC_BATCH_SIZE + cached.length, cursor?.nextPageToken ?? undefined,
+    );
+    await mapConcurrent(ids.filter(id => !knownIds.has(id)), GMAIL_DETAIL_CONCURRENCY, async (id) => {
+      const thread = await tenant.gmail.api.threads.get({ userId: "me", id, format: "full" });
+      await writeThreadSummary(tenantId, normalizeThread(thread));
+    });
+    await tx.insert(schema.inboxSyncCursor).values({ tenantId, nextPageToken }).onConflictDoUpdate({
+      target: schema.inboxSyncCursor.tenantId, set: { nextPageToken },
+    });
+  });
+  await writeSyncState(tenantId, "inbox");
+  publishRefresh(tenantId);
+  return { cachedThreads: await countCachedThreads(tenantId), target: options.target ?? BACKGROUND_SYNC_TARGET };
 }
 
 export async function loadWorkspace(
@@ -1780,6 +1770,9 @@ export async function loadWorkspace(
       nextOffset: null,
     };
   } else {
+    if ((options.offset ?? 0) > 0 && (options.offset ?? 0) >= await countCachedThreads(tenantId) && await isBackgroundInboxSyncing(tenantId)) {
+      await expandInboxCache(tenantId);
+    }
     const page = await readThreadSummariesPage(tenantId, {
       limit: options.limit ?? INITIAL_WORKSPACE_THREAD_PAGE_SIZE,
       offset: options.offset ?? 0,
@@ -1803,6 +1796,10 @@ export async function loadWorkspace(
     query ? Promise.resolve(false) : isBackgroundInboxSyncing(tenantId),
   ]);
 
+  if (!query && backgroundSyncing) {
+    threadsPage.hasMore = true;
+    threadsPage.nextOffset = threadsPage.offset + threads.length;
+  }
   return {
     threads,
     activeThread: null,

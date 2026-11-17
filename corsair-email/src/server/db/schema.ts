@@ -204,3 +204,8 @@ export const watchState = pgTable(
     index("watch_state_channel_id_idx").on(table.channelId),
   ],
 );
+
+export const inboxSyncCursor = pgTable("inbox_sync_cursor", {
+  tenantId: text("tenant_id").primaryKey(),
+  nextPageToken: text("next_page_token"),
+});

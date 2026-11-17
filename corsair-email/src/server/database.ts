@@ -3,6 +3,10 @@ import type { Sql } from "postgres";
 export type AppDatabase = Sql;
 
 const STATEMENTS = [
+  `CREATE TABLE IF NOT EXISTS inbox_sync_cursor (
+    tenant_id TEXT PRIMARY KEY,
+    next_page_token TEXT
+  )`,
   `
     CREATE TABLE IF NOT EXISTS corsair_integrations (
       id TEXT PRIMARY KEY,
