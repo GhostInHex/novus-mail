@@ -473,7 +473,7 @@
 .landing-hero-poster { display: none; position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
 @media (prefers-reduced-motion: reduce) {
   .landing-hero-poster { display: block; }
-  .landing-page #main-content > section:first-child > canvas,
+  .landing-page [data-ascii-mountains],
   .landing-page .landing-dissolve-canvas { opacity: 0; }
 }
 
