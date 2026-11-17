@@ -1,0 +1,39 @@
+/* App controls override the imported artboard treatments in one place. */
+html body :is(.dashboard.dashboard, .doop-modal.doop-modal, .doop-auth.doop-auth, .doop-site-nav)
+:is([data-slot="button"][data-variant="default"], .doop-glaze, .doop-source-history header button, .doop-source-approval button[data-primary="true"]) {
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid var(--primary);
+  border-radius: 8px;
+  background: var(--primary);
+  color: var(--primary-foreground);
+  box-shadow: none;
+  text-shadow: none;
+  filter: none;
+  overflow: visible;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+}
+html body :is(.dashboard.dashboard, .doop-modal.doop-modal, .doop-auth.doop-auth, .doop-site-nav)
+:is([data-slot="button"][data-variant="default"], .doop-glaze, .doop-source-history header button, .doop-source-approval button[data-primary="true"])::before {
+  content: none;
+}
+html body :is(.dashboard.dashboard, .doop-modal.doop-modal, .doop-auth.doop-auth, .doop-site-nav)
+:is([data-slot="button"][data-variant="default"], .doop-glaze, .doop-source-history header button, .doop-source-approval button[data-primary="true"]):not([data-size^="icon"]) {
+  height: auto;
+  min-height: 40px;
+  min-width: fit-content;
+  padding: 9px 16px;
+  white-space: normal;
+}
+html body :is(.dashboard.dashboard, .doop-modal.doop-modal, .doop-auth.doop-auth, .doop-site-nav)
+:is([data-slot="button"][data-variant="default"], .doop-glaze, .doop-source-history header button, .doop-source-approval button[data-primary="true"]):hover:not(:disabled) {
+  background: color-mix(in srgb, var(--primary) 90%, var(--background));
+  filter: none;
+  box-shadow: none;
+}

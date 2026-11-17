@@ -1,14 +1,17 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 
+import { SmoothScroll } from "@/components/smooth-scroll";
 import { ThemeProvider } from "@/components/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { DEFAULT_DARK_THEME } from "@/lib/theme-presets";
 
+import "lenis/dist/lenis.css";
 import "@/app/globals.css";
 import "@/app/doop-theme.css";
 import "@/app/doop-source.css";
 import "@/app/doop-public-fidelity.css";
+import "@/app/app-controls.css";
 
 const geistSans = Geist({
   subsets: ["latin"],
@@ -55,6 +58,7 @@ export default function RootLayout({
           enableSystem={false}
           disableTransitionOnChange
         >
+          <SmoothScroll />
           <TooltipProvider delayDuration={200}>{children}</TooltipProvider>
         </ThemeProvider>
       </body>

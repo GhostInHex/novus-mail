@@ -119,6 +119,7 @@ const AIConversation = ({
   return (
     <div className={cn("relative min-h-0 w-full", className)}>
       <div
+        data-lenis-prevent
         className="h-full overflow-y-auto overscroll-contain"
         onPointerDownCapture={() => {
           const viewport = viewportRef.current;

@@ -67,7 +67,7 @@
 
   html {
     background-color: var(--background);
-    scroll-behavior: smooth;
+    scroll-behavior: auto;
   }
 
   body {
