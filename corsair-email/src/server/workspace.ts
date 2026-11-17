@@ -105,8 +105,6 @@ const CALENDAR_SYNC_EVENT_LIMIT = 500;
 const SETUP_TIMEOUT_MS = 12_000;
 const CONNECTION_CHECK_TIMEOUT_MS = 5_000;
 const DASHBOARD_REMOTE_FALLBACK_TIMEOUT_MS = 15_000;
-const DEMO_THREAD_TARGET = 68;
-const DEMO_EVENT_TARGET = 14;
 type DemoMemoryStore = Map<string, {threads:Map<string,ThreadDetail>;events:Map<string,AgendaEvent>;syncedAt:{inbox:string|null;calendar:string|null}}>;
 const demoRuntime = globalThis as typeof globalThis & {novusMailDemoMemoryStore?:DemoMemoryStore};
 const demoMemoryStore: DemoMemoryStore = demoRuntime.novusMailDemoMemoryStore ??= new Map();
@@ -117,6 +115,12 @@ function now() {
 
 function getDemoMemoryWorkspace(tenantId: string) {
   let workspace = demoMemoryStore.get(tenantId);
+  if (workspace && Array.from(workspace.threads.keys()).some((id) => id.startsWith("demo-thread-") || id.startsWith("demo-curated-"))) {
+    for (const id of workspace.threads.keys()) if (id.startsWith("demo-thread-") || id.startsWith("demo-curated-")) workspace.threads.delete(id);
+    for (const id of workspace.events.keys()) if (id.startsWith("demo-event-")) workspace.events.delete(id);
+    for (const thread of buildDemoThreads()) workspace.threads.set(thread.threadId, thread);
+    for (const event of buildDemoEvents()) workspace.events.set(event.id, event);
+  }
   if (!workspace) {
     const seededThreads = new Map(buildDemoThreads().map((thread) => [thread.threadId, thread]));
     const seededEvents = new Map(buildDemoEvents().map((event) => [event.id, event]));
@@ -130,6 +134,16 @@ function getDemoMemoryWorkspace(tenantId: string) {
       syncedAt,
     };
     demoMemoryStore.set(tenantId, workspace);
+  }
+  if (!workspace.threads.has("demo-v2-thread-53")) {
+    for (const thread of buildDemoThreads().slice(27)) {
+      if (!workspace.threads.has(thread.threadId)) workspace.threads.set(thread.threadId, thread);
+    }
+  }
+  if (!workspace.events.has("demo-v2-event-23")) {
+    for (const event of buildDemoEvents().slice(20)) {
+      if (!workspace.events.has(event.id)) workspace.events.set(event.id, event);
+    }
   }
   return workspace;
 }
@@ -582,135 +596,102 @@ function makeDemoMessage(args: {
 }
 
 function buildDemoThreads(): ThreadDetail[] {
-  const profiles = [
-    { sender: "Ari Morgan", email: "ari@northstarhq.com", recipient: env.DEMO_EMAIL, topic: "launch review" },
-    { sender: "Mika Patel", email: "mika@brightharbor.io", recipient: env.DEMO_EMAIL, topic: "investor follow-up" },
-    { sender: "Design Ops", email: "design-ops@novusmail.io", recipient: env.DEMO_EMAIL, topic: "copy approval" },
-    { sender: "Priya Shah", email: "priya@vectorlane.com", recipient: env.DEMO_EMAIL, topic: "candidate loop" },
-    { sender: "Finance Bot", email: "finance@ops.example", recipient: env.DEMO_EMAIL, topic: "expense reminder" },
-    { sender: "Leo Kim", email: "leo@seabound.ai", recipient: env.DEMO_EMAIL, topic: "customer escalation" },
-    { sender: "Calendar Digest", email: "calendar@google.com", recipient: env.DEMO_EMAIL, topic: "daily agenda" },
-    { sender: "Nadia Flores", email: "nadia@marketforge.co", recipient: env.DEMO_EMAIL, topic: "partnership intro" },
+  const curated = [
+    ["Ari Morgan", "ari@northstarhq.com", "Launch review: decisions needed before tomorrow", "Hi,\n\nThe onboarding flow is ready for review. Can you confirm the rollout audience and whether support should be on the launch call? I need to send the final brief today.\n\nThanks,\nAri", "INBOX UNREAD STARRED"],
+    ["Leo Kim", "leo@seabound.ai", "Customer escalation: workspace access", "Hi,\n\nTwo members of the Seabound team lost access after their domain change. Could we agree on an owner and an update time before our customer follow-up?\n\nLeo", "INBOX UNREAD"],
+    ["Priya Shah", "priya@vectorlane.com", "Product designer interviews next week", "Hi,\n\nThe panel is available Tuesday afternoon. Would you prefer to meet the candidate before the portfolio review, or join the final debrief?\n\nPriya", "INBOX UNREAD STARRED"],
+    ["Mika Patel", "mika@brightharbor.io", "Board packet: metrics and open questions", "Hi,\n\nI have updated the retention and pipeline pages. Please take a look at the assumptions on page four before our board packet review.\n\nMika", "INBOX"],
+    ["Nadia Flores", "nadia@marketforge.co", "Introduction: partnership with Marketforge", "Hi,\n\nThanks for the introduction last week. Our teams seem to have a shared audience; would a short conversation next week make sense?\n\nBest,\nNadia", "INBOX UNREAD"],
+    ["Finance", "finance@northstarhq.com", "Expense reports due this week", "Hello,\n\nA reminder that this month’s receipts are due Friday. Please attach the invoice for any software subscription over $100.\n\nThank you,\nFinance", "INBOX"],
+    ["Ari Morgan", "ari@northstarhq.com", "Launch brief and rollout checklist", "Hi Ari,\n\nI have shared the rollout checklist with the team. Let us use the review to settle the audience and support coverage.\n\nThanks", "SENT"],
+    ["Leo Kim", "leo@seabound.ai", "Follow-up on access issue", "Hi Leo,\n\nThanks for flagging this. I am checking with the team and will bring an owner and a proposed resolution to our follow-up.\n\nBest", "SENT"],
+    ["Priya Shah", "priya@vectorlane.com", "Re: Product designer interviews next week", "Hi Priya,\n\nTuesday afternoon works for me. I would like to join the final debrief; could you send the portfolio beforehand?\n\nThanks", "DRAFT"],
+    ["Nadia Flores", "nadia@marketforge.co", "Re: Introduction: partnership with Marketforge", "Hi Nadia,\n\nThanks for reaching out. A short conversation sounds useful. I can share a few times once I have checked the team calendar.", "DRAFT"],
+    ["Ari Morgan", "ari@northstarhq.com", "Customer feedback themes", "Hi,\n\nHere are the three recurring requests from recent calls: clearer ownership, faster search, and a simpler handoff. I will bring examples to the next planning session.\n\nAri", "INBOX STARRED"],
+    ["Mika Patel", "mika@brightharbor.io", "Weekly operating notes", "Hi team,\n\nThe operating notes are ready. No decisions needed today; the document includes the latest hiring and customer updates.\n\nMika", "INBOX"]
+    ,["Rosa Chen", "rosa@northstarhq.com", "Support coverage for launch day", "Hi,\n\nThe support team can cover the first two hours of the rollout. If we expand beyond the pilot group, we will need one more person on rotation.\n\nRosa", "INBOX UNREAD"]
+    ,["Owen Brooks", "owen@northstarhq.com", "Onboarding pilot: results from this week", "Hi,\n\nSeven of eight pilot teams completed setup without help. The remaining team got stuck inviting colleagues; I have added the recording to the review notes.\n\nOwen", "INBOX STARRED"]
+    ,["Samira Khan", "samira@northstarhq.com", "Can we move the roadmap review?", "Hi,\n\nThe customer call now overlaps with our roadmap review. Could we move it to tomorrow afternoon? I will update the agenda once we have a time.\n\nSamira", "INBOX UNREAD"]
+    ,["Leo Kim", "leo@seabound.ai", "Re: workspace access", "Thanks for looking into this. The affected users are on our operations team, and both can still sign in to their Google accounts. Happy to walk through it on our call.\n\nLeo", "INBOX"]
+    ,["Elena Park", "elena@northstarhq.com", "Renewal forecast for next quarter", "Hi,\n\nI have updated the renewal forecast with the latest customer notes. Two accounts need an executive check-in before we commit to the target.\n\nElena", "INBOX UNREAD"]
+    ,["Priya Shah", "priya@vectorlane.com", "Portfolio review: panel notes", "Hi,\n\nI have collected the panel's questions and shared them with the candidate. Please add anything you want to cover before the interview.\n\nPriya", "INBOX"]
+    ,["Nadia Flores", "nadia@marketforge.co", "Partnership overview", "Hi,\n\nFollowing up with a short overview of our customer community and the workshops we run. A joint session on inbox workflows could be a useful place to start.\n\nNadia", "INBOX"]
+    ,["Rosa Chen", "rosa@northstarhq.com", "Help center updates for the pilot", "Hi,\n\nThe new setup guide is ready for a final pass. Could you check the section on inviting teammates before we publish it?\n\nRosa", "INBOX UNREAD"]
+    ,["Owen Brooks", "owen@northstarhq.com", "Re: Onboarding pilot results", "Hi Owen,\n\nThanks for pulling this together. Please bring the invitation issue to the launch review so we can decide whether it blocks the pilot.\n\nThanks", "SENT"]
+    ,["Samira Khan", "samira@northstarhq.com", "Re: Can we move the roadmap review?", "Hi Samira,\n\nTomorrow afternoon should work. I will check the calendar and send an updated invitation.\n\nThanks", "DRAFT"]
+    ,["Elena Park", "elena@northstarhq.com", "Customer check-in notes", "Hi Elena,\n\nI can join the renewal conversation. Please send the account history and the outstanding questions ahead of the call.\n\nThanks", "SENT"]
+    ,["Mika Patel", "mika@brightharbor.io", "Re: Board packet metrics", "Hi Mika,\n\nI will review the retention assumptions before our meeting. Could you also include the comparison with last quarter?\n\nThanks", "DRAFT"]
+    ,["Community", "events@northstarhq.com", "Team offsite: collecting agenda ideas", "Hello everyone,\n\nWe are collecting topics for next month's offsite. Please send one question you would like the team to work through together.\n\nThanks", "INBOX"]
+    ,["Rosa Chen", "rosa@northstarhq.com", "Customer feedback: search and ownership", "Hi,\n\nI grouped this week's support conversations into search, shared ownership, and scheduling. The examples are ready for our planning discussion.\n\nRosa", "INBOX STARRED"]
+    ,["Mika Patel", "mika@brightharbor.io", "Investor update draft", "Hi,\n\nThe draft update is ready. The main open question is how much detail to share about the onboarding pilot before we have the full cohort results.\n\nMika", "INBOX UNREAD"]
+    ,["Ari Morgan", "ari@northstarhq.com", "Pilot launch: final checklist", "Hi,\n\nThe checklist is almost complete. Can you confirm who will watch the support queue during the first hour?\n\nThanks,\nAri", "INBOX UNREAD"]
+    ,["Rosa Chen", "rosa@northstarhq.com", "Support rota for the pilot", "Hi,\n\nI have pencilled in coverage for the morning. I will share the final rota after the launch review.\n\nThanks,\nRosa", "INBOX"]
+    ,["Owen Brooks", "owen@northstarhq.com", "Invitation flow: proposed fix", "Hi,\n\nWe traced the invitation problem to a confusing confirmation step. The team has a small copy change ready for review.\n\nThanks,\nOwen", "INBOX UNREAD STARRED"]
+    ,["Samira Khan", "samira@northstarhq.com", "Roadmap review: proposed agenda", "Hi,\n\nI suggest we start with the onboarding issue, then review the search feedback and ownership requests. Please add anything missing.\n\nThanks,\nSamira", "INBOX"]
+    ,["Elena Park", "elena@northstarhq.com", "Renewal conversations this month", "Hi,\n\nBoth accounts are open to a check-in. One has asked for a clearer plan for shared inbox ownership.\n\nThanks,\nElena", "INBOX UNREAD"]
+    ,["Leo Kim", "leo@seabound.ai", "Access issue resolved for one user", "Hi,\n\nOne teammate can now sign in again. The second is still seeing an error, so I will bring the details to our call.\n\nThanks,\nLeo", "INBOX UNREAD"]
+    ,["Priya Shah", "priya@vectorlane.com", "Interview availability", "Hi,\n\nThe candidate has confirmed the portfolio review. I have left 15 minutes afterwards for panel notes.\n\nThanks,\nPriya", "INBOX"]
+    ,["Nadia Flores", "nadia@marketforge.co", "Workshop audience and format", "Hi,\n\nOur community usually prefers a practical 30-minute session followed by questions. We could compare notes on a suitable topic.\n\nThanks,\nNadia", "INBOX"]
+    ,["Mika Patel", "mika@brightharbor.io", "Retention numbers for the board", "Hi,\n\nThe latest cohort table is ready. The quarterly comparison is on the second page, with the assumptions underneath.\n\nThanks,\nMika", "INBOX STARRED"]
+    ,["Rosa Chen", "rosa@northstarhq.com", "Help center guide: final edits", "Hi,\n\nI updated the invitation screenshots and clarified what happens when a teammate joins. Please review the opening paragraph.\n\nThanks,\nRosa", "INBOX UNREAD"]
+    ,["Owen Brooks", "owen@northstarhq.com", "Pilot cohort feedback", "Hi,\n\nThree teams asked for a clearer way to see who owns a conversation. I have added their examples to the feedback notes.\n\nThanks,\nOwen", "INBOX"]
+    ,["Samira Khan", "samira@northstarhq.com", "Planning notes from yesterday", "Hi,\n\nThanks for the discussion. We agreed to fix the invitation copy first and bring search improvements to the next roadmap review.\n\nThanks,\nSamira", "INBOX"]
+    ,["Elena Park", "elena@northstarhq.com", "Account history before our call", "Hi,\n\nThe account expanded in the spring and their operations lead is our main contact. I have added the outstanding questions to the notes.\n\nThanks,\nElena", "INBOX"]
+    ,["Ari Morgan", "ari@northstarhq.com", "Re: Pilot launch checklist", "Hi,\n\nHi Ari,\n\nRosa will cover the support queue for the first hour. I will confirm the backup during our review.\n\nThanks\n\nThanks,\nAri", "SENT"]
+    ,["Rosa Chen", "rosa@northstarhq.com", "Re: Help center guide", "Hi,\n\nHi Rosa,\n\nThe updated guide reads clearly. I will check the opening paragraph and send you my notes today.\n\nThanks\n\nThanks,\nRosa", "SENT"]
+    ,["Owen Brooks", "owen@northstarhq.com", "Re: Invitation flow", "Hi,\n\nHi Owen,\n\nThe copy change sounds promising. Could you share it with support before we roll it out?\n\nThanks\n\nThanks,\nOwen", "SENT"]
+    ,["Elena Park", "elena@northstarhq.com", "Re: Renewal conversations", "Hi,\n\nHi Elena,\n\nI can join the account check-in. Please send the latest notes when the time is confirmed.\n\nThanks\n\nThanks,\nElena", "DRAFT"]
+    ,["Leo Kim", "leo@seabound.ai", "Re: Access issue update", "Hi,\n\nHi Leo,\n\nGlad one user is back in. We will look at the remaining error together and agree a next update on the call.\n\nThanks,\nLeo", "DRAFT"]
+    ,["Nadia Flores", "nadia@marketforge.co", "Re: Workshop audience", "Hi,\n\nHi Nadia,\n\nA practical session followed by questions sounds like a good fit. I will bring a few topic ideas to our introduction.\n\nThanks,\nNadia", "DRAFT"]
+    ,["Priya Shah", "priya@vectorlane.com", "Re: Interview availability", "Hi,\n\nHi Priya,\n\nThanks for arranging the extra time. I will review the portfolio and add my questions before the session.\n\nThanks,\nPriya", "SENT"]
+    ,["Mika Patel", "mika@brightharbor.io", "Next investor update: milestones", "Hi,\n\nCould you confirm the two milestones we should highlight? I would like to keep the update concise and include the pilot results once verified.\n\nThanks,\nMika", "INBOX UNREAD"]
+    ,["Community", "events@northstarhq.com", "Offsite planning: themes so far", "Hi,\n\nThe most common suggestions are customer learning, decision making, and how we hand work between teams. We will share a draft agenda soon.\n\nThanks,\nCommunity", "INBOX"]
+    ,["Ari Morgan", "ari@northstarhq.com", "Launch retrospective: notes to collect", "Hi,\n\nPlease add anything that slowed the pilot down or made the handoff easier. We will use the notes to prepare the retrospective.\n\nThanks,\nAri", "INBOX STARRED"]
+    ,["Elena Park", "elena@northstarhq.com", "Renewal call: decision makers", "Hi,\n\nThe operations lead and their finance partner will join the renewal call. They asked for a brief recap of the improvements since their last review.\n\nElena", "INBOX UNREAD"]
+    ,["Owen Brooks", "owen@northstarhq.com", "Pilot feedback: team invitations", "Hi,\n\nThe revised invitation copy tested well with two pilot teams. I will share the remaining feedback at the cohort check-in.\n\nOwen", "INBOX"]
+    ,["Ari Morgan", "ari@northstarhq.com", "Re: Launch retrospective notes", "Hi Ari,\n\nI have added the support handoff and the invitation issue to the retrospective notes.\n\nThanks", "SENT"]
   ];
-
-  return Array.from({ length: DEMO_THREAD_TARGET }, (_, index) => {
-    const profile = profiles[index % profiles.length];
-    const ageMinutes = -1 * (index * 185 + (index % 5) * 17 + 45);
-    const messageCount = index % 5 === 0 ? 3 : index % 3 === 0 ? 2 : 1;
-    const receivedAt = makeDemoDate(ageMinutes).toISOString();
-    const threadId = `demo-thread-${index + 1}`;
-    const subject =
-      index % 7 === 0
-        ? `Re: ${profile.topic} for ${(index % 4) + 1}:00 PM`
-        : index % 5 === 0
-          ? `${profile.topic} notes and next steps`
-          : `${profile.topic} update ${index + 1}`;
-    const unread = index % 4 !== 0;
-    const starred = index % 9 === 0;
-    const archived = index % 10 === 0;
-
-    const isSentOnly = index % 8 === 2;
-    const labels = isSentOnly
-      ? ["SENT"]
-      : [unread ? "UNREAD" : "INBOX", ...(starred ? ["STARRED"] : []), ...(archived ? [] : ["INBOX"])]
-        .filter((value, position, values) => values.indexOf(value) === position);
-
-    const greetingName = isSentOnly ? profile.sender : env.DEMO_DISPLAY_NAME;
-    const body = [
-      `Hi ${greetingName},`,
-      `Quick note on the ${profile.topic}.`,
-      index % 3 === 0
-        ? "Could you confirm whether we should reply today and move the meeting by 30 minutes?"
-        : "I added the latest details and would love your take before we send the next update.",
-      index % 6 === 0
-        ? "There is calendar context here, so checking the agenda before replying would help."
-        : "Nothing urgent, but this should stay in the focus queue until we respond.",
-      "Thanks!",
-      isSentOnly ? env.DEMO_DISPLAY_NAME : profile.sender,
-    ].join("\n\n");
-
-    const messages = Array.from({ length: messageCount }, (_value, messageIndex) => {
-      const messageReceivedAt = makeDemoDate(ageMinutes - messageIndex * 90).toISOString();
-      const isFromMe = isSentOnly || (messageIndex < messageCount - 1);
-      return makeDemoMessage({
-        id: `${threadId}-message-${messageIndex + 1}`,
-        from: isFromMe ? `${env.DEMO_DISPLAY_NAME} <${env.DEMO_EMAIL}>` : `${profile.sender} <${profile.email}>`,
-        to: isFromMe ? `${profile.sender} <${profile.email}>` : `${env.DEMO_DISPLAY_NAME} <${env.DEMO_EMAIL}>`,
-        subject,
-        body:
-          messageIndex === messageCount - 1
-            ? body
-            : `Following up on ${profile.topic}. I can take the next step once we confirm the details.`,
-        snippet:
-          messageIndex === messageCount - 1
-            ? body.slice(0, 120)
-            : `Following up on ${profile.topic}. I can take the next step...`,
-        receivedAt: messageReceivedAt,
-        labels,
-      });
-    }).reverse();
-
-    const threadSender = isSentOnly ? env.DEMO_DISPLAY_NAME : profile.sender;
-    const threadSenderEmail = isSentOnly ? env.DEMO_EMAIL : profile.email;
-    const threadRecipients = isSentOnly ? [profile.email] : [profile.recipient];
-
-    return {
-      threadId,
-      subject,
-      sender: threadSender,
-      senderEmail: threadSenderEmail,
-      recipients: threadRecipients,
-      snippet: body.slice(0, 140),
-      bodyExcerpt: body.slice(0, 200),
-      receivedAt,
-      messageCount,
-      labels,
-      unread: isSentOnly ? false : unread,
-      starred,
-      archived: isSentOnly ? false : archived,
-      priorityBand: index % 6 === 0 ? "high" : index % 4 === 0 ? "low" : "normal",
-      priorityScore: index % 6 === 0 ? 95 - index : index % 4 === 0 ? 25 : 60 - (index % 12),
-      priorityReason:
-        index % 6 === 0
-          ? "Mentions scheduling or waiting for a reply."
-          : index % 4 === 0
-            ? "Lower urgency informational update."
-            : "Needs a lightweight decision soon.",
-      body,
-      htmlBody: `<p>${body.replace(/\n/g, "</p><p>")}</p>`,
-      messages,
-    };
+  const curatedThreads: ThreadDetail[] = curated.map(([sender, email, subject, body, state], index) => {
+    const labels = state.split(" ");
+    const outgoing = labels.includes("SENT") || labels.includes("DRAFT");
+    const messageBody = outgoing && index >= 27 ? body.replace(/^Hi,\n\n/, "").replace(/\n\nThanks,\n[^\n]+$/, "") : body;
+    const receivedAt = makeDemoDate(-30 - index * 180).toISOString();
+    const threadId = `demo-v2-thread-${index + 1}`;
+    const message = makeDemoMessage({ id: `${threadId}-message-1`, from: outgoing ? `${env.DEMO_DISPLAY_NAME} <${env.DEMO_EMAIL}>` : `${sender} <${email}>`, to: outgoing ? `${sender} <${email}>` : env.DEMO_EMAIL, subject, body: messageBody, snippet: messageBody.slice(0, 120), receivedAt, labels });
+    return { threadId, subject, sender: outgoing ? env.DEMO_DISPLAY_NAME : sender, senderEmail: outgoing ? env.DEMO_EMAIL : email, recipients: [outgoing ? email : env.DEMO_EMAIL], snippet: messageBody.slice(0, 140), bodyExcerpt: messageBody.slice(0, 200), receivedAt, messageCount: 1, labels, unread: labels.includes("UNREAD"), starred: labels.includes("STARRED"), archived: false, priorityBand: index < 3 ? "high" : "normal", priorityScore: index < 3 ? 90 : 55, priorityReason: index < 3 ? "Needs a decision or follow-up." : "Conversation for review.", body: messageBody, htmlBody: message.htmlBody, messages: [message] };
   });
+  return curatedThreads;
 }
 
 function buildDemoEvents(): AgendaEvent[] {
-  return Array.from({ length: DEMO_EVENT_TARGET }, (_value, index) => {
-    const start = makeDemoDate(index * 160 + 120).toISOString();
-    const end = makeDemoDate(index * 160 + 165).toISOString();
-    return {
-      id: `demo-event-${index + 1}`,
-      summary:
-        index % 4 === 0
-          ? "Launch review"
-          : index % 4 === 1
-            ? "Hiring sync"
-            : index % 4 === 2
-              ? "Customer follow-up"
-              : "Board packet review",
-      description:
-        index % 3 === 0
-          ? "Review open threads before the meeting and prepare the AI-drafted follow-up."
-          : "Internal planning meeting with lightweight agenda and next steps.",
-      location: index % 2 === 0 ? "Google Meet" : "HQ conference room",
-      start,
-      end,
-      attendees:
-        index % 2 === 0
-          ? ["ari@northstarhq.com", env.DEMO_EMAIL]
-          : ["mika@brightharbor.io", "priya@vectorlane.com", env.DEMO_EMAIL],
-      status: index % 5 === 0 ? "tentative" : index % 7 === 0 ? "cancelled" : "confirmed",
-      htmlLink: demoCalendarLink(`demo-event-${index + 1}`),
-    };
+  const events = [
+    ["Launch review", "Confirm the rollout audience, support coverage, and the onboarding invitation issue.", "ari@northstarhq.com", 0, 120],
+    ["Seabound customer follow-up", "Agree an owner and update time for the workspace access issue.", "leo@seabound.ai", 0, 300],
+    ["Board packet review", "Review retention assumptions and the comparison with last quarter.", "mika@brightharbor.io", 1, 60],
+    ["Product designer portfolio review", "Discuss the candidate's work and collect the panel's questions.", "priya@vectorlane.com", 1, 270],
+    ["Roadmap review", "Prioritize the onboarding, search, and shared ownership work.", "samira@northstarhq.com", 2, 120],
+    ["Support launch readiness", "Review the help center guide and the launch-day coverage rota.", "rosa@northstarhq.com", 2, 300],
+    ["Onboarding pilot debrief", "Review completion rates and the team invitation issue.", "owen@northstarhq.com", 3, 90],
+    ["Renewal forecast", "Discuss the two accounts that need an executive check-in.", "elena@northstarhq.com", 3, 270],
+    ["Marketforge introduction", "Explore a joint workshop for operations teams.", "nadia@marketforge.co", 4, 120],
+    ["Hiring debrief", "Compare panel feedback and agree on next steps for the candidate.", "priya@vectorlane.com", 4, 300],
+    ["Weekly operating review", "Check progress on customer issues, hiring, and the launch.", "mika@brightharbor.io", 5, 90],
+    ["Customer feedback synthesis", "Review examples of search and ownership requests.", "rosa@northstarhq.com", 5, 270],
+    ["Investor update review", "Decide what pilot results to include in the next update.", "mika@brightharbor.io", 6, 120],
+    ["Launch retrospective", "Capture what worked during the pilot and assign follow-ups.", "ari@northstarhq.com", 7, 120],
+    ["Customer renewal check-in", "Review account history and open questions before renewal.", "elena@northstarhq.com", 8, 270],
+    ["Offsite planning", "Choose the questions and working sessions for next month's team offsite.", "samira@northstarhq.com", 9, 120],
+    ["Pilot cohort check-in", "Review adoption and collect feedback from the pilot teams.", "owen@northstarhq.com", 10, 270],
+    ["Partnership workshop planning", "Outline the audience and format for a possible joint session.", "nadia@marketforge.co", 11, 120],
+    ["Hiring pipeline review", "Review upcoming interviews and candidate communications.", "priya@vectorlane.com", 12, 270],
+    ["Monthly planning", "Agree the next month's priorities and owners.", "ari@northstarhq.com", 13, 120],
+    ["Invitation copy review", "Review the revised invitation copy and pilot feedback.", "owen@northstarhq.com", 14, 120],
+    ["Renewal preparation", "Prepare the recap of improvements for the customer decision makers.", "elena@northstarhq.com", 15, 270],
+    ["Support handoff review", "Review the launch support handoff and agree improvements.", "rosa@northstarhq.com", 16, 120],
+  ] satisfies [string, string, string, number, number][];
+  return events.map(([summary, description, attendee, day, minute], index) => {
+    const id = `demo-v2-event-${index + 1}`;
+    return { id, summary, description, location: index % 3 === 0 ? "Conference room" : "Google Meet", start: makeDemoDate(day * 1440 + minute).toISOString(), end: makeDemoDate(day * 1440 + minute + 45).toISOString(), attendees: [attendee, env.DEMO_EMAIL], status: "confirmed", htmlLink: demoCalendarLink(id) };
   });
 }
 
@@ -720,33 +701,30 @@ async function seedDemoWorkspaceIfNeeded(tenantId: string) {
 
   try {
     const db = await appDb();
-    const [threadRows, eventRows] = await Promise.all([
-      db<{ count: number | string }[]>`
-        SELECT COUNT(*)::int AS count
-        FROM email_thread_cache
-        WHERE tenant_id = ${tenantId}
-      `,
-      db<{ count: number | string }[]>`
-        SELECT COUNT(*)::int AS count
-        FROM calendar_event_cache
-        WHERE tenant_id = ${tenantId}
-      `,
-    ]);
-
-    const threadCount = Number(threadRows[0]?.count ?? 0);
-    const eventCount = Number(eventRows[0]?.count ?? 0);
-
     await upsertProfile(session);
+    const marker = await db`SELECT 1 FROM email_thread_cache WHERE tenant_id = ${tenantId} AND thread_id = 'demo-v2-thread-1' LIMIT 1`;
+    if (marker.length === 0) {
+      await db`DELETE FROM email_thread_cache WHERE tenant_id = ${tenantId} AND (thread_id LIKE 'demo-thread-%' OR thread_id LIKE 'demo-curated-%')`;
+      await db`DELETE FROM calendar_event_cache WHERE tenant_id = ${tenantId} AND event_id LIKE 'demo-event-%'`;
+      for (const thread of buildDemoThreads().slice(1)) await writeThreadSummary(tenantId, thread);
+      await writeCalendarEvents(tenantId, buildDemoEvents());
+      await writeThreadSummary(tenantId, buildDemoThreads()[0]);
+    }
 
-    if (threadCount < DEMO_THREAD_TARGET) {
-      const detailThreads = buildDemoThreads();
-      for (const thread of detailThreads) {
-        await writeThreadSummary(tenantId, thread);
+    const expansion = await db`SELECT 1 FROM email_thread_cache WHERE tenant_id = ${tenantId} AND thread_id = 'demo-v2-thread-53' LIMIT 1`;
+    if (expansion.length === 0) {
+      for (const thread of buildDemoThreads().slice(27)) {
+        const existing = await db`SELECT 1 FROM email_thread_cache WHERE tenant_id = ${tenantId} AND thread_id = ${thread.threadId} LIMIT 1`;
+        if (existing.length === 0) await writeThreadSummary(tenantId, thread);
       }
     }
 
-    if (eventCount < DEMO_EVENT_TARGET) {
-      await writeCalendarEvents(tenantId, buildDemoEvents());
+    const eventExpansion = await db`SELECT 1 FROM calendar_event_cache WHERE tenant_id = ${tenantId} AND event_id = 'demo-v2-event-23' LIMIT 1`;
+    if (eventExpansion.length === 0) {
+      for (const event of buildDemoEvents().slice(20)) {
+        const existing = await db`SELECT 1 FROM calendar_event_cache WHERE tenant_id = ${tenantId} AND event_id = ${event.id} LIMIT 1`;
+        if (existing.length === 0) await writeCalendarEvents(tenantId, [event]);
+      }
     }
 
     await writeSyncState(tenantId, "inbox");
