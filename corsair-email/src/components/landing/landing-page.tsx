@@ -167,10 +167,6 @@ export function LandingPage() {
           />
 
           <div className="pointer-events-none relative z-10 mx-auto flex max-w-3xl flex-col items-center px-6 pt-3 pb-7 text-center">
-            <div className="mb-5 inline-block rounded-full border border-[var(--border-subtle)] bg-[var(--pill-bg)] px-3.5 py-1 text-[11px] text-[var(--text-secondary)] shadow-2xs backdrop-blur-md">
-              {isDark ? "Gmail + Google Calendar" : "Craft · Manage · Automate"}
-            </div>
-
             <h1 className="font-serif-display text-5xl leading-[0.94] tracking-tight text-[var(--text-primary)] sm:text-6xl md:text-[68px]">
               Less inbox. More headspace.
               <br />
