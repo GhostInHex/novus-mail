@@ -24,6 +24,10 @@ try {
         .click();
     for (const width of [1440, 390]) {
       await page.setViewportSize({ width, height: 1000 });
+      await page.getByRole("heading", { level: 1, name: /Less inbox\. More headspace\./ }).waitFor();
+      await page.getByRole("region", { name: "Interactive NovusMail demo" }).waitFor();
+      if (await page.getByText(/^(Craft · Manage · Automate|Gmail \+ Google Calendar)$/).count())
+        throw new Error(`The hero pill returned in ${mode} mode`);
       for (const img of await page.locator("main img").all()) {
         if (await img.isVisible()) await img.scrollIntoViewIfNeeded();
         await img.evaluate((el) => el.decode());
@@ -49,11 +53,25 @@ try {
       console.log(mode, width, metrics);
     }
   }
-  await page.getByRole("button", { name: "Drafts", exact: true }).click();
-  await page
-    .getByRole("button", { name: "Draft summary", exact: true })
-    .click();
-  await page.getByRole("status").waitFor();
+  const demo = page.getByRole("region", { name: "Interactive NovusMail demo" });
+  await demo.getByRole("button", { name: /Maya Chen/ }).click();
+  await demo.getByRole("heading", { name: "Homepage copy", exact: true }).waitFor();
+  await demo.getByRole("button", { name: "Open draft reply" }).click();
+  const reply = demo.getByRole("textbox", { name: "Draft reply" });
+  await reply.fill("Hi Maya, I’ll send notes on Friday.");
+  await demo.getByRole("button", { name: "Review draft" }).click();
+  await demo.getByText("Reviewing sample reply").waitFor();
+  if (await reply.isEditable()) throw new Error("The draft should be read-only during review");
+  await demo.getByRole("button", { name: "Assistant", exact: true }).click();
+  await demo.getByRole("button", { name: "Show sample summary" }).click();
+  await demo.getByText("Maya needs a headline check by Friday.", { exact: false }).waitFor();
+  await demo.getByRole("button", { name: "Calendar", exact: true }).click();
+  await demo.getByRole("button", { name: "Review event" }).click();
+  await demo.getByText("Awaiting confirmation").waitFor();
+  await demo.getByRole("button", { name: "Drafts", exact: true }).click();
+  if ((await reply.inputValue()) !== "Hi Maya, I’ll send notes on Friday.") {
+    throw new Error("The sample draft edit was lost when switching scenes");
+  }
   await page.reload();
   await page.locator(".landing-page[data-theme-mode=light]").waitFor();
   await page.emulateMedia({ reducedMotion: "reduce" });

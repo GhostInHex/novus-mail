@@ -1,16 +1,14 @@
 "use client";
 
-import React, { useLayoutEffect, useRef, useState } from "react";
-import {
-  ChevronRight,
-  Check,
-} from "lucide-react";
+import { useState } from "react";
+import { Check } from "lucide-react";
 import { AsciiMountainsHero } from "@/components/landing/ascii-mountains";
 import { AsciiDissolveImage } from "@/components/landing/ascii-dissolve-image";
 
 import { useTheme } from "@/components/theme-provider";
 import { ROUTES } from "@/lib/routes";
 import "./landing-page.css";
+import { ProductDemo } from "./product-demo";
 
 function LandingFeatureIcon({ number }: { number: string }) {
   return <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="h-4 w-4 text-[var(--text-secondary)]">
@@ -18,73 +16,10 @@ function LandingFeatureIcon({ number }: { number: string }) {
   </svg>;
 }
 
-const PILL_MODES = [
-  {
-    darkLabel: "Read",
-    lightLabel: "Inbox",
-    prompt: "Draft a thoughtful reply to Ari...",
-    sub: "A short, friendly reply",
-    darkSub: "+ Thread attached",
-    cta: "Prepare reply",
-    lightCta: "Suggest a reply",
-    preview:
-      "Hi Ari — Thursday at 3 PM works well for the launch review. Shall I prepare a calendar invitation?",
-  },
-  {
-    darkLabel: "Draft",
-    lightLabel: "Drafts",
-    prompt: "Summarize Q4 product roadmap thread...",
-    sub: "3 key decisions extracted",
-    darkSub: "+ 6 messages in thread",
-    cta: "Generate draft",
-    lightCta: "Draft summary",
-    preview:
-      "Key takeaways: 1) Ship ASCII hero v2 on Monday, 2) Finalize OAuth scopes, 3) Lock launch review with Ari.",
-  },
-  {
-    darkLabel: "Plan",
-    lightLabel: "AI",
-    prompt: "Find 45m with Maya & Devon next Tuesday...",
-    sub: "Checks both calendars automatically",
-    darkSub: "+ Calendar synced",
-    cta: "Propose times",
-    lightCta: "Find open slot",
-    preview:
-      "2 open slots found: Tue 10:30 AM or Tue 2:00 PM IST. Ready to insert hold invitations.",
-  },
-  {
-    darkLabel: "Review",
-    lightLabel: "Routing",
-    prompt: "Batch low-priority newsletters for 5 PM...",
-    sub: "Keeps your morning inbox quiet",
-    darkSub: "+ 14 senders matched",
-    cta: "Apply rule",
-    lightCta: "Save routing",
-    preview:
-      "Rule staged: 14 recurring digests will arrive in a single calm 5:00 PM afternoon briefing.",
-  },
-];
-
 export function LandingPage() {
   const { resolvedTheme: theme, setResolvedTheme } = useTheme();
-  const [activePill, setActivePill] = useState<number>(0);
-  const [showReplyPreview, setShowReplyPreview] = useState<boolean>(false);
-  const [proposalConfirmed, setProposalConfirmed] = useState<boolean>(false);
-  const [previewInstant, setPreviewInstant] = useState(false);
+  const [proposalConfirmed, setProposalConfirmed] = useState(false);
   const [proposalInstant, setProposalInstant] = useState(false);
-  const previewRef = useRef<HTMLDivElement>(null);
-  const [previewHeight, setPreviewHeight] = useState(0);
-
-  useLayoutEffect(() => {
-    const content = previewRef.current;
-    if (!content) return;
-    const measure = () =>
-      setPreviewHeight(content.getBoundingClientRect().height);
-    measure();
-    const observer = new ResizeObserver(measure);
-    observer.observe(content);
-    return () => observer.disconnect();
-  }, []);
 
   const toggleTheme = () =>
     setResolvedTheme(theme === "dark" ? "light" : "dark");
@@ -92,7 +27,6 @@ export function LandingPage() {
   const isDark = theme === "dark";
   const brandName = "NovusMail";
   const imgDir = `/images/${theme}`;
-  const activeMode = PILL_MODES[activePill];
 
   return (
     <div
@@ -195,97 +129,9 @@ export function LandingPage() {
               {isDark ? "Find your focus" : "Try NovusMail free"}
             </a>
 
-            {/* Interactive Mode Pills */}
-            <div className="pointer-events-auto mt-4 flex flex-wrap items-center justify-center gap-2 text-[11px]">
-              {PILL_MODES.map((m, idx) => {
-                const label = isDark ? m.darkLabel : m.lightLabel;
-                const isActive = activePill === idx;
-                return (
-                  <button
-                    key={label}
-                    type="button"
-                    onClick={() => {
-                      setPreviewInstant(true);
-                      setActivePill(idx);
-                      setShowReplyPreview(false);
-                    }}
-                    className="nm-control"
-                    data-selected={isActive}
-                    aria-pressed={isActive}
-                  >
-                    {label}
-                  </button>
-                );
-              })}
-            </div>
           </div>
 
-          {/* Hero Lavender Field Card with Soft Feathered Border & Smoked-Glass Composer */}
-          <div className="relative z-10 mx-auto max-w-5xl px-6">
-            <div className="group relative h-[300px] overflow-hidden rounded-[22px] sm:h-[350px]">
-              <AsciiDissolveImage
-                src={`${imgDir}/lavender.webp`}
-                reducedMotionSrc={`${imgDir}/doop-lavender.png`}
-                alt="Monochrome lavender fields with mountain horizon"
-                theme={theme}
-                variant="card"
-              />
-
-              <div className="relative z-10 flex h-full items-center justify-center p-4">
-                <div className="landing-composer w-full max-w-[430px] rounded-2xl p-4 shadow-2xl backdrop-blur-xl">
-                  <div className="mb-5 flex items-center justify-between text-xs font-normal tracking-tight text-[var(--nm-ascii-composer-ink)]">
-                    <span>{activeMode.prompt}</span>
-                    {isDark ? (
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="h-3.5 w-3.5 composer-secondary"><path d="M7 7h10v10M7 17 17 7" /></svg>
-                    ) : (
-                      <ChevronRight className="h-3.5 w-3.5 composer-secondary" />
-                    )}
-                  </div>
-
-                  <div
-                    id="landing-reply-preview"
-                    className="landing-preview-reveal"
-                    data-open={showReplyPreview}
-                    data-instant={previewInstant}
-                    aria-hidden={!showReplyPreview}
-                    style={{ height: showReplyPreview ? previewHeight : 0 }}
-                  >
-                    <div ref={previewRef} className="pb-4">
-                      <div
-                        className="landing-preview rounded-lg px-3 py-2 text-[11px] leading-relaxed"
-                        role="status"
-                      >
-                        {activeMode.preview}
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center justify-between">
-                    <span className="text-[11px] composer-secondary">
-                      {isDark ? activeMode.darkSub : activeMode.sub}
-                    </span>
-                    <button
-                      type="button"
-                      onClick={(event) => {
-                        setPreviewInstant(event.detail === 0);
-                        setShowReplyPreview((prev) => !prev);
-                      }}
-                      className="nm-control"
-                      data-tone="sage"
-                      aria-expanded={showReplyPreview}
-                      aria-controls="landing-reply-preview"
-                    >
-                      {showReplyPreview
-                        ? "Hide preview"
-                        : isDark
-                          ? activeMode.cta
-                          : activeMode.lightCta}
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <ProductDemo theme={theme} />
         </section>
 
         {/* Integration Bar */}
